@@ -1,0 +1,30 @@
+Find a functionally equivalent code:android.util.SparseArray.append:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Puts a key/value pair into the array, optimizing for the case where
+ * the key is greater than all existing keys in the array.
+ */
+
+@@ -6,23 +6,12 @@
+     if (mGarbage && mSize >= mKeys.length) {
+         gc();
+     }
+-    int pos = mSize;
+-    if (pos >= mKeys.length) {
+-        int n = ArrayUtils.idealIntArraySize(pos + 1);
+-        int[] nkeys = new int[n];
+-        Object[] nvalues = new Object[n];
+-        // Log.e("SparseArray", "grow " + mKeys.length + " to " + n);
+-        System.arraycopy(mKeys, 0, nkeys, 0, mKeys.length);
+-        System.arraycopy(mValues, 0, nvalues, 0, mValues.length);
+-        mKeys = nkeys;
+-        mValues = nvalues;
+-    }
+-    mKeys[pos] = key;
+-    mValues[pos] = value;
+-    mSize = pos + 1;
++    mKeys = GrowingArrayUtils.append(mKeys, mSize, key);
++    mValues = GrowingArrayUtils.append(mValues, mSize, value);
++    mSize++;
+ }
+

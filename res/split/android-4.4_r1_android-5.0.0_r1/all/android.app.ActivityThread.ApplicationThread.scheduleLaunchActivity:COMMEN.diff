@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.app.ActivityThread.ApplicationThread.scheduleLaunchActivity:COMMENT
+Method Modifier: public      final       
+Comment:// activity itself back to the activity manager. (matters more with ipc)
+
+@@ -4,19 +4,19 @@
+     r.token = token;
+     r.ident = ident;
+     r.intent = intent;
++    r.voiceInteractor = voiceInteractor;
+     r.activityInfo = info;
+     r.compatInfo = compatInfo;
+     r.state = state;
++    r.persistentState = persistentState;
+     r.pendingResults = pendingResults;
+     r.pendingIntents = pendingNewIntents;
+     r.startsNotResumed = notResumed;
+     r.isForward = isForward;
+-    r.profileFile = profileName;
+-    r.profileFd = profileFd;
+-    r.autoStopProfiler = autoStopProfiler;
++    r.profilerInfo = profilerInfo;
+     updatePendingConfiguration(curConfig);
+-    queueOrSendMessage(H.LAUNCH_ACTIVITY, r);
++    sendMessage(H.LAUNCH_ACTIVITY, r);
+ }
+

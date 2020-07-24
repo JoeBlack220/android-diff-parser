@@ -1,0 +1,12 @@
+Find a functionally equivalent code:android.telephony.ServiceState.isGsm:COMMENT
+Method Modifier: public      static      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return radioTechnology == RIL_RADIO_TECHNOLOGY_GPRS || radioTechnology == RIL_RADIO_TECHNOLOGY_EDGE || radioTechnology == RIL_RADIO_TECHNOLOGY_UMTS || radioTechnology == RIL_RADIO_TECHNOLOGY_HSDPA || radioTechnology == RIL_RADIO_TECHNOLOGY_HSUPA || radioTechnology == RIL_RADIO_TECHNOLOGY_HSPA || radioTechnology == RIL_RADIO_TECHNOLOGY_LTE || radioTechnology == RIL_RADIO_TECHNOLOGY_HSPAP || radioTechnology == RIL_RADIO_TECHNOLOGY_GSM;
++    return radioTechnology == RIL_RADIO_TECHNOLOGY_GPRS || radioTechnology == RIL_RADIO_TECHNOLOGY_EDGE || radioTechnology == RIL_RADIO_TECHNOLOGY_UMTS || radioTechnology == RIL_RADIO_TECHNOLOGY_HSDPA || radioTechnology == RIL_RADIO_TECHNOLOGY_HSUPA || radioTechnology == RIL_RADIO_TECHNOLOGY_HSPA || radioTechnology == RIL_RADIO_TECHNOLOGY_LTE || radioTechnology == RIL_RADIO_TECHNOLOGY_HSPAP || radioTechnology == RIL_RADIO_TECHNOLOGY_GSM || radioTechnology == RIL_RADIO_TECHNOLOGY_TD_SCDMA;
+ }
+

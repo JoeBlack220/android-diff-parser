@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.webkit.WebSyncManager.startSync:COMMENT
+Method Modifier: public      
+Comment:/**
+ * startSync() requests sync manager to start sync
+ */
+
+@@ -1,12 +1,2 @@
+ {
+-    if (DebugFlags.WEB_SYNC_MANAGER) {
+-        Log.v(LOGTAG, "***  WebSyncManager startSync ***, Ref count:" + mStartSyncRefCount);
+-    }
+-    if (mHandler == null) {
+-        return;
+-    }
+-    if (++mStartSyncRefCount == 1) {
+-        Message msg = mHandler.obtainMessage(SYNC_MESSAGE);
+-        mHandler.sendMessageDelayed(msg, SYNC_LATER_INTERVAL);
+-    }
+ }
+

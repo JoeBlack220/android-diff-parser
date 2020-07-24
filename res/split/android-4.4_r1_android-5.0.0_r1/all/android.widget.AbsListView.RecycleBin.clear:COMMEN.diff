@@ -1,0 +1,35 @@
+Find a functionally equivalent code:android.widget.AbsListView.RecycleBin.clear:COMMENT
+Method Modifier: 
+Comment:/**
+ * Clears the scrap heap.
+ */
+
+@@ -1,24 +1,13 @@
+ {
+     if (mViewTypeCount == 1) {
+         final ArrayList<View> scrap = mCurrentScrap;
+-        final int scrapCount = scrap.size();
+-        for (int i = 0; i < scrapCount; i++) {
+-            removeDetachedView(scrap.remove(scrapCount - 1 - i), false);
+-        }
++        clearScrap(scrap);
+     } else {
+         final int typeCount = mViewTypeCount;
+         for (int i = 0; i < typeCount; i++) {
+             final ArrayList<View> scrap = mScrapViews[i];
+-            final int scrapCount = scrap.size();
+-            for (int j = 0; j < scrapCount; j++) {
+-                removeDetachedView(scrap.remove(scrapCount - 1 - j), false);
+-            }
++            clearScrap(scrap);
+         }
+     }
+-    if (mTransientStateViews != null) {
+-        mTransientStateViews.clear();
+-    }
+-    if (mTransientStateViewsById != null) {
+-        mTransientStateViewsById.clear();
+-    }
++    clearTransientStateViews();
+ }
+

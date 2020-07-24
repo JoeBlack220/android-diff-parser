@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.view.inputmethod.BaseInputConnection.commitText:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Default implementation replaces any existing composing text with
+ * the given text.  In addition, only if dummy mode, a key event is
+ * sent for the new text and the current editable buffer cleared.
+ */
+
+@@ -2,7 +2,8 @@
+     if (DEBUG)
+         Log.v(TAG, "commitText " + text);
+     replaceText(text, newCursorPosition, false);
++    mIMM.notifyUserAction();
+     sendCurrentText();
+     return true;
+ }
+

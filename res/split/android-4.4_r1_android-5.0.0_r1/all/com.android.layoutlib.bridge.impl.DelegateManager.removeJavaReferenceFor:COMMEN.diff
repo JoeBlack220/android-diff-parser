@@ -1,0 +1,8 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.impl.DelegateManager.removeJavaReferenceFor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Removes the main reference on the given delegate.
+ * @param native_object the native integer representing the delegate.
+ */
+
+

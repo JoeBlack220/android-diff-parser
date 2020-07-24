@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.content.res.TypedArray.getNonResourceString:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the string value for the attribute at <var>index</var>, but
+ * only if that string comes from an immediate value in an XML file.  That
+ * is, this does not allow references to string resources, string
+ * attributes, or conversions from other types.  As such, this method
+ * will only return strings for TypedArray objects that come from
+ * attributes in an XML file.
+ *
+ * @param index Index of attribute to retrieve.
+ *
+ * @return String holding string data.  Any styling information is
+ * removed.  Returns null if the attribute is not defined or is not
+ * an immediate string value.
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     index *= AssetManager.STYLE_NUM_ENTRIES;
+     final int[] data = mData;
+     final int type = data[index + AssetManager.STYLE_TYPE];
+

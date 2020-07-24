@@ -1,0 +1,13 @@
+Find a functionally equivalent code:com.android.internal.widget.LockPatternUtils.usingBiometricWeak:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * @return true if the lockscreen method is set to biometric weak
+ */
+
+@@ -1,4 +1,4 @@
+ {
+-    int quality = (int) getLong(PASSWORD_TYPE_KEY, DevicePolicyManager.PASSWORD_QUALITY_SOMETHING);
++    int quality = (int) getLong(PASSWORD_TYPE_KEY, DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED);
+     return quality == DevicePolicyManager.PASSWORD_QUALITY_BIOMETRIC_WEAK;
+ }
+

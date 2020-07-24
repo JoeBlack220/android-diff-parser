@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.rcDisplayIsPluggedIn_syncRcStack:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Is the remote control display interface already registered
+ * @param rcd
+ * @return true if the IRemoteControlDisplay is already in the list of displays
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     final Iterator<DisplayInfoForServer> displayIterator = mRcDisplays.iterator();
+     while (displayIterator.hasNext()) {
+-        final DisplayInfoForServer di = (DisplayInfoForServer) displayIterator.next();
++        final DisplayInfoForServer di = displayIterator.next();
+         if (di.mRcDisplay.asBinder().equals(rcd.asBinder())) {
+             return true;
+         }
+

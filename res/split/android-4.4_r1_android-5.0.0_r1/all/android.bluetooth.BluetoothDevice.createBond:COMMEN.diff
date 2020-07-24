@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.bluetooth.BluetoothDevice.createBond:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Start the bonding (pairing) process with the remote device.
+ * <p>This is an asynchronous call, it will return immediately. Register
+ * for {@link #ACTION_BOND_STATE_CHANGED} intents to be notified when
+ * the bonding process completes, and its result.
+ * <p>Android system services will handle the necessary user interactions
+ * to confirm and complete the bonding process.
+ * <p>Requires {@link android.Manifest.permission#BLUETOOTH_ADMIN}.
+ *
+ * @return false on immediate error, true if bonding will begin
+ */
+
+@@ -4,10 +4,10 @@
+         return false;
+     }
+     try {
+-        return sService.createBond(this);
++        return sService.createBond(this, TRANSPORT_AUTO);
+     } catch (RemoteException e) {
+         Log.e(TAG, "", e);
+     }
+

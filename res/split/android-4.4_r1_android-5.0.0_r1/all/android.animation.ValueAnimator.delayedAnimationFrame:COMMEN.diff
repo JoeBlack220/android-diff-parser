@@ -1,0 +1,60 @@
+Find a functionally equivalent code:android.animation.ValueAnimator.delayedAnimationFrame:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Internal function called to process an animation frame on an animation that is currently
+ * sleeping through its <code>startDelay</code> phase. The return value indicates whether it
+ * should be woken up and put on the active animations queue.
+ *
+ * @param currentTime The current animation time, used to calculate whether the animation
+ * has exceeded its <code>startDelay</code> and should be started.
+ * @return True if the animation's <code>startDelay</code> has been exceeded and the animation
+ * should be added to the set of active animations.
+ */
+
+@@ -2,28 +2,27 @@
+     if (!mStartedDelay) {
+         mStartedDelay = true;
+         mDelayStartTime = currentTime;
+-    } else {
+-        if (mPaused) {
+-            if (mPauseTime < 0) {
+-                mPauseTime = currentTime;
+-            }
+-            return false;
+-        } else if (mResumed) {
+-            mResumed = false;
+-            if (mPauseTime > 0) {
+-                // Offset by the duration that the animation was paused
+-                mDelayStartTime += (currentTime - mPauseTime);
+-            }
++    }
++    if (mPaused) {
++        if (mPauseTime < 0) {
++            mPauseTime = currentTime;
+         }
+-        long deltaTime = currentTime - mDelayStartTime;
+-        if (deltaTime > mStartDelay) {
+-            // startDelay ended - start the anim and record the
+-            // mStartTime appropriately
+-            mStartTime = currentTime - (deltaTime - mStartDelay);
+-            mPlayingState = RUNNING;
+-            return true;
++        return false;
++    } else if (mResumed) {
++        mResumed = false;
++        if (mPauseTime > 0) {
++            // Offset by the duration that the animation was paused
++            mDelayStartTime += (currentTime - mPauseTime);
+         }
+     }
++    long deltaTime = currentTime - mDelayStartTime;
++    if (deltaTime > mStartDelay) {
++        // startDelay ended - start the anim and record the
++        // mStartTime appropriately
++        mStartTime = currentTime - (deltaTime - mStartDelay);
++        mPlayingState = RUNNING;
++        return true;
++    }
+     return false;
+ }
+

@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityEvent.appendRecord:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Appends an {@link AccessibilityRecord} to the end of event records.
+ *
+ * @param record The record to append.
+ *
+ * @throws IllegalStateException If called from an AccessibilityService.
+ */
+
+@@ -1,4 +1,7 @@
+ {
+     enforceNotSealed();
++    if (mRecords == null) {
++        mRecords = new ArrayList<AccessibilityRecord>();
++    }
+     mRecords.add(record);
+ }
+

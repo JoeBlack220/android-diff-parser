@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.view.Window.setAttributes:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Specify custom window attributes.  <strong>PLEASE NOTE:</strong> the
+ * layout params you give here should generally be from values previously
+ * retrieved with {@link #getAttributes()}; you probably do not want to
+ * blindly create and apply your own, since this will blow away any values
+ * set by the framework that you are not interested in.
+ *
+ * @param a The new window attributes, which will completely override any
+ * current values.
+ */
+
+@@ -1,6 +1,4 @@
+ {
+     mWindowAttributes.copyFrom(a);
+-    if (mCallback != null) {
+-        mCallback.onWindowAttributesChanged(mWindowAttributes);
+-    }
++    dispatchWindowAttributesChanged(mWindowAttributes);
+ }
+

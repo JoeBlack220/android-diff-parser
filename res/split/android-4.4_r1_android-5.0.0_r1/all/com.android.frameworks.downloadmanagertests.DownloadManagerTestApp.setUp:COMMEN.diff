@@ -1,0 +1,17 @@
+Find a functionally equivalent code:com.android.frameworks.downloadmanagertests.DownloadManagerTestApp.setUp:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc }
+ */
+
+@@ -2,8 +2,8 @@
+     super.setUp();
+     DownloadManagerTestRunner mRunner = (DownloadManagerTestRunner) getInstrumentation();
+     externalDownloadUriValue = normalizeUri(mRunner.externalDownloadUriValue);
+-    assertNotNull(externalDownloadUriValue);
++    assertNotNull("download url is null", externalDownloadUriValue);
+     externalLargeDownloadUriValue = normalizeUri(mRunner.externalDownloadUriValue);
+-    assertNotNull(externalLargeDownloadUriValue);
++    assertNotNull("large download url is null", externalLargeDownloadUriValue);
+ }
+

@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.widget.CalendarView.setWeekNumberColor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the color for the week numbers.
+ *
+ * @param color The week number color.
+ *
+ * @attr ref android.R.styleable#CalendarView_weekNumberColor
+ */
+
+@@ -1,8 +1,3 @@
+ {
+-    if (mWeekNumberColor != color) {
+-        mWeekNumberColor = color;
+-        if (mShowWeekNumber) {
+-            invalidateAllWeekViews();
+-        }
+-    }
++    mDelegate.setWeekNumberColor(color);
+ }
+

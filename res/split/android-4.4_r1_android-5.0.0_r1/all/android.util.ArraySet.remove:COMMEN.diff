@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.util.ArraySet.remove:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Removes the specified object from this set.
+ *
+ * @param object the object to remove.
+ * @return {@code true} if this set was modified, {@code false} otherwise.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    int index = object == null ? indexOfNull() : indexOf(object, object.hashCode());
++    final int index = indexOf(object);
+     if (index >= 0) {
+         removeAt(index);
+         return true;
+

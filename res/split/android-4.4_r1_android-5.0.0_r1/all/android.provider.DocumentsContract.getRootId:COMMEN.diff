@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.provider.DocumentsContract.getRootId:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Extract the {@link Root#COLUMN_ROOT_ID} from the given URI.
+ */
+
+@@ -1,10 +1,7 @@
+ {
+     final List<String> paths = rootUri.getPathSegments();
+-    if (paths.size() < 2) {
+-        throw new IllegalArgumentException("Not a root: " + rootUri);
++    if (paths.size() >= 2 && PATH_ROOT.equals(paths.get(0))) {
++        return paths.get(1);
+     }
+-    if (!PATH_ROOT.equals(paths.get(0))) {
+-        throw new IllegalArgumentException("Not a root: " + rootUri);
+-    }
+-    return paths.get(1);
++    throw new IllegalArgumentException("Invalid URI: " + rootUri);
+ }
+

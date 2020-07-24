@@ -1,0 +1,20 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.RenameClassAdapter.renameInternalType:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Renames an internal type name, e.g. "com.package.MyClass".
+ * If the type doesn't need to be renamed, returns the input string as-is.
+ * <p/>
+ * The internal type of some of the MethodVisitor turns out to be a type
+ * descriptor sometimes so descriptors are renamed too.
+ */
+
+@@ -5,11 +5,11 @@
+     if (type.equals(mOldName)) {
+         return mNewName;
+     }
+-    if (mOldBase != mOldName && type.equals(mOldBase)) {
++    if (!mOldBase.equals(mOldName) && type.equals(mOldBase)) {
+         return mNewBase;
+     }
+     int pos = type.indexOf('$');
+

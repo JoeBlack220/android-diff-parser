@@ -1,0 +1,35 @@
+Find a functionally equivalent code:android.nfc.NfcActivityManager.createBeamShareData:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Callback from NFC service, usually on binder thread
+ */
+
+@@ -2,7 +2,8 @@
+     NfcAdapter.CreateNdefMessageCallback ndefCallback;
+     NfcAdapter.CreateBeamUrisCallback urisCallback;
+     NdefMessage message;
++    Activity activity;
+     Uri[] uris;
+     int flags;
+     synchronized (NfcActivityManager.this) {
+@@ -13,18 +14,20 @@
+         message = state.ndefMessage;
+         uris = state.uris;
+         flags = state.flags;
++        activity = state.activity;
+     }
+     // Make callbacks without lock
+     if (ndefCallback != null) {
+@@ -34,38 +36,46 @@
+             }
+         }
+     }
++    if (uris != null && uris.length > 0) {
++        for (Uri uri : uris) {
++            // Grant the NFC process permission to read these URIs
++            activity.grantUriPermission("com.android.nfc", uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
++        }
++    }
+     return new BeamShareData(message, uris, flags);
+ }
+

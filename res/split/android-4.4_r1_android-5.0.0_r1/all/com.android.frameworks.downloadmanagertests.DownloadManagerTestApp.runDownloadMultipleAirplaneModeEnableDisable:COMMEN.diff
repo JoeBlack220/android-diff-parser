@@ -1,0 +1,52 @@
+Find a functionally equivalent code:com.android.frameworks.downloadmanagertests.DownloadManagerTestApp.runDownloadMultipleAirplaneModeEnableDisable:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Tests that downloads resume when switching on/off Airplane mode numerous times at
+ * various intervals.
+ *
+ * Note: Device has no mobile access when running this test.
+ *
+ * @throws Exception if unsuccessful
+ */
+
+@@ -1,6 +1,6 @@
+ {
+-    String filename = DOWNLOAD_5MB_FILENAME;
+-    long filesize = DOWNLOAD_5MB_FILESIZE;
++    String filename = DOWNLOAD_FILENAME;
++    long filesize = DOWNLOAD_FILESIZE;
+     // make sure WiFi is enabled, and airplane mode is not on
+     doCommonDownloadSetup();
+     String localDownloadDirectory = Environment.getExternalStorageDirectory().getPath();
+@@ -20,26 +20,26 @@
+         dlRequest = mDownloadManager.enqueue(request);
+         waitForDownloadToStart(dlRequest);
+         // are we making any progress?
+-        waitForFileToGrow(downloadedFile);
++        waitToReceiveData(dlRequest, EXPECTED_PROGRESS);
+         // download disable
+         Log.i(LOG_TAG, "Turning on Airplane mode...");
+         setAirplaneModeOn(true);
+@@ -30,36 +30,36 @@
+         Log.i(LOG_TAG, "Turning off Airplane mode...");
+         setAirplaneModeOn(false);
+         // make sure we're starting to download some data...
+-        waitForFileToGrow(downloadedFile);
++        waitToReceiveData(dlRequest, EXPECTED_PROGRESS);
+         // reenable the connection to start up the download again
+         Log.i(LOG_TAG, "Turning on Airplane mode again...");
+         setAirplaneModeOn(true);
+@@ -39,47 +39,47 @@
+         // Finish up the download...
+         Log.i(LOG_TAG, "Turning off Airplane mode again...");
+         setAirplaneModeOn(false);
+-        Log.i(LOG_TAG, "Waiting up to 3 minutes for donwload to complete...");
+-        // wait up to 3 mins before timeout
+-        waitForDownloadsOrTimeout(dlRequest, 180 * 1000);
++        Log.i(LOG_TAG, "Waiting up to 10 minutes for donwload to complete...");
++        // wait up to 10 mins
++        assertTrue("download not finished", waitForDownload(dlRequest, 10 * 60 * 1000));
+         ParcelFileDescriptor pfd = mDownloadManager.openDownloadedFile(dlRequest);
+         verifyFileSize(pfd, filesize);
+     } finally {
+

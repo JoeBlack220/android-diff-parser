@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.content.RestrictionEntry.setSelectedString:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the string value to use as the selected value for this restriction. This value will
+ * be persisted by the system for later use by the application.
+ * @param selectedString the string value to select.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    currentValue = selectedString;
++    mCurrentValue = selectedString;
+ }
+

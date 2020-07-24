@@ -1,0 +1,39 @@
+Find a functionally equivalent code:android.net.Proxy.getProxy:COMMENT
+Method Modifier: public      static      final       hidden      
+Comment:/**
+ * Return the proxy object to be used for the URL given as parameter.
+ * @param ctx A Context used to get the settings for the proxy host.
+ * @param url A URL to be accessed. Used to evaluate exclusion list.
+ * @return Proxy (java.net) object containing the host name. If the
+ * user did not set a hostname it returns the default host.
+ * A null value means that no host is to be used.
+ * {@hide}
+ */
+
+@@ -1,20 +1,11 @@
+ {
+     String host = "";
+-    if (url != null) {
++    if ((url != null) && !isLocalHost(host)) {
+         URI uri = URI.create(url);
+-        host = uri.getHost();
+-    }
+-    if (!isLocalHost(host)) {
+-        if (sConnectivityManager == null) {
+-            sConnectivityManager = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+-        }
+-        if (sConnectivityManager == null)
+-            return java.net.Proxy.NO_PROXY;
+-        ProxyProperties proxyProperties = sConnectivityManager.getProxy();
+-        if (proxyProperties != null) {
+-            if (!proxyProperties.isExcluded(host)) {
+-                return proxyProperties.makeProxy();
+-            }
++        ProxySelector proxySelector = ProxySelector.getDefault();
++        List<java.net.Proxy> proxyList = proxySelector.select(uri);
++        if (proxyList.size() > 0) {
++            return proxyList.get(0);
+         }
+     }
+     return java.net.Proxy.NO_PROXY;
+

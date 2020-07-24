@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.widget.CalendarView.getFocusedMonthDateColor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets the color for the dates in the focused month.
+ *
+ * @return The focused month date color.
+ *
+ * @attr ref android.R.styleable#CalendarView_focusedMonthDateColor
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mFocusedMonthDateColor;
++    return mDelegate.getFocusedMonthDateColor();
+ }
+

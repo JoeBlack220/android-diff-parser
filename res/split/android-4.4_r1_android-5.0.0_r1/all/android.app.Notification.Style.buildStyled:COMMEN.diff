@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.app.Notification.Style.buildStyled:COMMENT
+<android.app.Notification.Style: Notification buildStyled(Notification)>
+Method Modifier: public      abstract    hidden      
+Method Modifier: Yes         Yes         Yes         
+Method Updated:  Yes         No          Yes         
+Comment:/**
+ * @hide
+ */
+
+@@ -1 +1,7 @@
+-
++{
++    populateTickerView(wip);
++    populateContentView(wip);
++    populateBigContentView(wip);
++    populateHeadsUpContentView(wip);
++    return wip;
++}
+

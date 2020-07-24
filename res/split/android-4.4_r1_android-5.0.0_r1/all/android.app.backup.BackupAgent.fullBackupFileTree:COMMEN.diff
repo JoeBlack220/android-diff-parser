@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.app.backup.BackupAgent.fullBackupFileTree:COMMENT
+Method Modifier: protected   final       hidden      
+Comment:/**
+ * Scan the dir tree (if it actually exists) and process each entry we find.  If the
+ * 'excludes' parameter is non-null, it is consulted each time a new file system entity
+ * is visited to see whether that entity (and its subtree, if appropriate) should be
+ * omitted from the backup process.
+ *
+ * @hide
+ */
+
+@@ -13,19 +13,19 @@
+                     continue;
+                 }
+                 // If it's a directory, enqueue its contents for scanning.
+-                StructStat stat = Libcore.os.lstat(filePath);
++                StructStat stat = Os.lstat(filePath);
+                 if (OsConstants.S_ISLNK(stat.st_mode)) {
+                     if (DEBUG)
+                         Log.i(TAG, "Symlink (skipping)!: " + file);
+

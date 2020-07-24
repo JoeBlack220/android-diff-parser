@@ -1,0 +1,39 @@
+Find a functionally equivalent code:com.android.compatibilitytest.AppCompatibility.processStillUp:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Determine if a given package is still running.
+ *
+ * @param packageName {@link String} package to look for
+ * @return True if package is running, false otherwise.
+ */
+
+@@ -1,18 +1,18 @@
+ {
+-    try {
+-        PackageInfo packageInfo = mPackageManager.getPackageInfo(packageName, 0);
+-        String processName = packageInfo.applicationInfo.processName;
+-        List<RunningAppProcessInfo> runningApps = mActivityManager.getRunningAppProcesses();
+-        for (RunningAppProcessInfo app : runningApps) {
+-            if (app.processName.equalsIgnoreCase(processName)) {
++    String processName = getProcessName(packageName);
++    List<RunningAppProcessInfo> runningApps = mActivityManager.getRunningAppProcesses();
++    for (RunningAppProcessInfo app : runningApps) {
++        if (app.processName.equalsIgnoreCase(processName)) {
++            Log.d(TAG, "Found process " + app.processName);
++            return true;
++        }
++        for (String relatedPackage : app.pkgList) {
++            if (relatedPackage.equalsIgnoreCase(processName)) {
+                 Log.d(TAG, "Found process " + app.processName);
+                 return true;
+             }
+         }
+-        Log.d(TAG, "Failed to find process " + processName + " with package name " + packageName);
+-    } catch (NameNotFoundException e) {
+-        Log.w(TAG, "Failed to find package " + packageName);
+-        return false;
+     }
++    Log.d(TAG, "Failed to find process " + processName + " with package name " + packageName);
+     return false;
+ }
+

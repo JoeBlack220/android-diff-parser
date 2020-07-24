@@ -1,0 +1,15 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.impl.RenderAction.tearDown:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Tear down the session after rendering.
+ * <p/>
+ * The counterpart is {@link #setUp()}.
+ */
+
+@@ -18,22 +18,21 @@
+         mContext.getRenderResources().setFrameworkResourceIdProvider(null);
+         mContext.getRenderResources().setLogger(null);
+     }
+-    mContext = null;
+ }
+

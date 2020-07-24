@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.graphics.Bitmap.reinit:COMMENT
+Method Modifier: 
+Comment:/**
+ * Native bitmap has been reconfigured, so set premult and cached
+ * width/height values
+ */
+
+@@ -1,5 +1,5 @@
+ {
+     mWidth = width;
+     mHeight = height;
+-    mIsPremultiplied = isPremultiplied;
++    mRequestPremultiplied = requestPremultiplied;
+ }
+

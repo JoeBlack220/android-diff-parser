@@ -1,0 +1,66 @@
+Find a functionally equivalent code:com.android.frameworks.downloadmanagertests.DownloadManagerTestApp.runDownloadMultipleSwitching:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Tests that downloads resume when switching back and forth from having connectivity to
+ * having no connectivity using both WiFi and airplane mode.
+ *
+ * Note: Device has no mobile access when running this test.
+ *
+ * @throws Exception if unsuccessful
+ */
+
+@@ -1,6 +1,6 @@
+ {
+-    String filename = DOWNLOAD_5MB_FILENAME;
+-    long filesize = DOWNLOAD_5MB_FILESIZE;
++    String filename = DOWNLOAD_FILENAME;
++    long filesize = DOWNLOAD_FILESIZE;
+     doCommonDownloadSetup();
+     String localDownloadDirectory = Environment.getExternalStorageDirectory().getPath();
+     File downloadedFile = new File(localDownloadDirectory, filename);
+@@ -19,51 +19,53 @@
+         dlRequest = mDownloadManager.enqueue(request);
+         waitForDownloadToStart(dlRequest);
+         // make sure we're starting to download some data...
+-        waitForFileToGrow(downloadedFile);
++        waitToReceiveData(dlRequest, EXPECTED_PROGRESS);
+         // download disable
+         setWiFiStateOn(false);
+         // download disable
+         Log.i(LOG_TAG, "Turning on airplane mode...");
+         setAirplaneModeOn(true);
+-        // wait 30 secs
+-        Thread.sleep(30 * 1000);
++        // wait 5 secs
++        Thread.sleep(5 * 1000);
+         // download disable
+         setWiFiStateOn(true);
+-        // wait 30 secs
+-        Thread.sleep(30 * 1000);
++        // wait 5 secs
++        Thread.sleep(5 * 1000);
++        waitToReceiveData(dlRequest, EXPECTED_PROGRESS);
+         // download enable
+         Log.i(LOG_TAG, "Turning off airplane mode...");
+         setAirplaneModeOn(false);
+         // wait 5 seconds
+         Thread.sleep(5 * 1000);
++        waitToReceiveData(dlRequest, EXPECTED_PROGRESS);
+         // download disable
+         Log.i(LOG_TAG, "Turning off WiFi...");
+         setWiFiStateOn(false);
+-        // wait 30 secs
+-        Thread.sleep(30 * 1000);
++        // wait 5 secs
++        Thread.sleep(5 * 1000);
+         // finally, turn WiFi back on and finish up the download
+         Log.i(LOG_TAG, "Turning on WiFi...");
+         setWiFiStateOn(true);
+-        Log.i(LOG_TAG, "Waiting up to 3 minutes for download to complete...");
+-        waitForDownloadsOrTimeout(dlRequest, 3 * 60 * 1000);
++        Log.i(LOG_TAG, "Waiting up to 10 minutes for download to complete...");
++        assertTrue("download not finished", waitForDownload(dlRequest, 10 * 60 * 1000));
+         ParcelFileDescriptor pfd = mDownloadManager.openDownloadedFile(dlRequest);
+         verifyFileSize(pfd, filesize);
+     } finally {
+

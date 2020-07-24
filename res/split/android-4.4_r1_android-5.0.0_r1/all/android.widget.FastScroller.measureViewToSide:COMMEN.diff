@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.widget.FastScroller.measureViewToSide:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Measures the bounds for a view that should be laid out against the edge
+ * of an adjacent view. If no adjacent view is provided, lays out against
+ * the list edge.
+ *
+ * @param view The view to measure for layout.
+ * @param adjacent (Optional) The adjacent view, may be null to align to the
+ * list edge.
+ * @param margins Layout margins to apply to the view.
+ * @param out Rectangle into which measured bounds are placed.
+ */
+
+@@ -26,32 +26,32 @@
+     final int heightMeasureSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+     view.measure(widthMeasureSpec, heightMeasureSpec);
+     // Align to the left or right.
+-    final int width = view.getMeasuredWidth();
++    final int width = Math.min(adjMaxWidth, view.getMeasuredWidth());
+     final int left;
+     final int right;
+     if (mLayoutFromRight) {
+

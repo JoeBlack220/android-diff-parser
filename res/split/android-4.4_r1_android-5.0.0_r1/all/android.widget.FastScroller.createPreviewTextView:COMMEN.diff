@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.widget.FastScroller.createPreviewTextView:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Creates a view into which preview text can be placed.
+ */
+
+@@ -1,13 +1,7 @@
+ {
+     final LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+-    final Resources res = context.getResources();
+-    final int minSize = res.getDimensionPixelSize(R.dimen.fastscroll_overlay_size);
+-    final ColorStateList textColor = ta.getColorStateList(TEXT_COLOR);
+-    final float textSize = res.getDimensionPixelSize(R.dimen.fastscroll_overlay_text_size);
+     final TextView textView = new TextView(context);
+     textView.setLayoutParams(params);
+-    textView.setTextColor(textColor);
+-    textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+     textView.setSingleLine(true);
+     textView.setEllipsize(TruncateAt.MIDDLE);
+     textView.setGravity(Gravity.CENTER);
+

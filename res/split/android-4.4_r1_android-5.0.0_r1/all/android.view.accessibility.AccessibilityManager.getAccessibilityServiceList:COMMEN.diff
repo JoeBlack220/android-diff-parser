@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityManager.getAccessibilityServiceList:COMMENT
+Method Modifier: public      deprecated  
+Comment:/**
+ * Returns the {@link ServiceInfo}s of the installed accessibility services.
+ *
+ * @return An unmodifiable list with {@link ServiceInfo}s.
+ *
+ * @deprecated Use {@link #getInstalledAccessibilityServiceList()}
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     List<AccessibilityServiceInfo> infos = getInstalledAccessibilityServiceList();
+-    List<ServiceInfo> services = new ArrayList<ServiceInfo>();
++    List<ServiceInfo> services = new ArrayList<>();
+     final int infoCount = infos.size();
+     for (int i = 0; i < infoCount; i++) {
+         AccessibilityServiceInfo info = infos.get(i);
+

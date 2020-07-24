@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.content.res.BridgeTypedArray.getValue:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the raw TypedValue for the attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ * @param outValue TypedValue object in which to place the attribute's
+ * data.
+ *
+ * @return Returns true if the value was retrieved, else false.
+ */
+
+@@ -1,10 +1,4 @@
+ {
+-    if (index < 0 || index >= mResourceData.length) {
+-        return false;
+-    }
+-    if (mResourceData[index] == null) {
+-        return false;
+-    }
+-    String s = mResourceData[index].getValue();
+-    return ResourceHelper.parseFloatAttribute(mNames[index], s, outValue, false);
++    String s = getString(index);
++    return s != null && ResourceHelper.parseFloatAttribute(mNames[index], s, outValue, false);
+ }
+

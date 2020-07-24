@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.widget.FastScroller.setEnabled:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @param enabled Whether the fast scroll thumb is enabled.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (mEnabled != enabled) {
+         mEnabled = enabled;
+-        onStateDependencyChanged();
++        onStateDependencyChanged(true);
+     }
+ }
+

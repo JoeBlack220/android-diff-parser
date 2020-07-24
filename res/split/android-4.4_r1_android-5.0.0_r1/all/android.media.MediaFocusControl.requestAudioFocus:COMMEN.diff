@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.requestAudioFocus:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * @see AudioManager#requestAudioFocus(AudioManager.OnAudioFocusChangeListener, int, int)
+ */
+
+@@ -44,53 +44,49 @@
+         }
+         // push focus requester at the top of the audio focus stack
+         mFocusStack.push(new FocusRequester(mainStreamType, focusChangeHint, fd, cb, clientId, afdh, callingPackageName, Binder.getCallingUid()));
+-        // there's a new top of the stack, let the remote control know
+-        synchronized (mRCStack) {
+-            checkUpdateRemoteControlDisplay_syncAfRcs(RC_INFO_ALL);
+-        }
+     }
+     return AudioManager.AUDIOFOCUS_REQUEST_GRANTED;
+ }
+

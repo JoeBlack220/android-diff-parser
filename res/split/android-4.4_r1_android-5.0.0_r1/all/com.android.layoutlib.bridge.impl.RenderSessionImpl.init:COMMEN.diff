@@ -1,0 +1,31 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.impl.RenderSessionImpl.init:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Initializes and acquires the scene, creating various Android objects such as context,
+ * inflater, and parser.
+ *
+ * @param timeout the time to wait if another rendering is happening.
+ *
+ * @return whether the scene was prepared
+ *
+ * @see #acquire(long)
+ * @see #release()
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     Result result = super.init(timeout);
+-    if (result.isSuccess() == false) {
++    if (!result.isSuccess()) {
+         return result;
+     }
+     SessionParams params = getParams();
+@@ -16,21 +16,22 @@
+     findNavigationBar(resources, metrics);
+     // FIXME: find those out, and possibly add them to the render params
+     boolean hasNavigationBar = true;
++    // noinspection ConstantConditions
+     IWindowManager iwm = new IWindowManagerImpl(getContext().getConfiguration(), metrics, Surface.ROTATION_0, hasNavigationBar);
+     WindowManagerGlobal_Delegate.setWindowManagerService(iwm);
+     // build the inflater and parser.
+

@@ -1,0 +1,40 @@
+Find a functionally equivalent code:android.text.format.Time.format:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Print the current value given the format string provided. See man
+ * strftime for what means what. The final string must be less than 256
+ * characters.
+ * @param format a string containing the desired format.
+ * @return a String containing the current time expressed in the current locale.
+ */
+
+@@ -1,26 +1,4 @@
+ {
+-    synchronized (Time.class) {
+-        Locale locale = Locale.getDefault();
+-        if (sLocale == null || locale == null || !(locale.equals(sLocale))) {
+-            LocaleData localeData = LocaleData.get(locale);
+-            sAm = localeData.amPm[0];
+-            sPm = localeData.amPm[1];
+-            sZeroDigit = localeData.zeroDigit;
+-            sShortMonths = localeData.shortMonthNames;
+-            sLongMonths = localeData.longMonthNames;
+-            sLongStandaloneMonths = localeData.longStandAloneMonthNames;
+-            sShortWeekdays = localeData.shortWeekdayNames;
+-            sLongWeekdays = localeData.longWeekdayNames;
+-            Resources r = Resources.getSystem();
+-            sTimeOnlyFormat = r.getString(com.android.internal.R.string.time_of_day);
+-            sDateOnlyFormat = r.getString(com.android.internal.R.string.month_day_year);
+-            sDateTimeFormat = r.getString(com.android.internal.R.string.date_and_time);
+-            sLocale = locale;
+-        }
+-        String result = format1(format);
+-        if (sZeroDigit != '0') {
+-            result = localizeDigits(result);
+-        }
+-        return result;
+-    }
++    calculator.copyFieldsFromTime(this);
++    return calculator.format(format);
+ }
+

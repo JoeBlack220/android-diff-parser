@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.media.RemoteControlClient.setOnGetPlaybackPositionListener:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the listener to be called whenever the media current playback position is needed.
+ * Queries will be received in the same thread as the one in which RemoteControlClient
+ * was created.
+ * @param l the listener to be called to retrieve the playback position
+ */
+
+@@ -1,16 +1,6 @@
+ {
+     synchronized (mCacheLock) {
+-        int oldCapa = mPlaybackPositionCapabilities;
+-        if (l != null) {
+-            mPlaybackPositionCapabilities |= MEDIA_POSITION_READABLE;
+-        } else {
+-            mPlaybackPositionCapabilities &= ~MEDIA_POSITION_READABLE;
+-        }
+         mPositionProvider = l;
+-        if (oldCapa != mPlaybackPositionCapabilities) {
+-            // tell RCDs that this RCC's playback position capabilities have changed
+-            sendTransportControlInfo_syncCacheLock(null);
+-        }
+         if ((mPositionProvider != null) && (mEventHandler != null) && playbackPositionShouldMove(mPlaybackState)) {
+             // playback position is already moving, but now we have a position provider,
+             // so schedule a drift check right now
+

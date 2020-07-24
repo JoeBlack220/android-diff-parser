@@ -1,0 +1,17 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.TransformClassAdapter.visitMethod:COMMENT
+Method Modifier: public      
+Comment:/* Visits a method. */
+
+@@ -11,21 +11,16 @@
+         }
+     }
+     String methodSignature = mClassName.replace('/', '.') + "#" + name;
+-    // change access to public
+-    if (Main.sOptions.generatePublicAccess) {
+-        access &= ~(Opcodes.ACC_PROTECTED | Opcodes.ACC_PRIVATE);
+-        access |= Opcodes.ACC_PUBLIC;
+-    }
+     // remove final
+     access = access & ~Opcodes.ACC_FINAL;
+     // and don't try to stub interfaces nor abstract non-native methods.
+

@@ -1,0 +1,11 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.ConnectivityManagerTestBase.disableWifi:COMMENT
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean disableWifi()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+Comment:/**
+ * Disable Wifi
+ * @return true if Wifi is disabled successfully
+ */
+
+

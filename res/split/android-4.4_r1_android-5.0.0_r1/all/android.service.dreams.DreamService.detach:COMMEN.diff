@@ -1,0 +1,47 @@
+Find a functionally equivalent code:android.service.dreams.DreamService.detach:COMMENT
+Method Modifier: private     final       
+Comment:/**
+ * Called by DreamController.stopDream() when the Dream is about to be unbound and destroyed.
+ *
+ * Must run on mHandler.
+ */
+
+@@ -1,24 +1,21 @@
+ {
+-    if (mWindow == null) {
+-        // already detached!
+-        return;
+-    }
+-    try {
++    if (mStarted) {
++        if (mDebug)
++            Slog.v(TAG, "detach(): Calling onDreamingStopped()");
++        mStarted = false;
+         onDreamingStopped();
+-    } catch (Throwable t) {
+-        Slog.w(TAG, "Crashed in onDreamingStopped()", t);
+-    // we were going to stop anyway
+     }
+-    if (mDebug)
+-        Slog.v(TAG, "detach(): Removing window from window manager");
+-    try {
++    if (mWindow != null) {
+         // force our window to be removed synchronously
+-        mWindowManager.removeViewImmediate(mWindow.getDecorView());
++        if (mDebug)
++            Slog.v(TAG, "detach(): Removing window from window manager");
++        mWindow.getWindowManager().removeViewImmediate(mWindow.getDecorView());
++        mWindow = null;
++    }
++    if (mWindowToken != null) {
+         // the following will print a log message if it finds any other leaked windows
+         WindowManagerGlobal.getInstance().closeAll(mWindowToken, this.getClass().getName(), "Dream");
+-    } catch (Throwable t) {
+-        Slog.w(TAG, "Crashed removing window view", t);
++        mWindowToken = null;
++        mCanDoze = false;
+     }
+-    mWindow = null;
+-    mWindowToken = null;
+ }
+

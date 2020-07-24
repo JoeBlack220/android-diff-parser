@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.os.StrictMode.conditionallyCheckInstanceCounts:COMMENT
+Method Modifier: public      static      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -3,9 +3,11 @@
+     if (policy.classInstanceLimit.size() == 0) {
+         return;
+     }
+-    Runtime.getRuntime().gc();
++    System.gc();
++    System.runFinalization();
++    System.gc();
+     // Note: classInstanceLimit is immutable, so this is lock-free
+     for (Map.Entry<Class, Integer> entry : policy.classInstanceLimit.entrySet()) {
+         Class klass = entry.getKey();
+

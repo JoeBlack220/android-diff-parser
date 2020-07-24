@@ -1,0 +1,41 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityNodeInfo.clear:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Clears the state of this instance.
+ */
+
+@@ -4,24 +4,30 @@
+     mParentNodeId = ROOT_NODE_ID;
+     mLabelForId = ROOT_NODE_ID;
+     mLabeledById = ROOT_NODE_ID;
+-    mWindowId = UNDEFINED;
+-    mConnectionId = UNDEFINED;
++    mWindowId = UNDEFINED_ITEM_ID;
++    mConnectionId = UNDEFINED_CONNECTION_ID;
++    mMaxTextLength = -1;
+     mMovementGranularities = 0;
+-    mChildNodeIds.clear();
++    if (mChildNodeIds != null) {
++        mChildNodeIds.clear();
++    }
+     mBoundsInParent.set(0, 0, 0, 0);
+     mBoundsInScreen.set(0, 0, 0, 0);
+     mBooleanProperties = 0;
+     mPackageName = null;
+     mClassName = null;
+     mText = null;
++    mError = null;
+     mContentDescription = null;
+     mViewIdResourceName = null;
+-    mActions = 0;
+-    mTextSelectionStart = UNDEFINED;
+-    mTextSelectionEnd = UNDEFINED;
++    if (mActions != null) {
++        mActions.clear();
++    }
++    mTextSelectionStart = UNDEFINED_SELECTION_INDEX;
++    mTextSelectionEnd = UNDEFINED_SELECTION_INDEX;
+     mInputType = InputType.TYPE_NULL;
+     mLiveRegion = View.ACCESSIBILITY_LIVE_REGION_NONE;
+     if (mExtras != null) {
+

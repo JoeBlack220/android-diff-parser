@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.media.MediaRouter.UserRouteInfo.setPlaybackStream:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Defines over what stream type the media is presented.
+ * @param stream
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (mPlaybackStream != stream) {
+         mPlaybackStream = stream;
+-        setPlaybackInfoOnRcc(RemoteControlClient.PLAYBACKINFO_USES_STREAM, stream);
++        configureSessionVolume();
+     }
+ }
+

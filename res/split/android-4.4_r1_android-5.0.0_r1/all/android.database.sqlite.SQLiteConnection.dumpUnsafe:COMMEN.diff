@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.database.sqlite.SQLiteConnection.dumpUnsafe:COMMENT
+Method Modifier: 
+Comment:/**
+ * Dumps debugging information about this connection, in the case where the
+ * caller might not actually own the connection.
+ *
+ * This function is written so that it may be called by a thread that does not
+ * own the connection.  We need to be very careful because the connection state is
+ * not synchronized.
+ *
+ * At worst, the method may return stale or slightly wrong data, however
+ * it should not crash.  This is ok as it is only used for diagnostic purposes.
+ *
+ * @param printer The printer to receive the dump, not null.
+ * @param verbose True to dump more verbose information.
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     printer.println("Connection #" + mConnectionId + ":");
+     if (verbose) {
+-        printer.println("  connectionPtr: 0x" + Integer.toHexString(mConnectionPtr));
++        printer.println("  connectionPtr: 0x" + Long.toHexString(mConnectionPtr));
+     }
+     printer.println("  isPrimaryConnection: " + mIsPrimaryConnection);
+     printer.println("  onlyAllowReadOnlyOperations: " + mOnlyAllowReadOnlyOperations);
+

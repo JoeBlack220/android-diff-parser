@@ -1,0 +1,39 @@
+Find a functionally equivalent code:android.media.RemoteControlClient.MetadataEditor.apply:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Associates all the metadata that has been set since the MetadataEditor instance was
+ * created with {@link RemoteControlClient#editMetadata(boolean)}, or since
+ * {@link #clear()} was called, with the RemoteControlClient. Once "applied",
+ * this MetadataEditor cannot be reused to edit the RemoteControlClient's metadata.
+ */
+
+@@ -4,9 +4,11 @@
+         return;
+     }
+     synchronized (mCacheLock) {
++        // Still build the old metadata so when creating a new editor
++        // you get the expected values.
+         // assign the edited data
+         mMetadata = new Bundle(mEditorMetadata);
+         // add the information about editable keys
+@@ -13,27 +15,24 @@
+         }
+         mOriginalArtwork = mEditorArtwork;
+         mEditorArtwork = null;
+-        if (mMetadataChanged & mArtworkChanged) {
+-            // send to remote control display if conditions are met
+-            sendMetadataWithArtwork_syncCacheLock(null, 0, 0);
+-        } else if (mMetadataChanged) {
+-            // send to remote control display if conditions are met
+-            sendMetadata_syncCacheLock(null);
+-        } else if (mArtworkChanged) {
+-            // send to remote control display if conditions are met
+-            sendArtwork_syncCacheLock(null, 0, 0);
++        // USE_SESSIONS
++        if (mSession != null && mMetadataBuilder != null) {
++            mMediaMetadata = mMetadataBuilder.build();
++            mSession.setMetadata(mMediaMetadata);
+         }
+         mApplied = true;
+     }
+

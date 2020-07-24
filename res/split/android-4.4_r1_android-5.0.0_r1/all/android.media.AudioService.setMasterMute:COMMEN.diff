@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.AudioService.setMasterMute:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @see AudioManager#setMasterMute(boolean, int)
+ */
+
+@@ -2,11 +2,14 @@
+     if (mUseFixedVolume) {
+         return;
+     }
++    if (mAppOps.noteOp(AppOpsManager.OP_AUDIO_MASTER_VOLUME, Binder.getCallingUid(), callingPackage) != AppOpsManager.MODE_ALLOWED) {
++        return;
++    }
+     if (state != AudioSystem.getMasterMute()) {
+         AudioSystem.setMasterMute(state);
+         // Post a persist master volume msg
+-        sendMsg(mAudioHandler, MSG_PERSIST_MASTER_VOLUME_MUTE, SENDMSG_REPLACE, state ? 1 : 0, 0, null, PERSIST_DELAY);
++        sendMsg(mAudioHandler, MSG_PERSIST_MASTER_VOLUME_MUTE, SENDMSG_REPLACE, state ? 1 : 0, UserHandle.getCallingUserId(), null, PERSIST_DELAY);
+         sendMasterMuteUpdate(state, flags);
+     }
+ }
+

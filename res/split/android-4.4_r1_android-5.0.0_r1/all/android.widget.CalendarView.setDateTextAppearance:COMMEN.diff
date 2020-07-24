@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.widget.CalendarView.setDateTextAppearance:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the text appearance for the calendar dates.
+ *
+ * @param resourceId The text appearance resource id.
+ *
+ * @attr ref android.R.styleable#CalendarView_dateTextAppearance
+ */
+
+@@ -1,7 +1,3 @@
+ {
+-    if (mDateTextAppearanceResId != resourceId) {
+-        mDateTextAppearanceResId = resourceId;
+-        updateDateTextSize();
+-        invalidateAllWeekViews();
+-    }
++    mDelegate.setDateTextAppearance(resourceId);
+ }
+

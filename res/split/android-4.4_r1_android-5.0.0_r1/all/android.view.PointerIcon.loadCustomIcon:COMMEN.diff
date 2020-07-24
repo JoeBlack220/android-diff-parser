@@ -1,0 +1,33 @@
+Find a functionally equivalent code:android.view.PointerIcon.loadCustomIcon:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Loads a custom pointer icon from an XML resource.
+ * <p>
+ * The XML resource should have the following form:
+ * <code>
+ * &lt;?xml version="1.0" encoding="utf-8"?&gt;
+ * &lt;pointer-icon xmlns:android="http://schemas.android.com/apk/res/android"
+ * android:bitmap="@drawable/my_pointer_bitmap"
+ * android:hotSpotX="24"
+ * android:hotSpotY="24" /&gt;
+ * </code>
+ * </p>
+ *
+ * @param resources The resources object.
+ * @param resourceId The resource id.
+ * @return The pointer icon.
+ *
+ * @throws IllegalArgumentException if resources is null.
+ * @throws Resources.NotFoundException if the resource was not found or the drawable
+ * linked in the resource was not found.
+ */
+
+@@ -3,8 +3,8 @@
+         throw new IllegalArgumentException("resources must not be null");
+     }
+     PointerIcon icon = new PointerIcon(STYLE_CUSTOM);
+-    icon.loadResource(resources, resourceId);
++    icon.loadResource(null, resources, resourceId);
+     return icon;
+ }
+

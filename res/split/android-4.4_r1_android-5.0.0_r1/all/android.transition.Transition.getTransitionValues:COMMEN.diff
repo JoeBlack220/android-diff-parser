@@ -1,0 +1,32 @@
+Find a functionally equivalent code:android.transition.Transition.getTransitionValues:COMMENT
+Method Modifier: public      
+Comment:/**
+ * This method can be called by transitions to get the TransitionValues for
+ * any particular view during the transition-playing process. This might be
+ * necessary, for example, to query the before/after state of related views
+ * for a given transition.
+ */
+
+@@ -3,22 +3,7 @@
+         return mParent.getTransitionValues(view, start);
+     }
+     TransitionValuesMaps valuesMaps = start ? mStartValues : mEndValues;
+-    TransitionValues values = valuesMaps.viewValues.get(view);
+-    if (values == null) {
+-        int id = view.getId();
+-        if (id >= 0) {
+-            values = valuesMaps.idValues.get(id);
+-        }
+-        if (values == null && view.getParent() instanceof ListView) {
+-            ListView listview = (ListView) view.getParent();
+-            int position = listview.getPositionForView(view);
+-            long itemId = listview.getItemIdAtPosition(position);
+-            values = valuesMaps.itemIdValues.get(itemId);
+-        }
+-    // TODO: Doesn't handle the case where a view was parented to a
+-    // ListView (with an itemId), but no longer is
+-    }
+-    return values;
++    return valuesMaps.viewValues.get(view);
+ }
+

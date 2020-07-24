@@ -1,0 +1,23 @@
+Find a functionally equivalent code:com.android.providers.settings.SettingsProvider.getOrEstablishDatabase:COMMENT
+Method Modifier: private     
+Comment:// Lazy initialize the database helper and caches for this user, if necessary
+
+@@ -8,17 +8,22 @@
+     }
+     long oldId = Binder.clearCallingIdentity();
+     try {
+-        DatabaseHelper dbHelper = mOpenHelpers.get(callingUser);
++        DatabaseHelper dbHelper;
++        synchronized (this) {
++            dbHelper = mOpenHelpers.get(callingUser);
++        }
+         if (null == dbHelper) {
+             establishDbTracking(callingUser);
+-            dbHelper = mOpenHelpers.get(callingUser);
++            synchronized (this) {
++                dbHelper = mOpenHelpers.get(callingUser);
++            }
+         }
+         return dbHelper;
+     } finally {
+

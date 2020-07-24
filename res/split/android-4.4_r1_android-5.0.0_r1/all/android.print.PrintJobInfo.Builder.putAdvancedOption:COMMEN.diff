@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.print.PrintJobInfo.Builder.putAdvancedOption:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Puts an advanced (printer specific) option.
+ *
+ * @param key The option key.
+ * @param value The option value.
+ */
+
+@@ -1,2 +1,6 @@
+ {
++    if (mPrototype.mAdvancedOptions == null) {
++        mPrototype.mAdvancedOptions = new Bundle();
++    }
++    mPrototype.mAdvancedOptions.putInt(key, value);
+ }
+

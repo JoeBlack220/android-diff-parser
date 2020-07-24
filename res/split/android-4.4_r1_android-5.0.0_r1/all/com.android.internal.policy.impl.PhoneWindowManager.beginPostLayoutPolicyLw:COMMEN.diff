@@ -1,0 +1,21 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.beginPostLayoutPolicyLw:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,5 +1,7 @@
+ {
+     mTopFullscreenOpaqueWindowState = null;
++    mAppsToBeHidden.clear();
++    mAppsThatDismissKeyguard.clear();
+     mForceStatusBar = false;
+     mForceStatusBarFromKeyguard = false;
+     mForcingShowNavBar = false;
+@@ -9,12 +11,15 @@
+     mDismissKeyguard = DISMISS_KEYGUARD_NONE;
+     mShowingLockscreen = false;
+     mShowingDream = false;
++    mWinShowWhenLocked = null;
+ }
+

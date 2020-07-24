@@ -1,0 +1,45 @@
+Find a functionally equivalent code:android.media.AudioTrack.audioParamCheck:COMMENT
+Method Modifier: private     
+Comment:// mDataLoadMode is valid
+
+@@ -1,11 +1,6 @@
+ {
+-    // stream type
+-    if ((streamType != AudioManager.STREAM_ALARM) && (streamType != AudioManager.STREAM_MUSIC) && (streamType != AudioManager.STREAM_RING) && (streamType != AudioManager.STREAM_SYSTEM) && (streamType != AudioManager.STREAM_VOICE_CALL) && (streamType != AudioManager.STREAM_NOTIFICATION) && (streamType != AudioManager.STREAM_BLUETOOTH_SCO) && (streamType != AudioManager.STREAM_DTMF)) {
+-        throw new IllegalArgumentException("Invalid stream type.");
+-    }
+-    mStreamType = streamType;
+     // sample rate, note these values are subject to change
+-    if ((sampleRateInHz < 4000) || (sampleRateInHz > 48000)) {
++    if (sampleRateInHz < SAMPLE_RATE_HZ_MIN || sampleRateInHz > SAMPLE_RATE_HZ_MAX) {
+         throw new IllegalArgumentException(sampleRateInHz + "Hz is not a supported sample rate.");
+     }
+     mSampleRate = sampleRateInHz;
+@@ -34,52 +29,43 @@
+             mChannelCount = Integer.bitCount(channelConfig);
+     }
+     // audio format
+-    switch(audioFormat) {
+-        case AudioFormat.ENCODING_DEFAULT:
+-            mAudioFormat = AudioFormat.ENCODING_PCM_16BIT;
+-            break;
+-        case AudioFormat.ENCODING_PCM_16BIT:
+-        case AudioFormat.ENCODING_PCM_8BIT:
+-            mAudioFormat = audioFormat;
+-            break;
+-        default:
+-            throw new IllegalArgumentException("Unsupported sample encoding." + " Should be ENCODING_PCM_8BIT or ENCODING_PCM_16BIT.");
++    if (audioFormat == AudioFormat.ENCODING_DEFAULT) {
++        audioFormat = AudioFormat.ENCODING_PCM_16BIT;
++    }
++    if (!AudioFormat.isValidEncoding(audioFormat)) {
++        throw new IllegalArgumentException("Unsupported audio encoding.");
+     }
++    mAudioFormat = audioFormat;
+     // audio load mode
+-    if ((mode != MODE_STREAM) && (mode != MODE_STATIC)) {
++    if (((mode != MODE_STREAM) && (mode != MODE_STATIC)) || ((mode != MODE_STREAM) && !AudioFormat.isEncodingLinearPcm(mAudioFormat))) {
+         throw new IllegalArgumentException("Invalid mode.");
+     }
+     mDataLoadMode = mode;
+

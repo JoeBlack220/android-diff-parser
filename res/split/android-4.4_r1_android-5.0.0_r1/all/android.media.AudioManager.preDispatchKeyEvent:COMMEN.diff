@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.media.AudioManager.preDispatchKeyEvent:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -4,10 +4,10 @@
+          * cancel the sound
+          */
+     int keyCode = event.getKeyCode();
+-    if (keyCode != KeyEvent.KEYCODE_VOLUME_DOWN && keyCode != KeyEvent.KEYCODE_VOLUME_UP && keyCode != KeyEvent.KEYCODE_VOLUME_MUTE && mVolumeKeyUpTime + VolumePanel.PLAY_SOUND_DELAY > SystemClock.uptimeMillis()) {
++    if (keyCode != KeyEvent.KEYCODE_VOLUME_DOWN && keyCode != KeyEvent.KEYCODE_VOLUME_UP && keyCode != KeyEvent.KEYCODE_VOLUME_MUTE && mVolumeKeyUpTime + AudioService.PLAY_SOUND_DELAY > SystemClock.uptimeMillis()) {
+         /*
+              * The user has hit another key during the delay (e.g., 300ms)
+              * since the last volume key up, so cancel any sounds.
+

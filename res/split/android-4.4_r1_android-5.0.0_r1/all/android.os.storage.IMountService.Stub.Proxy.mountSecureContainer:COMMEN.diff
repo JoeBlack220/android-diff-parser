@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.os.storage.IMountService.Stub.Proxy.mountSecureContainer:COMMENT
+Method Modifier: public      
+Comment:/*
+             * Mount a secure container with the specified key and owner UID.
+             * Returns an int consistent with MountServiceResultCode
+             */
+
+@@ -7,12 +7,13 @@
+         _data.writeString(id);
+         _data.writeString(key);
+         _data.writeInt(ownerUid);
++        _data.writeInt(readOnly ? 1 : 0);
+         mRemote.transact(Stub.TRANSACTION_mountSecureContainer, _data, _reply, 0);
+         _reply.readException();
+         _result = _reply.readInt();
+

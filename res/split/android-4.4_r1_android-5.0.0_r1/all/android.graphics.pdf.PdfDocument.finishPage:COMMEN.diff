@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.graphics.pdf.PdfDocument.finishPage:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Finishes a started page. You should always finish the last started page.
+ * <p>
+ * <strong>Note:</strong> Do not call this method after {@link #close()}.
+ * You should not finish the same page more than once.
+ * </p>
+ *
+ * @param page The page. Cannot be null.
+ *
+ * @see #startPage(PageInfo)
+ */
+
+@@ -11,16 +11,16 @@
+     }
+     mPages.add(page.getInfo());
+     mCurrentPage = null;
+-    nativeAppendPage(mNativeDocument, page.mCanvas.mNativeCanvas);
++    nativeFinishPage(mNativeDocument);
+     page.finish();
+ }
+

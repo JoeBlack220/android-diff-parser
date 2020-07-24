@@ -1,0 +1,15 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.notifyLidSwitchChanged:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,7 +1,4 @@
+ {
+-    // do nothing if headless
+-    if (mHeadless)
+-        return;
+     // lid changed state
+     final int newLidState = lidOpen ? LID_OPEN : LID_CLOSED;
+     if (newLidState == mLidState) {
+

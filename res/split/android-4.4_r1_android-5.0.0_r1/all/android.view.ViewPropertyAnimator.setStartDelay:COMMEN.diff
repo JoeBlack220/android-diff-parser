@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.view.ViewPropertyAnimator.setStartDelay:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the startDelay for the underlying animator that animates the requested properties.
+ * By default, the animator uses the default value for ValueAnimator. Calling this method
+ * will cause the declared value to be used instead.
+ * @param startDelay The delay of ensuing property animations, in milliseconds. The value
+ * cannot be negative.
+ * @return This object, allowing calls to methods in this class to be chained.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (startDelay < 0) {
+-        throw new IllegalArgumentException("Animators cannot have negative duration: " + startDelay);
++        throw new IllegalArgumentException("Animators cannot have negative start " + "delay: " + startDelay);
+     }
+     mStartDelaySet = true;
+     mStartDelay = startDelay;
+

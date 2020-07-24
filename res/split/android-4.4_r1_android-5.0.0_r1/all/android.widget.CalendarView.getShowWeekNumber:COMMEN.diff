@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.widget.CalendarView.getShowWeekNumber:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets whether to show the week number.
+ *
+ * @return True if showing the week number.
+ *
+ * @attr ref android.R.styleable#CalendarView_showWeekNumber
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mShowWeekNumber;
++    return mDelegate.getShowWeekNumber();
+ }
+

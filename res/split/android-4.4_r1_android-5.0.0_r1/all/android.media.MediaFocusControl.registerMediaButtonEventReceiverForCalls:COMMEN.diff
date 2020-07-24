@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.registerMediaButtonEventReceiverForCalls:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * see AudioManager.registerMediaButtonEventReceiverForCalls(ComponentName c)
+ * precondition: c != null
+ */
+
+@@ -3,9 +3,9 @@
+         Log.e(TAG, "Invalid permissions to register media button receiver for calls");
+         return;
+     }
+-    synchronized (mRCStack) {
++    synchronized (mPRStack) {
+         mMediaReceiverForCalls = c;
+     }
+ }
+

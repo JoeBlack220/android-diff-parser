@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.hardware.camera2.impl.CameraMetadataNative.set:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set a camera metadata field to a value. The field definitions can be
+ * found in {@link CameraCharacteristics}, {@link CaptureResult}, and
+ * {@link CaptureRequest}.
+ *
+ * @param key The metadata field to write.
+ * @param value The value to set the field to, which must be of a matching
+ * type to the key.
+ */
+
+@@ -1,5 +1,7 @@
+ {
+-    if (setOverride(key, value)) {
++    SetCommand s = sSetCommandMap.get(key);
++    if (s != null) {
++        s.setValue(this, value);
+         return;
+     }
+     setBase(key, value);
+

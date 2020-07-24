@@ -1,0 +1,67 @@
+Find a functionally equivalent code:android.media.RemoteController.getEstimatedMediaPosition:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Return the estimated playback position of the current media track or a negative value
+ * if not available.
+ *
+ * <p>The value returned is estimated by the current process and may not be perfect.
+ * The time returned by this method is calculated from the last state change time based
+ * on the current play position at that time and the last known playback speed.
+ * An application may call {@link #setSynchronizationMode(int)} to apply
+ * a synchronization policy that will periodically re-sync the estimated position
+ * with the RemoteControlClient.</p>
+ *
+ * @return the current estimated playback position in milliseconds or a negative value
+ * if not available
+ *
+ * @see OnClientUpdateListener#onClientPlaybackStateUpdate(int, long, long, float)
+ */
+
+@@ -1,18 +1,34 @@
+ {
+-    if (mLastPlaybackInfo != null) {
+-        if (!RemoteControlClient.playbackPositionShouldMove(mLastPlaybackInfo.mState)) {
+-            return mLastPlaybackInfo.mCurrentPosMs;
++    if (USE_SESSIONS) {
++        synchronized (mInfoLock) {
++            if (mCurrentSession != null) {
++                PlaybackState state = mCurrentSession.getPlaybackState();
++                if (state != null) {
++                    return state.getPosition();
++                }
++            }
+         }
+-        // Take the current position at the time of state change and estimate.
+-        final long thenPos = mLastPlaybackInfo.mCurrentPosMs;
+-        if (thenPos < 0) {
+-            return -1;
++    } else {
++        final PlaybackInfo lastPlaybackInfo;
++        synchronized (mInfoLock) {
++            lastPlaybackInfo = mLastPlaybackInfo;
+         }
+-        final long now = SystemClock.elapsedRealtime();
+-        final long then = mLastPlaybackInfo.mStateChangeTimeMs;
+-        final long sinceThen = now - then;
+-        final long scaledSinceThen = (long) (sinceThen * mLastPlaybackInfo.mSpeed);
+-        return thenPos + scaledSinceThen;
++        if (lastPlaybackInfo != null) {
++            if (!RemoteControlClient.playbackPositionShouldMove(lastPlaybackInfo.mState)) {
++                return lastPlaybackInfo.mCurrentPosMs;
++            }
++            // Take the current position at the time of state change and
++            // estimate.
++            final long thenPos = lastPlaybackInfo.mCurrentPosMs;
++            if (thenPos < 0) {
++                return -1;
++            }
++            final long now = SystemClock.elapsedRealtime();
++            final long then = lastPlaybackInfo.mStateChangeTimeMs;
++            final long sinceThen = now - then;
++            final long scaledSinceThen = (long) (sinceThen * lastPlaybackInfo.mSpeed);
++            return thenPos + scaledSinceThen;
++        }
+     }
+     return -1;
+ }
+

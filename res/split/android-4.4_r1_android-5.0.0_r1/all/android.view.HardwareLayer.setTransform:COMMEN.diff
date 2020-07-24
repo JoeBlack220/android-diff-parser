@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.view.HardwareLayer.setTransform:COMMENT
+<android.view.HardwareLayer: void setTransform(Matrix)>
+Method Modifier: public      default     abstract    
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          No          
+Comment:/**
+ * Sets an optional transform on this layer.
+ *
+ * @param matrix The transform to apply to the layer.
+ */
+
+@@ -1 +1,4 @@
+-
++{
++    nSetTransform(mFinalizer.get(), matrix.native_instance);
++    mRenderer.pushLayerUpdate(this);
++}
+

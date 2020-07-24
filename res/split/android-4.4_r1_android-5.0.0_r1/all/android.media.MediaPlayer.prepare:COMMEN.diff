@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.MediaPlayer.prepare:COMMENT
+<android.media.MediaPlayer: void prepare()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+Comment:/**
+ * Prepares the player for playback, synchronously.
+ *
+ * After setting the datasource and the display surface, you need to either
+ * call prepare() or prepareAsync(). For files, it is OK to call prepare(),
+ * which blocks until MediaPlayer is ready for playback.
+ *
+ * @throws IllegalStateException if it is called in an invalid state
+ */
+
+@@ -1 +1,4 @@
+-
++{
++    _prepare();
++    scanInternalSubtitleTracks();
++}
+

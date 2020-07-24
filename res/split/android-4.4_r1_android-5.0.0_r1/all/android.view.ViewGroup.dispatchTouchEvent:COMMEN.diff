@@ -1,0 +1,50 @@
+Find a functionally equivalent code:android.view.ViewGroup.dispatchTouchEvent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -50,60 +50,61 @@
+                     final float y = ev.getY(actionIndex);
+                     // Find a child that can receive the event.
+                     // Scan children from front to back.
++                    final ArrayList<View> preorderedList = buildOrderedChildList();
++                    final boolean customOrder = preorderedList == null && isChildrenDrawingOrderEnabled();
+                     final View[] children = mChildren;
+-                    final boolean customOrder = isChildrenDrawingOrderEnabled();
+                     for (int i = childrenCount - 1; i >= 0; i--) {
+                         final int childIndex = customOrder ? getChildDrawingOrder(childrenCount, i) : i;
+-                        final View child = children[childIndex];
++                        final View child = (preorderedList == null) ? children[childIndex] : preorderedList.get(childIndex);
+                         if (!canViewReceivePointerEvents(child) || !isTransformedTouchPointInView(x, y, child, null)) {
+                             continue;
+                         }
+@@ -69,75 +70,86 @@
+                         if (dispatchTransformedTouchEvent(ev, false, child, idBitsToAssign)) {
+                             // Child wants to receive touch within its bounds.
+                             mLastTouchDownTime = ev.getDownTime();
+-                            mLastTouchDownIndex = childIndex;
++                            if (preorderedList != null) {
++                                // childIndex points into presorted list, find original index
++                                for (int j = 0; j < childrenCount; j++) {
++                                    if (children[childIndex] == mChildren[j]) {
++                                        mLastTouchDownIndex = j;
++                                        break;
++                                    }
++                                }
++                            } else {
++                                mLastTouchDownIndex = childIndex;
++                            }
+                             mLastTouchDownX = ev.getX();
+                             mLastTouchDownY = ev.getY();
+                             newTouchTarget = addTouchTarget(child, idBitsToAssign);
+@@ -77,82 +88,95 @@
+                             break;
+                         }
+                     }
++                    if (preorderedList != null)
++                        preorderedList.clear();
+                 }
+                 if (newTouchTarget == null && mFirstTouchTarget != null) {
+                     // Did not find a child to receive the event.
+

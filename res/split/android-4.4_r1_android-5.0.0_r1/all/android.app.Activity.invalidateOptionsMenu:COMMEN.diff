@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.app.Activity.invalidateOptionsMenu:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Declare that the options menu has changed, so should be recreated.
+ * The {@link #onCreateOptionsMenu(Menu)} method will be called the next
+ * time it needs to be displayed.
+ */
+
+@@ -1,3 +1,5 @@
+ {
+-    mWindow.invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
++    if (mActionBar == null || !mActionBar.invalidateOptionsMenu()) {
++        mWindow.invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
++    }
+ }
+

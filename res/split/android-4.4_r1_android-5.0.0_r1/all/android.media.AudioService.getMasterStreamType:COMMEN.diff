@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.media.AudioService.getMasterStreamType:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @see AudioManager#getMasterStreamType()
+ */
+
+@@ -1,7 +1,3 @@
+ {
+-    if (mVoiceCapable) {
+-        return AudioSystem.STREAM_RING;
+-    } else {
+-        return AudioSystem.STREAM_MUSIC;
+-    }
++    return mStreamVolumeAlias[AudioSystem.STREAM_SYSTEM];
+ }
+

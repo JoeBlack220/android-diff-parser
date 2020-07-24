@@ -1,0 +1,17 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.TransformClassAdapter.visit:COMMENT
+Method Modifier: public      
+Comment:/* Visits the class header. */
+
+@@ -1,11 +1,6 @@
+ {
+     // This class might be being renamed.
+     name = mClassName;
+-    // remove protected or private and set as public
+-    if (Main.sOptions.generatePublicAccess) {
+-        access = access & ~(Opcodes.ACC_PRIVATE | Opcodes.ACC_PROTECTED);
+-        access |= Opcodes.ACC_PUBLIC;
+-    }
+     // remove final
+     access = access & ~Opcodes.ACC_FINAL;
+     // note: leave abstract classes as such
+

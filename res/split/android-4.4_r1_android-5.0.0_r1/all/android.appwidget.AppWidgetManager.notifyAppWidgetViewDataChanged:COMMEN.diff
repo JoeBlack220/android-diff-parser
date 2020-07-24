@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetManager.notifyAppWidgetViewDataChanged:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Notifies the specified collection view in all the specified AppWidget instances
+ * to invalidate their data.
+ *
+ * @param appWidgetIds  The AppWidget instances to notify of view data changes.
+ * @param viewId        The collection view id.
+ */
+
+@@ -1,6 +1,9 @@
+ {
++    if (mService == null) {
++        return;
++    }
+     try {
+-        sService.notifyAppWidgetViewDataChanged(appWidgetIds, viewId, mContext.getUserId());
++        mService.notifyAppWidgetViewDataChanged(mPackageName, appWidgetIds, viewId);
+     } catch (RemoteException e) {
+         throw new RuntimeException("system server dead?", e);
+     }
+

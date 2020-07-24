@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.provider.DocumentsProvider.attachInfo:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Implementation is provided by the parent class.
+ */
+
+@@ -7,12 +7,14 @@
+     mMatcher.addURI(mAuthority, "root/*/search", MATCH_SEARCH);
+     mMatcher.addURI(mAuthority, "document/*", MATCH_DOCUMENT);
+     mMatcher.addURI(mAuthority, "document/*/children", MATCH_CHILDREN);
++    mMatcher.addURI(mAuthority, "tree/*/document/*", MATCH_DOCUMENT_TREE);
++    mMatcher.addURI(mAuthority, "tree/*/document/*/children", MATCH_CHILDREN_TREE);
+     // Sanity check our setup
+     if (!info.exported) {
+         throw new SecurityException("Provider must be exported");
+

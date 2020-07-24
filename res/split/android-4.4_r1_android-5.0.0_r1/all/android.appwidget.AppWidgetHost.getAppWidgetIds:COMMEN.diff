@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetHost.getAppWidgetIds:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * Gets a list of all the appWidgetIds that are bound to the current host
+ *
+ * @hide
+ */
+
+@@ -3,9 +3,9 @@
+         if (sService == null) {
+             bindService();
+         }
+-        return sService.getAppWidgetIdsForHost(mHostId, mContext.getUserId());
++        return sService.getAppWidgetIdsForHost(mContext.getOpPackageName(), mHostId);
+     } catch (RemoteException e) {
+         throw new RuntimeException("system server dead?", e);
+     }
+

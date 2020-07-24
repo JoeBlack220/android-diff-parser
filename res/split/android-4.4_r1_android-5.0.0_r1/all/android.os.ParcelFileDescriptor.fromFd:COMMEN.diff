@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.os.ParcelFileDescriptor.fromFd:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Create a new ParcelFileDescriptor from a raw native fd.  The new
+ * ParcelFileDescriptor holds a dup of the original fd passed in here,
+ * so you must still close that fd as well as the new ParcelFileDescriptor.
+ *
+ * @param fd The native fd that the ParcelFileDescriptor should dup.
+ *
+ * @return Returns a new ParcelFileDescriptor holding a FileDescriptor
+ * for a dup of the given fd.
+ */
+
+@@ -2,8 +2,8 @@
+     final FileDescriptor original = new FileDescriptor();
+     original.setInt$(fd);
+     try {
+-        final FileDescriptor dup = Libcore.os.dup(original);
++        final FileDescriptor dup = Os.dup(original);
+         return new ParcelFileDescriptor(dup);
+     } catch (ErrnoException e) {
+         throw e.rethrowAsIOException();
+

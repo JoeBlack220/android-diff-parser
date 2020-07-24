@@ -1,0 +1,13 @@
+Find a functionally equivalent code:com.android.systemui.SearchPanelView.isShowing:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Whether the panel is showing, or, if it's animating, whether it will be
+ * when the animation is done.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mShowing;
++    return getVisibility() == View.VISIBLE && !mCircle.isAnimatingOut();
+ }
+

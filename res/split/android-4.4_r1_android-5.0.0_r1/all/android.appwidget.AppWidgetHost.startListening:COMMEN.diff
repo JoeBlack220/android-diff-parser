@@ -1,0 +1,31 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetHost.startListening:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Start receiving onAppWidgetChanged calls for your AppWidgets.  Call this when your activity
+ * becomes visible, i.e. from onStart() in your Activity.
+ */
+
+@@ -1,20 +1,13 @@
+ {
+     int[] updatedIds;
+     ArrayList<RemoteViews> updatedViews = new ArrayList<RemoteViews>();
+-    final int userId = mContext.getUserId();
+     try {
+-        if (mPackageName == null) {
+-            mPackageName = mContext.getPackageName();
+-        }
+-        updatedIds = sService.startListening(mCallbacks, mPackageName, mHostId, updatedViews, userId);
++        updatedIds = sService.startListening(mCallbacks, mContext.getOpPackageName(), mHostId, updatedViews);
+     } catch (RemoteException e) {
+         throw new RuntimeException("system server dead?", e);
+     }
+     final int N = updatedIds.length;
+     for (int i = 0; i < N; i++) {
+-        if (updatedViews.get(i) != null) {
+-            updatedViews.get(i).setUser(new UserHandle(userId));
+-        }
+-        updateAppWidgetView(updatedIds[i], updatedViews.get(i), userId);
++        updateAppWidgetView(updatedIds[i], updatedViews.get(i));
+     }
+ }
+

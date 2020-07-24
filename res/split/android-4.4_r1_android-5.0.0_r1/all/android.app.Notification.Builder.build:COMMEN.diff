@@ -1,0 +1,32 @@
+Find a functionally equivalent code:android.app.Notification.Builder.build:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Combine all of the options that have been set and return a new {@link Notification}
+ * object.
+ */
+
+@@ -1,12 +1,21 @@
+ {
++    mOriginatingUserId = mContext.getUserId();
++    mHasThreeLines = hasThreeLines();
+     Notification n = buildUnstyled();
+     if (mStyle != null) {
+         n = mStyle.buildStyled(n);
+     }
+-    n.extras = mExtras != null ? new Bundle(mExtras) : new Bundle();
+-    addExtras(n.extras);
++    if (mExtras != null) {
++        n.extras.putAll(mExtras);
++    }
++    if (mRebuildBundle.size() > 0) {
++        n.extras.putAll(mRebuildBundle);
++        mRebuildBundle.clear();
++    }
++    populateExtras(n.extras);
+     if (mStyle != null) {
+         mStyle.addExtras(n.extras);
+     }
++    mHasThreeLines = false;
+     return n;
+ }
+

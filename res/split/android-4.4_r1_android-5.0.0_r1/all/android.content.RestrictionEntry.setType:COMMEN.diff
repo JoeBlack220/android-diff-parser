@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.content.RestrictionEntry.setType:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the type for this restriction.
+ * @param type the type for this restriction.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    this.type = type;
++    this.mType = type;
+ }
+

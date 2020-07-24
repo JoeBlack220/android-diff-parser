@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.media.MediaRouter.Static.startMonitoringRoutes:COMMENT
+Method Modifier: 
+Comment:// Called after sStatic is initialized
+
+@@ -2,8 +2,8 @@
+     mDefaultAudioVideo = new RouteInfo(mSystemCategory);
+     mDefaultAudioVideo.mNameResId = com.android.internal.R.string.default_audio_route_name;
+     mDefaultAudioVideo.mSupportedTypes = ROUTE_TYPE_LIVE_AUDIO | ROUTE_TYPE_LIVE_VIDEO;
+-    mDefaultAudioVideo.mPresentationDisplay = choosePresentationDisplayForRoute(mDefaultAudioVideo, getAllPresentationDisplays());
++    mDefaultAudioVideo.updatePresentationDisplay();
+     addRouteStatic(mDefaultAudioVideo);
+     // This will select the active wifi display route if there is one.
+     updateWifiDisplayStatus(mDisplayService.getWifiDisplayStatus());
+@@ -20,27 +20,29 @@
+         // route yet.
+         updateAudioRoutes(newAudioRoutes);
+     }
++    // Bind to the media router service.
++    rebindAsUser(UserHandle.myUserId());
+     // appropriately with relevant system state.
+     if (mSelectedRoute == null) {
+-        selectRouteStatic(mDefaultAudioVideo.getSupportedTypes(), mDefaultAudioVideo);
++        selectDefaultRouteStatic();
+     }
+ }
+

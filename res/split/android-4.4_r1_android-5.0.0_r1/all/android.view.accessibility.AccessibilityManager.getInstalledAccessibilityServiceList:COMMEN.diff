@@ -1,0 +1,37 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityManager.getInstalledAccessibilityServiceList:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns the {@link AccessibilityServiceInfo}s of the installed accessibility services.
+ *
+ * @return An unmodifiable list with {@link AccessibilityServiceInfo}s.
+ */
+
+@@ -1,12 +1,25 @@
+ {
++    final IAccessibilityManager service;
++    final int userId;
++    synchronized (mLock) {
++        service = getServiceLocked();
++        if (service == null) {
++            return Collections.emptyList();
++        }
++        userId = mUserId;
++    }
+     List<AccessibilityServiceInfo> services = null;
+     try {
+-        services = mService.getInstalledAccessibilityServiceList(mUserId);
++        services = service.getInstalledAccessibilityServiceList(userId);
+         if (DEBUG) {
+             Log.i(LOG_TAG, "Installed AccessibilityServices " + services);
+         }
+     } catch (RemoteException re) {
+         Log.e(LOG_TAG, "Error while obtaining the installed AccessibilityServices. ", re);
+     }
+-    return Collections.unmodifiableList(services);
++    if (services != null) {
++        return Collections.unmodifiableList(services);
++    } else {
++        return Collections.emptyList();
++    }
+ }
+

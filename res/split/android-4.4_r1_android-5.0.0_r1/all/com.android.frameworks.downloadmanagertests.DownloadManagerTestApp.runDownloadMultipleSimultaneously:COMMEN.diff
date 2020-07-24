@@ -1,0 +1,32 @@
+Find a functionally equivalent code:com.android.frameworks.downloadmanagertests.DownloadManagerTestApp.runDownloadMultipleSimultaneously:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Tests 15 concurrent downloads of 1,000,000-byte files.
+ *
+ * @throws Exception if test failed
+ */
+
+@@ -1,7 +1,6 @@
+ {
+     final int TOTAL_DOWNLOADS = 15;
+     HashSet<Long> downloadIds = new HashSet<Long>(TOTAL_DOWNLOADS);
+-    MultipleDownloadsCompletedReceiver receiver = registerNewMultipleDownloadsReceiver();
+     // Make sure there are no pending downloads currently going on
+     removeAllCurrentDownloads();
+     try {
+@@ -12,23 +11,21 @@
+             Request request = new Request(remoteUri);
+             request.setTitle(filename);
+             dlRequest = mDownloadManager.enqueue(request);
+-            assertTrue(dlRequest != -1);
++            assertTrue("request id is -1 from download manager", dlRequest != -1);
+             downloadIds.add(dlRequest);
+         }
+         // wait 15 mins max
+-        waitForDownloadsOrTimeout(DEFAULT_WAIT_POLL_TIME, 15 * 60 * 2000);
+-        assertEquals(TOTAL_DOWNLOADS, receiver.numDownloadsCompleted());
++        assertTrue("download not finished", waitForMultipleDownloads(downloadIds, 15 * 60 * 2000));
+     } finally {
+         removeAllCurrentDownloads();
+     }
+

@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.text.Layout.getLineWidth:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets the unsigned horizontal extent of the specified line, including
+ * leading margin indent and trailing whitespace.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+     float margin = getParagraphLeadingMargin(line);
+     float signedExtent = getLineExtent(line, true);
+-    return margin + signedExtent >= 0 ? signedExtent : -signedExtent;
++    return margin + (signedExtent >= 0 ? signedExtent : -signedExtent);
+ }
+

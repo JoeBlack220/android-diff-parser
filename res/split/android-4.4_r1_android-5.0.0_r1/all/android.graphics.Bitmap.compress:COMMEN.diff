@@ -1,0 +1,31 @@
+Find a functionally equivalent code:android.graphics.Bitmap.compress:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Write a compressed version of the bitmap to the specified outputstream.
+ * If this returns true, the bitmap can be reconstructed by passing a
+ * corresponding inputstream to BitmapFactory.decodeStream(). Note: not
+ * all Formats support all bitmap configs directly, so it is possible that
+ * the returned bitmap from BitmapFactory could be in a different bitdepth,
+ * and/or may have lost per-pixel alpha (e.g. JPEG only supports opaque
+ * pixels).
+ *
+ * @param format   The format of the compressed image
+ * @param quality  Hint to the compressor, 0-100. 0 meaning compress for
+ * small size, 100 meaning compress for max quality. Some
+ * formats, like PNG which is lossless, will ignore the
+ * quality setting
+ * @param stream   The outputstream to write the compressed data.
+ * @return true if successfully compressed to the specified stream.
+ */
+
+@@ -7,11 +7,14 @@
+     if (quality < 0 || quality > 100) {
+         throw new IllegalArgumentException("quality must be 0..100");
+     }
+-    return nativeCompress(mNativeBitmap, format.nativeInt, quality, stream, new byte[WORKING_COMPRESS_STORAGE]);
++    Trace.traceBegin(Trace.TRACE_TAG_RESOURCES, "Bitmap.compress");
++    boolean result = nativeCompress(mNativeBitmap, format.nativeInt, quality, stream, new byte[WORKING_COMPRESS_STORAGE]);
++    Trace.traceEnd(Trace.TRACE_TAG_RESOURCES);
++    return result;
+ }
+

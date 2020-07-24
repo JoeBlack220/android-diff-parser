@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.graphics.Canvas.concat:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Preconcat the current matrix with the specified matrix. If the specified
+ * matrix is null, this method does nothing.
+ *
+ * @param matrix The matrix to preconcatenate with the current matrix
+ */
+
+@@ -1,4 +1,4 @@
+ {
+     if (matrix != null)
+-        native_concat(mNativeCanvas, matrix.native_instance);
++        native_concat(mNativeCanvasWrapper, matrix.native_instance);
+ }
+

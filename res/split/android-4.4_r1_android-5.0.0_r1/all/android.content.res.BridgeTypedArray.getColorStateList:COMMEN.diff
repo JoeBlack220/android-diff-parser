@@ -1,0 +1,33 @@
+Find a functionally equivalent code:android.content.res.BridgeTypedArray.getColorStateList:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the ColorStateList for the attribute at <var>index</var>.
+ * The value may be either a single solid color or a reference to
+ * a color or complex {@link android.content.res.ColorStateList} description.
+ *
+ * @param index Index of attribute to retrieve.
+ *
+ * @return ColorStateList for the attribute, or null if not defined.
+ */
+
+@@ -1,18 +1,12 @@
+ {
+-    if (index < 0 || index >= mResourceData.length) {
++    if (!hasValue(index)) {
+         return null;
+     }
+-    if (mResourceData[index] == null) {
+-        return null;
+-    }
+     ResourceValue resValue = mResourceData[index];
+     String value = resValue.getValue();
+     if (value == null) {
+         return null;
+     }
+-    if (RenderResources.REFERENCE_NULL.equals(value)) {
+-        return null;
+-    }
+     // let the framework inflate the ColorStateList from the XML file.
+     File f = new File(value);
+     if (f.isFile()) {
+

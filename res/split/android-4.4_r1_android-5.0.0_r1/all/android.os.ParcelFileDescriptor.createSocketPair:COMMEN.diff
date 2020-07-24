@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.os.ParcelFileDescriptor.createSocketPair:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Create two ParcelFileDescriptors structured as a pair of sockets
+ * connected to each other. The two sockets are indistinguishable.
+ */
+
+@@ -2,8 +2,8 @@
+     try {
+         final FileDescriptor fd0 = new FileDescriptor();
+         final FileDescriptor fd1 = new FileDescriptor();
+-        Libcore.os.socketpair(AF_UNIX, SOCK_STREAM, 0, fd0, fd1);
++        Os.socketpair(AF_UNIX, SOCK_STREAM, 0, fd0, fd1);
+         return new ParcelFileDescriptor[] { new ParcelFileDescriptor(fd0), new ParcelFileDescriptor(fd1) };
+     } catch (ErrnoException e) {
+         throw e.rethrowAsIOException();
+

@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.widget.DatePicker.setMaxDate:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the maximal date supported by this {@link DatePicker} in
+ * milliseconds since January 1, 1970 00:00:00 in
+ * {@link TimeZone#getDefault()} time zone.
+ *
+ * @param maxDate The maximal supported date.
+ */
+
+@@ -1,13 +1,3 @@
+ {
+-    mTempDate.setTimeInMillis(maxDate);
+-    if (mTempDate.get(Calendar.YEAR) == mMaxDate.get(Calendar.YEAR) && mTempDate.get(Calendar.DAY_OF_YEAR) != mMaxDate.get(Calendar.DAY_OF_YEAR)) {
+-        return;
+-    }
+-    mMaxDate.setTimeInMillis(maxDate);
+-    mCalendarView.setMaxDate(maxDate);
+-    if (mCurrentDate.after(mMaxDate)) {
+-        mCurrentDate.setTimeInMillis(mMaxDate.getTimeInMillis());
+-        updateCalendarView();
+-    }
+-    updateSpinners();
++    mDelegate.setMaxDate(maxDate);
+ }
+

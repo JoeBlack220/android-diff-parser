@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.app.Activity.onBackPressed:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Called when the activity has detected the user's press of the back
+ * key.  The default implementation simply finishes the current activity,
+ * but you can override this to do whatever you want.
+ */
+
+@@ -1,5 +1,8 @@
+ {
++    if (mActionBar != null && mActionBar.collapseActionView()) {
++        return;
++    }
+     if (!mFragments.popBackStackImmediate()) {
+-        finish();
++        finishAfterTransition();
+     }
+ }
+

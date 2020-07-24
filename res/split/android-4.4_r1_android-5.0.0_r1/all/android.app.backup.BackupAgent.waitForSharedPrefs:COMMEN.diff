@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.app.backup.BackupAgent.waitForSharedPrefs:COMMENT
+Method Modifier: private     
+Comment:// Syncing shared preferences deferred writes needs to happen on the main looper thread
+
+@@ -1,9 +1,7 @@
+ {
+-    if (mHandler == null) {
+-        mHandler = new Handler(Looper.getMainLooper());
+-    }
++    Handler h = getHandler();
+     final SharedPrefsSynchronizer s = new SharedPrefsSynchronizer();
+-    mHandler.postAtFrontOfQueue(s);
++    h.postAtFrontOfQueue(s);
+     try {
+         s.mLatch.await();
+     } catch (InterruptedException e) {
+

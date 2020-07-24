@@ -1,0 +1,11 @@
+Find a functionally equivalent code:android.media.AudioService.sendMasterMuteUpdate:COMMENT
+Method Modifier: private     
+Comment:// UI update and Broadcast Intent
+
+@@ -1,4 +1,4 @@
+ {
+-    mVolumePanel.postMasterMuteChanged(flags);
++    mVolumeController.postMasterMuteChanged(flags);
+     broadcastMasterMuteStatus(muted);
+ }
+

@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.preference.PreferenceFragment.setPreferenceScreen:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the root of the preference hierarchy that this fragment is showing.
+ *
+ * @param preferenceScreen The root {@link PreferenceScreen} of the preference hierarchy.
+ */
+
+@@ -1,5 +1,6 @@
+ {
+     if (mPreferenceManager.setPreferences(preferenceScreen) && preferenceScreen != null) {
++        onUnbindPreferences();
+         mHavePrefs = true;
+         if (mInitDone) {
+             postBindPreferences();
+

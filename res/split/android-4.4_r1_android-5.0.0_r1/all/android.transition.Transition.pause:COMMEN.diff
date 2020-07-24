@@ -1,0 +1,30 @@
+Find a functionally equivalent code:android.transition.Transition.pause:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * Pauses this transition, sending out calls to {@link
+ * TransitionListener#onTransitionPause(Transition)} to all listeners
+ * and pausing all running animators started by this transition.
+ *
+ * @hide
+ */
+
+@@ -2,10 +2,16 @@
+     if (!mEnded) {
+         ArrayMap<Animator, AnimationInfo> runningAnimators = getRunningAnimators();
+         int numOldAnims = runningAnimators.size();
+-        for (int i = numOldAnims - 1; i >= 0; i--) {
+-            Animator anim = runningAnimators.keyAt(i);
+-            anim.pause();
++        if (sceneRoot != null) {
++            WindowId windowId = sceneRoot.getWindowId();
++            for (int i = numOldAnims - 1; i >= 0; i--) {
++                AnimationInfo info = runningAnimators.valueAt(i);
++                if (info.view != null && windowId != null && windowId.equals(info.windowId)) {
++                    Animator anim = runningAnimators.keyAt(i);
++                    anim.pause();
++                }
++            }
+         }
+         if (mListeners != null && mListeners.size() > 0) {
+             ArrayList<TransitionListener> tmpListeners = (ArrayList<TransitionListener>) mListeners.clone();
+

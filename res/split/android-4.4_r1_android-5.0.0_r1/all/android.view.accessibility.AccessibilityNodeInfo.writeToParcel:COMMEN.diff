@@ -1,0 +1,84 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityNodeInfo.writeToParcel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ * <p>
+ * <strong>Note:</strong> After the instance is written to a parcel it
+ * is recycled. You must not touch the object after calling this function.
+ * </p>
+ */
+
+@@ -6,16 +6,20 @@
+     parcel.writeLong(mLabelForId);
+     parcel.writeLong(mLabeledById);
+     parcel.writeInt(mConnectionId);
+-    SparseLongArray childIds = mChildNodeIds;
+-    final int childIdsSize = childIds.size();
+-    parcel.writeInt(childIdsSize);
+-    for (int i = 0; i < childIdsSize; i++) {
+-        parcel.writeLong(childIds.valueAt(i));
++    final LongArray childIds = mChildNodeIds;
++    if (childIds == null) {
++        parcel.writeInt(0);
++    } else {
++        final int childIdsSize = childIds.size();
++        parcel.writeInt(childIdsSize);
++        for (int i = 0; i < childIdsSize; i++) {
++            parcel.writeLong(childIds.get(i));
++        }
+     }
+     parcel.writeInt(mBoundsInParent.top);
+     parcel.writeInt(mBoundsInParent.bottom);
+@@ -20,31 +24,57 @@
+     parcel.writeInt(mBoundsInScreen.bottom);
+     parcel.writeInt(mBoundsInScreen.left);
+     parcel.writeInt(mBoundsInScreen.right);
+-    parcel.writeInt(mActions);
++    if (mActions != null && !mActions.isEmpty()) {
++        final int actionCount = mActions.size();
++        parcel.writeInt(actionCount);
++        int defaultLegacyStandardActions = 0;
++        for (int i = 0; i < actionCount; i++) {
++            AccessibilityAction action = mActions.get(i);
++            if (isDefaultLegacyStandardAction(action)) {
++                defaultLegacyStandardActions |= action.getId();
++            }
++        }
++        parcel.writeInt(defaultLegacyStandardActions);
++        for (int i = 0; i < actionCount; i++) {
++            AccessibilityAction action = mActions.get(i);
++            if (!isDefaultLegacyStandardAction(action)) {
++                parcel.writeInt(action.getId());
++                parcel.writeCharSequence(action.getLabel());
++            }
++        }
++    } else {
++        parcel.writeInt(0);
++    }
++    parcel.writeInt(mMaxTextLength);
+     parcel.writeInt(mMovementGranularities);
+     parcel.writeInt(mBooleanProperties);
+     parcel.writeCharSequence(mPackageName);
+     parcel.writeCharSequence(mClassName);
+     parcel.writeCharSequence(mText);
++    parcel.writeCharSequence(mError);
+     parcel.writeCharSequence(mContentDescription);
+     parcel.writeString(mViewIdResourceName);
+     parcel.writeInt(mTextSelectionStart);
+@@ -52,57 +78,84 @@
+         parcel.writeInt(mCollectionInfo.getRowCount());
+         parcel.writeInt(mCollectionInfo.getColumnCount());
+         parcel.writeInt(mCollectionInfo.isHierarchical() ? 1 : 0);
++        parcel.writeInt(mCollectionInfo.getSelectionMode());
+     } else {
+         parcel.writeInt(0);
+     }
+@@ -62,67 +89,95 @@
+         parcel.writeInt(mCollectionItemInfo.getRowIndex());
+         parcel.writeInt(mCollectionItemInfo.getRowSpan());
+         parcel.writeInt(mCollectionItemInfo.isHeading() ? 1 : 0);
++        parcel.writeInt(mCollectionItemInfo.isSelected() ? 1 : 0);
+     } else {
+         parcel.writeInt(0);
+     }
+

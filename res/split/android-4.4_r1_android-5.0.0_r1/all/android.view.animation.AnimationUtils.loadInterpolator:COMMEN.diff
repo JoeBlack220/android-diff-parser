@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.view.animation.AnimationUtils.loadInterpolator:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Loads an {@link Interpolator} object from a resource
+ *
+ * @param context Application context used to access resources
+ * @param id The resource id of the animation to load
+ * @return The animation object reference by the specified id
+ * @throws NotFoundException
+ */
+
+@@ -2,8 +2,8 @@
+     XmlResourceParser parser = null;
+     try {
+         parser = context.getResources().getAnimation(id);
+-        return createInterpolatorFromXml(context, parser);
++        return createInterpolatorFromXml(context.getResources(), context.getTheme(), parser);
+     } catch (XmlPullParserException ex) {
+         NotFoundException rnf = new NotFoundException("Can't load animation resource ID #0x" + Integer.toHexString(id));
+         rnf.initCause(ex);
+

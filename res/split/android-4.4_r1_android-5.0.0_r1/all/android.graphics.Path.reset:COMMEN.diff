@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.graphics.Path.reset:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Clear any lines and curves from the path, making it empty.
+ * This does NOT change the fill-type setting.
+ */
+
+@@ -1,10 +1,8 @@
+ {
+     isSimplePath = true;
+-    if (mDetectSimplePaths) {
+-        mLastDirection = null;
+-        if (rects != null)
+-            rects.setEmpty();
+-    }
++    mLastDirection = null;
++    if (rects != null)
++        rects.setEmpty();
+     // We promised not to change this, so preserve it around the native
+     // call, which does now reset fill type.
+     final FillType fillType = getFillType();
+

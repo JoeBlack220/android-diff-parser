@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.widget.TextView.setTextAppearance:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the text color, size, style, hint color, and highlight color
+ * from the specified TextAppearance resource.
+ */
+
+@@ -39,43 +39,52 @@
+     if (appearance.getBoolean(com.android.internal.R.styleable.TextAppearance_textAllCaps, false)) {
+         setTransformationMethod(new AllCapsTransformationMethod(getContext()));
+     }
++    if (appearance.hasValue(com.android.internal.R.styleable.TextAppearance_elegantTextHeight)) {
++        setElegantTextHeight(appearance.getBoolean(com.android.internal.R.styleable.TextAppearance_elegantTextHeight, false));
++    }
++    if (appearance.hasValue(com.android.internal.R.styleable.TextAppearance_letterSpacing)) {
++        setLetterSpacing(appearance.getFloat(com.android.internal.R.styleable.TextAppearance_letterSpacing, 0));
++    }
++    if (appearance.hasValue(com.android.internal.R.styleable.TextAppearance_fontFeatureSettings)) {
++        setFontFeatureSettings(appearance.getString(com.android.internal.R.styleable.TextAppearance_fontFeatureSettings));
++    }
+     appearance.recycle();
+ }
+

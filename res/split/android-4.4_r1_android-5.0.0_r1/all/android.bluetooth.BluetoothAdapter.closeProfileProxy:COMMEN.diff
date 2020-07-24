@@ -1,0 +1,40 @@
+Find a functionally equivalent code:android.bluetooth.BluetoothAdapter.closeProfileProxy:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Close the connection of the profile proxy to the Service.
+ *
+ * <p> Clients should call this when they are no longer using
+ * the proxy obtained from {@link #getProfileProxy}.
+ * Profile can be one of  {@link BluetoothProfile#HEALTH}, {@link BluetoothProfile#HEADSET} or
+ * {@link BluetoothProfile#A2DP}
+ *
+ * @param profile
+ * @param proxy Profile proxy object
+ */
+
+@@ -10,15 +10,23 @@
+             BluetoothA2dp a2dp = (BluetoothA2dp) proxy;
+             a2dp.close();
+             break;
++        case BluetoothProfile.A2DP_SINK:
++            BluetoothA2dpSink a2dpSink = (BluetoothA2dpSink) proxy;
++            a2dpSink.close();
++            break;
++        case BluetoothProfile.AVRCP_CONTROLLER:
++            BluetoothAvrcpController avrcp = (BluetoothAvrcpController) proxy;
++            avrcp.close();
++            break;
+         case BluetoothProfile.INPUT_DEVICE:
+             BluetoothInputDevice iDev = (BluetoothInputDevice) proxy;
+             iDev.close();
+@@ -34,38 +42,50 @@
+             BluetoothMap map = (BluetoothMap) proxy;
+             map.close();
+             break;
++        case BluetoothProfile.HEADSET_CLIENT:
++            BluetoothHeadsetClient headsetClient = (BluetoothHeadsetClient) proxy;
++            headsetClient.close();
++            break;
+     }
+ }
+

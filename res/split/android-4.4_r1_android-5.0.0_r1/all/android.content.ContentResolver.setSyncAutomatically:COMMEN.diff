@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.content.ContentResolver.setSyncAutomatically:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Set whether or not the provider is synced when it receives a network tickle.
+ * <p>This method requires the caller to hold the permission
+ * {@link android.Manifest.permission#WRITE_SYNC_SETTINGS}.
+ *
+ * @param account the account whose setting we are querying
+ * @param authority the provider whose behavior is being controlled
+ * @param sync true if the provider should be synced when tickles are received for it
+ */
+
+@@ -1,8 +1,3 @@
+ {
+-    try {
+-        getContentService().setSyncAutomatically(account, authority, sync);
+-    } catch (RemoteException e) {
+-    // exception ignored; if this is thrown then it means the runtime is in the midst of
+-    // being restarted
+-    }
++    setSyncAutomaticallyAsUser(account, authority, sync, UserHandle.myUserId());
+ }
+

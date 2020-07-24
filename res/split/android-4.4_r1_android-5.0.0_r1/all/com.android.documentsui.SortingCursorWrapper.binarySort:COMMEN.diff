@@ -1,0 +1,8 @@
+Find a functionally equivalent code:com.android.documentsui.SortingCursorWrapper.binarySort:COMMENT
+Method Modifier: private     static      
+Comment:/**
+ * Borrowed from TimSort.binarySort(), but modified to sort two column
+ * dataset.
+ */
+
+

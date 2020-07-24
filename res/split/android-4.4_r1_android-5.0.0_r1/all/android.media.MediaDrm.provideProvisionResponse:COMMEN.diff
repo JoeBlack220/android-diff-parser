@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.MediaDrm.provideProvisionResponse:COMMENT
+<android.media.MediaDrm: void provideProvisionResponse(byte[])>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+Comment:/**
+ * After a provision response is received by the app, it is provided to the DRM
+ * engine plugin using this method.
+ *
+ * @param response the opaque provisioning response byte array to provide to the
+ * DRM engine plugin.
+ *
+ * @throws DeniedByServerException if the response indicates that the
+ * server rejected the request
+ */
+
+@@ -1 +1,3 @@
+-
++{
++    provideProvisionResponseNative(response);
++}
+

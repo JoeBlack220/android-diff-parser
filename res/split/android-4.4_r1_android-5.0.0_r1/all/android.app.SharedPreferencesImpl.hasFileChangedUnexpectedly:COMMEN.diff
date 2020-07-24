@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.app.SharedPreferencesImpl.hasFileChangedUnexpectedly:COMMENT
+Method Modifier: private     
+Comment:// we didn't instigate.
+
+@@ -14,20 +14,20 @@
+              * violation, but we explicitly want this one.
+              */
+         BlockGuard.getThreadPolicy().onReadFromDisk();
+-        stat = Libcore.os.stat(mFile.getPath());
++        stat = Os.stat(mFile.getPath());
+     } catch (ErrnoException e) {
+         return true;
+     }
+

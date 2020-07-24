@@ -1,0 +1,24 @@
+Find a functionally equivalent code:com.android.internal.os.ZygoteInit.registerZygoteSocket:COMMENT
+Method Modifier: private     static      internal    
+Comment:/**
+ * Registers a server socket for zygote command connections
+ *
+ * @throws RuntimeException when open fails
+ */
+
+@@ -1,11 +1,12 @@
+ {
+     if (sServerSocket == null) {
+         int fileDesc;
++        final String fullSocketName = ANDROID_SOCKET_PREFIX + socketName;
+         try {
+-            String env = System.getenv(ANDROID_SOCKET_ENV);
++            String env = System.getenv(fullSocketName);
+             fileDesc = Integer.parseInt(env);
+         } catch (RuntimeException ex) {
+-            throw new RuntimeException(ANDROID_SOCKET_ENV + " unset or invalid", ex);
++            throw new RuntimeException(fullSocketName + " unset or invalid", ex);
+         }
+         try {
+             sServerSocket = new LocalServerSocket(createFileDescriptor(fileDesc));
+

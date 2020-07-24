@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.content.res.BridgeTypedArray.getText:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the styled string value for the attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ *
+ * @return CharSequence holding string data.  May be styled.  Returns
+ * null if the attribute is not defined.
+ */
+
+@@ -1,10 +1,4 @@
+ {
+-    if (index < 0 || index >= mResourceData.length) {
+-        return null;
+-    }
+-    if (mResourceData[index] != null) {
+-        // FIXME: handle styled strings!
+-        return mResourceData[index].getValue();
+-    }
+-    return null;
++    // FIXME: handle styled strings!
++    return getString(index);
+ }
+

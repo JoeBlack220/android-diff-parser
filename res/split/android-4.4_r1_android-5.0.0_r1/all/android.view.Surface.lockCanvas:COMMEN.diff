@@ -1,0 +1,31 @@
+Find a functionally equivalent code:android.view.Surface.lockCanvas:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets a {@link Canvas} for drawing into this surface.
+ *
+ * After drawing into the provided {@link Canvas}, the caller must
+ * invoke {@link #unlockCanvasAndPost} to post the new contents to the surface.
+ *
+ * @param inOutDirty A rectangle that represents the dirty region that the caller wants
+ * to redraw.  This function may choose to expand the dirty rectangle if for example
+ * the surface has been resized or if the previous contents of the surface were
+ * not available.  The caller must redraw the entire dirty region as represented
+ * by the contents of the inOutDirty rectangle upon return from this function.
+ * The caller may also pass <code>null</code> instead, in the case where the
+ * entire surface should be redrawn.
+ * @return A canvas for drawing into the surface.
+ *
+ * @throws IllegalArgumentException If the inOutDirty rectangle is not valid.
+ * @throws OutOfResourcesException If the canvas cannot be locked.
+ */
+
+@@ -3,9 +3,9 @@
+         checkNotReleasedLocked();
+         if (mLockedObject != 0) {
+             // we just refuse to re-lock the Surface.
+-            throw new IllegalStateException("Surface was already locked");
++            throw new IllegalArgumentException("Surface was already locked");
+         }
+         mLockedObject = nativeLockCanvas(mNativeObject, mCanvas, inOutDirty);
+         return mCanvas;
+

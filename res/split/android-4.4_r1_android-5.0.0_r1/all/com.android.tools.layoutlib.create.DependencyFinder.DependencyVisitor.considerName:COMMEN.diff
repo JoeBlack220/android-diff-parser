@@ -1,0 +1,16 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.DependencyFinder.DependencyVisitor.considerName:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Considers the given class name as a dependency.
+ */
+
+@@ -13,19 +13,17 @@
+     }
+     // Add it to the dependency set for the currently visited class, as needed.
+     assert mCurrentDepSet != null;
+-    if (mCurrentDepSet != null) {
+-        mCurrentDepSet.add(className);
+-    }
++    mCurrentDepSet.add(className);
+ }
+

@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.media.MediaRouter.UserRouteInfo.setVolume:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Defines at what volume the playback associated with this route is performed (for user
+ * feedback purposes). This information is only used when the playback is not local.
+ * @param volume
+ */
+
+@@ -2,8 +2,10 @@
+     volume = Math.max(0, Math.min(volume, getVolumeMax()));
+     if (mVolume != volume) {
+         mVolume = volume;
+-        setPlaybackInfoOnRcc(RemoteControlClient.PLAYBACKINFO_VOLUME, volume);
++        if (mSvp != null) {
++            mSvp.setCurrentVolume(mVolume);
++        }
+         dispatchRouteVolumeChanged(this);
+         if (mGroup != null) {
+             mGroup.memberVolumeChanged(this);
+

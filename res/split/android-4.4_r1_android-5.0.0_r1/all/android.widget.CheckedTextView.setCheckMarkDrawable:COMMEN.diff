@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.widget.CheckedTextView.setCheckMarkDrawable:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the checkmark to a given Drawable. This will be drawn when {@link #isChecked()} is true.
+ *
+ * @param d The Drawable to use for the checkmark.
+ *
+ * @see #setCheckMarkDrawable(int)
+ * @see #getCheckMarkDrawable()
+ *
+ * @attr ref android.R.styleable#CheckedTextView_checkMark
+ */
+
+@@ -11,20 +11,22 @@
+         setMinHeight(d.getIntrinsicHeight());
+         mCheckMarkWidth = d.getIntrinsicWidth();
+         d.setState(getDrawableState());
++        applyCheckMarkTint();
+     } else {
+         mCheckMarkWidth = 0;
+     }
+     mCheckMarkDrawable = d;
+-    // Do padding resolution. This will call internalSetPadding() and do a requestLayout() if needed.
++    // Do padding resolution. This will call internalSetPadding() and do a
++    // requestLayout() if needed.
+     resolvePadding();
+ }
+

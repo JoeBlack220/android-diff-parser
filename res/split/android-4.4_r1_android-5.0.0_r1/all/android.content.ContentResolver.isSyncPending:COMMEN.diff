@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.content.ContentResolver.isSyncPending:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Return true if the pending status is true of any matching authorities.
+ * <p>This method requires the caller to hold the permission
+ * {@link android.Manifest.permission#READ_SYNC_STATS}.
+ * @param account the account whose setting we are querying
+ * @param authority the provider whose behavior is being queried
+ * @return true if there is a pending sync with the matching account and authority
+ */
+
+@@ -1,7 +1,3 @@
+ {
+-    try {
+-        return getContentService().isSyncPending(account, authority);
+-    } catch (RemoteException e) {
+-        throw new RuntimeException("the ContentService should always be reachable", e);
+-    }
++    return isSyncPendingAsUser(account, authority, UserHandle.myUserId());
+ }
+

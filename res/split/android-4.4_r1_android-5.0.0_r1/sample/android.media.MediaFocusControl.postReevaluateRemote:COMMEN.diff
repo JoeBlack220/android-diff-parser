@@ -1,0 +1,12 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.postReevaluateRemote:COMMENT
+<android.media.MediaFocusControl: void postReevaluateRemote()>
+Method Modifier: protected   private     
+Method Modifier: No          Yes         
+Method Updated:  Yes         No          
+Comment:/**
+ * Call to make AudioService reevaluate whether it's in a mode where remote players should
+ * have their volume controlled. In this implementation this is only to reset whether
+ * VolumePanel should display remote volumes
+ */
+
+

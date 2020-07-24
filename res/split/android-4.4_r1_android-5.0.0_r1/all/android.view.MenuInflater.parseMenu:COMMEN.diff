@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.view.MenuInflater.parseMenu:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Called internally to fill the given menu. If a sub menu is seen, it will
+ * call this recursively.
+ */
+
+@@ -32,37 +32,38 @@
+                 } else if (tagName.equals(XML_MENU)) {
+                     // A menu start tag denotes a submenu for an item
+                     SubMenu subMenu = menuState.addSubMenuItem();
++                    registerMenu(subMenu, attrs);
+                     // Parse the submenu into returned SubMenu
+                     parseMenu(parser, attrs, subMenu);
+                 } else {
+@@ -50,58 +51,59 @@
+                     // a submenu, it would have been added already)
+                     if (!menuState.hasAddedItem()) {
+                         if (menuState.itemActionProvider != null && menuState.itemActionProvider.hasSubMenu()) {
+-                            menuState.addSubMenuItem();
++                            registerMenu(menuState.addSubMenuItem(), attrs);
+                         } else {
+-                            menuState.addItem();
++                            registerMenu(menuState.addItem(), attrs);
+                         }
+                     }
+                 } else if (tagName.equals(XML_MENU)) {
+

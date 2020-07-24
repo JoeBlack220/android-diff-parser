@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.media.AudioService.setStreamMute:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @see AudioManager#setStreamMute(int, boolean)
+ */
+
+@@ -3,8 +3,19 @@
+         return;
+     }
+     if (isStreamAffectedByMute(streamType)) {
++        if (mHdmiManager != null) {
++            synchronized (mHdmiManager) {
++                if (streamType == AudioSystem.STREAM_MUSIC && mHdmiTvClient != null) {
++                    synchronized (mHdmiTvClient) {
++                        if (mHdmiSystemAudioSupported) {
++                            mHdmiTvClient.setSystemAudioMute(state);
++                        }
++                    }
++                }
++            }
++        }
+         mStreamStates[streamType].mute(cb, state);
+     }
+ }
+

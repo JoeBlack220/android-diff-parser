@@ -1,0 +1,46 @@
+Find a functionally equivalent code:android.view.ViewRootImpl.setView:COMMENT
+Method Modifier: public      
+Comment:/**
+ * We have one child
+ */
+
+@@ -2,7 +2,9 @@
+     synchronized (this) {
+         if (mView == null) {
+             mView = view;
++            mAttachInfo.mDisplayState = mDisplay.getState();
++            mDisplayManager.registerDisplayListener(mDisplayListener, mHandler);
+             mViewLayoutDirectionInitial = mView.getRawLayoutDirection();
+             mFallbackEventHandler.setView(view);
+             mWindowAttributes.copyFrom(attrs);
+@@ -19,24 +21,30 @@
+                     mSurfaceHolder.setFormat(PixelFormat.UNKNOWN);
+                 }
+             }
++            // Compute surface insets required to draw at specified Z value.
++            // TODO: Use real shadow insets for a constant max Z.
++            final int surfaceInset = (int) Math.ceil(view.getZ() * 2);
++            attrs.surfaceInsets.set(surfaceInset, surfaceInset, surfaceInset, surfaceInset);
+             CompatibilityInfo compatibilityInfo = mDisplayAdjustments.getCompatibilityInfo();
+             mTranslator = compatibilityInfo.getTranslator();
+             mDisplayAdjustments.setActivityToken(attrs.token);
+@@ -82,87 +88,94 @@
+             }
+             mPendingOverscanInsets.set(0, 0, 0, 0);
+             mPendingContentInsets.set(mAttachInfo.mContentInsets);
++            mPendingStableInsets.set(mAttachInfo.mStableInsets);
+             mPendingVisibleInsets.set(0, 0, 0, 0);
+             if (DEBUG_LAYOUT)
+                 Log.v(TAG, "Added window " + mWindow);
+@@ -134,141 +141,148 @@
+             }
+             // Set up the input pipeline.
+             CharSequence counterSuffix = attrs.getTitle();
+-            InputStage syntheticInputStage = new SyntheticInputStage();
+-            InputStage viewPostImeStage = new ViewPostImeInputStage(syntheticInputStage);
++            mSyntheticInputStage = new SyntheticInputStage();
++            InputStage viewPostImeStage = new ViewPostImeInputStage(mSyntheticInputStage);
+             InputStage nativePostImeStage = new NativePostImeInputStage(viewPostImeStage, "aq:native-post-ime:" + counterSuffix);
+             InputStage earlyPostImeStage = new EarlyPostImeInputStage(nativePostImeStage);
+             InputStage imeStage = new ImeInputStage(earlyPostImeStage, "aq:ime:" + counterSuffix);
+

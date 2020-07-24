@@ -1,0 +1,23 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.impl.RenderSessionImpl.insertChild:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Insert a new child into an existing parent.
+ * <p>
+ * {@link #acquire(long)} must have been called before this.
+ *
+ * @throws IllegalStateException if the current context is different than the one owned by
+ * the scene, or if {@link #acquire(long)} was not called.
+ *
+ * @see RenderSession#insertChild(Object, ILayoutPullParser, int, IAnimationListener)
+ */
+
+@@ -28,34 +28,34 @@
+     }
+     // add it to the parentView in the correct location
+     Result result = addView(parentView, child, index);
+-    if (result.isSuccess() == false) {
++    if (!result.isSuccess()) {
+         return result;
+     }
+     result = render(false);
+

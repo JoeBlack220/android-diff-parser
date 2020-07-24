@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.view.ViewGroup.invalidateChildInParent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Don't call or override this method. It is used for the implementation of
+ * the view hierarchy.
+ *
+ * This implementation returns null if this ViewGroup does not have a parent,
+ * if this ViewGroup is already fully invalidated or if the dirty rectangle
+ * does not intersect with this ViewGroup's bounds.
+ */
+
+@@ -17,23 +17,22 @@
+             location[CHILD_TOP_INDEX] = top;
+             if (mLayerType != LAYER_TYPE_NONE) {
+                 mPrivateFlags |= PFLAG_INVALIDATED;
+-                mLocalDirtyRect.union(dirty);
+             }
+             return mParent;
+         } else {
+@@ -32,38 +31,36 @@
+             }
+             if (mLayerType != LAYER_TYPE_NONE) {
+                 mPrivateFlags |= PFLAG_INVALIDATED;
+-                mLocalDirtyRect.union(dirty);
+             }
+             return mParent;
+         }
+

@@ -1,0 +1,110 @@
+Find a functionally equivalent code:android.content.Intent.toShortString:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,5 +1,99 @@
+ {
+-    StringBuilder b = new StringBuilder(128);
+-    toShortString(b, secure, comp, extras, clip);
+-    return b.toString();
++    boolean first = true;
++    if (mAction != null) {
++        b.append("act=").append(mAction);
++        first = false;
++    }
++    if (mCategories != null) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        b.append("cat=[");
++        for (int i = 0; i < mCategories.size(); i++) {
++            if (i > 0)
++                b.append(',');
++            b.append(mCategories.valueAt(i));
++        }
++        b.append("]");
++    }
++    if (mData != null) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        b.append("dat=");
++        if (secure) {
++            b.append(mData.toSafeString());
++        } else {
++            b.append(mData);
++        }
++    }
++    if (mType != null) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        b.append("typ=").append(mType);
++    }
++    if (mFlags != 0) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        b.append("flg=0x").append(Integer.toHexString(mFlags));
++    }
++    if (mPackage != null) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        b.append("pkg=").append(mPackage);
++    }
++    if (comp && mComponent != null) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        b.append("cmp=").append(mComponent.flattenToShortString());
++    }
++    if (mSourceBounds != null) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        b.append("bnds=").append(mSourceBounds.toShortString());
++    }
++    if (mClipData != null) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        if (clip) {
++            b.append("clip={");
++            mClipData.toShortString(b);
++            b.append('}');
++        } else {
++            b.append("(has clip)");
++        }
++    }
++    if (extras && mExtras != null) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        b.append("(has extras)");
++    }
++    if (mContentUserHint != UserHandle.USER_CURRENT) {
++        if (!first) {
++            b.append(' ');
++        }
++        first = false;
++        b.append("u=").append(mContentUserHint);
++    }
++    if (mSelector != null) {
++        b.append(" sel=");
++        mSelector.toShortString(b, secure, comp, extras, clip);
++        b.append("}");
++    }
+ }
+

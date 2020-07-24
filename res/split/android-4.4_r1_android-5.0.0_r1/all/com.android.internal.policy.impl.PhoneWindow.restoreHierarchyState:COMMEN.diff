@@ -1,0 +1,21 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindow.restoreHierarchyState:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -21,30 +21,31 @@
+     if (panelStates != null) {
+         restorePanelState(panelStates);
+     }
+-    if (mActionBar != null) {
++    if (mDecorContentParent != null) {
+         SparseArray<Parcelable> actionBarStates = savedInstanceState.getSparseParcelableArray(ACTION_BAR_TAG);
+         if (actionBarStates != null) {
+-            mActionBar.restoreHierarchyState(actionBarStates);
++            doPendingInvalidatePanelMenu();
++            mDecorContentParent.restoreToolbarHierarchyState(actionBarStates);
+         } else {
+             Log.w(TAG, "Missing saved instance states for action bar views! " + "State will not be restored.");
+         }
+

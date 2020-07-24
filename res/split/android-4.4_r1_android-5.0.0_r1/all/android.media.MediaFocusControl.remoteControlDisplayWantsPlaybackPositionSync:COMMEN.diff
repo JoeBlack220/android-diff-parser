@@ -1,0 +1,47 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.remoteControlDisplayWantsPlaybackPositionSync:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Controls whether a remote control display needs periodic checks of the RemoteControlClient
+ * playback position to verify that the estimated position has not drifted from the actual
+ * position. By default the check is not performed.
+ * The IRemoteControlDisplay must have been previously registered for this to have any effect.
+ * @param rcd the IRemoteControlDisplay for which the anti-drift mechanism will be enabled
+ * or disabled. Not null.
+ * @param wantsSync if true, RemoteControlClient instances which expose their playback position
+ * to the framework will regularly compare the estimated playback position with the actual
+ * position, and will update the IRemoteControlDisplay implementation whenever a drift is
+ * detected.
+ */
+
+@@ -1,11 +1,11 @@
+ {
+-    synchronized (mRCStack) {
++    synchronized (mPRStack) {
+         boolean rcdRegistered = false;
+         // store the information about this display
+         // (display stack traversal order doesn't matter).
+         final Iterator<DisplayInfoForServer> displayIterator = mRcDisplays.iterator();
+         while (displayIterator.hasNext()) {
+-            final DisplayInfoForServer di = (DisplayInfoForServer) displayIterator.next();
++            final DisplayInfoForServer di = displayIterator.next();
+             if (di.mRcDisplay.asBinder().equals(rcd.asBinder())) {
+                 di.mWantsPositionSync = wantsSync;
+                 rcdRegistered = true;
+@@ -17,28 +17,28 @@
+         }
+         // notify all current RemoteControlClients
+         // (stack traversal order doesn't matter as we notify all RCCs)
+-        final Iterator<RemoteControlStackEntry> stackIterator = mRCStack.iterator();
++        final Iterator<PlayerRecord> stackIterator = mPRStack.iterator();
+         while (stackIterator.hasNext()) {
+-            final RemoteControlStackEntry rcse = stackIterator.next();
+-            if (rcse.mRcClient != null) {
++            final PlayerRecord prse = stackIterator.next();
++            if (prse.getRcc() != null) {
+                 try {
+-                    rcse.mRcClient.setWantsSyncForDisplay(rcd, wantsSync);
++                    prse.getRcc().setWantsSyncForDisplay(rcd, wantsSync);
+                 } catch (RemoteException e) {
+                     Log.e(TAG, "Error setting position sync flag for RCD on RCC: ", e);
+                 }
+

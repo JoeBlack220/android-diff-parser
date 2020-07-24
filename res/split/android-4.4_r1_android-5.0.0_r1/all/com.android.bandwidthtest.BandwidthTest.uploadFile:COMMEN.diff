@@ -1,0 +1,19 @@
+Find a functionally equivalent code:com.android.bandwidthtest.BandwidthTest.uploadFile:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Helper method that downloads a test file to upload. The stats reported to instrumentation out
+ * only include upload stats.
+ */
+
+@@ -18,25 +18,25 @@
+     results.putString("device_id", mDeviceId);
+     results.putString("timestamp", ts);
+     results.putInt("size", FILE_SIZE);
+-    AddStatsToResults(PROF_LABEL, prof_stats, results);
+-    AddStatsToResults(PROC_LABEL, proc_stats, results);
++    addStatsToResults(PROF_LABEL, prof_stats, results, mUid);
++    addStatsToResults(PROC_LABEL, proc_stats, results, mUid);
+     getInstrumentation().sendStatus(INSTRUMENTATION_IN_PROGRESS, results);
+     // Clean up.
+     assertTrue(cleanUpFile(tmpSaveFile));
+

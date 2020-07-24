@@ -1,0 +1,25 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.ConnectivityManagerTestBase.connectToWifi:COMMENT
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean connectToWifi(String)>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+Comment:/**
+ * Associate the device to given SSID
+ * If the device is already associated with a WiFi, disconnect and forget it,
+ * We don't verify whether the connection is successful or not, leave this to the test
+ */
+
+@@ -1,6 +1,9 @@
+ {
+-    WifiConfiguration config = new WifiConfiguration();
+-    config.SSID = knownSSID;
+-    config.allowedKeyManagement.set(KeyMgmt.NONE);
++    WifiConfiguration config;
++    if (password == null) {
++        config = WifiConfigurationHelper.createOpenConfig(ssid);
++    } else {
++        config = WifiConfigurationHelper.createPskConfig(ssid, password);
++    }
+     return connectToWifiWithConfiguration(config);
+ }
+

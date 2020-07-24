@@ -1,0 +1,66 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityNodeInfo.initFromParcel:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Creates a new instance from a {@link Parcel}.
+ *
+ * @param parcel A parcel containing the state of a {@link AccessibilityNodeInfo}.
+ */
+
+@@ -6,16 +6,20 @@
+     mLabelForId = parcel.readLong();
+     mLabeledById = parcel.readLong();
+     mConnectionId = parcel.readInt();
+-    SparseLongArray childIds = mChildNodeIds;
+     final int childrenSize = parcel.readInt();
+-    for (int i = 0; i < childrenSize; i++) {
+-        final long childId = parcel.readLong();
+-        childIds.put(i, childId);
++    if (childrenSize <= 0) {
++        mChildNodeIds = null;
++    } else {
++        mChildNodeIds = new LongArray(childrenSize);
++        for (int i = 0; i < childrenSize; i++) {
++            final long childId = parcel.readLong();
++            mChildNodeIds.add(childId);
++        }
+     }
+     mBoundsInParent.top = parcel.readInt();
+     mBoundsInParent.bottom = parcel.readInt();
+@@ -20,31 +24,46 @@
+     mBoundsInScreen.bottom = parcel.readInt();
+     mBoundsInScreen.left = parcel.readInt();
+     mBoundsInScreen.right = parcel.readInt();
+-    mActions = parcel.readInt();
++    final int actionCount = parcel.readInt();
++    if (actionCount > 0) {
++        final int legacyStandardActions = parcel.readInt();
++        addLegacyStandardActions(legacyStandardActions);
++        final int nonLegacyActionCount = actionCount - Integer.bitCount(legacyStandardActions);
++        for (int i = 0; i < nonLegacyActionCount; i++) {
++            AccessibilityAction action = new AccessibilityAction(parcel.readInt(), parcel.readCharSequence());
++            addAction(action);
++        }
++    }
++    mMaxTextLength = parcel.readInt();
+     mMovementGranularities = parcel.readInt();
+     mBooleanProperties = parcel.readInt();
+     mPackageName = parcel.readCharSequence();
+     mClassName = parcel.readCharSequence();
+     mText = parcel.readCharSequence();
++    mError = parcel.readCharSequence();
+     mContentDescription = parcel.readCharSequence();
+     mViewIdResourceName = parcel.readString();
+     mTextSelectionStart = parcel.readInt();
+@@ -39,47 +54,62 @@
+         mRangeInfo = RangeInfo.obtain(parcel.readInt(), parcel.readFloat(), parcel.readFloat(), parcel.readFloat());
+     }
+     if (parcel.readInt() == 1) {
+-        mCollectionInfo = CollectionInfo.obtain(parcel.readInt(), parcel.readInt(), parcel.readInt() == 1);
++        mCollectionInfo = CollectionInfo.obtain(parcel.readInt(), parcel.readInt(), parcel.readInt() == 1, parcel.readInt());
+     }
+     if (parcel.readInt() == 1) {
+-        mCollectionItemInfo = CollectionItemInfo.obtain(parcel.readInt(), parcel.readInt(), parcel.readInt(), parcel.readInt(), parcel.readInt() == 1);
++        mCollectionItemInfo = CollectionItemInfo.obtain(parcel.readInt(), parcel.readInt(), parcel.readInt(), parcel.readInt(), parcel.readInt() == 1, parcel.readInt() == 1);
+     }
+ }
+

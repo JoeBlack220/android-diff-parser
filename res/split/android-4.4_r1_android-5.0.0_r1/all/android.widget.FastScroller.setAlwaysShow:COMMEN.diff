@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.widget.FastScroller.setAlwaysShow:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @param alwaysShow Whether the fast scroll thumb should always be shown
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (mAlwaysShow != alwaysShow) {
+         mAlwaysShow = alwaysShow;
+-        onStateDependencyChanged();
++        onStateDependencyChanged(false);
+     }
+ }
+

@@ -1,0 +1,30 @@
+Find a functionally equivalent code:android.widget.ImageView.setImageResource:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets a drawable as the content of this ImageView.
+ *
+ * <p class="note">This does Bitmap reading and decoding on the UI
+ * thread, which can cause a latency hiccup.  If that's a concern,
+ * consider using {@link #setImageDrawable(android.graphics.drawable.Drawable)} or
+ * {@link #setImageBitmap(android.graphics.Bitmap)} and
+ * {@link android.graphics.BitmapFactory} instead.</p>
+ *
+ * @param resId the resource identifier of the drawable
+ *
+ * @attr ref android.R.styleable#ImageView_src
+ */
+
+@@ -1,10 +1,10 @@
+ {
+     if (mUri != null || mResource != resId) {
++        final int oldWidth = mDrawableWidth;
++        final int oldHeight = mDrawableHeight;
+         updateDrawable(null);
+         mResource = resId;
+         mUri = null;
+-        final int oldWidth = mDrawableWidth;
+-        final int oldHeight = mDrawableHeight;
+         resolveUri();
+         if (oldWidth != mDrawableWidth || oldHeight != mDrawableHeight) {
+             requestLayout();
+

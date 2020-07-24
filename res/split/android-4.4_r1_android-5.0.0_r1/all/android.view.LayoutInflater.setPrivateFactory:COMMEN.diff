@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.view.LayoutInflater.setPrivateFactory:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide for use by framework
+ */
+
+@@ -1,3 +1,7 @@
+ {
+-    mPrivateFactory = factory;
++    if (mPrivateFactory == null) {
++        mPrivateFactory = factory;
++    } else {
++        mPrivateFactory = new FactoryMerger(factory, factory, mPrivateFactory, mPrivateFactory);
++    }
+ }
+

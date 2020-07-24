@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.widget.CalendarView.setUnfocusedMonthDateColor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the color for the dates of a not focused month.
+ *
+ * @param color A not focused month date color.
+ *
+ * @attr ref android.R.styleable#CalendarView_unfocusedMonthDateColor
+ */
+
+@@ -1,12 +1,3 @@
+ {
+-    if (mUnfocusedMonthDateColor != color) {
+-        mUnfocusedMonthDateColor = color;
+-        final int childCount = mListView.getChildCount();
+-        for (int i = 0; i < childCount; i++) {
+-            WeekView weekView = (WeekView) mListView.getChildAt(i);
+-            if (weekView.mHasUnfocusedDay) {
+-                weekView.invalidate();
+-            }
+-        }
+-    }
++    mDelegate.setUnfocusedMonthDateColor(color);
+ }
+

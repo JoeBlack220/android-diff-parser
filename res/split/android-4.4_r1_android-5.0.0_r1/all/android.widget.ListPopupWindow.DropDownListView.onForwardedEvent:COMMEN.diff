@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.widget.ListPopupWindow.DropDownListView.onForwardedEvent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Handles forwarded events.
+ *
+ * @param activePointerId id of the pointer that activated forwarding
+ * @return whether the event was handled
+ */
+
+@@ -23,29 +23,29 @@
+                 break;
+             }
+             final View child = getChildAt(position - getFirstVisiblePosition());
+-            setPressedItem(child, position);
++            setPressedItem(child, position, x, y);
+             handledEvent = true;
+             if (actionMasked == MotionEvent.ACTION_UP) {
+                 clickPressedItem(child, position);
+

@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.graphics.drawable.GradientDrawable.setGradientRadius:COMMENT
+Method Modifier: public      
+Comment:/**
+ * <p>Sets the radius of the gradient. The radius is honored only when the
+ * gradient type is set to {@link #RADIAL_GRADIENT}.</p>
+ * <p><strong>Note</strong>: changing this property will affect all instances
+ * of a drawable loaded from a resource. It is recommended to invoke
+ * {@link #mutate()} before changing this property.</p>
+ *
+ * @param gradientRadius The radius of the gradient in pixels
+ *
+ * @see #mutate()
+ * @see #setGradientType(int)
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    mGradientState.setGradientRadius(gradientRadius);
+-    mRectIsDirty = true;
++    mGradientState.setGradientRadius(gradientRadius, TypedValue.COMPLEX_UNIT_PX);
++    mGradientIsDirty = true;
+     invalidateSelf();
+ }
+

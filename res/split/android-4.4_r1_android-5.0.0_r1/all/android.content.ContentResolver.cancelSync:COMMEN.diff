@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.content.ContentResolver.cancelSync:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Cancel any active or pending syncs that match account and authority. The account and
+ * authority can each independently be set to null, which means that syncs with any account
+ * or authority, respectively, will match.
+ *
+ * @param account filters the syncs that match by this account
+ * @param authority filters the syncs that match by this authority
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        getContentService().cancelSync(account, authority);
++        getContentService().cancelSync(account, authority, null);
+     } catch (RemoteException e) {
+     }
+ }
+

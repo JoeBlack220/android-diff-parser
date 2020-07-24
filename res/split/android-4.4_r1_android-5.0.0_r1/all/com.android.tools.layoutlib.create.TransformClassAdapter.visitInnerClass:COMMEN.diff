@@ -1,0 +1,15 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.TransformClassAdapter.visitInnerClass:COMMENT
+Method Modifier: public      
+Comment:/* Visits the header of an inner class. */
+
+@@ -1,9 +1,4 @@
+ {
+-    // remove protected or private and set as public
+-    if (Main.sOptions.generatePublicAccess) {
+-        access = access & ~(Opcodes.ACC_PRIVATE | Opcodes.ACC_PROTECTED);
+-        access |= Opcodes.ACC_PUBLIC;
+-    }
+     // remove final
+     access = access & ~Opcodes.ACC_FINAL;
+     // note: leave abstract classes as such
+

@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.content.ContentResolver.releasePersistableUriPermission:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Relinquish a persisted URI permission grant. The URI must have been
+ * previously made persistent with
+ * {@link #takePersistableUriPermission(Uri, int)}. Any non-persistent
+ * grants to the calling package will remain intact.
+ *
+ * @see #getPersistedUriPermissions()
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        ActivityManagerNative.getDefault().releasePersistableUriPermission(uri, modeFlags);
++        ActivityManagerNative.getDefault().releasePersistableUriPermission(ContentProvider.getUriWithoutUserId(uri), modeFlags, resolveUserId(uri));
+     } catch (RemoteException e) {
+     }
+ }
+

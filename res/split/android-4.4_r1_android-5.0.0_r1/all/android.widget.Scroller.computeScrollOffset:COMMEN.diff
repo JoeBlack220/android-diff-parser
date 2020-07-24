@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.widget.Scroller.computeScrollOffset:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Call this when you want to know the new location.  If it returns true,
+ * the animation is not yet finished.
+ */
+
+@@ -6,16 +6,12 @@
+     if (timePassed < mDuration) {
+         switch(mMode) {
+             case SCROLL_MODE:
+-                float x = timePassed * mDurationReciprocal;
+-                if (mInterpolator == null)
+-                    x = viscousFluid(x);
+-                else
+-                    x = mInterpolator.getInterpolation(x);
++                final float x = mInterpolator.getInterpolation(timePassed * mDurationReciprocal);
+                 mCurrX = mStartX + Math.round(x * mDeltaX);
+                 mCurrY = mStartY + Math.round(x * mDeltaY);
+                 break;
+

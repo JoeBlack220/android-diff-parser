@@ -1,0 +1,15 @@
+Find a functionally equivalent code:com.android.frameworks.downloadmanagertests.DownloadManagerBaseTest.setUp:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,5 +1,6 @@
+ {
++    super.setUp();
+     mContext = getInstrumentation().getContext();
+     mDownloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+-    mReceiver = registerNewMultipleDownloadsReceiver();
++    mListener = registerDownloadsListener();
+ }
+

@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.hardware.SensorManager.getQuaternionFromVector:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Helper function to convert a rotation vector to a normalized quaternion.
+ * Given a rotation vector (presumably from a ROTATION_VECTOR sensor), returns a normalized
+ * quaternion in the array Q.  The quaternion is stored as [w, x, y, z]
+ * @param rv the rotation vector to convert
+ * @param Q an array of floats in which to store the computed quaternion
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    if (rv.length == 4) {
++    if (rv.length >= 4) {
+         Q[0] = rv[3];
+     } else {
+         Q[0] = 1 - rv[0] * rv[0] - rv[1] * rv[1] - rv[2] * rv[2];
+

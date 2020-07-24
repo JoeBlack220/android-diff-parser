@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.content.ContentResolver.takePersistableUriPermission:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Take a persistable URI permission grant that has been offered. Once
+ * taken, the permission grant will be remembered across device reboots.
+ * Only URI permissions granted with
+ * {@link Intent#FLAG_GRANT_PERSISTABLE_URI_PERMISSION} can be persisted. If
+ * the grant has already been persisted, taking it again will touch
+ * {@link UriPermission#getPersistedTime()}.
+ *
+ * @see #getPersistedUriPermissions()
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        ActivityManagerNative.getDefault().takePersistableUriPermission(uri, modeFlags);
++        ActivityManagerNative.getDefault().takePersistableUriPermission(ContentProvider.getUriWithoutUserId(uri), modeFlags, resolveUserId(uri));
+     } catch (RemoteException e) {
+     }
+ }
+

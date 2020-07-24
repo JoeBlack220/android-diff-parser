@@ -1,0 +1,14 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.AsmAnalyzer.DependencyVisitor.MyMethodVisitor.visitFieldInsn:COMMENT
+Method Modifier: public      
+Comment:// field instruction
+
+@@ -1,6 +1,6 @@
+ {
+-    // name is the field's name.
+-    considerName(name);
++    // owner is the class that declares the field.
++    considerName(owner);
+     // desc is the field's descriptor (see Type).
+     considerDesc(desc);
+ }
+

@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.MediaRouter.removeCallback:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Remove the specified callback. It will no longer receive events about media routing.
+ *
+ * @param cb Callback to remove
+ */
+
+@@ -1,10 +1,8 @@
+ {
+     int index = findCallbackInfo(cb);
+     if (index >= 0) {
+-        CallbackInfo info = sStatic.mCallbacks.remove(index);
+-        if ((info.flags & CALLBACK_FLAG_PERFORM_ACTIVE_SCAN) != 0) {
+-            sStatic.updateActiveScan();
+-        }
++        sStatic.mCallbacks.remove(index);
++        sStatic.updateDiscoveryRequest();
+     } else {
+         Log.w(TAG, "removeCallback(" + cb + "): callback not registered");
+     }
+

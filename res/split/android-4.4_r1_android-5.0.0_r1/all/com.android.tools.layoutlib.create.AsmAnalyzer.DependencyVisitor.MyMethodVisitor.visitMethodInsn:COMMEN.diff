@@ -1,0 +1,14 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.AsmAnalyzer.DependencyVisitor.MyMethodVisitor.visitMethodInsn:COMMENT
+Method Modifier: public      
+Comment:// instruction that invokes a method
+
+@@ -3,6 +3,10 @@
+     considerName(owner);
+     // desc is the method's descriptor (see Type).
+     considerDesc(desc);
++    // Check if method needs to replaced by a call to a different method.
++    if (ReplaceMethodCallsAdapter.isReplacementNeeded(owner, name, desc)) {
++        mReplaceMethodCallClasses.add(mOwnerClass);
++    }
+ }
+

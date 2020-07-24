@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.app.Notification.BigTextStyle.addExtras:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,4 +1,4 @@
+ {
+     super.addExtras(extras);
+-    extras.putCharSequence(EXTRA_TEXT, mBigText);
++    extras.putCharSequence(EXTRA_BIG_TEXT, mBigText);
+ }
+

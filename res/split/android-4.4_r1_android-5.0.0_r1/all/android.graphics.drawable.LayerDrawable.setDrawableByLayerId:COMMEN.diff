@@ -1,0 +1,40 @@
+Find a functionally equivalent code:android.graphics.drawable.LayerDrawable.setDrawableByLayerId:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets (or replaces) the {@link Drawable} for the layer with the given id.
+ *
+ * @param id The layer ID to search for.
+ * @param drawable The replacement {@link Drawable}.
+ * @return Whether the {@link Drawable} was replaced (could return false if
+ * the id was not found).
+ */
+
+@@ -1,18 +1,21 @@
+ {
+     final ChildDrawable[] layers = mLayerState.mChildren;
+-    for (int i = mLayerState.mNum - 1; i >= 0; i--) {
+-        if (layers[i].mId == id) {
+-            if (layers[i].mDrawable != null) {
++    final int N = mLayerState.mNum;
++    for (int i = 0; i < N; i++) {
++        final ChildDrawable childDrawable = layers[i];
++        if (childDrawable.mId == id) {
++            if (childDrawable.mDrawable != null) {
+                 if (drawable != null) {
+-                    Rect bounds = layers[i].mDrawable.getBounds();
++                    final Rect bounds = childDrawable.mDrawable.getBounds();
+                     drawable.setBounds(bounds);
+                 }
+-                layers[i].mDrawable.setCallback(null);
++                childDrawable.mDrawable.setCallback(null);
+             }
+             if (drawable != null) {
+                 drawable.setCallback(this);
+             }
+-            layers[i].mDrawable = drawable;
++            childDrawable.mDrawable = drawable;
++            mLayerState.invalidateCache();
+             return true;
+         }
+     }
+

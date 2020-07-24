@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.content.res.AssetManager.makeStringBlocks:COMMENT
+Method Modifier: default     final       
+Comment:/*package*/
+
+@@ -1,12 +1,12 @@
+ {
+-    final int sysNum = copyFromSystem ? sSystem.mStringBlocks.length : 0;
++    final int seedNum = (seed != null) ? seed.length : 0;
+     final int num = getStringBlockCount();
+     mStringBlocks = new StringBlock[num];
+     if (localLOGV)
+         Log.v(TAG, "Making string blocks for " + this + ": " + num);
+     for (int i = 0; i < num; i++) {
+-        if (i < sysNum) {
+-            mStringBlocks[i] = sSystem.mStringBlocks[i];
++        if (i < seedNum) {
++            mStringBlocks[i] = seed[i];
+         } else {
+             mStringBlocks[i] = new StringBlock(getNativeStringBlock(i), true);
+         }
+

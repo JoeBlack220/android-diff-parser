@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.widget.AbsListView.RecycleBin.getScrapView:COMMENT
+Method Modifier: 
+Comment:/**
+ * @return A view from the ScrapViews collection. These are unordered.
+ */
+
+@@ -2,8 +2,8 @@
+     if (mViewTypeCount == 1) {
+         return retrieveFromScrap(mCurrentScrap, position);
+     } else {
+-        int whichScrap = mAdapter.getItemViewType(position);
++        final int whichScrap = mAdapter.getItemViewType(position);
+         if (whichScrap >= 0 && whichScrap < mScrapViews.length) {
+             return retrieveFromScrap(mScrapViews[whichScrap], position);
+         }
+

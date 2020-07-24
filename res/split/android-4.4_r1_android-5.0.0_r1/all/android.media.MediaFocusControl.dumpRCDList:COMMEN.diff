@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.dumpRCDList:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Helper function:
+ * Display in the log the current entries in the list of remote control displays
+ */
+
+@@ -1,9 +1,9 @@
+ {
+     pw.println("\nRemote Control Display list entries:");
+-    synchronized (mRCStack) {
++    synchronized (mPRStack) {
+         final Iterator<DisplayInfoForServer> displayIterator = mRcDisplays.iterator();
+         while (displayIterator.hasNext()) {
+-            final DisplayInfoForServer di = (DisplayInfoForServer) displayIterator.next();
++            final DisplayInfoForServer di = displayIterator.next();
+             pw.println("  IRCD: " + di.mRcDisplay + "  -- w:" + di.mArtworkExpectedWidth + "  -- h:" + di.mArtworkExpectedHeight + "  -- wantsPosSync:" + di.mWantsPositionSync + "  -- " + (di.mEnabled ? "enabled" : "disabled"));
+         }
+     }
+

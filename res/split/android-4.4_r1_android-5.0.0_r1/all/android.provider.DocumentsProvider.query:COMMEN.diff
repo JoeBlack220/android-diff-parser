@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.provider.DocumentsProvider.query:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Implementation is provided by the parent class. Cannot be overriden.
+ *
+ * @see #queryRoots(String[])
+ * @see #queryRecentDocuments(String, String[])
+ * @see #queryDocument(String, String[])
+ * @see #queryChildDocuments(String, String[], String)
+ * @see #querySearchDocuments(String, String, String[])
+ */
+
+@@ -8,15 +8,19 @@
+             case MATCH_SEARCH:
+                 return querySearchDocuments(getRootId(uri), getSearchDocumentsQuery(uri), projection);
+             case MATCH_DOCUMENT:
++            case MATCH_DOCUMENT_TREE:
++                enforceTree(uri);
+                 return queryDocument(getDocumentId(uri), projection);
+             case MATCH_CHILDREN:
++            case MATCH_CHILDREN_TREE:
++                enforceTree(uri);
+                 if (DocumentsContract.isManageMode(uri)) {
+                     return queryChildDocumentsForManage(getDocumentId(uri), projection, sortOrder);
+                 } else {
+

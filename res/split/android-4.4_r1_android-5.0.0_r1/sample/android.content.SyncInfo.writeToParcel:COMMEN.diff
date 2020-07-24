@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.content.SyncInfo.writeToParcel:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     parcel.writeInt(authorityId);
+-    account.writeToParcel(parcel, 0);
++    parcel.writeParcelable(account, flags);
+     parcel.writeString(authority);
+     parcel.writeLong(startTime);
+ }
+

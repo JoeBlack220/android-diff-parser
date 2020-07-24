@@ -1,0 +1,58 @@
+Find a functionally equivalent code:android.media.AudioService.handleConfigurationChanged:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Handles device configuration changes that may map to a change in the orientation
+ * or orientation.
+ * Monitoring orientation and rotation is optional, and is defined by the definition and value
+ * of the "ro.audio.monitorOrientation" and "ro.audio.monitorRotation" system properties.
+ */
+
+@@ -11,45 +11,40 @@
+                 setOrientationForAudioSystem();
+             }
+         }
+-        if (mMonitorRotation) {
+-            int newRotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+-            if (newRotation != mDeviceRotation) {
+-                mDeviceRotation = newRotation;
+-                setRotationForAudioSystem();
+-            }
+-        }
+         sendMsg(mAudioHandler, MSG_CONFIGURE_SAFE_MEDIA_VOLUME, SENDMSG_REPLACE, 0, 0, null, 0);
+         boolean cameraSoundForced = mContext.getResources().getBoolean(com.android.internal.R.bool.config_camera_sound_forced);
+         synchronized (mSettingsLock) {
+             synchronized (mCameraSoundForced) {
+                 if (cameraSoundForced != mCameraSoundForced) {
+                     mCameraSoundForced = cameraSoundForced;
+-                    VolumeStreamState s = mStreamStates[AudioSystem.STREAM_SYSTEM_ENFORCED];
+-                    if (cameraSoundForced) {
+-                        s.setAllIndexesToMax();
+-                        mRingerModeAffectedStreams &= ~(1 << AudioSystem.STREAM_SYSTEM_ENFORCED);
+-                    } else {
+-                        s.setAllIndexes(mStreamStates[AudioSystem.STREAM_SYSTEM]);
+-                        mRingerModeAffectedStreams |= (1 << AudioSystem.STREAM_SYSTEM_ENFORCED);
++                    if (!isPlatformTelevision()) {
++                        VolumeStreamState s = mStreamStates[AudioSystem.STREAM_SYSTEM_ENFORCED];
++                        if (cameraSoundForced) {
++                            s.setAllIndexesToMax();
++                            mRingerModeAffectedStreams &= ~(1 << AudioSystem.STREAM_SYSTEM_ENFORCED);
++                        } else {
++                            s.setAllIndexes(mStreamStates[AudioSystem.STREAM_SYSTEM]);
++                            mRingerModeAffectedStreams |= (1 << AudioSystem.STREAM_SYSTEM_ENFORCED);
++                        }
++                        // take new state into account for streams muted by ringer mode
++                        setRingerModeInt(getRingerMode(), false);
+                     }
+-                    // take new state into account for streams muted by ringer mode
+-                    setRingerModeInt(getRingerMode(), false);
+                     sendMsg(mAudioHandler, MSG_SET_FORCE_USE, SENDMSG_QUEUE, AudioSystem.FOR_SYSTEM, cameraSoundForced ? AudioSystem.FORCE_SYSTEM_ENFORCED : AudioSystem.FORCE_NONE, null, 0);
+                     sendMsg(mAudioHandler, MSG_SET_ALL_VOLUMES, SENDMSG_QUEUE, 0, 0, mStreamStates[AudioSystem.STREAM_SYSTEM_ENFORCED], 0);
+                 }
+             }
+         }
+-        mVolumePanel.setLayoutDirection(config.getLayoutDirection());
++        mVolumeController.setLayoutDirection(config.getLayoutDirection());
+     } catch (Exception e) {
+         Log.e(TAG, "Error handling configuration change: ", e);
+     }
+

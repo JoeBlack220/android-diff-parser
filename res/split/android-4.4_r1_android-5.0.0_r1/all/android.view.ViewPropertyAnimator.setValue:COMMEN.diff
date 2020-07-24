@@ -1,0 +1,86 @@
+Find a functionally equivalent code:android.view.ViewPropertyAnimator.setValue:COMMENT
+Method Modifier: private     
+Comment:/**
+ * This method handles setting the property values directly in the View object's fields.
+ * propertyConstant tells it which property should be set, value is the value to set
+ * the property to.
+ *
+ * @param propertyConstant The property to be set
+ * @param value The value to set the property to
+ */
+
+@@ -1,56 +1,43 @@
+ {
+     final View.TransformationInfo info = mView.mTransformationInfo;
+-    final DisplayList displayList = mView.mDisplayList;
++    final RenderNode renderNode = mView.mRenderNode;
+     switch(propertyConstant) {
+         case TRANSLATION_X:
+-            info.mTranslationX = value;
+-            if (displayList != null)
+-                displayList.setTranslationX(value);
++            renderNode.setTranslationX(value);
+             break;
+         case TRANSLATION_Y:
+-            info.mTranslationY = value;
+-            if (displayList != null)
+-                displayList.setTranslationY(value);
++            renderNode.setTranslationY(value);
+             break;
++        case TRANSLATION_Z:
++            renderNode.setTranslationZ(value);
++            break;
+         case ROTATION:
+-            info.mRotation = value;
+-            if (displayList != null)
+-                displayList.setRotation(value);
++            renderNode.setRotation(value);
+             break;
+         case ROTATION_X:
+-            info.mRotationX = value;
+-            if (displayList != null)
+-                displayList.setRotationX(value);
++            renderNode.setRotationX(value);
+             break;
+         case ROTATION_Y:
+-            info.mRotationY = value;
+-            if (displayList != null)
+-                displayList.setRotationY(value);
++            renderNode.setRotationY(value);
+             break;
+         case SCALE_X:
+-            info.mScaleX = value;
+-            if (displayList != null)
+-                displayList.setScaleX(value);
++            renderNode.setScaleX(value);
+             break;
+         case SCALE_Y:
+-            info.mScaleY = value;
+-            if (displayList != null)
+-                displayList.setScaleY(value);
++            renderNode.setScaleY(value);
+             break;
+         case X:
+-            info.mTranslationX = value - mView.mLeft;
+-            if (displayList != null)
+-                displayList.setTranslationX(value - mView.mLeft);
++            renderNode.setTranslationX(value - mView.mLeft);
+             break;
+         case Y:
+-            info.mTranslationY = value - mView.mTop;
+-            if (displayList != null)
+-                displayList.setTranslationY(value - mView.mTop);
++            renderNode.setTranslationY(value - mView.mTop);
++            break;
++        case Z:
++            renderNode.setTranslationZ(value - renderNode.getElevation());
+             break;
+         case ALPHA:
+             info.mAlpha = value;
+-            if (displayList != null)
+-                displayList.setAlpha(value);
++            renderNode.setAlpha(value);
+             break;
+     }
+ }
+

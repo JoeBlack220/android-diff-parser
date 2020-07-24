@@ -1,0 +1,42 @@
+Find a functionally equivalent code:com.android.internal.telephony.GsmAlphabet.gsm8BitUnpackedToString:COMMENT
+Method Modifier: public      static      internal    
+Comment:/**
+ * Convert a GSM alphabet string that's stored in 8-bit unpacked
+ * format (as it often appears in SIM records) into a String
+ *
+ * Field may be padded with trailing 0xff's. The decode stops
+ * at the first 0xff encountered.
+ *
+ * Additionally, in some country(ex. Korea), there are non-ASCII or MBCS characters.
+ * If a character set is given, characters in data are treat as MBCS.
+ */
+
+@@ -30,45 +30,53 @@
+             }
+         } else {
+             if (prevWasEscape) {
+-                char shiftChar = shiftTableToChar.charAt(c);
++                char shiftChar = c < shiftTableToChar.length() ? shiftTableToChar.charAt(c) : ' ';
+                 if (shiftChar == ' ') {
+                     // display character from main table if not present in shift table
+-                    ret.append(languageTableToChar.charAt(c));
++                    if (c < languageTableToChar.length()) {
++                        ret.append(languageTableToChar.charAt(c));
++                    } else {
++                        ret.append(' ');
++                    }
+                 } else {
+                     ret.append(shiftChar);
+                 }
+             } else {
+                 if (!isMbcs || c < 0x80 || i + 1 >= offset + length) {
+-                    ret.append(languageTableToChar.charAt(c));
++                    if (c < languageTableToChar.length()) {
++                        ret.append(languageTableToChar.charAt(c));
++                    } else {
++                        ret.append(' ');
++                    }
+                 } else {
+                     // isMbcs must be true. So both mbcsBuffer and charset are initialized.
+                     mbcsBuffer.clear();
+

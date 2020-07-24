@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.os.Parcel.readArrayMapSafelyInternal:COMMENT
+Method Modifier: 
+Comment:/* package */
+
+@@ -5,11 +5,11 @@
+         Log.d(TAG, "Reading safely " + N + " ArrayMap entries", here);
+     }
+     while (N > 0) {
+-        Object key = readValue(loader);
++        String key = readString();
+         if (DEBUG_ARRAY_MAP)
+             Log.d(TAG, "  Read safe #" + (N - 1) + ": key=0x" + (key != null ? key.hashCode() : 0) + " " + key);
+         Object value = readValue(loader);
+

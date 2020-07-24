@@ -1,0 +1,40 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.Main.processArgs:COMMENT
+Method Modifier: private     static      
+Comment:/**
+ * Returns true if args where properly parsed.
+ * Returns false if program should exit with command-line usage.
+ * <p/>
+ * Note: the String[0] is an output parameter wrapped in an array, since there is no
+ * "out" parameter support.
+ */
+
+@@ -1,11 +1,8 @@
+ {
+     boolean needs_dest = true;
+-    for (int i = 0; i < args.length; i++) {
+-        String s = args[i];
++    for (String s : args) {
+         if (s.equals("-v")) {
+             log.setVerbose(true);
+-        } else if (s.equals("-p")) {
+-            sOptions.generatePublicAccess = false;
+         } else if (s.equals("--list-deps")) {
+             sOptions.listAllDeps = true;
+             needs_dest = false;
+@@ -19,25 +16,22 @@
+                 osJarPath.add(s);
+             }
+         } else {
+-            log.error("Unknow argument: %s", s);
++            log.error("Unknown argument: %s", s);
+             return false;
+         }
+     }
+@@ -31,36 +28,32 @@
+         log.error("Missing parameter: path to output jar");
+         return false;
+     }
+-    sOptions.generatePublicAccess = false;
+     return true;
+ }
+

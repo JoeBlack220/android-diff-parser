@@ -1,0 +1,7 @@
+Find a functionally equivalent code:android.os.storage.IMountService.encryptStorage:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Encrypts storage.
+ */
+
+

@@ -1,0 +1,19 @@
+Find a functionally equivalent code:com.android.bandwidthtest.BandwidthTest.downloadFile:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Helper method that downloads a file using http connection from a test server and reports the
+ * data usage stats to instrumentation out.
+ */
+
+@@ -15,22 +15,22 @@
+     results.putString("device_id", mDeviceId);
+     results.putString("timestamp", ts);
+     results.putInt("size", FILE_SIZE);
+-    AddStatsToResults(PROF_LABEL, prof_stats, results);
+-    AddStatsToResults(PROC_LABEL, proc_stats, results);
++    addStatsToResults(PROF_LABEL, prof_stats, results, mUid);
++    addStatsToResults(PROC_LABEL, proc_stats, results, mUid);
+     getInstrumentation().sendStatus(INSTRUMENTATION_IN_PROGRESS, results);
+     // Clean up.
+     assertTrue(cleanUpFile(tmpSaveFile));
+

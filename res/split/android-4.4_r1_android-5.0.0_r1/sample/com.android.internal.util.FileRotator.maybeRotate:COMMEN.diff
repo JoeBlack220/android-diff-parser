@@ -1,0 +1,21 @@
+Find a functionally equivalent code:com.android.internal.util.FileRotator.maybeRotate:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * Examine all files managed by this rotator, renaming or deleting if their
+ * age matches the configured thresholds.
+ */
+
+@@ -2,8 +2,12 @@
+     final long rotateBefore = currentTimeMillis - mRotateAgeMillis;
+     final long deleteBefore = currentTimeMillis - mDeleteAgeMillis;
+     final FileInfo info = new FileInfo(mPrefix);
+-    for (String name : mBasePath.list()) {
++    String[] baseFiles = mBasePath.list();
++    if (baseFiles == null) {
++        return;
++    }
++    for (String name : baseFiles) {
+         if (!info.parse(name))
+             continue;
+         if (info.isActive()) {
+

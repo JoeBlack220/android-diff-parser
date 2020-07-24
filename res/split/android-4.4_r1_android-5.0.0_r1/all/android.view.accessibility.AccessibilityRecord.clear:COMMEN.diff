@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityRecord.clear:COMMENT
+Method Modifier: 
+Comment:/**
+ * Clears the state of this instance.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     mSealed = false;
+-    mBooleanProperties = PROPERTY_IMPORTANT_FOR_ACCESSIBILITY;
++    mBooleanProperties = 0;
+     mCurrentItemIndex = UNDEFINED;
+     mItemCount = UNDEFINED;
+     mFromIndex = UNDEFINED;
+

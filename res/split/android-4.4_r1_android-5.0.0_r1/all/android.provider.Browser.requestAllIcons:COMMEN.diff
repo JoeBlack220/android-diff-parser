@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.provider.Browser.requestAllIcons:COMMENT
+Method Modifier: public      static      final       
+Comment:/**
+ * Request all icons from the database.  This call must either be called
+ * in the main thread or have had Looper.prepare() invoked in the calling
+ * thread.
+ * Requires {@link android.Manifest.permission#READ_HISTORY_BOOKMARKS}
+ * @param  cr The ContentResolver used to access the database.
+ * @param  where Clause to be used to limit the query from the database.
+ * Must be an allowable string to be passed into a database query.
+ * @param  listener IconListener that gets the icons once they are
+ * retrieved.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    WebIconDatabase.getInstance().bulkRequestIconForPageUrl(cr, where, listener);
++// Do nothing: this is no longer used.
+ }
+

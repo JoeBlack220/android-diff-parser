@@ -1,0 +1,27 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.DelegateClassAdapterTest.testNoOp:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Tests that a class not being modified still works.
+ */
+
+@@ -40,48 +40,55 @@
+                 }
+                 // Check that the native method does NOT have the new annotation
+                 Method[] m = clazz2.getDeclaredMethods();
+-                assertEquals("native_instance", m[2].getName());
+-                assertTrue(Modifier.isNative(m[2].getModifiers()));
+-                Annotation[] a = m[2].getAnnotations();
++                Method nativeInstanceMethod = null;
++                for (Method method : m) {
++                    if ("native_instance".equals(method.getName())) {
++                        nativeInstanceMethod = method;
++                        break;
++                    }
++                }
++                assertNotNull(nativeInstanceMethod);
++                assertTrue(Modifier.isNative(nativeInstanceMethod.getModifiers()));
++                Annotation[] a = nativeInstanceMethod.getAnnotations();
+                 assertEquals(0, a.length);
+             }
+         };
+

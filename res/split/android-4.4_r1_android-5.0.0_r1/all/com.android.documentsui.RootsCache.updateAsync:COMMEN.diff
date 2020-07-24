@@ -1,0 +1,18 @@
+Find a functionally equivalent code:com.android.documentsui.RootsCache.updateAsync:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gather roots from all known storage providers.
+ */
+
+@@ -2,9 +2,9 @@
+     // Special root for recents
+     mRecentsRoot.authority = null;
+     mRecentsRoot.rootId = null;
+-    mRecentsRoot.icon = R.drawable.ic_root_recent;
+-    mRecentsRoot.flags = Root.FLAG_LOCAL_ONLY | Root.FLAG_SUPPORTS_CREATE;
++    mRecentsRoot.derivedIcon = R.drawable.ic_root_recent;
++    mRecentsRoot.flags = Root.FLAG_LOCAL_ONLY | Root.FLAG_SUPPORTS_CREATE | Root.FLAG_SUPPORTS_IS_CHILD;
+     mRecentsRoot.title = mContext.getString(R.string.root_recent);
+     mRecentsRoot.availableBytes = -1;
+     new UpdateTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+

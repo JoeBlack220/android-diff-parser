@@ -1,0 +1,56 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.init:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -2,9 +2,11 @@
+     mContext = context;
+     mWindowManager = windowManager;
+     mWindowManagerFuncs = windowManagerFuncs;
+-    mHeadless = "1".equals(SystemProperties.get("ro.config.headless", "0"));
++    mWindowManagerInternal = LocalServices.getService(WindowManagerInternal.class);
++    mDreamManagerInternal = LocalServices.getService(DreamManagerInternal.class);
+     mHandler = new PolicyHandler();
++    mWakeGestureListener = new MyWakeGestureListener(mContext, mHandler);
+     mOrientationListener = new MyOrientationListener(mContext, mHandler);
+     try {
+         mOrientationListener.setCurrentRotation(windowManager.getRotation());
+@@ -26,31 +28,34 @@
+     mPowerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+     mBroadcastWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneWindowManager.mBroadcastWakeLock");
+     mEnableShiftMenuBugReports = "1".equals(SystemProperties.get("ro.debuggable"));
++    mSupportAutoRotation = mContext.getResources().getBoolean(com.android.internal.R.bool.config_supportAutoRotation);
+     mLidOpenRotation = readRotation(com.android.internal.R.integer.config_lidOpenRotation);
+     mCarDockRotation = readRotation(com.android.internal.R.integer.config_carDockRotation);
+     mDeskDockRotation = readRotation(com.android.internal.R.integer.config_deskDockRotation);
+@@ -37,42 +40,46 @@
+     mLidControlsSleep = mContext.getResources().getBoolean(com.android.internal.R.bool.config_lidControlsSleep);
+     mTranslucentDecorEnabled = mContext.getResources().getBoolean(com.android.internal.R.bool.config_enableTranslucentDecor);
+     readConfigurationDependentBehaviors();
++    mAccessibilityManager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+     // register for dock events
+     IntentFilter filter = new IntentFilter();
+     filter.addAction(UiModeManager.ACTION_ENTER_CAR_MODE);
+@@ -92,97 +96,103 @@
+     mLongPressVibePattern = getLongIntArray(mContext.getResources(), com.android.internal.R.array.config_longPressVibePattern);
+     mVirtualKeyVibePattern = getLongIntArray(mContext.getResources(), com.android.internal.R.array.config_virtualKeyVibePattern);
+     mKeyboardTapVibePattern = getLongIntArray(mContext.getResources(), com.android.internal.R.array.config_keyboardTapVibePattern);
++    mClockTickVibePattern = getLongIntArray(mContext.getResources(), com.android.internal.R.array.config_clockTickVibePattern);
++    mCalendarDateVibePattern = getLongIntArray(mContext.getResources(), com.android.internal.R.array.config_calendarDateVibePattern);
+     mSafeModeDisabledVibePattern = getLongIntArray(mContext.getResources(), com.android.internal.R.array.config_safeModeDisabledVibePattern);
+     mSafeModeEnabledVibePattern = getLongIntArray(mContext.getResources(), com.android.internal.R.array.config_safeModeEnabledVibePattern);
+     mScreenshotChordEnabled = mContext.getResources().getBoolean(com.android.internal.R.bool.config_enableScreenshotChord);
+@@ -99,107 +105,111 @@
+     // Controls rotation and the like.
+     initializeHdmiState();
+     // Match current screen state.
+-    if (mPowerManager.isScreenOn()) {
+-        screenTurningOn(null);
+-    } else {
+-        screenTurnedOff(WindowManagerPolicy.OFF_BECAUSE_OF_USER);
++    if (!mPowerManager.isInteractive()) {
++        goingToSleep(WindowManagerPolicy.OFF_BECAUSE_OF_USER);
+     }
+ }
+

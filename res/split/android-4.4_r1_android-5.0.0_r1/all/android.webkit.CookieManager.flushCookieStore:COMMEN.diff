@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.webkit.CookieManager.flushCookieStore:COMMENT
+Method Modifier: protected   hidden      
+Comment:/**
+ * Flushes all cookies managed by the Chrome HTTP stack to flash.
+ *
+ * @hide Package level api, called from CookieSyncManager
+ */
+
+@@ -1,3 +1,2 @@
+ {
+-    throw new MustOverrideException();
+ }
+

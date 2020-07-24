@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.dumpRCStack:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Helper function:
+ * Display in the log the current entries in the remote control focus stack
+ */
+
+@@ -1,10 +1,9 @@
+ {
+     pw.println("\nRemote Control stack entries (last is top of stack):");
+-    synchronized (mRCStack) {
+-        Iterator<RemoteControlStackEntry> stackIterator = mRCStack.iterator();
++    synchronized (mPRStack) {
++        Iterator<PlayerRecord> stackIterator = mPRStack.iterator();
+         while (stackIterator.hasNext()) {
+-            RemoteControlStackEntry rcse = stackIterator.next();
+-            pw.println("  pi: " + rcse.mMediaIntent + " -- pack: " + rcse.mCallingPackageName + "  -- ercvr: " + rcse.mReceiverComponent + "  -- client: " + rcse.mRcClient + "  -- uid: " + rcse.mCallingUid + "  -- type: " + rcse.mPlaybackType + "  state: " + rcse.mPlaybackState);
++            stackIterator.next().dump(pw, true);
+         }
+     }
+ }
+

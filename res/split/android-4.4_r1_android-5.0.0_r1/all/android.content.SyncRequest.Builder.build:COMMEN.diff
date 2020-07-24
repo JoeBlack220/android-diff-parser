@@ -1,0 +1,57 @@
+Find a functionally equivalent code:android.content.SyncRequest.Builder.build:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Performs validation over the request and throws the runtime exception
+ * <code>IllegalArgumentException</code> if this validation fails.
+ *
+ * @return a SyncRequest with the information contained within this
+ * builder.
+ */
+
+@@ -1,9 +1,9 @@
+ {
++    // Validate the extras bundle
++    ContentResolver.validateSyncExtrasBundle(mCustomExtras);
+     if (mCustomExtras == null) {
+         mCustomExtras = new Bundle();
+     }
+-    // Validate the extras bundle
+-    ContentResolver.validateSyncExtrasBundle(mCustomExtras);
+     // Combine builder extra flags into the config bundle.
+     mSyncConfigExtras = new Bundle();
+     if (mIgnoreBackoff) {
+@@ -22,49 +22,39 @@
+         mSyncConfigExtras.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+     }
+     if (mIsManual) {
+-        mSyncConfigExtras.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
++        mSyncConfigExtras.putBoolean(ContentResolver.SYNC_EXTRAS_IGNORE_BACKOFF, true);
++        mSyncConfigExtras.putBoolean(ContentResolver.SYNC_EXTRAS_IGNORE_SETTINGS, true);
+     }
+-    mSyncConfigExtras.putLong(ContentResolver.SYNC_EXTRAS_EXPECTED_UPLOAD, mTxBytes);
+-    mSyncConfigExtras.putLong(ContentResolver.SYNC_EXTRAS_EXPECTED_DOWNLOAD, mRxBytes);
+-    mSyncConfigExtras.putInt(ContentResolver.SYNC_EXTRAS_PRIORITY, mPriority);
+     if (mSyncType == SYNC_TYPE_PERIODIC) {
+         // If this is a periodic sync ensure than invalid extras were not set.
+-        validatePeriodicExtras(mCustomExtras);
+-        validatePeriodicExtras(mSyncConfigExtras);
+-        // Verify that account and provider are not null.
+-        if (mAccount == null) {
+-            throw new IllegalArgumentException("Account must not be null for periodic" + " sync.");
+-        }
+-        if (mAuthority == null) {
+-            throw new IllegalArgumentException("Authority must not be null for periodic" + " sync.");
++        if (ContentResolver.invalidPeriodicExtras(mCustomExtras) || ContentResolver.invalidPeriodicExtras(mSyncConfigExtras)) {
++            throw new IllegalArgumentException("Illegal extras were set");
+         }
+-    } else if (mSyncType == SYNC_TYPE_UNKNOWN) {
+-        throw new IllegalArgumentException("Must call either syncOnce() or syncPeriodic()");
+     }
+     // Ensure that a target for the sync has been set.
+     if (mSyncTarget == SYNC_TARGET_UNKNOWN) {
+-        throw new IllegalArgumentException("Must specify an adapter with " + "setSyncAdapter(Account, String");
++        throw new IllegalArgumentException("Must specify an adapter with" + " setSyncAdapter(Account, String");
+     }
+     return new SyncRequest(this);
+ }
+

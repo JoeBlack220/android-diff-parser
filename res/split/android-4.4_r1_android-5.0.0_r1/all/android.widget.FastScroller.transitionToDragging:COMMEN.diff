@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.widget.FastScroller.transitionToDragging:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Shows the thumb, preview, and track.
+ */
+
+@@ -7,10 +7,11 @@
+     mDecorAnimation = new AnimatorSet();
+     mDecorAnimation.playTogether(fadeIn, slideIn);
+     mDecorAnimation.start();
++    mShowingPreview = true;
+ }
+

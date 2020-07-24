@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.view.HardwareLayer.isValid:COMMENT
+<android.view.HardwareLayer: boolean isValid()>
+Method Modifier: public      default     abstract    
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          No          
+Comment:/**
+ * Indicates whether this layer can be rendered.
+ *
+ * @return True if the layer can be rendered into, false otherwise
+ */
+
+@@ -1 +1,3 @@
+-
++{
++    return mFinalizer != null && mFinalizer.get() != 0;
++}
+

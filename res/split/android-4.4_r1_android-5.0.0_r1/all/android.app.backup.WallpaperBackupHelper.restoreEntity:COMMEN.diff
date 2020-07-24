@@ -1,0 +1,57 @@
+Find a functionally equivalent code:android.app.backup.WallpaperBackupHelper.restoreEntity:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Restore one absolute file entity from the restore stream.  If we're restoring the
+ * magic wallpaper file, take specific action to determine whether it is suitable for
+ * the current device.
+ */
+
+@@ -11,37 +11,39 @@
+                 BitmapFactory.decodeFile(STAGE_FILE, options);
+                 if (DEBUG)
+                     Slog.d(TAG, "Restoring wallpaper image w=" + options.outWidth + " h=" + options.outHeight);
+-                // How much does the image differ from our preference?  The threshold
+-                // here is set to accept any image larger than our target, because
+-                // scaling down is acceptable; but to reject images that are deemed
+-                // "too small" to scale up attractively.  The value 1.33 is just barely
+-                // too low to pass Nexus 1 or Droid wallpapers for use on a Xoom, but
+-                // will pass anything relatively larger.
+-                double widthRatio = mDesiredMinWidth / options.outWidth;
+-                double heightRatio = mDesiredMinHeight / options.outHeight;
+-                if (widthRatio > 0 && widthRatio < 1.33 && heightRatio > 0 && heightRatio < 1.33) {
+-                    // sufficiently close to our resolution; go ahead and use it
+-                    if (DEBUG)
+-                        Slog.d(TAG, "wallpaper dimension match; using");
+-                    f.renameTo(new File(WALLPAPER_IMAGE));
++                if (REJECT_OUTSIZED_RESTORE) {
++                    // We accept any wallpaper that is at least as wide as our preference
++                    // (i.e. wide enough to fill the screen), and is within a comfortable
++                    // factor of the target height, to avoid significant clipping/scaling/
++                    // letterboxing.
++                    final double heightRatio = mDesiredMinHeight / options.outHeight;
++                    if (options.outWidth < mDesiredMinWidth || heightRatio >= MAX_HEIGHT_RATIO || heightRatio <= MIN_HEIGHT_RATIO) {
++                        // Not wide enough for the screen, or too short/tall to be a good fit
++                        // for the height of the screen, broken image file, or the system's
++                        // desires for wallpaper size are in a bad state.  Probably one of the
++                        // first two.
++                        Slog.i(TAG, "Restored image dimensions (w=" + options.outWidth + ", h=" + options.outHeight + ") too far off target (tw=" + mDesiredMinWidth + ", th=" + mDesiredMinHeight + "); falling back to default wallpaper.");
++                        f.delete();
++                        return;
++                    }
++                }
++                // We passed the acceptable-dimensions test (if any), so we're going to
++                // use the restored image.
+                 // TODO: spin a service to copy the restored image to sd/usb storage,
+                 // since it does not exist anywhere other than the private wallpaper
+                 // file.
+-                } else {
+-                    if (DEBUG)
+-                        Slog.d(TAG, "dimensions too far off: wr=" + widthRatio + " hr=" + heightRatio);
+-                    f.delete();
+-                }
++                Slog.d(TAG, "Applying restored wallpaper image.");
++                f.renameTo(new File(WALLPAPER_IMAGE));
+             }
+         } else if (key.equals(WALLPAPER_INFO_KEY)) {
+             // XML file containing wallpaper info
+

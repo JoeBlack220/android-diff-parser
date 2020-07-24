@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.graphics.Paint.reset:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Restores the paint to its default settings.
+ */
+
+@@ -11,25 +11,23 @@
+     mRasterizer = null;
+     mShader = null;
+     mTypeface = null;
++    mNativeTypeface = 0;
+     mXfermode = null;
+     mHasCompatScaling = false;
+     mCompatScaling = 1;
+     mInvCompatScaling = 1;
+-    hasShadow = false;
+-    shadowDx = 0;
+-    shadowDy = 0;
+-    shadowRadius = 0;
+-    shadowColor = 0;
+     mBidiFlags = BIDI_DEFAULT_LTR;
+     setTextLocale(Locale.getDefault());
++    setElegantTextHeight(false);
++    mFontFeatureSettings = null;
+ }
+

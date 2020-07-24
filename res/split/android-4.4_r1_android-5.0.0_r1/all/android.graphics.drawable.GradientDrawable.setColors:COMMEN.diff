@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.graphics.drawable.GradientDrawable.setColors:COMMENT
+Method Modifier: public      
+Comment:/**
+ * <p>Sets the colors used to draw the gradient. Each color is specified as an
+ * ARGB integer and the array must contain at least 2 colors.</p>
+ * <p><strong>Note</strong>: changing orientation will affect all instances
+ * of a drawable loaded from a resource. It is recommended to invoke
+ * {@link #mutate()} before changing the orientation.</p>
+ *
+ * @param colors 2 or more ARGB colors
+ *
+ * @see #mutate()
+ * @see #setColor(int)
+ */
+
+@@ -1,5 +1,5 @@
+ {
+     mGradientState.setColors(colors);
+-    mRectIsDirty = true;
++    mGradientIsDirty = true;
+     invalidateSelf();
+ }
+

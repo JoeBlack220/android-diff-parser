@@ -1,0 +1,25 @@
+Find a functionally equivalent code:com.android.internal.os.ZygoteInit.closeServerSocket:COMMENT
+Method Modifier: default     static      internal    
+Comment:/**
+ * Close and clean up zygote sockets. Called on shutdown and on the
+ * child's exit path.
+ */
+
+@@ -1,10 +1,16 @@
+ {
+     try {
+         if (sServerSocket != null) {
++            FileDescriptor fd = sServerSocket.getFileDescriptor();
+             sServerSocket.close();
++            if (fd != null) {
++                Os.close(fd);
++            }
+         }
+     } catch (IOException ex) {
+         Log.e(TAG, "Zygote:  error closing sockets", ex);
++    } catch (ErrnoException ex) {
++        Log.e(TAG, "Zygote:  error closing descriptor", ex);
+     }
+     sServerSocket = null;
+ }
+

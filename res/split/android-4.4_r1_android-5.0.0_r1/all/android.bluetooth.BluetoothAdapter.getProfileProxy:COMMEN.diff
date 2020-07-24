@@ -1,0 +1,42 @@
+Find a functionally equivalent code:android.bluetooth.BluetoothAdapter.getProfileProxy:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Get the profile proxy object associated with the profile.
+ *
+ * <p>Profile can be one of {@link BluetoothProfile#HEALTH}, {@link BluetoothProfile#HEADSET},
+ * {@link BluetoothProfile#A2DP}, {@link BluetoothProfile#GATT}, or
+ * {@link BluetoothProfile#GATT_SERVER}. Clients must implement
+ * {@link BluetoothProfile.ServiceListener} to get notified of
+ * the connection status and to get the proxy object.
+ *
+ * @param context Context of the application
+ * @param listener The service Listener for connection callbacks.
+ * @param profile The Bluetooth profile; either {@link BluetoothProfile#HEALTH},
+ * {@link BluetoothProfile#HEADSET} or {@link BluetoothProfile#A2DP}.
+ * @return true on success, false on error
+ */
+
+@@ -7,12 +7,18 @@
+     } else if (profile == BluetoothProfile.A2DP) {
+         BluetoothA2dp a2dp = new BluetoothA2dp(context, listener);
+         return true;
++    } else if (profile == BluetoothProfile.A2DP_SINK) {
++        BluetoothA2dpSink a2dpSink = new BluetoothA2dpSink(context, listener);
++        return true;
++    } else if (profile == BluetoothProfile.AVRCP_CONTROLLER) {
++        BluetoothAvrcpController avrcp = new BluetoothAvrcpController(context, listener);
++        return true;
+     } else if (profile == BluetoothProfile.INPUT_DEVICE) {
+         BluetoothInputDevice iDev = new BluetoothInputDevice(context, listener);
+         return true;
+@@ -19,24 +25,33 @@
+     } else if (profile == BluetoothProfile.MAP) {
+         BluetoothMap map = new BluetoothMap(context, listener);
+         return true;
++    } else if (profile == BluetoothProfile.HEADSET_CLIENT) {
++        BluetoothHeadsetClient headsetClient = new BluetoothHeadsetClient(context, listener);
++        return true;
+     } else {
+         return false;
+     }
+

@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.widget.DatePicker.init:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Initialize the state. If the provided values designate an inconsistent
+ * date the values are normalized before updating the spinners.
+ *
+ * @param year The initial year.
+ * @param monthOfYear The initial month <strong>starting from zero</strong>.
+ * @param dayOfMonth The initial day of the month.
+ * @param onDateChangedListener How user is notified date is changed by
+ * user, can be null.
+ */
+
+@@ -1,6 +1,3 @@
+ {
+-    setDate(year, monthOfYear, dayOfMonth);
+-    updateSpinners();
+-    updateCalendarView();
+-    mOnDateChangedListener = onDateChangedListener;
++    mDelegate.init(year, monthOfYear, dayOfMonth, onDateChangedListener);
+ }
+

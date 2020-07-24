@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.net.NetworkTemplate.matchesWifi:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Check if matches Wi-Fi network template.
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     switch(ident.mType) {
+         case TYPE_WIFI:
+-            return Objects.equal(removeDoubleQuotes(mNetworkId), removeDoubleQuotes(ident.mNetworkId));
++            return Objects.equals(removeDoubleQuotes(mNetworkId), removeDoubleQuotes(ident.mNetworkId));
+         default:
+             return false;
+     }
+

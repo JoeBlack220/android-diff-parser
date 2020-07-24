@@ -1,0 +1,34 @@
+Find a functionally equivalent code:android.graphics.Canvas.setBitmap:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Specify a bitmap for the canvas to draw into. All canvas state such as
+ * layers, filters, and the save/restore stack are reset with the exception
+ * of the current matrix and clip stack. Additionally, as a side-effect
+ * the canvas' target density is updated to match that of the bitmap.
+ *
+ * @param bitmap Specifies a mutable bitmap for the canvas to draw into.
+ * @see #setDensity(int)
+ * @see #getDensity()
+ */
+
+@@ -1,16 +1,16 @@
+ {
+     if (isHardwareAccelerated()) {
+-        throw new RuntimeException("Can't set a bitmap device on a GL canvas");
++        throw new RuntimeException("Can't set a bitmap device on a HW accelerated canvas");
+     }
+     if (bitmap == null) {
+-        safeCanvasSwap(initRaster(0), false);
++        native_setBitmap(mNativeCanvasWrapper, 0, false);
+         mDensity = Bitmap.DENSITY_NONE;
+     } else {
+         if (!bitmap.isMutable()) {
+             throw new IllegalStateException();
+         }
+         throwIfCannotDraw(bitmap);
+-        safeCanvasSwap(initRaster(bitmap.ni()), true);
++        native_setBitmap(mNativeCanvasWrapper, bitmap.ni(), true);
+         mDensity = bitmap.mDensity;
+     }
+     mBitmap = bitmap;
+

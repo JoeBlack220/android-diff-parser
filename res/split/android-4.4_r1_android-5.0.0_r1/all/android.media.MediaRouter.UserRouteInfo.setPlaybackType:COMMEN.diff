@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.media.MediaRouter.UserRouteInfo.setPlaybackType:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Defines whether playback associated with this route is "local"
+ * ({@link RouteInfo#PLAYBACK_TYPE_LOCAL}) or "remote"
+ * ({@link RouteInfo#PLAYBACK_TYPE_REMOTE}).
+ * @param type
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (mPlaybackType != type) {
+         mPlaybackType = type;
+-        setPlaybackInfoOnRcc(RemoteControlClient.PLAYBACKINFO_PLAYBACK_TYPE, type);
++        configureSessionVolume();
+     }
+ }
+

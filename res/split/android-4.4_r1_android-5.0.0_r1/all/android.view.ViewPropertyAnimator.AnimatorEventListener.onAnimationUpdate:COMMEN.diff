@@ -1,0 +1,46 @@
+Find a functionally equivalent code:android.view.ViewPropertyAnimator.AnimatorEventListener.onAnimationUpdate:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Calculate the current value for each property and set it on the view. Invalidate
+ * the view object appropriately, depending on which properties are being animated.
+ *
+ * @param animation The animator associated with the properties that need to be
+ * set. This animator holds the animation fraction which we will use to calculate
+ * the current value of each property.
+ */
+
+@@ -4,23 +4,23 @@
+         // Shouldn't happen, but just to play it safe
+         return;
+     }
+-    boolean useDisplayListProperties = mView.mDisplayList != null;
++    boolean hardwareAccelerated = mView.isHardwareAccelerated();
+     // alpha requires slightly different treatment than the other (transform) properties.
+     // The logic in setAlpha() is not simply setting mAlpha, plus the invalidation
+     // logic is dependent on how the view handles an internal call to onSetAlpha().
+     // We track what kinds of properties are set, and how alpha is handled when it is
+     // set, and perform the invalidation steps appropriately.
+     boolean alphaHandled = false;
+-    if (!useDisplayListProperties) {
++    if (!hardwareAccelerated) {
+         mView.invalidateParentCaches();
+     }
+     float fraction = animation.getAnimatedFraction();
+     int propertyMask = propertyBundle.mPropertyMask;
+     if ((propertyMask & TRANSFORM_MASK) != 0) {
+-        mView.invalidateViewProperty(false, false);
++        mView.invalidateViewProperty(hardwareAccelerated, false);
+     }
+     ArrayList<NameValuesHolder> valueList = propertyBundle.mNameValuesHolder;
+     if (valueList != null) {
+@@ -33,40 +33,39 @@
+         }
+     }
+     if ((propertyMask & TRANSFORM_MASK) != 0) {
+-        mView.mTransformationInfo.mMatrixDirty = true;
+-        if (!useDisplayListProperties) {
++        if (!hardwareAccelerated) {
+             // force another invalidation
+             mView.mPrivateFlags |= View.PFLAG_DRAWN;
+         }
+

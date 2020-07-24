@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.view.Window.setDimAmount:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the amount of dim behind the window when using
+ * {@link WindowManager.LayoutParams#FLAG_DIM_BEHIND}.  This overrides
+ * the default dim amount of that is selected by the Window based on
+ * its theme.
+ *
+ * @param amount The new dim amount, from 0 for no dim to 1 for full dim.
+ */
+
+@@ -2,8 +2,6 @@
+     final WindowManager.LayoutParams attrs = getAttributes();
+     attrs.dimAmount = amount;
+     mHaveDimAmount = true;
+-    if (mCallback != null) {
+-        mCallback.onWindowAttributesChanged(attrs);
+-    }
++    dispatchWindowAttributesChanged(attrs);
+ }
+

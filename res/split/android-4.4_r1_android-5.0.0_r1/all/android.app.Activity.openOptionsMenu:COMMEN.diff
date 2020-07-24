@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.app.Activity.openOptionsMenu:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Programmatically opens the options menu. If the options menu is already
+ * open, this method does nothing.
+ */
+
+@@ -1,3 +1,5 @@
+ {
+-    mWindow.openPanel(Window.FEATURE_OPTIONS_PANEL, null);
++    if (mActionBar == null || !mActionBar.openOptionsMenu()) {
++        mWindow.openPanel(Window.FEATURE_OPTIONS_PANEL, null);
++    }
+ }
+

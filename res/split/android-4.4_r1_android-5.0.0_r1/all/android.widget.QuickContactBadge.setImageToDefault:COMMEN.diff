@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.widget.QuickContactBadge.setImageToDefault:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Resets the contact photo to the default state.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (mDefaultAvatar == null) {
+-        mDefaultAvatar = getResources().getDrawable(R.drawable.ic_contact_picture);
++        mDefaultAvatar = mContext.getDrawable(R.drawable.ic_contact_picture);
+     }
+     setImageDrawable(mDefaultAvatar);
+ }
+

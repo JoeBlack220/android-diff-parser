@@ -1,0 +1,12 @@
+Find a functionally equivalent code:android.widget.TimePicker.getCurrentMinute:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @return The current minute.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mMinuteSpinner.getValue();
++    return mDelegate.getCurrentMinute();
+ }
+

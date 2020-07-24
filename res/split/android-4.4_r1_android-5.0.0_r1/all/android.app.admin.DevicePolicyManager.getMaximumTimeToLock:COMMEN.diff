@@ -1,0 +1,7 @@
+Find a functionally equivalent code:android.app.admin.DevicePolicyManager.getMaximumTimeToLock:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide per-user version
+ */
+
+

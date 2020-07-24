@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.content.res.ColorStateList.withAlpha:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Creates a new ColorStateList that has the same states and
+ * colors as this one but where each color has the specified alpha value
+ * (0-255).
+ */
+
+@@ -1,6 +1,6 @@
+ {
+-    int[] colors = new int[mColors.length];
+-    int len = colors.length;
++    final int[] colors = new int[mColors.length];
++    final int len = colors.length;
+     for (int i = 0; i < len; i++) {
+         colors[i] = (mColors[i] & 0xFFFFFF) | (alpha << 24);
+     }
+

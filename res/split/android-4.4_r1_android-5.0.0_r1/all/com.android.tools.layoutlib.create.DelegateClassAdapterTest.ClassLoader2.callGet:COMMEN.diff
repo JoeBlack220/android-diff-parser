@@ -1,0 +1,16 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.DelegateClassAdapterTest.ClassLoader2.callGet:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Accesses {@link OuterClass#get} or {@link InnerClass#get}via reflection.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    Method m = instance.getClass().getMethod("get", new Class<?>[] { int.class, long.class });
+-    Object result = m.invoke(instance, new Object[] { a, b });
+-    return ((Integer) result).intValue();
++    Method m = instance.getClass().getMethod("get", int.class, long.class);
++    Object result = m.invoke(instance, a, b);
++    return (Integer) result;
+ }
+

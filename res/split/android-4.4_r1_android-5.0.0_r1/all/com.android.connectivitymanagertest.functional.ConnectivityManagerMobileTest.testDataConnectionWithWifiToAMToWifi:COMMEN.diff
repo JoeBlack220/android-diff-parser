@@ -1,0 +1,67 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.functional.ConnectivityManagerMobileTest.testDataConnectionWithWifiToAMToWifi:COMMENT
+Method Modifier: public      
+Comment:// Test case 7: test connectivity while transit from Wifi->AM->Wifi
+
+@@ -1,40 +1,23 @@
+ {
+-    if (mWifiOnlyFlag) {
+-        Log.v(TAG, this.getName() + " is excluded for wifi-only test");
+-        return;
+-    }
+-    // Connect to mTestAccessPoint
+-    assertNotNull("SSID is null", mTestAccessPoint);
+-    // Connect to Wifi
+-    assertTrue("failed to connect to " + mTestAccessPoint, connectToWifi(mTestAccessPoint));
+-    assertTrue(waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.CONNECTED, WIFI_CONNECTION_TIMEOUT));
+-    try {
+-        Thread.sleep(SHORT_TIMEOUT);
+-    } catch (Exception e) {
+-        log("exception: " + e.toString());
+-    }
+-    // Enable airplane mode without clearing Wifi
+-    mCM.setAirplaneMode(true);
+-    assertTrue(waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.DISCONNECTED, LONG_TIMEOUT));
+-    try {
+-        Thread.sleep(SHORT_TIMEOUT);
+-    } catch (Exception e) {
+-        log("exception: " + e.toString());
+-    }
+-    // Prepare for state validation
+-    NetworkInfo networkInfo = mCM.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+-    assertEquals(State.DISCONNECTED, networkInfo.getState());
+-    setStateTransitionCriteria(ConnectivityManager.TYPE_WIFI, networkInfo.getState(), NetworkState.TO_CONNECTION, State.CONNECTED);
+-    // Disable airplane mode
+-    mCM.setAirplaneMode(false);
+-    assertTrue(waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.CONNECTED, WIFI_CONNECTION_TIMEOUT));
+-    if (!mWifiOnlyFlag) {
+-        assertTrue(waitForNetworkState(ConnectivityManager.TYPE_MOBILE, State.DISCONNECTED, LONG_TIMEOUT));
+-    }
+-    // validate the state transition
+-    if (!validateNetworkStates(ConnectivityManager.TYPE_WIFI)) {
+-        log("Wifi state transition validation failed.");
+-        log("reason: " + getTransitionFailureReason(ConnectivityManager.TYPE_WIFI));
+-        assertTrue(false);
+-    }
++    // connect to mTestAccessPoint
++    assertNotNull("SSID is null", mSsid);
++    // enable WiFi
++    assertTrue("failed to enable wifi", enableWifi());
++    // wait for wifi enable
++    assertTrue("wifi not enabled", waitForWifiState(WifiManager.WIFI_STATE_ENABLED, LONG_TIMEOUT));
++    // connect to Wifi
++    assertTrue("failed to connect to " + mSsid, connectToWifi(mSsid, mPassword));
++    assertTrue("wifi not connected", waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.CONNECTED, WIFI_CONNECTION_TIMEOUT));
++    // enable airplane mode without clearing Wifi
++    mCm.setAirplaneMode(true);
++    // assert there is active network connection after airplane mode disabled
++    assertTrue("still has active network connection", waitUntilNoActiveNetworkConnection(LONG_TIMEOUT));
++    // disable airplane mode
++    mCm.setAirplaneMode(false);
++    // assert there is active network connection after airplane mode disabled
++    assertTrue("no active network connection after airplane mode disable", waitForActiveNetworkConnection(LONG_TIMEOUT));
++    // assert that we have a Wifi connection
++    assertTrue("wifi not connected after airplane mode disable", waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.CONNECTED, WIFI_CONNECTION_TIMEOUT));
++    // verify that connection actually works
++    assertTrue("no network connectivity at end of test", checkNetworkConnectivity());
+ }
+

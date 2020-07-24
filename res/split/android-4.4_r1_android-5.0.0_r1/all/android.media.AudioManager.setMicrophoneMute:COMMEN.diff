@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.media.AudioManager.setMicrophoneMute:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the microphone mute on or off.
+ * <p>
+ * This method should only be used by applications that replace the platform-wide
+ * management of audio settings or the main telephony application.
+ *
+ * @param on set <var>true</var> to mute the microphone;
+ * <var>false</var> to turn mute off
+ */
+
+@@ -1,3 +1,8 @@
+ {
+-    AudioSystem.muteMicrophone(on);
++    IAudioService service = getService();
++    try {
++        service.setMicrophoneMute(on, mContext.getOpPackageName());
++    } catch (RemoteException e) {
++        Log.e(TAG, "Dead object in setMicrophoneMute", e);
++    }
+ }
+

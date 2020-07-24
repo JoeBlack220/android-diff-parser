@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.content.ContentResolver.getSyncStatus:COMMENT
+Method Modifier: public      static      hidden      
+Comment:/**
+ * Returns the status that matches the authority.
+ * @param account the account whose setting we are querying
+ * @param authority the provider whose behavior is being queried
+ * @return the SyncStatusInfo for the authority, or null if none exists
+ * @hide
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        return getContentService().getSyncStatus(account, authority);
++        return getContentService().getSyncStatus(account, authority, null);
+     } catch (RemoteException e) {
+         throw new RuntimeException("the ContentService should always be reachable", e);
+     }
+

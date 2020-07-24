@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.onRegisterVolumeObserverForRcc:COMMENT
+Method Modifier: private     
+Comment:// handler for MSG_RCC_NEW_VOLUME_OBS
+
+@@ -1,11 +1,11 @@
+ {
+-    synchronized (mRCStack) {
++    synchronized (mPRStack) {
+         // start iterating from the top.
+         try {
+-            for (int index = mRCStack.size() - 1; index >= 0; index--) {
+-                final RemoteControlStackEntry rcse = mRCStack.elementAt(index);
+-                if (rcse.mRccId == rccId) {
+-                    rcse.mRemoteVolumeObs = rvo;
++            for (int index = mPRStack.size() - 1; index >= 0; index--) {
++                final PlayerRecord prse = mPRStack.elementAt(index);
++                if (prse.getRccId() == rccId) {
++                    prse.mRemoteVolumeObs = rvo;
+                     break;
+                 }
+             }
+

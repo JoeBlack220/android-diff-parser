@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.os.ParcelFileDescriptor.seekTo:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * This is needed for implementing AssetFileDescriptor.AutoCloseOutputStream,
+ * and I really don't think we want it to be public.
+ * @hide
+ */
+
+@@ -3,9 +3,9 @@
+         return mWrapped.seekTo(pos);
+     } else {
+         try {
+-            return Libcore.os.lseek(mFd, pos, SEEK_SET);
++            return Os.lseek(mFd, pos, SEEK_SET);
+         } catch (ErrnoException e) {
+             throw e.rethrowAsIOException();
+         }
+

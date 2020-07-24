@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.content.res.ColorStateList.valueOf:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Creates or retrieves a ColorStateList that always returns a single color.
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     // TODO: should we collect these eventually?
+     synchronized (sCache) {
+-        WeakReference<ColorStateList> ref = sCache.get(color);
++        final WeakReference<ColorStateList> ref = sCache.get(color);
+         ColorStateList csl = ref != null ? ref.get() : null;
+         if (csl != null) {
+             return csl;
+

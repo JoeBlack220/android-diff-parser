@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.AudioService.setMode:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @see AudioManager#setMode(int)
+ */
+
+@@ -1,7 +1,14 @@
+ {
++    if (DEBUG_MODE) {
++        Log.v(TAG, "setMode(mode=" + mode + ")");
++    }
+     if (!checkAudioSettingsPermission("setMode()")) {
+         return;
+     }
++    if ((mode == AudioSystem.MODE_IN_CALL) && (mContext.checkCallingOrSelfPermission(android.Manifest.permission.MODIFY_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)) {
++        Log.w(TAG, "MODIFY_PHONE_STATE Permission Denial: setMode(MODE_IN_CALL) from pid=" + Binder.getCallingPid() + ", uid=" + Binder.getCallingUid());
++        return;
++    }
+     if (mode < AudioSystem.MODE_CURRENT || mode >= AudioSystem.NUM_MODES) {
+         return;
+     }
+

@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.graphics.Canvas.drawTextOnPath:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Draw the text, with origin at (x,y), using the specified paint, along
+ * the specified path. The paint's Align setting determins where along the
+ * path to start the text.
+ *
+ * @param text     The text to be drawn
+ * @param path     The path the text should follow for its baseline
+ * @param hOffset  The distance along the path to add to the text's
+ * starting position
+ * @param vOffset  The distance above(-) or below(+) the path to position
+ * the text
+ * @param paint    The paint used for the text (e.g. color, size, style)
+ */
+
+@@ -1,6 +1,5 @@
+ {
+-    if (index < 0 || index + count > text.length) {
+-        throw new ArrayIndexOutOfBoundsException();
++    if (text.length() > 0) {
++        native_drawTextOnPath(mNativeCanvasWrapper, text, path.ni(), hOffset, vOffset, paint.mBidiFlags, paint.mNativePaint, paint.mNativeTypeface);
+     }
+-    native_drawTextOnPath(mNativeCanvas, text, index, count, path.ni(), hOffset, vOffset, paint.mBidiFlags, paint.mNativePaint);
+ }
+

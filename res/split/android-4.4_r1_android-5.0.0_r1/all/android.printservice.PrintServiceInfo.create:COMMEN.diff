@@ -1,0 +1,35 @@
+Find a functionally equivalent code:android.printservice.PrintServiceInfo.create:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Creates a new instance.
+ *
+ * @param resolveInfo The service resolve info.
+ * @param context Context for accessing resources.
+ * @throws XmlPullParserException If a XML parsing error occurs.
+ * @throws IOException If a I/O error occurs.
+ */
+
+@@ -1,6 +1,7 @@
+ {
+     String settingsActivityName = null;
+     String addPrintersActivityName = null;
++    String advancedPrintOptionsActivityName = null;
+     XmlResourceParser parser = null;
+     PackageManager packageManager = context.getPackageManager();
+     parser = resolveInfo.serviceInfo.loadXmlMetaData(packageManager, PrintService.SERVICE_META_DATA);
+@@ -19,24 +20,26 @@
+                 TypedArray attributes = resources.obtainAttributes(allAttributes, com.android.internal.R.styleable.PrintService);
+                 settingsActivityName = attributes.getString(com.android.internal.R.styleable.PrintService_settingsActivity);
+                 addPrintersActivityName = attributes.getString(com.android.internal.R.styleable.PrintService_addPrintersActivity);
++                advancedPrintOptionsActivityName = attributes.getString(com.android.internal.R.styleable.PrintService_advancedPrintOptionsActivity);
+                 attributes.recycle();
+             }
+         } catch (IOException ioe) {
+@@ -33,37 +35,39 @@
+             }
+         }
+     }
+-    return new PrintServiceInfo(resolveInfo, settingsActivityName, addPrintersActivityName);
++    return new PrintServiceInfo(resolveInfo, settingsActivityName, addPrintersActivityName, advancedPrintOptionsActivityName);
+ }
+

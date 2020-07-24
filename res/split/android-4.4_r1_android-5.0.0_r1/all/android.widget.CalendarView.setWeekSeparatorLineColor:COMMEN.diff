@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.widget.CalendarView.setWeekSeparatorLineColor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the color for the separator line between weeks.
+ *
+ * @param color The week separator color.
+ *
+ * @attr ref android.R.styleable#CalendarView_weekSeparatorLineColor
+ */
+
+@@ -1,6 +1,3 @@
+ {
+-    if (mWeekSeparatorLineColor != color) {
+-        mWeekSeparatorLineColor = color;
+-        invalidateAllWeekViews();
+-    }
++    mDelegate.setWeekSeparatorLineColor(color);
+ }
+

@@ -1,0 +1,41 @@
+Find a functionally equivalent code:android.media.RemoteController.MetadataEditor.apply:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Applies all of the metadata changes that have been set since the MediaMetadataEditor
+ * instance was created with {@link RemoteController#editMetadata()}
+ * or since {@link #clear()} was called.
+ */
+
+@@ -3,22 +3,20 @@
+     if (!mMetadataChanged) {
+         return;
+     }
+-    final int genId;
+-    synchronized (mGenLock) {
+-        genId = mClientGenerationIdCurrent;
+-    }
+     synchronized (mInfoLock) {
+-        if (mEditorMetadata.containsKey(String.valueOf(MediaMetadataEditor.RATING_KEY_BY_USER))) {
+-            Rating rating = (Rating) getObject(MediaMetadataEditor.RATING_KEY_BY_USER, null);
+-            mAudioManager.updateRemoteControlClientMetadata(genId, MediaMetadataEditor.RATING_KEY_BY_USER, rating);
+-        } else {
+-            Log.e(TAG, "no metadata to apply");
++        if (mCurrentSession != null) {
++            if (mEditorMetadata.containsKey(String.valueOf(MediaMetadataEditor.RATING_KEY_BY_USER))) {
++                Rating rating = (Rating) getObject(MediaMetadataEditor.RATING_KEY_BY_USER, null);
++                if (rating != null) {
++                    mCurrentSession.getTransportControls().setRating(rating);
++                }
++            }
+         }
+-        // NOT setting mApplied to true as this type of MetadataEditor will be applied
+-        // multiple times, whenever the user of a RemoteController needs to change the
+-        // metadata (e.g. user changes the rating of a song more than once during playback)
+-        mApplied = false;
+     }
++    // NOT setting mApplied to true as this type of MetadataEditor will be applied
++    // multiple times, whenever the user of a RemoteController needs to change the
++    // metadata (e.g. user changes the rating of a song more than once during playback)
++    mApplied = false;
+ }
+

@@ -1,0 +1,39 @@
+Find a functionally equivalent code:android.app.ActivityManager.getLauncherLargeIconSize:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Get the preferred launcher icon size. This is used when custom drawables
+ * are created (e.g., for shortcuts).
+ *
+ * @return dimensions of square icons in terms of pixels
+ */
+
+@@ -1,27 +1,3 @@
+ {
+-    final Resources res = mContext.getResources();
+-    final int size = res.getDimensionPixelSize(android.R.dimen.app_icon_size);
+-    final int sw = res.getConfiguration().smallestScreenWidthDp;
+-    if (sw < 600) {
+-        // Smaller than approx 7" tablets, use the regular icon size.
+-        return size;
+-    }
+-    final int density = res.getDisplayMetrics().densityDpi;
+-    switch(density) {
+-        case DisplayMetrics.DENSITY_LOW:
+-            return (size * DisplayMetrics.DENSITY_MEDIUM) / DisplayMetrics.DENSITY_LOW;
+-        case DisplayMetrics.DENSITY_MEDIUM:
+-            return (size * DisplayMetrics.DENSITY_HIGH) / DisplayMetrics.DENSITY_MEDIUM;
+-        case DisplayMetrics.DENSITY_TV:
+-            return (size * DisplayMetrics.DENSITY_XHIGH) / DisplayMetrics.DENSITY_HIGH;
+-        case DisplayMetrics.DENSITY_HIGH:
+-            return (size * DisplayMetrics.DENSITY_XHIGH) / DisplayMetrics.DENSITY_HIGH;
+-        case DisplayMetrics.DENSITY_XHIGH:
+-            return (size * DisplayMetrics.DENSITY_XXHIGH) / DisplayMetrics.DENSITY_XHIGH;
+-        case DisplayMetrics.DENSITY_XXHIGH:
+-            return (size * DisplayMetrics.DENSITY_XHIGH * 2) / DisplayMetrics.DENSITY_XXHIGH;
+-        default:
+-            // abnormal value that is a reasonable scaling of it.
+-            return (int) ((size * 1.5f) + .5f);
+-    }
++    return getLauncherLargeIconSizeInner(mContext);
+ }
+

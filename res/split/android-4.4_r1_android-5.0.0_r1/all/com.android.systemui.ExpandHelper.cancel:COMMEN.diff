@@ -1,0 +1,14 @@
+Find a functionally equivalent code:com.android.systemui.ExpandHelper.cancel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Use this to abort any pending expansions in progress.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    finishExpanding(true);
++    finishExpanding(true, 0f);
+     clearView();
+     // reset the gesture detector
+     mSGD = new ScaleGestureDetector(mContext, mScaleGestureListener);
+

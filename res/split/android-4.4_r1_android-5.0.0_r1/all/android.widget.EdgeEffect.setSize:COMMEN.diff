@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.widget.EdgeEffect.setSize:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the size of this edge effect in pixels.
+ *
+ * @param width Effect width in pixels
+ * @param height Effect height in pixels
+ */
+
+@@ -1,4 +1,11 @@
+ {
+-    mWidth = width;
+-    mHeight = height;
++    final float r = width * 0.75f / SIN;
++    final float y = COS * r;
++    final float h = r - y;
++    final float or = height * 0.75f / SIN;
++    final float oy = COS * or;
++    final float oh = or - oy;
++    mRadius = r;
++    mBaseGlowScale = h > 0 ? Math.min(oh / h, 1.f) : 1.f;
++    mBounds.set(mBounds.left, mBounds.top, width, (int) Math.min(height, h));
+ }
+

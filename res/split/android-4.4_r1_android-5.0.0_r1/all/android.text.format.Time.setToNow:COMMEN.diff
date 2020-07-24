@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.text.format.Time.setToNow:COMMENT
+<android.text.format.Time: void setToNow()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+Comment:/**
+ * Sets the time of the given Time object to the current time.
+ */
+
+@@ -1 +1,3 @@
+-
++{
++    set(System.currentTimeMillis());
++}
+

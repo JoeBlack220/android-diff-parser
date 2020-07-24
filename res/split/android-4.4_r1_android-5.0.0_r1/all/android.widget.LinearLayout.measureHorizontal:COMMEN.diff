@@ -1,0 +1,45 @@
+Find a functionally equivalent code:android.widget.LinearLayout.measureHorizontal:COMMENT
+Method Modifier: 
+Comment:/**
+ * Measures the children when the orientation of this LinearLayout is set
+ * to {@link #HORIZONTAL}.
+ *
+ * @param widthMeasureSpec Horizontal space requirements as imposed by the parent.
+ * @param heightMeasureSpec Vertical space requirements as imposed by the parent.
+ *
+ * @see #getOrientation()
+ * @see #setOrientation(int)
+ * @see #onMeasure(int, int)
+ */
+
+@@ -10,15 +10,16 @@
+     final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+     final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+     boolean matchHeight = false;
++    boolean skippedMeasure = false;
+     if (mMaxAscent == null || mMaxDescent == null) {
+         mMaxAscent = new int[VERTICAL_GRAVITY_COUNT];
+         mMaxDescent = new int[VERTICAL_GRAVITY_COUNT];
+@@ -50,55 +51,58 @@
+             if (baselineAligned) {
+                 final int freeSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+                 child.measure(freeSpec, freeSpec);
++            } else {
++                skippedMeasure = true;
+             }
+         } else {
+             int oldWidth = Integer.MIN_VALUE;
+@@ -154,162 +157,166 @@
+     int widthSizeAndState = resolveSizeAndState(widthSize, widthMeasureSpec, 0);
+     widthSize = widthSizeAndState & MEASURED_SIZE_MASK;
+     // Either expand children with weight to take up available space or
+-    // shrink them if they extend beyond our current bounds
++    // shrink them if they extend beyond our current bounds. If we skipped
++    // measurement on any children, we need to measure them now.
+     int delta = widthSize - mTotalLength;
+-    if (delta != 0 && totalWeight > 0.0f) {
++    if (skippedMeasure || delta != 0 && totalWeight > 0.0f) {
+         float weightSum = mWeightSum > 0.0f ? mWeightSum : totalWeight;
+         maxAscent[0] = maxAscent[1] = maxAscent[2] = maxAscent[3] = -1;
+         maxDescent[0] = maxDescent[1] = maxDescent[2] = maxDescent[3] = -1;
+

@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.app.Activity.onMenuOpened:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ *
+ * @return The default implementation returns true.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (featureId == Window.FEATURE_ACTION_BAR) {
+-        initActionBar();
++        initWindowDecorActionBar();
+         if (mActionBar != null) {
+             mActionBar.dispatchMenuVisibilityChanged(true);
+         } else {
+

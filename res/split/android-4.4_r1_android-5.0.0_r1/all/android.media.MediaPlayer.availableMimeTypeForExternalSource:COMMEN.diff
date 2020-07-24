@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.media.MediaPlayer.availableMimeTypeForExternalSource:COMMENT
+Method Modifier: private     static      
+Comment:/*
+     * A helper function to check if the mime type is supported by media framework.
+     */
+
+@@ -1,5 +1,5 @@
+ {
+-    if (mimeType == MEDIA_MIMETYPE_TEXT_SUBRIP) {
++    if (MEDIA_MIMETYPE_TEXT_SUBRIP.equals(mimeType)) {
+         return true;
+     }
+     return false;
+

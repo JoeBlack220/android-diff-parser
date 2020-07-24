@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.service.dreams.DreamService.getWindowManager:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieves the current {@link android.view.WindowManager} for the dream.
+ * Behaves similarly to {@link android.app.Activity#getWindowManager()}.
+ *
+ * @return The current window manager, or null if the dream is not started.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mWindowManager;
++    return mWindow != null ? mWindow.getWindowManager() : null;
+ }
+

@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.speech.SpeechRecognizer.destroy:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Destroys the {@code SpeechRecognizer} object.
+ */
+
+@@ -1,4 +1,11 @@
+ {
++    if (mService != null) {
++        try {
++            mService.cancel(mListener);
++        } catch (final RemoteException e) {
++        // Not important
++        }
++    }
+     if (mConnection != null) {
+         mContext.unbindService(mConnection);
+     }
+

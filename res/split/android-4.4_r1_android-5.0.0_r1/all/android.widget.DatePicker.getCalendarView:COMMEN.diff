@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.widget.DatePicker.getCalendarView:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets the {@link CalendarView}.
+ *
+ * @return The calendar view.
+ * @see #getCalendarViewShown()
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mCalendarView;
++    return mDelegate.getCalendarView();
+ }
+

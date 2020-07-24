@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.content.res.BridgeTypedArray.getBoolean:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the boolean value for the attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ * @param defValue Value to return if the attribute is not defined.
+ *
+ * @return Attribute boolean value, or defValue if not defined.
+ */
+
+@@ -1,13 +1,4 @@
+ {
+-    if (index < 0 || index >= mResourceData.length) {
+-        return defValue;
+-    }
+-    if (mResourceData[index] == null) {
+-        return defValue;
+-    }
+-    String s = mResourceData[index].getValue();
+-    if (s != null) {
+-        return XmlUtils.convertValueToBoolean(s, defValue);
+-    }
+-    return defValue;
++    String s = getString(index);
++    return s == null ? defValue : XmlUtils.convertValueToBoolean(s, defValue);
+ }
+

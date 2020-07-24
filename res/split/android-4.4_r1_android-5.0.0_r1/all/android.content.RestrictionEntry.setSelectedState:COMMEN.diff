@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.content.RestrictionEntry.setSelectedState:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the current selected state for an entry of type {@link #TYPE_BOOLEAN}. This value will
+ * be persisted by the system for later use by the application.
+ * @param state the current selected state
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    currentValue = Boolean.toString(state);
++    mCurrentValue = Boolean.toString(state);
+ }
+

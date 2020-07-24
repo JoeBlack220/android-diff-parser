@@ -1,0 +1,55 @@
+Find a functionally equivalent code:android.app.WallpaperManager.suggestDesiredDimensions:COMMENT
+Method Modifier: public      
+Comment:/**
+ * For use only by the current home application, to specify the size of
+ * wallpaper it would like to use.  This allows such applications to have
+ * a virtual wallpaper that is larger than the physical screen, matching
+ * the size of their workspace.
+ *
+ * <p>Note developers, who don't seem to be reading this.  This is
+ * for <em>home screens</em> to tell what size wallpaper they would like.
+ * Nobody else should be calling this!  Certainly not other non-home-screen
+ * apps that change the wallpaper.  Those apps are supposed to
+ * <b>retrieve</b> the suggested size so they can construct a wallpaper
+ * that matches it.
+ *
+ * <p>This method requires the caller to hold the permission
+ * {@link android.Manifest.permission#SET_WALLPAPER_HINTS}.
+ *
+ * @param minimumWidth Desired minimum width
+ * @param minimumHeight Desired minimum height
+ */
+
+@@ -1,5 +1,31 @@
+ {
+     try {
++        /**
++         * The framework makes no attempt to limit the window size
++         * to the maximum texture size. Any window larger than this
++         * cannot be composited.
++         *
++         * Read maximum texture size from system property and scale down
++         * minimumWidth and minimumHeight accordingly.
++         */
++        int maximumTextureSize;
++        try {
++            maximumTextureSize = SystemProperties.getInt("sys.max_texture_size", 0);
++        } catch (Exception e) {
++            maximumTextureSize = 0;
++        }
++        if (maximumTextureSize > 0) {
++            if ((minimumWidth > maximumTextureSize) || (minimumHeight > maximumTextureSize)) {
++                float aspect = (float) minimumHeight / (float) minimumWidth;
++                if (minimumWidth > minimumHeight) {
++                    minimumWidth = maximumTextureSize;
++                    minimumHeight = (int) ((minimumWidth * aspect) + 0.5);
++                } else {
++                    minimumHeight = maximumTextureSize;
++                    minimumWidth = (int) ((minimumHeight / aspect) + 0.5);
++                }
++            }
++        }
+         if (sGlobals.mService == null) {
+             Log.w(TAG, "WallpaperService not running");
+         } else {
+

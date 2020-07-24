@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.service.dreams.DreamService.dispatchKeyEvent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -2,14 +2,14 @@
+     // TODO: create more flexible version of mInteractive that allows use of KEYCODE_BACK
+     if (!mInteractive) {
+         if (mDebug)
+-            Slog.v(TAG, "Finishing on keyEvent");
+-        safelyFinish();
++            Slog.v(TAG, "Waking up on keyEvent");
++        wakeUp();
+         return true;
+     } else if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+         if (mDebug)
+-            Slog.v(TAG, "Finishing on back key");
+-        safelyFinish();
++            Slog.v(TAG, "Waking up on back key");
++        wakeUp();
+         return true;
+     }
+     return mWindow.superDispatchKeyEvent(event);
+

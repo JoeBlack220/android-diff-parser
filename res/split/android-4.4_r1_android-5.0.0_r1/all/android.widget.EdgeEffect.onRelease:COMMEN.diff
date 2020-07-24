@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.widget.EdgeEffect.onRelease:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Call when the object is released after being pulled.
+ * This will begin the "decay" phase of the effect. After calling this method
+ * the host view should {@link android.view.View#invalidate()} and thereby
+ * draw the results accordingly.
+ */
+
+@@ -4,15 +4,11 @@
+         return;
+     }
+     mState = STATE_RECEDE;
+-    mEdgeAlphaStart = mEdgeAlpha;
+-    mEdgeScaleYStart = mEdgeScaleY;
+     mGlowAlphaStart = mGlowAlpha;
+     mGlowScaleYStart = mGlowScaleY;
+-    mEdgeAlphaFinish = 0.f;
+-    mEdgeScaleYFinish = 0.f;
+     mGlowAlphaFinish = 0.f;
+     mGlowScaleYFinish = 0.f;
+     mStartTime = AnimationUtils.currentAnimationTimeMillis();
+

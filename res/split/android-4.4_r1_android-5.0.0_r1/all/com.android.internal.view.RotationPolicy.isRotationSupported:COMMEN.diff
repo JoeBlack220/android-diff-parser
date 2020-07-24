@@ -1,0 +1,18 @@
+Find a functionally equivalent code:com.android.internal.view.RotationPolicy.isRotationSupported:COMMENT
+Method Modifier: public      static      internal    
+Comment:/**
+ * Gets whether the device supports rotation. In general such a
+ * device has an accelerometer and has the portrait and landscape
+ * features.
+ *
+ * @param context Context for accessing system resources.
+ * @return Whether the device supports rotation.
+ */
+
+@@ -1,4 +1,4 @@
+ {
+     PackageManager pm = context.getPackageManager();
+-    return pm.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER) && pm.hasSystemFeature(PackageManager.FEATURE_SCREEN_PORTRAIT) && pm.hasSystemFeature(PackageManager.FEATURE_SCREEN_LANDSCAPE);
++    return pm.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER) && pm.hasSystemFeature(PackageManager.FEATURE_SCREEN_PORTRAIT) && pm.hasSystemFeature(PackageManager.FEATURE_SCREEN_LANDSCAPE) && context.getResources().getBoolean(com.android.internal.R.bool.config_supportAutoRotation);
+ }
+

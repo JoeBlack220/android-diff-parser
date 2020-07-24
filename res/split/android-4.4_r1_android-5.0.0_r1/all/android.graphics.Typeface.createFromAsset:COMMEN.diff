@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.graphics.Typeface.createFromAsset:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Create a new typeface from the specified font data.
+ * @param mgr The application's asset manager
+ * @param path  The file name of the font data in the assets directory
+ * @return The new typeface.
+ */
+
+@@ -1,3 +1,10 @@
+ {
+-    return new Typeface(nativeCreateFromAsset(mgr, path));
++    if (sFallbackFonts != null) {
++        FontFamily fontFamily = new FontFamily();
++        if (fontFamily.addFontFromAsset(mgr, path)) {
++            FontFamily[] families = { fontFamily };
++            return createFromFamiliesWithDefault(families);
++        }
++    }
++    throw new RuntimeException("Font asset not found " + path);
+ }
+

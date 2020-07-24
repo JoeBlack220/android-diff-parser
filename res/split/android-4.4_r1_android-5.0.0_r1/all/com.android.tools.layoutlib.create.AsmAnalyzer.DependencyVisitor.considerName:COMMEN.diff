@@ -1,0 +1,26 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.AsmAnalyzer.DependencyVisitor.considerName:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Considers the given class name as a dependency.
+ * If it does, add to the mOutDeps map.
+ */
+
+@@ -4,10 +4,10 @@
+     }
+     className = internalToBinaryClassName(className);
+     // exclude classes that have already been found or are marked to be excluded
+-    if (mInKeep.containsKey(className) || mOutKeep.containsKey(className) || mInDeps.containsKey(className) || mOutDeps.containsKey(className) || mExcludedClasses.contains(getBaseName(className))) {
++    if (mInKeep.containsKey(className) || mOutKeep.containsKey(className) || mInDeps.containsKey(className) || mOutDeps.containsKey(className) || mExcludedClasses.contains(getOuterClassName(className))) {
+         return;
+     }
+     // exclude classes that are not part of the JAR file being examined
+@@ -21,27 +21,27 @@
+     // ignore
+     }
+     // to be stubbed).
+-    if (className.indexOf("android") >= 0) {
++    if (className.contains("android")) {
+         // TODO make configurable
+         mOutDeps.put(className, cr);
+     } else {
+

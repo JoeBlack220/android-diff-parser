@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetManager.getInstance:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Get the AppWidgetManager instance to use for the supplied {@link android.content.Context
+ * Context} object.
+ */
+
+@@ -1,18 +1,3 @@
+ {
+-    synchronized (sManagerCache) {
+-        if (sService == null) {
+-            IBinder b = ServiceManager.getService(Context.APPWIDGET_SERVICE);
+-            sService = IAppWidgetService.Stub.asInterface(b);
+-        }
+-        WeakReference<AppWidgetManager> ref = sManagerCache.get(context);
+-        AppWidgetManager result = null;
+-        if (ref != null) {
+-            result = ref.get();
+-        }
+-        if (result == null) {
+-            result = new AppWidgetManager(context);
+-            sManagerCache.put(context, new WeakReference<AppWidgetManager>(result));
+-        }
+-        return result;
+-    }
++    return (AppWidgetManager) context.getSystemService(Context.APPWIDGET_SERVICE);
+ }
+

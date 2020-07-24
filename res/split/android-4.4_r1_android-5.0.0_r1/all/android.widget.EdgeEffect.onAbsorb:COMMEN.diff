@@ -1,0 +1,42 @@
+Find a functionally equivalent code:android.widget.EdgeEffect.onAbsorb:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Call when the effect absorbs an impact at the given velocity.
+ * Used when a fling reaches the scroll boundary.
+ *
+ * <p>When using a {@link android.widget.Scroller} or {@link android.widget.OverScroller},
+ * the method <code>getCurrVelocity</code> will provide a reasonable approximation
+ * to use here.</p>
+ *
+ * @param velocity Velocity at impact in pixels per second.
+ */
+
+@@ -3,26 +3,18 @@
+     velocity = Math.min(Math.max(MIN_VELOCITY, Math.abs(velocity)), MAX_VELOCITY);
+     mStartTime = AnimationUtils.currentAnimationTimeMillis();
+     mDuration = 0.15f + (velocity * 0.02f);
+-    // The edge should always be at least partially visible, regardless
+-    // of velocity.
+-    mEdgeAlphaStart = 0.f;
+-    mEdgeScaleY = mEdgeScaleYStart = 0.f;
+     // The glow depends more on the velocity, and therefore starts out
+     // nearly invisible.
+     mGlowAlphaStart = 0.3f;
+-    mGlowScaleYStart = 0.f;
+-    // Factor the velocity by 8. Testing on device shows this works best to
+-    // reflect the strength of the user's scrolling.
+-    mEdgeAlphaFinish = Math.max(0, Math.min(velocity * VELOCITY_EDGE_FACTOR, 1));
+-    // Edge should never get larger than the size of its asset.
+-    mEdgeScaleYFinish = Math.max(HELD_EDGE_SCALE_Y, Math.min(velocity * VELOCITY_EDGE_FACTOR, 1.f));
++    mGlowScaleYStart = Math.max(mGlowScaleY, 0.f);
+     // Growth for the size of the glow should be quadratic to properly
+     // respond
+     // to a user's scrolling speed. The faster the scrolling speed, the more
+     // intense the effect should be for both the size and the saturation.
+-    mGlowScaleYFinish = Math.min(0.025f + (velocity * (velocity / 100) * 0.00015f), 1.75f);
++    mGlowScaleYFinish = Math.min(0.025f + (velocity * (velocity / 100) * 0.00015f) / 2, 1.f);
+     // Alpha should change for the glow as well as size.
+     mGlowAlphaFinish = Math.max(mGlowAlphaStart, Math.min(velocity * VELOCITY_GLOW_FACTOR * .00001f, MAX_ALPHA));
++    mTargetDisplacement = 0.5f;
+ }
+

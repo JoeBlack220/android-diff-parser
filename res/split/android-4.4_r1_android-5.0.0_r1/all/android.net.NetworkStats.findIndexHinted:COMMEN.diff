@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.net.NetworkStats.findIndexHinted:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Find first stats index that matches the requested parameters, starting
+ * search around the hinted index as an optimization.
+ */
+
+@@ -8,14 +8,14 @@
+         } else {
+             i = (size + hintIndex - halfOffset - 1) % size;
+         }
+-        if (uid == this.uid[i] && set == this.set[i] && tag == this.tag[i] && Objects.equal(iface, this.iface[i])) {
++        if (uid == this.uid[i] && set == this.set[i] && tag == this.tag[i] && Objects.equals(iface, this.iface[i])) {
+             return i;
+         }
+     }
+

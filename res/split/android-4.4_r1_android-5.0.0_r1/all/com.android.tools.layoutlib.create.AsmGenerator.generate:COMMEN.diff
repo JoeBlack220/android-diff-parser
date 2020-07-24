@@ -1,0 +1,22 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.AsmGenerator.generate:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Generates the final JAR
+ */
+
+@@ -20,25 +20,33 @@
+         String name = classNameToEntryPath(transformName(cr.getClassName()));
+         all.put(name, b);
+     }
++    for (Entry<String, InputStream> entry : mCopyFiles.entrySet()) {
++        try {
++            byte[] b = inputStreamToByteArray(entry.getValue());
++            all.put(entry.getKey(), b);
++        } catch (IOException e) {
++        // Ignore.
++        }
++    }
+     mLog.info("# deps classes: %d", mDeps.size());
+     mLog.info("# keep classes: %d", mKeep.size());
+     mLog.info("# renamed     : %d", mRenameCount);
+

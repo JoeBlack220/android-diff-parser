@@ -1,0 +1,24 @@
+Find a functionally equivalent code:com.android.systemui.settings.BrightnessController.updateMode:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Fetch the brightness mode from the system settings and update the icon
+ */
+
+@@ -1,13 +1,9 @@
+ {
+     if (mAutomaticAvailable) {
+         int automatic;
+-        try {
+-            automatic = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, UserHandle.USER_CURRENT);
+-        } catch (SettingNotFoundException snfe) {
+-            automatic = 0;
+-        }
+-        mControl.setChecked(automatic != 0);
+-        updateIcon(automatic != 0);
++        automatic = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL, UserHandle.USER_CURRENT);
++        mAutomatic = automatic != Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL;
++        updateIcon(mAutomatic);
+     } else {
+         mControl.setChecked(false);
+         updateIcon(false);
+

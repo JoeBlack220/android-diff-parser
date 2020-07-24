@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.util.TimeUtils.getTimeZone:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Tries to return a time zone that would have had the specified offset
+ * and DST value at the specified moment in the specified country.
+ * Returns null if no suitable zone could be found.
+ */
+
+@@ -1,8 +1,6 @@
+ {
+     TimeZone best = null;
+-    Resources r = Resources.getSystem();
+-    XmlResourceParser parser = r.getXml(com.android.internal.R.xml.time_zones_by_country);
+-    Date d = new Date(when);
++    final Date d = new Date(when);
+     TimeZone current = TimeZone.getDefault();
+     String currentName = current.getID();
+     int currentOffset = current.getOffset(when);
+

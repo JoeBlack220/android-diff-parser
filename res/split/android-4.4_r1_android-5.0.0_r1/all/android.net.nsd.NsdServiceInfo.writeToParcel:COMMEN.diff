@@ -1,0 +1,35 @@
+Find a functionally equivalent code:android.net.nsd.NsdServiceInfo.writeToParcel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Implement the Parcelable interface
+ */
+
+@@ -1,12 +1,24 @@
+ {
+     dest.writeString(mServiceName);
+     dest.writeString(mServiceType);
+-    dest.writeParcelable(mTxtRecord, flags);
+     if (mHost != null) {
+-        dest.writeByte((byte) 1);
++        dest.writeInt(1);
+         dest.writeByteArray(mHost.getAddress());
+     } else {
+-        dest.writeByte((byte) 0);
++        dest.writeInt(0);
+     }
+     dest.writeInt(mPort);
++    // TXT record key/value pairs.
++    dest.writeInt(mTxtRecord.size());
++    for (String key : mTxtRecord.keySet()) {
++        byte[] value = mTxtRecord.get(key);
++        if (value != null) {
++            dest.writeInt(1);
++            dest.writeInt(value.length);
++            dest.writeByteArray(value);
++        } else {
++            dest.writeInt(0);
++        }
++        dest.writeString(key);
++    }
+ }
+

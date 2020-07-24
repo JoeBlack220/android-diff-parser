@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.preference.PreferenceActivity.loadHeadersFromResource:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Parse the given XML file as a header description, adding each
+ * parsed Header into the target list.
+ *
+ * @param resid The XML resource to load and parse.
+ * @param target The list in which the parsed headers should be placed.
+ */
+
+@@ -20,26 +20,26 @@
+             nodeName = parser.getName();
+             if ("header".equals(nodeName)) {
+                 Header header = new Header();
+-                TypedArray sa = getResources().obtainAttributes(attrs, com.android.internal.R.styleable.PreferenceHeader);
++                TypedArray sa = obtainStyledAttributes(attrs, com.android.internal.R.styleable.PreferenceHeader);
+                 header.id = sa.getResourceId(com.android.internal.R.styleable.PreferenceHeader_id, (int) HEADER_ID_UNDEFINED);
+                 TypedValue tv = sa.peekValue(com.android.internal.R.styleable.PreferenceHeader_title);
+                 if (tv != null && tv.type == TypedValue.TYPE_STRING) {
+

@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.content.res.TypedArray.getValue:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the raw TypedValue for the attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ * @param outValue TypedValue object in which to place the attribute's
+ * data.
+ *
+ * @return Returns true if the value was retrieved, else false.
+ */
+
+@@ -1,3 +1,6 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     return getValueAt(index * AssetManager.STYLE_NUM_ENTRIES, outValue);
+ }
+

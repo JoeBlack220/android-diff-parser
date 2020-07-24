@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.printservice.PrintJob.getAdvancedIntOption:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets the value of an advanced (printer specific) print option.
+ *
+ * @param key The option key.
+ * @return The option value.
+ */
+
+@@ -1,4 +1,4 @@
+ {
+     PrintService.throwIfNotCalledOnMainThread();
+-    return 0;
++    return getInfo().getAdvancedIntOption(key);
+ }
+

@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.print.PrintManager.removePrintJobStateChangeListener:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * Removes a listener for observing the state of print jobs.
+ *
+ * @param listener The listener to remove.
+ * @hide
+ */
+
+@@ -1,4 +1,8 @@
+ {
++    if (mService == null) {
++        Log.w(LOG_TAG, "Feature android.software.print not available");
++        return;
++    }
+     if (mPrintJobStateChangeListeners == null) {
+         return;
+     }
+

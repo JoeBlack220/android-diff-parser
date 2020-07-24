@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.view.MotionEvent.PointerCoords.setAxisValue:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the value associated with the specified axis.
+ *
+ * @param axis The axis identifier for the axis value to assign.
+ * @param value The value to set.
+ *
+ * @see MotionEvent#AXIS_X
+ * @see MotionEvent#AXIS_Y
+ */
+
+@@ -33,40 +33,40 @@
+                     throw new IllegalArgumentException("Axis out of range.");
+                 }
+                 final long bits = mPackedAxisBits;
+-                final long axisBit = 1L << axis;
+-                final int index = Long.bitCount(bits & (axisBit - 1L));
++                final long axisBit = 0x8000000000000000L >>> axis;
++                final int index = Long.bitCount(bits & ~(0xFFFFFFFFFFFFFFFFL >>> axis));
+                 float[] values = mPackedAxisValues;
+                 if ((bits & axisBit) == 0) {
+                     if (values == null) {
+

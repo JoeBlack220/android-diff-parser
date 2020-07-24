@@ -1,0 +1,24 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.AsmAnalyzer.analyze:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Starts the analysis using parameters from the constructor.
+ * Fills the generator with classes & dependencies found.
+ */
+
+@@ -1,10 +1,14 @@
+ {
+-    Map<String, ClassReader> zipClasses = parseZip(mOsSourceJar);
++    TreeMap<String, ClassReader> zipClasses = new TreeMap<String, ClassReader>();
++    Map<String, InputStream> filesFound = new TreeMap<String, InputStream>();
++    parseZip(mOsSourceJar, zipClasses, filesFound);
+     mLog.info("Found %d classes in input JAR%s.", zipClasses.size(), mOsSourceJar.size() > 1 ? "s" : "");
+     Map<String, ClassReader> found = findIncludes(zipClasses);
+     Map<String, ClassReader> deps = findDeps(zipClasses, found);
+     if (mGen != null) {
+         mGen.setKeep(found);
+         mGen.setDeps(deps);
++        mGen.setCopyFiles(filesFound);
++        mGen.setRewriteMethodCallClasses(mReplaceMethodCallClasses);
+     }
+ }
+

@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.os.ParcelFileDescriptor.createReliableSocketPair:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Create two ParcelFileDescriptors structured as a pair of sockets
+ * connected to each other. The two sockets are indistinguishable.
+ * <p>
+ * Both ends have the ability to deliver an error message through
+ * {@link #closeWithError(String)} which can be detected by the other end
+ * calling {@link #checkError()}, usually after detecting an EOF.
+ * This can also be used to detect remote crashes.
+ */
+
+@@ -1,9 +1,9 @@
+ {
+     try {
+-        final FileDescriptor[] comm = createCommSocketPair(false);
++        final FileDescriptor[] comm = createCommSocketPair();
+         final FileDescriptor fd0 = new FileDescriptor();
+         final FileDescriptor fd1 = new FileDescriptor();
+-        Libcore.os.socketpair(AF_UNIX, SOCK_STREAM, 0, fd0, fd1);
++        Os.socketpair(AF_UNIX, SOCK_STREAM, 0, fd0, fd1);
+         return new ParcelFileDescriptor[] { new ParcelFileDescriptor(fd0, comm[0]), new ParcelFileDescriptor(fd1, comm[1]) };
+     } catch (ErrnoException e) {
+         throw e.rethrowAsIOException();
+

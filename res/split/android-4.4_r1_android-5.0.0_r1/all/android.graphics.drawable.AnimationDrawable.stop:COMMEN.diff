@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.graphics.drawable.AnimationDrawable.stop:COMMENT
+Method Modifier: public      
+Comment:/**
+ * <p>Stops the animation. This method has no effect if the animation is
+ * not running.</p>
+ *
+ * @see #isRunning()
+ * @see #start()
+ */
+
+@@ -1,4 +1,5 @@
+ {
++    mAnimating = false;
+     if (isRunning()) {
+         unscheduleSelf(this);
+     }
+

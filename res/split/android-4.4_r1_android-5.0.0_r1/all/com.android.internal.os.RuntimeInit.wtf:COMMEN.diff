@@ -1,0 +1,19 @@
+Find a functionally equivalent code:com.android.internal.os.RuntimeInit.wtf:COMMENT
+Method Modifier: public      static      internal    
+Comment:/**
+ * Report a serious error in the current process.  May or may not cause
+ * the process to terminate (depends on system settings).
+ *
+ * @param tag to record with the error
+ * @param t exception describing the error site and conditions
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        if (ActivityManagerNative.getDefault().handleApplicationWtf(mApplicationObject, tag, new ApplicationErrorReport.CrashInfo(t))) {
++        if (ActivityManagerNative.getDefault().handleApplicationWtf(mApplicationObject, tag, system, new ApplicationErrorReport.CrashInfo(t))) {
+             // The Activity Manager has already written us off -- now exit.
+             Process.killProcess(Process.myPid());
+             System.exit(10);
+

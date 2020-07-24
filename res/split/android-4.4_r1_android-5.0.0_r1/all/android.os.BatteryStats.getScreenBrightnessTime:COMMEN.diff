@@ -1,0 +1,10 @@
+Find a functionally equivalent code:android.os.BatteryStats.getScreenBrightnessTime:COMMENT
+Method Modifier: public      abstract    hidden      
+Comment:/**
+ * Returns the time in microseconds that the screen has been on with
+ * the given brightness
+ *
+ * {@hide}
+ */
+
+

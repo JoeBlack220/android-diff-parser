@@ -1,0 +1,16 @@
+Find a functionally equivalent code:com.android.keyguard.EmergencyButton.takeEmergencyCallAction:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Shows the emergency dialer or returns the user to the existing call.
+ */
+
+@@ -2,8 +2,8 @@
+     // TODO: implement a shorter timeout once new PowerManager API is ready.
+     // should be the equivalent to the old userActivity(EMERGENCY_CALL_TIMEOUT)
+     mPowerManager.userActivity(SystemClock.uptimeMillis(), true);
+-    if (TelephonyManager.getDefault().getCallState() == TelephonyManager.CALL_STATE_OFFHOOK) {
++    if (mLockPatternUtils.isInCall()) {
+         mLockPatternUtils.resumeCall();
+     } else {
+         final boolean bypassHandler = true;
+

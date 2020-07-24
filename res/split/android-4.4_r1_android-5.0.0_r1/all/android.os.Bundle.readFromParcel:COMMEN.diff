@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.os.Bundle.readFromParcel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Reads the Parcel contents into this Bundle, typically in order for
+ * it to be passed through an IBinder connection.
+ * @param parcel The parcel to overwrite this bundle from.
+ */
+
+@@ -1,7 +1,5 @@
+ {
+-    int length = parcel.readInt();
+-    if (length < 0) {
+-        throw new RuntimeException("Bad length in parcel: " + length);
+-    }
+-    readFromParcelInner(parcel, length);
++    super.readFromParcelInner(parcel);
++    mHasFds = mParcelledData.hasFileDescriptors();
++    mFdsKnown = true;
+ }
+

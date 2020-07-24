@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.view.Window.setDefaultWindowFormat:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Set the default format of window, as per the PixelFormat types.  This
+ * is the format that will be used unless the client specifies in explicit
+ * format with setFormat();
+ *
+ * @param format The new window format (see PixelFormat).
+ *
+ * @see #setFormat
+ * @see PixelFormat
+ */
+
+@@ -3,10 +3,8 @@
+     if (!mHaveWindowFormat) {
+         final WindowManager.LayoutParams attrs = getAttributes();
+         attrs.format = format;
+-        if (mCallback != null) {
+-            mCallback.onWindowAttributesChanged(attrs);
+-        }
++        dispatchWindowAttributesChanged(attrs);
+     }
+ }
+

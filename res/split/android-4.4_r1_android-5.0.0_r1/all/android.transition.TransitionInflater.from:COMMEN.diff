@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.transition.TransitionInflater.from:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Obtains the TransitionInflater from the given context.
+ */
+
+@@ -1,9 +1,3 @@
+ {
+-    TransitionInflater inflater = sInflaterMap.get(context);
+-    if (inflater != null) {
+-        return inflater;
+-    }
+-    inflater = new TransitionInflater(context);
+-    sInflaterMap.put(context, inflater);
+-    return inflater;
++    return new TransitionInflater(context);
+ }
+

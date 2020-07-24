@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.app.Activity.getActionBar:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve a reference to this activity's ActionBar.
+ *
+ * @return The Activity's ActionBar, or null if it does not have one.
+ */
+
+@@ -1,4 +1,4 @@
+ {
+-    initActionBar();
++    initWindowDecorActionBar();
+     return mActionBar;
+ }
+

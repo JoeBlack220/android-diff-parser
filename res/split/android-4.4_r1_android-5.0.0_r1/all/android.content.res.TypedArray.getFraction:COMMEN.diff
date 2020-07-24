@@ -1,0 +1,36 @@
+Find a functionally equivalent code:android.content.res.TypedArray.getFraction:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve a fractional unit attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ * @param base The base value of this fraction.  In other words, a
+ * standard fraction is multiplied by this value.
+ * @param pbase The parent base value of this fraction.  In other
+ * words, a parent fraction (nn%p) is multiplied by this
+ * value.
+ * @param defValue Value to return if the attribute is not defined or
+ * not a resource.
+ *
+ * @return Attribute fractional value multiplied by the appropriate
+ * base value, or defValue if not defined.
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     index *= AssetManager.STYLE_NUM_ENTRIES;
+     final int[] data = mData;
+     final int type = data[index + AssetManager.STYLE_TYPE];
+@@ -6,11 +9,16 @@
+         return defValue;
+     } else if (type == TypedValue.TYPE_FRACTION) {
+         return TypedValue.complexToFraction(data[index + AssetManager.STYLE_DATA], base, pbase);
++    } else if (type == TypedValue.TYPE_ATTRIBUTE) {
++        throw new RuntimeException("Failed to resolve attribute at index " + index);
+     }
+     throw new UnsupportedOperationException("Can't convert to fraction: type=0x" + Integer.toHexString(type));
+ }
+

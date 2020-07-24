@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.os.Parcel.readSerializable:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Read and return a new Serializable object from the parcel.
+ * @return the Serializable object, or null if the Serializable name
+ * wasn't found in the parcel.
+ */
+
+@@ -1,17 +1,3 @@
+ {
+-    String name = readString();
+-    if (name == null) {
+-        // return null, which indicates that the name wasn't found in the parcel.
+-        return null;
+-    }
+-    byte[] serializedData = createByteArray();
+-    ByteArrayInputStream bais = new ByteArrayInputStream(serializedData);
+-    try {
+-        ObjectInputStream ois = new ObjectInputStream(bais);
+-        return (Serializable) ois.readObject();
+-    } catch (IOException ioe) {
+-        throw new RuntimeException("Parcelable encountered " + "IOException reading a Serializable object (name = " + name + ")", ioe);
+-    } catch (ClassNotFoundException cnfe) {
+-        throw new RuntimeException("Parcelable encountered" + "ClassNotFoundException reading a Serializable object (name = " + name + ")", cnfe);
+-    }
++    return readSerializable(null);
+ }
+

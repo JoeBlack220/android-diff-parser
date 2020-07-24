@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.animation.PropertyValuesHolder.calculateValue:COMMENT
+Method Modifier: 
+Comment:/**
+ * Function used to calculate the value according to the evaluator set up for
+ * this PropertyValuesHolder object. This function is called by ValueAnimator.animateValue().
+ *
+ * @param fraction The elapsed, interpolated fraction of the animation.
+ */
+
+@@ -1,3 +1,4 @@
+ {
+-    mAnimatedValue = mKeyframeSet.getValue(fraction);
++    Object value = mKeyframes.getValue(fraction);
++    mAnimatedValue = mConverter == null ? value : mConverter.convert(value);
+ }
+

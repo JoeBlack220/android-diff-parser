@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.accounts.AccountManager.getAuthenticatorTypes:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Lists the currently registered authenticators.
+ *
+ * <p>It is safe to call this method from the main thread.
+ *
+ * <p>No permission is required to call this method.
+ *
+ * @return An array of {@link AuthenticatorDescription} for every
+ * authenticator known to the AccountManager service.  Empty (never
+ * null) if no authenticators are known.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        return mService.getAuthenticatorTypes();
++        return mService.getAuthenticatorTypes(UserHandle.getCallingUserId());
+     } catch (RemoteException e) {
+         // will never happen
+         throw new RuntimeException(e);
+

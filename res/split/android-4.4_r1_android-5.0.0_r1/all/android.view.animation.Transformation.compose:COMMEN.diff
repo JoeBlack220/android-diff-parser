@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.view.animation.Transformation.compose:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Apply this Transformation to an existing Transformation, e.g. apply
+ * a scale effect to something that has already been rotated.
+ * @param t
+ */
+
+@@ -1,4 +1,7 @@
+ {
+     mAlpha *= t.getAlpha();
+     mMatrix.preConcat(t.getMatrix());
++    if (t.mHasClipRect) {
++        setClipRect(t.getClipRect());
++    }
+ }
+

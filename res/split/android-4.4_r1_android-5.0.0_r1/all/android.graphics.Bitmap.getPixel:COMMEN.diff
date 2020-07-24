@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.graphics.Bitmap.getPixel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns the {@link Color} at the specified location. Throws an exception
+ * if x or y are out of bounds (negative or >= to the width or height
+ * respectively). The returned color is a non-premultiplied ARGB value.
+ *
+ * @param x    The x coordinate (0...width-1) of the pixel to return
+ * @param y    The y coordinate (0...height-1) of the pixel to return
+ * @return     The argb {@link Color} at the specified coordinate
+ * @throws IllegalArgumentException if x, y exceed the bitmap's bounds
+ */
+
+@@ -1,5 +1,5 @@
+ {
+     checkRecycled("Can't call getPixel() on a recycled bitmap");
+     checkPixelAccess(x, y);
+-    return nativeGetPixel(mNativeBitmap, x, y, mIsPremultiplied);
++    return nativeGetPixel(mNativeBitmap, x, y);
+ }
+

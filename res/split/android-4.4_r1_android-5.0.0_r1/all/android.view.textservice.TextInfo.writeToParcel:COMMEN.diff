@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.view.textservice.TextInfo.writeToParcel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Used to package this object into a {@link Parcel}.
+ *
+ * @param dest The {@link Parcel} to be written.
+ * @param flags The flags used for parceling.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    dest.writeString(mText);
++    TextUtils.writeToParcel(mCharSequence, dest, flags);
+     dest.writeInt(mCookie);
+-    dest.writeInt(mSequence);
++    dest.writeInt(mSequenceNumber);
+ }
+

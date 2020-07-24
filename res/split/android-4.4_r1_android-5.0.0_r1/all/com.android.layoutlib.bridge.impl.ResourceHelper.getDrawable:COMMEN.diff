@@ -1,0 +1,18 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.impl.ResourceHelper.getDrawable:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Returns a drawable from the given value.
+ * @param value The value that contains a path to a 9 patch, a bitmap or a xml based drawable,
+ * or an hexadecimal color
+ * @param context the current context
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (value == null) {
++        return null;
++    }
+     String stringValue = value.getValue();
+     if (RenderResources.REFERENCE_NULL.equals(stringValue)) {
+         return null;
+

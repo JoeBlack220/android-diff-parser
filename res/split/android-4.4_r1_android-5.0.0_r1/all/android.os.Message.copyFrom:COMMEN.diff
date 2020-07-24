@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.os.Message.copyFrom:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Make this message like o.  Performs a shallow copy of the data field.
+ * Does not copy the linked list fields, nor the timestamp or
+ * target/callback of the original message.
+ */
+
+@@ -5,10 +5,11 @@
+     this.arg2 = o.arg2;
+     this.obj = o.obj;
+     this.replyTo = o.replyTo;
++    this.sendingUid = o.sendingUid;
+     if (o.data != null) {
+         this.data = (Bundle) o.data.clone();
+     } else {
+

@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetManager.getAppWidgetIds:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Get the list of appWidgetIds that have been bound to the given AppWidget
+ * provider.
+ *
+ * @param provider The {@link android.content.BroadcastReceiver} that is the
+ * AppWidget provider to find appWidgetIds for.
+ */
+
+@@ -1,6 +1,9 @@
+ {
++    if (mService == null) {
++        return new int[0];
++    }
+     try {
+-        return sService.getAppWidgetIds(provider, mContext.getUserId());
++        return mService.getAppWidgetIds(provider);
+     } catch (RemoteException e) {
+         throw new RuntimeException("system server dead?", e);
+     }
+

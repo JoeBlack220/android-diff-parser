@@ -1,0 +1,14 @@
+Find a functionally equivalent code:com.android.keyguard.FaceUnlock.handleCancel:COMMENT
+Method Modifier: 
+Comment:/**
+ * Stops the Face Unlock service and goes to the backup lock.
+ */
+
+@@ -6,10 +6,10 @@
+     KeyguardUpdateMonitor.getInstance(mContext).setAlternateUnlockEnabled(false);
+     mKeyguardScreenCallback.showBackupSecurity();
+     stop();
+-    mKeyguardScreenCallback.userActivity(BACKUP_LOCK_TIMEOUT);
++    mKeyguardScreenCallback.userActivity();
+ }
+

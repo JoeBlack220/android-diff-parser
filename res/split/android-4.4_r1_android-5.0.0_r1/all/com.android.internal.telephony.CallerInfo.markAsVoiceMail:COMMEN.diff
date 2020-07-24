@@ -1,0 +1,14 @@
+Find a functionally equivalent code:com.android.internal.telephony.CallerInfo.markAsVoiceMail:COMMENT
+Method Modifier: internal    
+Comment:/* package */
+
+@@ -1,7 +1,7 @@
+ {
+     mIsVoiceMail = true;
+     try {
+-        String voiceMailLabel = TelephonyManager.getDefault().getVoiceMailAlphaTag();
++        String voiceMailLabel = TelephonyManager.getDefault().getVoiceMailAlphaTag(subId);
+         phoneNumber = voiceMailLabel;
+     } catch (SecurityException se) {
+         // Should never happen: if this process does not have
+

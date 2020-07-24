@@ -1,0 +1,16 @@
+Find a functionally equivalent code:com.android.systemui.statusbar.StatusBarIconView.set:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns whether the set succeeded.
+ */
+
+@@ -13,19 +13,19 @@
+         setImageLevel(icon.iconLevel);
+     }
+     if (!numberEquals) {
+-        if (icon.number > 0 && mContext.getResources().getBoolean(R.bool.config_statusBarShowNumber)) {
++        if (icon.number > 0 && getContext().getResources().getBoolean(R.bool.config_statusBarShowNumber)) {
+             if (mNumberBackground == null) {
+                 mNumberBackground = getContext().getResources().getDrawable(R.drawable.ic_notification_overlay);
+             }
+

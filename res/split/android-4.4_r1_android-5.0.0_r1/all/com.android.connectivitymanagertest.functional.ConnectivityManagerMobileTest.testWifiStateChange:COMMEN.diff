@@ -1,0 +1,48 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.functional.ConnectivityManagerMobileTest.testWifiStateChange:COMMENT
+Method Modifier: public      
+Comment:// Test case 8: test wifi state change while connecting/disconnecting to/from an AP
+
+@@ -1,25 +1,20 @@
+ {
+-    assertNotNull("SSID is null", mTestAccessPoint);
+-    // Connect to mTestAccessPoint
+-    assertTrue("failed to connect to " + mTestAccessPoint, connectToWifi(mTestAccessPoint));
+-    assertTrue(waitForWifiState(WifiManager.WIFI_STATE_ENABLED, LONG_TIMEOUT));
+-    assertTrue(waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.CONNECTED, WIFI_CONNECTION_TIMEOUT));
+-    assertNotNull("Not associated with any AP", mWifiManager.getConnectionInfo().getBSSID());
+-    try {
+-        Thread.sleep(SHORT_TIMEOUT);
+-    } catch (Exception e) {
+-        log("exception: " + e.toString());
+-    }
+-    // Disconnect from the current AP
+-    log("disconnect from the AP");
+-    if (!disconnectAP()) {
+-        log("failed to disconnect from " + mTestAccessPoint);
+-    }
++    assertNotNull("SSID is null", mSsid);
++    // enable WiFi
++    assertTrue("failed to enable wifi", enableWifi());
++    // wait for wifi enable
++    assertTrue("wifi not enabled", waitForWifiState(WifiManager.WIFI_STATE_ENABLED, LONG_TIMEOUT));
++    // connect to Wifi
++    assertTrue("failed to connect to " + mSsid, connectToWifi(mSsid, mPassword));
++    assertTrue("wifi not connected", waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.CONNECTED, WIFI_CONNECTION_TIMEOUT));
++    assertNotNull("not associated with any AP", mWifiManager.getConnectionInfo().getBSSID());
++    // disconnect from the current AP
++    assertTrue("failed to disconnect from AP", disconnectAP());
++    // below check disbabled since we have bug in what ConnectivityManager returns
+     // Verify the connectivity state for Wifi is DISCONNECTED
+-    assertTrue(waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.DISCONNECTED, LONG_TIMEOUT));
+-    if (!disableWifi()) {
+-        log("disable Wifi failed");
+-        return;
+-    }
+-    assertTrue(waitForWifiState(WifiManager.WIFI_STATE_DISABLED, LONG_TIMEOUT));
++    // assertTrue(waitForNetworkState(ConnectivityManager.TYPE_WIFI,
++    // State.DISCONNECTED, LONG_TIMEOUT));
++    // disable WiFi
++    assertTrue("failed to disable wifi", disableWifi());
++    assertTrue("wifi state not disabled", waitForWifiState(WifiManager.WIFI_STATE_DISABLED, LONG_TIMEOUT));
+ }
+

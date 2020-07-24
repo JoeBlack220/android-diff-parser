@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.text.TextUtils.obtain:COMMENT
+Method Modifier: default     static      
+Comment:/* package */
+
+@@ -5,10 +5,10 @@
+         sTemp = null;
+     }
+     if (buf == null || buf.length < len)
+-        buf = new char[ArrayUtils.idealCharArraySize(len)];
++        buf = ArrayUtils.newUnpaddedCharArray(len);
+     return buf;
+ }
+

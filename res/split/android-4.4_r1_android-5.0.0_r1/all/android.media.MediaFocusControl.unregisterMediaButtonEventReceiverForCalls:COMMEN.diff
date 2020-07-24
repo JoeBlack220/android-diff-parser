@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.unregisterMediaButtonEventReceiverForCalls:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * see AudioManager.unregisterMediaButtonEventReceiverForCalls()
+ */
+
+@@ -3,9 +3,9 @@
+         Log.e(TAG, "Invalid permissions to unregister media button receiver for calls");
+         return;
+     }
+-    synchronized (mRCStack) {
++    synchronized (mPRStack) {
+         mMediaReceiverForCalls = null;
+     }
+ }
+

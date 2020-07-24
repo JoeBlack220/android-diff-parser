@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.widget.ActivityChooserView.Callbacks.onItemClick:COMMENT
+Method Modifier: public      
+Comment:// AdapterView#OnItemClickListener
+
+@@ -22,28 +22,29 @@
+                     Intent launchIntent = mAdapter.getDataModel().chooseActivity(position);
+                     if (launchIntent != null) {
+                         launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+-                        mContext.startActivity(launchIntent);
++                        ResolveInfo resolveInfo = mAdapter.getDataModel().getActivity(position);
++                        startActivity(launchIntent, resolveInfo);
+                     }
+                 }
+             }
+

@@ -1,0 +1,46 @@
+Find a functionally equivalent code:android.widget.FastScroller.setThumbPos:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Positions the thumb and preview widgets.
+ *
+ * @param position The position, between 0 and 1, along the track at which
+ * to place the thumb.
+ */
+
+@@ -2,19 +2,31 @@
+     final Rect container = mContainerRect;
+     final int top = container.top;
+     final int bottom = container.bottom;
+-    final ImageView trackImage = mTrackImage;
+-    final ImageView thumbImage = mThumbImage;
++    final View trackImage = mTrackImage;
++    final View thumbImage = mThumbImage;
+     final float min = trackImage.getTop();
+     final float max = trackImage.getBottom();
+     final float offset = min;
+     final float range = max - min;
+     final float thumbMiddle = position * range + offset;
+     thumbImage.setTranslationY(thumbMiddle - thumbImage.getHeight() / 2);
+-    final float previewPos = mOverlayPosition == OVERLAY_AT_THUMB ? thumbMiddle : 0;
+-    // Center the preview on the thumb, constrained to the list bounds.
+-    final ImageView previewImage = mPreviewImage;
++    final View previewImage = mPreviewImage;
+     final float previewHalfHeight = previewImage.getHeight() / 2f;
++    final float previewPos;
++    switch(mOverlayPosition) {
++        case OVERLAY_AT_THUMB:
++            previewPos = thumbMiddle;
++            break;
++        case OVERLAY_ABOVE_THUMB:
++            previewPos = thumbMiddle - previewHalfHeight;
++            break;
++        case OVERLAY_FLOATING:
++        default:
++            previewPos = 0;
++            break;
++    }
++    // Center the preview on the thumb, constrained to the list bounds.
+     final float minP = top + previewHalfHeight;
+     final float maxP = bottom - previewHalfHeight;
+     final float previewMiddle = MathUtils.constrain(previewPos, minP, maxP);
+

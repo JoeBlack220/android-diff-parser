@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.widget.OverScroller.computeScrollOffset:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Call this when you want to know the new location. If it returns true, the
+ * animation is not yet finished.
+ */
+
+@@ -10,21 +10,16 @@
+             final long elapsedTime = time - mScrollerX.mStartTime;
+             final int duration = mScrollerX.mDuration;
+             if (elapsedTime < duration) {
+-                float q = (float) (elapsedTime) / duration;
+-                if (mInterpolator == null) {
+-                    q = Scroller.viscousFluid(q);
+-                } else {
+-                    q = mInterpolator.getInterpolation(q);
+-                }
++                final float q = mInterpolator.getInterpolation(elapsedTime / (float) duration);
+                 mScrollerX.updateScroll(q);
+                 mScrollerY.updateScroll(q);
+             } else {
+

@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.speech.tts.FileSynthesisCallback.closeFile:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Must be called while holding the monitor on {@link #mStateLock}.
+ */
+
+@@ -1,10 +1,4 @@
+ {
+-    try {
+-        if (mFileChannel != null) {
+-            mFileChannel.close();
+-            mFileChannel = null;
+-        }
+-    } catch (IOException ex) {
+-        Log.e(TAG, "Failed to close output file descriptor", ex);
+-    }
++    // File will be closed by the SpeechItem in the speech service.
++    mFileChannel = null;
+ }
+

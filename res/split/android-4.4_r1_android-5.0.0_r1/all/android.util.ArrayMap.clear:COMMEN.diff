@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.util.ArrayMap.clear:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Make the array map empty.  All storage is released.
+ */
+
+@@ -1,8 +1,8 @@
+ {
+     if (mSize > 0) {
+         freeArrays(mHashes, mArray, mSize);
+-        mHashes = ContainerHelpers.EMPTY_INTS;
+-        mArray = ContainerHelpers.EMPTY_OBJECTS;
++        mHashes = EmptyArray.INT;
++        mArray = EmptyArray.OBJECT;
+         mSize = 0;
+     }
+ }
+

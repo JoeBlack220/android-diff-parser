@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.app.Activity.getMenuInflater:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns a {@link MenuInflater} with this context.
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     // Make sure that action views can get an appropriate theme.
+     if (mMenuInflater == null) {
+-        initActionBar();
++        initWindowDecorActionBar();
+         if (mActionBar != null) {
+             mMenuInflater = new MenuInflater(mActionBar.getThemedContext(), this);
+         } else {
+

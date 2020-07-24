@@ -1,0 +1,16 @@
+Find a functionally equivalent code:com.android.keyguard.KeyguardUpdateMonitor.handleBootCompleted:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Handle {@link #MSG_BOOT_COMPLETED}
+ */
+
+@@ -2,9 +2,7 @@
+     if (mBootCompleted)
+         return;
+     mBootCompleted = true;
+-    mAudioManager = new AudioManager(mContext);
+-    mAudioManager.registerRemoteControlDisplay(mRemoteControlDisplay);
+     for (int i = 0; i < mCallbacks.size(); i++) {
+         KeyguardUpdateMonitorCallback cb = mCallbacks.get(i).get();
+         if (cb != null) {
+

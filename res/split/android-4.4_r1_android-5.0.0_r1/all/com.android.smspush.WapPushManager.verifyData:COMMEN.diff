@@ -1,0 +1,21 @@
+Find a functionally equivalent code:com.android.smspush.WapPushManager.verifyData:COMMENT
+Method Modifier: public      
+Comment:/**
+ * This method is used for testing
+ */
+
+@@ -2,10 +2,14 @@
+     WapPushManDBHelper dbh = getDatabase(this);
+     SQLiteDatabase db = dbh.getReadableDatabase();
+     WapPushManDBHelper.queryData lastapp = dbh.queryLastApp(db, x_app_id, content_type);
++    if (LOCAL_LOGV)
++        Log.v(LOG_TAG, "verifyData app id: " + x_app_id + " content type: " + content_type + " lastapp: " + lastapp);
+     db.close();
+     if (lastapp == null)
+         return false;
++    if (LOCAL_LOGV)
++        Log.v(LOG_TAG, "verifyData lastapp.packageName: " + lastapp.packageName + " lastapp.className: " + lastapp.className + " lastapp.appType: " + lastapp.appType + " lastapp.needSignature: " + lastapp.needSignature + " lastapp.furtherProcessing: " + lastapp.furtherProcessing);
+     if (lastapp.packageName.equals(package_name) && lastapp.className.equals(class_name) && lastapp.appType == app_type && lastapp.needSignature == (need_signature ? 1 : 0) && lastapp.furtherProcessing == (further_processing ? 1 : 0)) {
+         return true;
+     } else {
+

@@ -1,0 +1,43 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityNodeInfo.init:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Initializes this instance from another one.
+ *
+ * @param other The other instance.
+ */
+
+@@ -11,24 +11,39 @@
+     mPackageName = other.mPackageName;
+     mClassName = other.mClassName;
+     mText = other.mText;
++    mError = other.mError;
+     mContentDescription = other.mContentDescription;
+     mViewIdResourceName = other.mViewIdResourceName;
+-    mActions = other.mActions;
++    final ArrayList<AccessibilityAction> otherActions = other.mActions;
++    if (otherActions != null && otherActions.size() > 0) {
++        if (mActions == null) {
++            mActions = new ArrayList(otherActions);
++        } else {
++            mActions.clear();
++            mActions.addAll(other.mActions);
++        }
++    }
+     mBooleanProperties = other.mBooleanProperties;
++    mMaxTextLength = other.mMaxTextLength;
+     mMovementGranularities = other.mMovementGranularities;
+-    final int otherChildIdCount = other.mChildNodeIds.size();
+-    for (int i = 0; i < otherChildIdCount; i++) {
+-        mChildNodeIds.put(i, other.mChildNodeIds.valueAt(i));
++    final LongArray otherChildNodeIds = other.mChildNodeIds;
++    if (otherChildNodeIds != null && otherChildNodeIds.size() > 0) {
++        if (mChildNodeIds == null) {
++            mChildNodeIds = otherChildNodeIds.clone();
++        } else {
++            mChildNodeIds.clear();
++            mChildNodeIds.addAll(otherChildNodeIds);
++        }
+     }
+     mTextSelectionStart = other.mTextSelectionStart;
+     mTextSelectionEnd = other.mTextSelectionEnd;
+

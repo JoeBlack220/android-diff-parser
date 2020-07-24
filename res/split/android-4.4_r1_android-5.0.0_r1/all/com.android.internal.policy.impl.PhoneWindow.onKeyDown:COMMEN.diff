@@ -1,0 +1,56 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindow.onKeyDown:COMMENT
+Method Modifier: protected   internal    
+Comment:/**
+ * A key was pressed down and not handled by anything else in the window.
+ *
+ * @see #onKeyUp
+ * @see android.view.KeyEvent
+ */
+
+@@ -17,31 +17,57 @@
+     switch(keyCode) {
+         case KeyEvent.KEYCODE_VOLUME_UP:
+         case KeyEvent.KEYCODE_VOLUME_DOWN:
++            {
++                int direction = keyCode == KeyEvent.KEYCODE_VOLUME_UP ? AudioManager.ADJUST_RAISE : AudioManager.ADJUST_LOWER;
++                // use the suggested stream.
++                if (mMediaController != null) {
++                    mMediaController.adjustVolume(direction, AudioManager.FLAG_SHOW_UI);
++                } else {
++                    MediaSessionLegacyHelper.getHelper(getContext()).sendAdjustVolumeBy(mVolumeControlStreamType, direction, AudioManager.FLAG_SHOW_UI | AudioManager.FLAG_VIBRATE);
++                }
++                return true;
++            }
+         case KeyEvent.KEYCODE_VOLUME_MUTE:
+             {
+-                // Similar code is in PhoneFallbackEventHandler in case the window
+-                // doesn't have one of these.  In this case, we execute it here and
+-                // eat the event instead, because we have mVolumeControlStreamType
+-                // and they don't.
+                 getAudioManager().handleKeyDown(event, mVolumeControlStreamType);
+                 return true;
+             }
++        // KeyEvent.isMediaKey()
++        case KeyEvent.KEYCODE_MEDIA_PLAY:
++        case KeyEvent.KEYCODE_MEDIA_PAUSE:
++        case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
++        case KeyEvent.KEYCODE_MUTE:
++        case KeyEvent.KEYCODE_HEADSETHOOK:
++        case KeyEvent.KEYCODE_MEDIA_STOP:
++        case KeyEvent.KEYCODE_MEDIA_NEXT:
++        case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
++        case KeyEvent.KEYCODE_MEDIA_REWIND:
++        case KeyEvent.KEYCODE_MEDIA_RECORD:
++        case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
++            {
++                if (mMediaController != null) {
++                    if (mMediaController.dispatchMediaButtonEvent(event)) {
++                        return true;
++                    }
++                }
++                return false;
++            }
+         case KeyEvent.KEYCODE_MENU:
+             {
+                 onKeyDownPanel((featureId < 0) ? FEATURE_OPTIONS_PANEL : featureId, event);
+

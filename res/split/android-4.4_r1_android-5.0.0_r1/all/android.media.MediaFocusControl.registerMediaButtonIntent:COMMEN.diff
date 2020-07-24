@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.registerMediaButtonIntent:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * see AudioManager.registerMediaButtonIntent(PendingIntent pi, ComponentName c)
+ * precondition: mediaIntent != null
+ */
+
+@@ -1,10 +1,9 @@
+ {
+     Log.i(TAG, "  Remote Control   registerMediaButtonIntent() for " + mediaIntent);
+-    synchronized (mAudioFocusLock) {
+-        synchronized (mRCStack) {
+-            pushMediaButtonReceiver_syncAfRcs(mediaIntent, eventReceiver, token);
++    synchronized (mPRStack) {
++        if (pushMediaButtonReceiver_syncPrs(mediaIntent, eventReceiver, token)) {
+             // new RC client, assume every type of information shall be queried
+-            checkUpdateRemoteControlDisplay_syncAfRcs(RC_INFO_ALL);
++            checkUpdateRemoteControlDisplay_syncPrs(RC_INFO_ALL);
+         }
+     }
+ }
+

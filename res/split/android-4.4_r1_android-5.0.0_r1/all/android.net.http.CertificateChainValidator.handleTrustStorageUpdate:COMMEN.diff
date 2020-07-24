@@ -1,0 +1,40 @@
+Find a functionally equivalent code:android.net.http.CertificateChainValidator.handleTrustStorageUpdate:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Handles updates to credential storage.
+ */
+
+@@ -1,10 +1,27 @@
+ {
++    TrustManagerFactory tmf;
+     try {
+-        X509TrustManager x509TrustManager = SSLParametersImpl.getDefaultTrustManager();
+-        if (x509TrustManager instanceof TrustManagerImpl) {
+-            TrustManagerImpl trustManager = (TrustManagerImpl) x509TrustManager;
+-            trustManager.handleTrustStorageUpdate();
++        tmf = TrustManagerFactory.getInstance("X.509");
++        tmf.init((KeyStore) null);
++    } catch (NoSuchAlgorithmException e) {
++        Slog.w(TAG, "Couldn't find default X.509 TrustManagerFactory");
++        return;
++    } catch (KeyStoreException e) {
++        Slog.w(TAG, "Couldn't initialize default X.509 TrustManagerFactory", e);
++        return;
++    }
++    TrustManager[] tms = tmf.getTrustManagers();
++    boolean sentUpdate = false;
++    for (TrustManager tm : tms) {
++        try {
++            Method updateMethod = tm.getClass().getDeclaredMethod("handleTrustStorageUpdate");
++            updateMethod.setAccessible(true);
++            updateMethod.invoke(tm);
++            sentUpdate = true;
++        } catch (Exception e) {
+         }
+-    } catch (KeyManagementException ignored) {
++    }
++    if (!sentUpdate) {
++        Slog.w(TAG, "Didn't find a TrustManager to handle CA list update");
+     }
+ }
+

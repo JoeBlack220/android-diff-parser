@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.view.inputmethod.BaseInputConnection.setComposingText:COMMENT
+Method Modifier: public      
+Comment:/**
+ * The default implementation places the given text into the editable,
+ * replacing any existing composing text.  The new text is marked as
+ * in a composing state with the composing style.
+ */
+
+@@ -2,6 +2,7 @@
+     if (DEBUG)
+         Log.v(TAG, "setComposingText " + text);
+     replaceText(text, newCursorPosition, true);
++    mIMM.notifyUserAction();
+     return true;
+ }
+

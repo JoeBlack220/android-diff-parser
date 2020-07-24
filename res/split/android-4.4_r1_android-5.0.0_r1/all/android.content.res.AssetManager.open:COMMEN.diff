@@ -1,0 +1,30 @@
+Find a functionally equivalent code:android.content.res.AssetManager.open:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Open an asset using an explicit access mode, returning an InputStream to
+ * read its contents.  This provides access to files that have been bundled
+ * with an application as assets -- that is, files placed in to the
+ * "assets" directory.
+ *
+ * @param fileName The name of the asset to open.  This name can be
+ * hierarchical.
+ * @param accessMode Desired access mode for retrieving the data.
+ *
+ * @see #ACCESS_UNKNOWN
+ * @see #ACCESS_STREAMING
+ * @see #ACCESS_RANDOM
+ * @see #ACCESS_BUFFER
+ * @see #open(String)
+ * @see #list
+ */
+
+@@ -3,9 +3,9 @@
+         if (!mOpen) {
+             throw new RuntimeException("Assetmanager has been closed");
+         }
+-        int asset = openAsset(fileName, accessMode);
++        long asset = openAsset(fileName, accessMode);
+         if (asset != 0) {
+             AssetInputStream res = new AssetInputStream(asset);
+             incRefsLocked(res.hashCode());
+

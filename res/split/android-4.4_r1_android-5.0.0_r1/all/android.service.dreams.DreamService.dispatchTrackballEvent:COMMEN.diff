@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.service.dreams.DreamService.dispatchTrackballEvent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,8 +1,8 @@
+ {
+     if (!mInteractive) {
+         if (mDebug)
+-            Slog.v(TAG, "Finishing on trackballEvent");
+-        safelyFinish();
++            Slog.v(TAG, "Waking up on trackballEvent");
++        wakeUp();
+         return true;
+     }
+     return mWindow.superDispatchTrackballEvent(event);
+

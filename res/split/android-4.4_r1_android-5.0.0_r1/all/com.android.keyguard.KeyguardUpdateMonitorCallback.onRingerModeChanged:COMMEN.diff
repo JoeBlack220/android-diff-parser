@@ -1,0 +1,12 @@
+Find a functionally equivalent code:com.android.keyguard.KeyguardUpdateMonitorCallback.onRingerModeChanged:COMMENT
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onRingerModeChanged(int)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+Comment:/**
+ * Called when the ringer mode changes.
+ * @param state the current ringer state, as defined in
+ * {@link AudioManager#RINGER_MODE_CHANGED_ACTION}
+ */
+
+

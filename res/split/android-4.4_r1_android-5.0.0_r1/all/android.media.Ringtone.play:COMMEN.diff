@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.media.Ringtone.play:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Plays the ringtone.
+ */
+
+@@ -1,13 +1,13 @@
+ {
+     if (mLocalPlayer != null) {
+         // (typically because ringer mode is silent).
+-        if (mAudioManager.getStreamVolume(mStreamType) != 0) {
++        if (mAudioManager.getStreamVolume(AudioAttributes.toLegacyStreamType(mAudioAttributes)) != 0) {
+             mLocalPlayer.start();
+         }
+-    } else if (mAllowRemote) {
++    } else if (mAllowRemote && (mRemotePlayer != null)) {
+         final Uri canonicalUri = mUri.getCanonicalUri();
+         try {
+-            mRemotePlayer.play(mRemoteToken, canonicalUri, mStreamType);
++            mRemotePlayer.play(mRemoteToken, canonicalUri, mAudioAttributes);
+         } catch (RemoteException e) {
+             if (!playFallbackRingtone()) {
+                 Log.w(TAG, "Problem playing ringtone: " + e);
+

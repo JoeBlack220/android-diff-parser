@@ -1,0 +1,17 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.removeWindowLw:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -2,10 +2,7 @@
+     if (mStatusBar == win) {
+         mStatusBar = null;
+         mStatusBarController.setWindow(null);
+-    } else if (mKeyguard == win) {
+-        Log.v(TAG, "Removing keyguard window (Did it crash?)");
+-        mKeyguard = null;
+         mKeyguardDelegate.showScrim();
+     } else if (mKeyguardScrim == win) {
+         Log.v(TAG, "Removing keyguard scrim");
+

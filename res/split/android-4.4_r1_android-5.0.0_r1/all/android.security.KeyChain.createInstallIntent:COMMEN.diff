@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.security.KeyChain.createInstallIntent:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Returns an {@code Intent} that can be used for credential
+ * installation. The intent may be used without any extras, in
+ * which case the user will be able to install credentials from
+ * their own source.
+ *
+ * <p>Alternatively, {@link #EXTRA_CERTIFICATE} or {@link
+ * #EXTRA_PKCS12} maybe used to specify the bytes of an X.509
+ * certificate or a PKCS#12 key store for installation. These
+ * extras may be combined with {@link #EXTRA_NAME} to provide a
+ * default alias name for credentials being installed.
+ *
+ * <p>When used with {@link Activity#startActivityForResult},
+ * {@link Activity#RESULT_OK} will be returned if a credential was
+ * successfully installed, otherwise {@link
+ * Activity#RESULT_CANCELED} will be returned.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+     Intent intent = new Intent(ACTION_INSTALL);
+-    intent.setClassName("com.android.certinstaller", "com.android.certinstaller.CertInstallerMain");
++    intent.setClassName(CERT_INSTALLER_PACKAGE, "com.android.certinstaller.CertInstallerMain");
+     return intent;
+ }
+

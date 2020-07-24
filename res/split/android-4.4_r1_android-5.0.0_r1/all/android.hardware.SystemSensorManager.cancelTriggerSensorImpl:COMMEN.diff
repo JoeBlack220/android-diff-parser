@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.hardware.SystemSensorManager.cancelTriggerSensorImpl:COMMENT
+Method Modifier: protected   hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    if (sensor != null && Sensor.getReportingMode(sensor) != Sensor.REPORTING_MODE_ONE_SHOT) {
++    if (sensor != null && sensor.getReportingMode() != Sensor.REPORTING_MODE_ONE_SHOT) {
+         return false;
+     }
+     synchronized (mTriggerListeners) {
+

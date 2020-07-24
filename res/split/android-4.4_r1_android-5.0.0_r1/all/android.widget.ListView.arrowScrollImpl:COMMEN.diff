@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.widget.ListView.arrowScrollImpl:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Handle an arrow scroll going up or down.  Take into account whether items are selectable,
+ * whether there are focusable items etc.
+ *
+ * @param direction Either {@link android.view.View#FOCUS_UP} or {@link android.view.View#FOCUS_DOWN}.
+ * @return Whether any scrolling, selection or focus change occured.
+ */
+
+@@ -51,57 +51,57 @@
+     }
+     if (needToRedraw) {
+         if (selectedView != null) {
+-            positionSelector(selectedPos, selectedView);
++            positionSelectorLikeFocus(selectedPos, selectedView);
+             mSelectedTop = selectedView.getTop();
+         }
+         if (!awakenScrollBars()) {
+

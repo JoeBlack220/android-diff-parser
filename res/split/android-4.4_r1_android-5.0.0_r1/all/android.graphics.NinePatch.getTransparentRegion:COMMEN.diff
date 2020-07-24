@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.graphics.NinePatch.getTransparentRegion:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Returns a {@link Region} representing the parts of the NinePatch that are
+ * completely transparent.
+ *
+ * @param bounds The location and size of the NinePatch.
+ *
+ * @return null if the NinePatch has no transparent region to
+ * report, else a {@link Region} holding the parts of the specified bounds
+ * that are transparent.
+ */
+
+@@ -1,4 +1,4 @@
+ {
+-    int r = nativeGetTransparentRegion(mBitmap.ni(), mNativeChunk, bounds);
++    long r = nativeGetTransparentRegion(mBitmap.ni(), mNativeChunk, bounds);
+     return r != 0 ? new Region(r) : null;
+ }
+

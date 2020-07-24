@@ -1,0 +1,17 @@
+Find a functionally equivalent code:com.android.server.content.SyncStorageEngineTest.testPurgeActiveSync:COMMENT
+Method Modifier: public      
+Comment:// @SmallTest
+
+@@ -4,11 +4,12 @@
+     MockContentResolver mockResolver = new MockContentResolver();
+     SyncStorageEngine engine = SyncStorageEngine.newTestInstance(new TestContext(mockResolver, getContext()));
+     long time0 = 1000;
+-    long historyId = engine.insertStartSyncEvent(account, 0, SyncOperation.REASON_PERIODIC, authority, time0, SyncStorageEngine.SOURCE_LOCAL, false, /* initialization */
+-    null);
++    SyncOperation op = new SyncOperation(account, 0, SyncOperation.REASON_PERIODIC, SyncStorageEngine.SOURCE_LOCAL, authority, Bundle.EMPTY, time0, 0, /* flex*/
++    0, 0, true);
++    long historyId = engine.insertStartSyncEvent(op, time0);
+     long time1 = time0 + SyncStorageEngine.MILLIS_IN_4WEEKS * 2;
+     engine.stopSyncEvent(historyId, time1 - time0, "yay", 0, 0);
+ }
+

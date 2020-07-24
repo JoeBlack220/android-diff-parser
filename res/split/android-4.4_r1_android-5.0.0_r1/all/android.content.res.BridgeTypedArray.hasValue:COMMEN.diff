@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.content.res.BridgeTypedArray.hasValue:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Determines whether there is an attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ *
+ * @return True if the attribute has a value, false otherwise.
+ */
+
+@@ -1,6 +1,3 @@
+ {
+-    if (index < 0 || index >= mResourceData.length) {
+-        return false;
+-    }
+-    return mResourceData[index] != null;
++    return index >= 0 && index < mResourceData.length && mResourceData[index] != null;
+ }
+

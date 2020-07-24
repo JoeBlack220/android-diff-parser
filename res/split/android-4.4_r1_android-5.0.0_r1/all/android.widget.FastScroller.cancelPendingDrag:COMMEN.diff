@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.widget.FastScroller.cancelPendingDrag:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Cancels a pending drag.
+ *
+ * @see #startPendingDrag()
+ */
+
+@@ -1,4 +1,3 @@
+ {
+-    mList.removeCallbacks(mDeferStartDrag);
+-    mHasPendingDrag = false;
++    mPendingDrag = -1;
+ }
+

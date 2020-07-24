@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.ddm.DdmHandleProfiling.handleMPRS:COMMENT
+Method Modifier: private     
+Comment:/*
+     * Handle a "Method PRofiling Start" request.
+     */
+
+@@ -4,10 +4,10 @@
+     int flags = in.getInt();
+     int len = in.getInt();
+     String fileName = getString(in, len);
+-    if (false)
++    if (DEBUG)
+         Log.v("ddm-heap", "Method profiling start: filename='" + fileName + "', size=" + bufferSize + ", flags=" + flags);
+     try {
+         Debug.startMethodTracing(fileName, bufferSize, flags);
+

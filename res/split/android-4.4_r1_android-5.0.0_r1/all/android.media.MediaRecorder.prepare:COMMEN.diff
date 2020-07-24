@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.media.MediaRecorder.prepare:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Prepares the recorder to begin capturing and encoding data. This method
+ * must be called after setting up the desired audio and video sources,
+ * encoders, file format, etc., but before start().
+ *
+ * @throws IllegalStateException if it is called after
+ * start() or before setOutputFormat().
+ * @throws IOException if prepare fails otherwise.
+ */
+
+@@ -1,10 +1,10 @@
+ {
+     if (mPath != null) {
+-        FileOutputStream fos = new FileOutputStream(mPath);
++        RandomAccessFile file = new RandomAccessFile(mPath, "rws");
+         try {
+-            _setOutputFile(fos.getFD(), 0, 0);
++            _setOutputFile(file.getFD(), 0, 0);
+         } finally {
+-            fos.close();
++            file.close();
+         }
+     } else if (mFd != null) {
+         _setOutputFile(mFd, 0, 0);
+

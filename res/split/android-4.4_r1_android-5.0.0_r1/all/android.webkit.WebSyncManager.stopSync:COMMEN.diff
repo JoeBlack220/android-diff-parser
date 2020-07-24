@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.webkit.WebSyncManager.stopSync:COMMENT
+Method Modifier: public      
+Comment:/**
+ * stopSync() requests sync manager to stop sync. remove any SYNC_MESSAGE in
+ * the queue to break the sync loop
+ */
+
+@@ -1,11 +1,2 @@
+ {
+-    if (DebugFlags.WEB_SYNC_MANAGER) {
+-        Log.v(LOGTAG, "*** WebSyncManager stopSync ***, Ref count:" + mStartSyncRefCount);
+-    }
+-    if (mHandler == null) {
+-        return;
+-    }
+-    if (--mStartSyncRefCount == 0) {
+-        mHandler.removeMessages(SYNC_MESSAGE);
+-    }
+ }
+

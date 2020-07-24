@@ -1,0 +1,99 @@
+Find a functionally equivalent code:com.android.providers.settings.SettingsProvider.call:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Fast path that avoids the use of chatty remoted Cursors.
+ */
+
+@@ -17,22 +17,26 @@
+     if (Settings.CALL_METHOD_GET_SYSTEM.equals(method)) {
+         if (LOCAL_LOGV)
+             Slog.v(TAG, "call(system:" + request + ") for " + callingUser);
++        // Check if this request should be (re)directed to the primary user's db
++        if (callingUser != UserHandle.USER_OWNER && shouldShadowParentProfile(callingUser, sSystemCloneToManagedKeys, request)) {
++            callingUser = UserHandle.USER_OWNER;
++        }
+         dbHelper = getOrEstablishDatabase(callingUser);
+         cache = sSystemCaches.get(callingUser);
+         return lookupValue(dbHelper, TABLE_SYSTEM, cache, request);
+@@ -24,29 +28,41 @@
+     if (Settings.CALL_METHOD_GET_SECURE.equals(method)) {
+         if (LOCAL_LOGV)
+             Slog.v(TAG, "call(secure:" + request + ") for " + callingUser);
++        // Check if this is a setting to be copied from the primary user
++        if (shouldShadowParentProfile(callingUser, sSecureCloneToManagedKeys, request)) {
++            // If the request if for location providers and there's a restriction, return none
++            if (Secure.LOCATION_PROVIDERS_ALLOWED.equals(request) && mUserManager.hasUserRestriction(UserManager.DISALLOW_SHARE_LOCATION, new UserHandle(callingUser))) {
++                return sSecureCaches.get(callingUser).putIfAbsent(request, "");
++            }
++            callingUser = UserHandle.USER_OWNER;
++        }
+         dbHelper = getOrEstablishDatabase(callingUser);
+         cache = sSecureCaches.get(callingUser);
+         return lookupValue(dbHelper, TABLE_SECURE, cache, request);
+@@ -49,64 +61,122 @@
+     values.put(Settings.NameValueTable.NAME, request);
+     values.put(Settings.NameValueTable.VALUE, newValue);
+     if (Settings.CALL_METHOD_PUT_SYSTEM.equals(method)) {
+-        if (LOCAL_LOGV)
++        if (LOCAL_LOGV) {
+             Slog.v(TAG, "call_put(system:" + request + "=" + newValue + ") for " + callingUser);
++        }
++        // Extra check for USER_OWNER to optimize for the 99%
++        if (callingUser != UserHandle.USER_OWNER && shouldShadowParentProfile(callingUser, sSystemCloneToManagedKeys, request)) {
++            // Don't write these settings, as they are cloned from the parent profile
++            return null;
++        }
+         insertForUser(Settings.System.CONTENT_URI, values, callingUser);
++        // Clone the settings to the managed profiles so that notifications can be sent out
++        if (callingUser == UserHandle.USER_OWNER && mManagedProfiles != null && sSystemCloneToManagedKeys.contains(request)) {
++            final long token = Binder.clearCallingIdentity();
++            try {
++                for (int i = mManagedProfiles.size() - 1; i >= 0; i--) {
++                    if (LOCAL_LOGV) {
++                        Slog.v(TAG, "putting to additional user " + mManagedProfiles.get(i).id);
++                    }
++                    insertForUser(Settings.System.CONTENT_URI, values, mManagedProfiles.get(i).id);
++                }
++            } finally {
++                Binder.restoreCallingIdentity(token);
++            }
++        }
+     } else if (Settings.CALL_METHOD_PUT_SECURE.equals(method)) {
+-        if (LOCAL_LOGV)
++        if (LOCAL_LOGV) {
+             Slog.v(TAG, "call_put(secure:" + request + "=" + newValue + ") for " + callingUser);
++        }
++        // Extra check for USER_OWNER to optimize for the 99%
++        if (callingUser != UserHandle.USER_OWNER && shouldShadowParentProfile(callingUser, sSecureCloneToManagedKeys, request)) {
++            // Don't write these settings, as they are cloned from the parent profile
++            return null;
++        }
+         insertForUser(Settings.Secure.CONTENT_URI, values, callingUser);
++        // Clone the settings to the managed profiles so that notifications can be sent out
++        if (callingUser == UserHandle.USER_OWNER && mManagedProfiles != null && sSecureCloneToManagedKeys.contains(request)) {
++            final long token = Binder.clearCallingIdentity();
++            try {
++                for (int i = mManagedProfiles.size() - 1; i >= 0; i--) {
++                    if (LOCAL_LOGV) {
++                        Slog.v(TAG, "putting to additional user " + mManagedProfiles.get(i).id);
++                    }
++                    try {
++                        insertForUser(Settings.Secure.CONTENT_URI, values, mManagedProfiles.get(i).id);
++                    } catch (SecurityException e) {
++                        // Temporary fix, see b/17450158
++                        Slog.w(TAG, "Cannot clone request '" + request + "' with value '" + newValue + "' to managed profile (id " + mManagedProfiles.get(i).id + ")", e);
++                    }
++                }
++            } finally {
++                Binder.restoreCallingIdentity(token);
++            }
++        }
+     } else if (Settings.CALL_METHOD_PUT_GLOBAL.equals(method)) {
+-        if (LOCAL_LOGV)
++        if (LOCAL_LOGV) {
+             Slog.v(TAG, "call_put(global:" + request + "=" + newValue + ") for " + callingUser);
++        }
+         insertForUser(Settings.Global.CONTENT_URI, values, callingUser);
+     } else {
+         Slog.w(TAG, "call() with invalid method: " + method);
+

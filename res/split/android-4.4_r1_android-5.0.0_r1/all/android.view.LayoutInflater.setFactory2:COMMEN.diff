@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.view.LayoutInflater.setFactory2:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Like {@link #setFactory}, but allows you to set a {@link Factory2}
+ * interface.
+ */
+
+@@ -9,14 +9,14 @@
+     if (mFactory == null) {
+         mFactory = mFactory2 = factory;
+     } else {
+-        mFactory = new FactoryMerger(factory, factory, mFactory, mFactory2);
++        mFactory = mFactory2 = new FactoryMerger(factory, factory, mFactory, mFactory2);
+     }
+ }
+

@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.util.EventLog.Event.getData:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @return one of Integer, Long, String, null, or Object[] of same.
+ */
+
+@@ -1,8 +1,12 @@
+ {
+     try {
+-        mBuffer.limit(PAYLOAD_START + mBuffer.getShort(LENGTH_OFFSET));
++        int offset = mBuffer.getShort(HEADER_SIZE_OFFSET);
++        if (offset == 0) {
++            offset = V1_PAYLOAD_START;
++        }
++        mBuffer.limit(offset + mBuffer.getShort(LENGTH_OFFSET));
+         // Just after the tag.
+-        mBuffer.position(DATA_START);
++        mBuffer.position(offset + DATA_OFFSET);
+         return decodeObject();
+     } catch (IllegalArgumentException e) {
+         Log.wtf(TAG, "Illegal entry payload: tag=" + getTag(), e);
+

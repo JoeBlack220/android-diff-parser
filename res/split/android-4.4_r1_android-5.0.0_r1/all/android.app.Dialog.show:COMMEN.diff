@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.app.Dialog.show:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Start the dialog and display it on screen.  The window is placed in the
+ * application layer and opaque.  Note that you should not override this
+ * method to do initialization when the dialog is shown, instead implement
+ * that in {@link #onStart}.
+ */
+
+@@ -18,24 +18,24 @@
+         final ApplicationInfo info = mContext.getApplicationInfo();
+         mWindow.setDefaultIcon(info.icon);
+         mWindow.setDefaultLogo(info.logo);
+-        mActionBar = new ActionBarImpl(this);
++        mActionBar = new WindowDecorActionBar(this);
+     }
+     WindowManager.LayoutParams l = mWindow.getAttributes();
+     if ((l.softInputMode & WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION) == 0) {
+

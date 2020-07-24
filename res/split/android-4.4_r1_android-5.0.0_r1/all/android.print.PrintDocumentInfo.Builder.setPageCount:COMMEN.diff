@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.print.PrintDocumentInfo.Builder.setPageCount:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the total number of pages.
+ * <p>
+ * <strong>Default: </strong> {@link #PAGE_COUNT_UNKNOWN}
+ * </p>
+ *
+ * @param pageCount The number of pages. Must be greater than
+ * or equal to zero or {@link PrintDocumentInfo#PAGE_COUNT_UNKNOWN}.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (pageCount < 0 && pageCount != PAGE_COUNT_UNKNOWN) {
+-        throw new IllegalArgumentException("pageCount" + " must be greater than or euqal to zero or" + " DocumentInfo#PAGE_COUNT_UNKNOWN");
++        throw new IllegalArgumentException("pageCount" + " must be greater than or equal to zero or" + " DocumentInfo#PAGE_COUNT_UNKNOWN");
+     }
+     mPrototype.mPageCount = pageCount;
+     return this;
+

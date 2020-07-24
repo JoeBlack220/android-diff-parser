@@ -1,0 +1,10 @@
+Find a functionally equivalent code:android.net.wifi.p2p.WifiP2pDeviceList.updateSupplicantDetails:COMMENT
+<android.net.wifi.p2p.WifiP2pDeviceList: void updateSupplicantDetails(WifiP2pDevice)>
+Method Modifier: public      hidden      
+Method Modifier: No          Yes         
+Method Updated:  Yes         Yes         
+Comment:/**
+ * Only updates details fetched from the supplicant @hide
+ */
+
+

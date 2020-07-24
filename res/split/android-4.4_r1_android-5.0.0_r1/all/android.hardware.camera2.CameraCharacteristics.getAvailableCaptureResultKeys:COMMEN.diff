@@ -1,0 +1,32 @@
+Find a functionally equivalent code:android.hardware.camera2.CameraCharacteristics.getAvailableCaptureResultKeys:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns the list of keys supported by this {@link CameraDevice} for querying
+ * with a {@link CaptureResult}.
+ *
+ * <p>The list returned is not modifiable, so any attempts to modify it will throw
+ * a {@code UnsupportedOperationException}.</p>
+ *
+ * <p>Each key is only listed once in the list. The order of the keys is undefined.</p>
+ *
+ * <p>Note that there is no {@code getAvailableCameraCharacteristicsKeys()} -- use
+ * {@link #getKeys()} instead.</p>
+ *
+ * @return List of keys supported by this CameraDevice for CaptureResults.
+ */
+
+@@ -1,6 +1,12 @@
+ {
+     if (mAvailableResultKeys == null) {
+-        mAvailableResultKeys = getAvailableKeyList(CaptureResult.class);
++        Object crKey = CaptureResult.Key.class;
++        Class<CaptureResult.Key<?>> crKeyTyped = (Class<CaptureResult.Key<?>>) crKey;
++        int[] filterTags = get(REQUEST_AVAILABLE_RESULT_KEYS);
++        if (filterTags == null) {
++            throw new AssertionError("android.request.availableResultKeys must be non-null " + "in the characteristics");
++        }
++        mAvailableResultKeys = getAvailableKeyList(CaptureResult.class, crKeyTyped, filterTags);
+     }
+     return mAvailableResultKeys;
+ }
+

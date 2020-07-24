@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.service.dreams.DreamService.setScreenBright:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Marks this dream as keeping the screen bright while dreaming.
+ *
+ * @param screenBright True to keep the screen bright while dreaming.
+ */
+
+@@ -1,5 +1,7 @@
+ {
+-    mScreenBright = screenBright;
+-    int flag = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+-    applyWindowFlags(mScreenBright ? flag : 0, flag);
++    if (mScreenBright != screenBright) {
++        mScreenBright = screenBright;
++        int flag = WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
++        applyWindowFlags(mScreenBright ? flag : 0, flag);
++    }
+ }
+

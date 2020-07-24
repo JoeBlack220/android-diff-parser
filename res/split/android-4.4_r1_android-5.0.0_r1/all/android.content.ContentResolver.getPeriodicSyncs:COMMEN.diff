@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.content.ContentResolver.getPeriodicSyncs:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Get the list of information about the periodic syncs for the given account and authority.
+ * <p>This method requires the caller to hold the permission
+ * {@link android.Manifest.permission#READ_SYNC_SETTINGS}.
+ *
+ * @param account the account whose periodic syncs we are querying
+ * @param authority the provider whose periodic syncs we are querying
+ * @return a list of PeriodicSync objects. This list may be empty but will never be null.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        return getContentService().getPeriodicSyncs(account, authority);
++        return getContentService().getPeriodicSyncs(account, authority, null);
+     } catch (RemoteException e) {
+         throw new RuntimeException("the ContentService should always be reachable", e);
+     }
+

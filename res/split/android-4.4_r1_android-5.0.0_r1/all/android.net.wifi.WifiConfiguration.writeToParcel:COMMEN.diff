@@ -1,0 +1,60 @@
+Find a functionally equivalent code:android.net.wifi.WifiConfiguration.writeToParcel:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * Implement the Parcelable interface {@hide}
+ */
+
+@@ -4,9 +4,12 @@
+     dest.writeInt(disableReason);
+     dest.writeString(SSID);
+     dest.writeString(BSSID);
++    dest.writeString(autoJoinBSSID);
++    dest.writeString(FQDN);
++    dest.writeString(naiRealm);
+     dest.writeString(preSharedKey);
+     for (String wepKey : wepKeys) {
+         dest.writeString(wepKey);
+@@ -11,23 +14,52 @@
+     dest.writeInt(wepTxKeyIndex);
+     dest.writeInt(priority);
+     dest.writeInt(hiddenSSID ? 1 : 0);
++    dest.writeInt(requirePMF ? 1 : 0);
++    dest.writeString(updateIdentifier);
+     writeBitSet(dest, allowedKeyManagement);
+     writeBitSet(dest, allowedProtocols);
+     writeBitSet(dest, allowedAuthAlgorithms);
+     writeBitSet(dest, allowedPairwiseCiphers);
+     writeBitSet(dest, allowedGroupCiphers);
+     dest.writeParcelable(enterpriseConfig, flags);
+-    dest.writeString(ipAssignment.name());
+-    dest.writeString(proxySettings.name());
+-    dest.writeParcelable(linkProperties, flags);
++    dest.writeParcelable(mIpConfiguration, flags);
++    dest.writeString(dhcpServer);
++    dest.writeString(defaultGwMacAddress);
++    dest.writeInt(autoJoinStatus);
++    dest.writeInt(selfAdded ? 1 : 0);
++    dest.writeInt(didSelfAdd ? 1 : 0);
++    dest.writeInt(noInternetAccess ? 1 : 0);
++    dest.writeInt(creatorUid);
++    dest.writeInt(lastConnectUid);
++    dest.writeInt(lastUpdateUid);
++    dest.writeLong(blackListTimestamp);
++    dest.writeLong(lastConnectionFailure);
++    dest.writeInt(numConnectionFailures);
++    dest.writeInt(numIpConfigFailures);
++    dest.writeInt(numAuthFailures);
++    dest.writeInt(numScorerOverride);
++    dest.writeInt(numScorerOverrideAndSwitchedNetwork);
++    dest.writeInt(numAssociation);
++    dest.writeInt(numUserTriggeredWifiDisableLowRSSI);
++    dest.writeInt(numUserTriggeredWifiDisableBadRSSI);
++    dest.writeInt(numUserTriggeredWifiDisableNotHighRSSI);
++    dest.writeInt(numTicksAtLowRSSI);
++    dest.writeInt(numTicksAtBadRSSI);
++    dest.writeInt(numTicksAtNotHighRSSI);
++    dest.writeInt(numUserTriggeredJoinAttempts);
++    dest.writeInt(autoJoinUseAggressiveJoinAttemptThreshold);
++    dest.writeInt(autoJoinBailedDueToLowRssi ? 1 : 0);
+ }
+

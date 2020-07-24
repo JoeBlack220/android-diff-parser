@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.telephony.ServiceState.setFromNotifierBundle:COMMENT
+Method Modifier: private     hidden      
+Comment:/**
+ * Set ServiceState based on intent notifier map.
+ *
+ * @param m intent notifier map
+ * @hide
+ */
+
+@@ -7,13 +7,13 @@
+     mOperatorNumeric = m.getString("operator-numeric");
+     mIsManualNetworkSelection = m.getBoolean("manual");
+     mRilVoiceRadioTechnology = m.getInt("radioTechnology");
+-    mRilVoiceRadioTechnology = m.getInt("dataRadioTechnology");
++    mRilDataRadioTechnology = m.getInt("dataRadioTechnology");
+     mCssIndicator = m.getBoolean("cssIndicator");
+     mNetworkId = m.getInt("networkId");
+     mSystemId = m.getInt("systemId");
+

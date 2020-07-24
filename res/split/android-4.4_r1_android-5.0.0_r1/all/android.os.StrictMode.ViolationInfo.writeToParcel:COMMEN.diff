@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.os.StrictMode.ViolationInfo.writeToParcel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Save a ViolationInfo instance to a parcel.
+ */
+
+@@ -1,5 +1,6 @@
+ {
+     crashInfo.writeToParcel(dest, flags);
++    int start = dest.dataPosition();
+     dest.writeInt(policy);
+     dest.writeInt(durationMillis);
+     dest.writeInt(violationNumThisLoop);
+@@ -8,11 +9,19 @@
+     dest.writeLong(numInstances);
+     dest.writeString(broadcastIntentAction);
+     dest.writeStringArray(tags);
++    int total = dest.dataPosition() - start;
++    if (total > 10 * 1024) {
++        Slog.d(TAG, "VIO: policy=" + policy + " dur=" + durationMillis + " numLoop=" + violationNumThisLoop + " anim=" + numAnimationsRunning + " uptime=" + violationUptimeMillis + " numInst=" + numInstances);
++        Slog.d(TAG, "VIO: action=" + broadcastIntentAction);
++        Slog.d(TAG, "VIO: tags=" + Arrays.toString(tags));
++        Slog.d(TAG, "VIO: TOTAL BYTES WRITTEN: " + (dest.dataPosition() - start));
++    }
+ }
+

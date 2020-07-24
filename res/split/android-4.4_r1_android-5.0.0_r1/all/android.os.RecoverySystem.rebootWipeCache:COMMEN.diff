@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.os.RecoverySystem.rebootWipeCache:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Reboot into the recovery system to wipe the /cache partition.
+ * @throws IOException if something goes wrong.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    bootCommand(context, "--wipe_cache\n--locale=" + Locale.getDefault().toString());
++    rebootWipeCache(context, context.getPackageName());
+ }
+

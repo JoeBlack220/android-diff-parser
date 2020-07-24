@@ -1,0 +1,32 @@
+Find a functionally equivalent code:android.media.AudioTrack.isMultichannelConfigSupported:COMMENT
+Method Modifier: private     static      
+Comment:/**
+ * Convenience method to check that the channel configuration (a.k.a channel mask) is supported
+ * @param channelConfig the mask to validate
+ * @return false if the AudioTrack can't be used with such a mask
+ */
+
+@@ -4,9 +4,14 @@
+         loge("Channel configuration features unsupported channels");
+         return false;
+     }
++    final int channelCount = Integer.bitCount(channelConfig);
++    if (channelCount > CHANNEL_COUNT_MAX) {
++        loge("Channel configuration contains too many channels " + channelCount + ">" + CHANNEL_COUNT_MAX);
++        return false;
++    }
+     // check for unsupported multichannel combinations:
+     // - FL/FR must be present
+     // - L/R channels must be paired (e.g. no single L channel)
+@@ -19,23 +24,33 @@
+             return false;
+         }
+     }
++    final int sidePair = AudioFormat.CHANNEL_OUT_SIDE_LEFT | AudioFormat.CHANNEL_OUT_SIDE_RIGHT;
++    if ((channelConfig & sidePair) != 0 && (channelConfig & sidePair) != sidePair) {
++        loge("Side channels can't be used independently");
++        return false;
++    }
+     return true;
+ }
+

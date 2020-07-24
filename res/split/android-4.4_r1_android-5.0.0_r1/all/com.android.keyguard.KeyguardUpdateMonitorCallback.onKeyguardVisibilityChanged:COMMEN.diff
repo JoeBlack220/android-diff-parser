@@ -1,0 +1,11 @@
+Find a functionally equivalent code:com.android.keyguard.KeyguardUpdateMonitorCallback.onKeyguardVisibilityChanged:COMMENT
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onKeyguardVisibilityChanged(boolean)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+Comment:/**
+ * Called when the visibility of the keyguard changes.
+ * @param showing Indicates if the keyguard is now visible.
+ */
+
+

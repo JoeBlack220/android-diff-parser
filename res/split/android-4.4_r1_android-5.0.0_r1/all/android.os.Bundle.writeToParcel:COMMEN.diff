@@ -1,0 +1,36 @@
+Find a functionally equivalent code:android.os.Bundle.writeToParcel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Writes the Bundle contents to a Parcel, typically in order for
+ * it to be passed through an IBinder connection.
+ * @param parcel The parcel to copy this bundle to.
+ */
+
+@@ -1,25 +1,7 @@
+ {
+     final boolean oldAllowFds = parcel.pushAllowFds(mAllowFds);
+     try {
+-        if (mParcelledData != null) {
+-            int length = mParcelledData.dataSize();
+-            parcel.writeInt(length);
+-            parcel.writeInt(BUNDLE_MAGIC);
+-            parcel.appendFrom(mParcelledData, 0, length);
+-        } else {
+-            int lengthPos = parcel.dataPosition();
+-            // dummy, will hold length
+-            parcel.writeInt(-1);
+-            parcel.writeInt(BUNDLE_MAGIC);
+-            int startPos = parcel.dataPosition();
+-            parcel.writeArrayMapInternal(mMap);
+-            int endPos = parcel.dataPosition();
+-            // Backpatch length
+-            parcel.setDataPosition(lengthPos);
+-            int length = endPos - startPos;
+-            parcel.writeInt(length);
+-            parcel.setDataPosition(endPos);
+-        }
++        super.writeToParcelInner(parcel, flags);
+     } finally {
+         parcel.restoreAllowFds(oldAllowFds);
+     }
+

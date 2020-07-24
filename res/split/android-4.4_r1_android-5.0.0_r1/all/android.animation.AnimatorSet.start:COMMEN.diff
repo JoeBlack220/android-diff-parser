@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.animation.AnimatorSet.start:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ *
+ * <p>Starting this <code>AnimatorSet</code> will, in turn, start the animations for which
+ * it is responsible. The details of when exactly those animations are started depends on
+ * the dependency relationships that have been set up between the animations.
+ */
+
+@@ -2,7 +2,10 @@
+     mTerminated = false;
+     mStarted = true;
+     mPaused = false;
++    for (Node node : mNodes) {
++        node.animation.setAllowRunningAsynchronously(false);
++    }
+     if (mDuration >= 0) {
+         // If the duration was set on this AnimatorSet, pass it along to all child animations
+         for (Node node : mNodes) {
+

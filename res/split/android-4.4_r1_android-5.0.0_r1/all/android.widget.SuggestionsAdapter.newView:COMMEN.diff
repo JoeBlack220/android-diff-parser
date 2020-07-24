@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.widget.SuggestionsAdapter.newView:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Tags the view with cached child view look-ups.
+ */
+
+@@ -1,5 +1,8 @@
+ {
+-    View v = super.newView(context, cursor, parent);
++    final View v = super.newView(context, cursor, parent);
+     v.setTag(new ChildViewCache(v));
++    // Set up icon.
++    final ImageView iconRefine = (ImageView) v.findViewById(R.id.edit_query);
++    iconRefine.setImageResource(mCommitIconResId);
+     return v;
+ }
+

@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.widget.GridLayout.measureChildrenWithMargins:COMMENT
+Method Modifier: private     
+Comment:// Note: padding has already been removed from the supplied specs
+
+@@ -6,11 +6,13 @@
+         LayoutParams lp = getLayoutParams(c);
+         if (firstPass) {
+             measureChildWithMargins2(c, widthSpec, heightSpec, lp.width, lp.height);
++            mHorizontalAxis.recordOriginalMeasurement(i);
++            mVerticalAxis.recordOriginalMeasurement(i);
+         } else {
+             boolean horizontal = (mOrientation == HORIZONTAL);
+             Spec spec = horizontal ? lp.columnSpec : lp.rowSpec;
+

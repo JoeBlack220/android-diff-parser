@@ -1,0 +1,40 @@
+Find a functionally equivalent code:android.bluetooth.BluetoothGatt.readDescriptor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Reads the value for a given descriptor from the associated remote device.
+ *
+ * <p>Once the read operation has been completed, the
+ * {@link BluetoothGattCallback#onDescriptorRead} callback is
+ * triggered, signaling the result of the operation.
+ *
+ * <p>Requires {@link android.Manifest.permission#BLUETOOTH} permission.
+ *
+ * @param descriptor Descriptor value to read from the remote device
+ * @return true, if the read operation was initiated successfully
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    if (DBG)
++    if (VDBG)
+         Log.d(TAG, "readDescriptor() - uuid: " + descriptor.getUuid());
+     if (mService == null || mClientIf == 0)
+         return false;
+@@ -12,21 +12,27 @@
+     BluetoothDevice device = service.getDevice();
+     if (device == null)
+         return false;
++    synchronized (mDeviceBusy) {
++        if (mDeviceBusy)
++            return false;
++        mDeviceBusy = true;
++    }
+     try {
+         mService.readDescriptor(mClientIf, device.getAddress(), service.getType(), service.getInstanceId(), new ParcelUuid(service.getUuid()), characteristic.getInstanceId(), new ParcelUuid(characteristic.getUuid()), descriptor.getInstanceId(), new ParcelUuid(descriptor.getUuid()), AUTHENTICATION_NONE);
+     } catch (RemoteException e) {
+         Log.e(TAG, "", e);
++        mDeviceBusy = false;
+         return false;
+     }
+     return true;
+

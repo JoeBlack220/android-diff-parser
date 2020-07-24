@@ -1,0 +1,44 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.ConnectivityManagerTestBase.waitForWifiState:COMMENT
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean waitForWifiState(int,long)>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+Comment:// WIFI_STATE_ENALBING, WIFI_STATE_UNKNOWN
+
+@@ -1,25 +1,16 @@
+ {
+-    long startTime = System.currentTimeMillis();
++    long startTime = SystemClock.uptimeMillis();
+     while (true) {
+-        if ((System.currentTimeMillis() - startTime) > timeout) {
+-            if (mWifiState != expectedState) {
+-                return false;
+-            } else {
+-                return true;
+-            }
+-        }
+-        log("Wait for wifi state to be: " + expectedState);
+-        synchronized (wifiObject) {
+-            try {
+-                wifiObject.wait(SHORT_TIMEOUT);
+-            } catch (InterruptedException e) {
+-                e.printStackTrace();
+-            }
+-            if (mWifiState != expectedState) {
+-                log("Wifi state is: " + mWifiState);
+-                continue;
+-            }
++        int state = mWifiManager.getWifiState();
++        if (state == expectedState) {
++            logv("waitForWifiState success: state=" + state);
+             return true;
+         }
++        if ((SystemClock.uptimeMillis() - startTime) > timeout) {
++            logv("waitForWifiState timeout: expected=%d, actual=%d", expectedState, state);
++            return false;
++        }
++        logv("waitForWifiState interim: expected=%d, actual=%d", expectedState, state);
++        SystemClock.sleep(SHORT_TIMEOUT);
+     }
+ }
+

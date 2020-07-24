@@ -1,0 +1,31 @@
+Find a functionally equivalent code:android.view.Surface.unlockCanvasAndPost:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Posts the new contents of the {@link Canvas} to the surface and
+ * releases the {@link Canvas}.
+ *
+ * @param canvas The canvas previously obtained from {@link #lockCanvas}.
+ */
+
+@@ -5,17 +5,20 @@
+     synchronized (mLock) {
+         checkNotReleasedLocked();
+         if (mNativeObject != mLockedObject) {
+-            Log.w(TAG, "WARNING: Surface's mNativeObject (0x" + Integer.toHexString(mNativeObject) + ") != mLockedObject (0x" + Integer.toHexString(mLockedObject) + ")");
++            Log.w(TAG, "WARNING: Surface's mNativeObject (0x" + Long.toHexString(mNativeObject) + ") != mLockedObject (0x" + Long.toHexString(mLockedObject) + ")");
+         }
+         if (mLockedObject == 0) {
+             throw new IllegalStateException("Surface was not locked");
+         }
+-        nativeUnlockCanvasAndPost(mLockedObject, canvas);
+-        nativeRelease(mLockedObject);
+-        mLockedObject = 0;
++        try {
++            nativeUnlockCanvasAndPost(mLockedObject, canvas);
++        } finally {
++            nativeRelease(mLockedObject);
++            mLockedObject = 0;
++        }
+     }
+ }
+

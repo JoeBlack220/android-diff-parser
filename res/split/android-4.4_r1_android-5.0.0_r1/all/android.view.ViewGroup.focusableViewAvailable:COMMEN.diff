@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.view.ViewGroup.focusableViewAvailable:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (mParent != null && // getting focus
+-    (getDescendantFocusability() != FOCUS_BLOCK_DESCENDANTS) && // an ancestor of v; this will get checked for at ViewAncestor
++    (getDescendantFocusability() != FOCUS_BLOCK_DESCENDANTS) && (isFocusableInTouchMode() || !shouldBlockFocusForTouchscreen()) && // an ancestor of v; this will get checked for at ViewAncestor
+     !(isFocused() && getDescendantFocusability() != FOCUS_AFTER_DESCENDANTS)) {
+         mParent.focusableViewAvailable(v);
+     }
+

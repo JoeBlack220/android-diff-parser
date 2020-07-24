@@ -1,0 +1,14 @@
+Find a functionally equivalent code:com.android.mediaframeworktest.functional.CodecTest.playMediaSamples:COMMENT
+Method Modifier: public      static      
+Comment:// For each media file, forward twice and backward once, then play to the end
+
+@@ -34,40 +34,40 @@
+         waittime = duration - mMediaPlayer.getCurrentPosition();
+         synchronized (onCompletion) {
+             try {
+-                onCompletion.wait(waittime + 2000);
++                onCompletion.wait(waittime + buffertime);
+             } catch (Exception e) {
+                 Log.v(TAG, "playMediaSamples are interrupted");
+                 return false;
+

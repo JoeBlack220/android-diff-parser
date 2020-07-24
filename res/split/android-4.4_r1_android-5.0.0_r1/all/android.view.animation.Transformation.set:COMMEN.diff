@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.view.animation.Transformation.set:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Clones the specified transformation.
+ *
+ * @param t The transformation to clone.
+ */
+
+@@ -1,5 +1,11 @@
+ {
+     mAlpha = t.getAlpha();
+     mMatrix.set(t.getMatrix());
++    if (t.mHasClipRect) {
++        setClipRect(t.getClipRect());
++    } else {
++        mHasClipRect = false;
++        mClipRect.setEmpty();
++    }
+     mTransformationType = t.getTransformationType();
+ }
+

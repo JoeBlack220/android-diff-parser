@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.app.NotificationManager.notifyAsUser:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -10,17 +10,19 @@
+     }
+     if (localLOGV)
+         Log.v(TAG, pkg + ": notify(" + id + ", " + notification + ")");
++    Notification stripped = notification.clone();
++    Builder.stripForDelivery(stripped);
+     try {
+-        service.enqueueNotificationWithTag(pkg, mContext.getOpPackageName(), tag, id, notification, idOut, user.getIdentifier());
++        service.enqueueNotificationWithTag(pkg, mContext.getOpPackageName(), tag, id, stripped, idOut, user.getIdentifier());
+         if (id != idOut[0]) {
+             Log.w(TAG, "notify: id corrupted: sent " + id + ", got back " + idOut[0]);
+         }
+

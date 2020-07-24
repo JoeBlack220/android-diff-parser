@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.net.Proxy.setHttpProxySystemProperty:COMMENT
+Method Modifier: public      static      final       hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -2,12 +2,12 @@
+     String host = null;
+     String port = null;
+     String exclList = null;
+-    String pacFileUrl = null;
++    Uri pacFileUrl = Uri.EMPTY;
+     if (p != null) {
+         host = p.getHost();
+         port = Integer.toString(p.getPort());
+-        exclList = p.getExclusionList();
++        exclList = p.getExclusionListAsString();
+         pacFileUrl = p.getPacFileUrl();
+     }
+     setHttpProxySystemProperty(host, port, exclList, pacFileUrl);
+

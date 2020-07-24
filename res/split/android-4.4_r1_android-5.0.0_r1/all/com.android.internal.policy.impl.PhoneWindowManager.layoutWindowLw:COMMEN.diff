@@ -1,0 +1,199 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.layoutWindowLw:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,6 +1,7 @@
+ {
+     // we've already done the status bar
+-    if (win == mStatusBar || win == mNavigationBar) {
++    final WindowManager.LayoutParams attrs = win.getAttrs();
++    if ((win == mStatusBar && (attrs.privateFlags & PRIVATE_FLAG_KEYGUARD) == 0) || win == mNavigationBar) {
+         return;
+     }
+     final boolean isDefaultDisplay = win.isDefaultDisplay();
+@@ -10,27 +11,34 @@
+             Slog.i(TAG, "Offset ime target window by the last ime window state");
+         offsetInputMethodWindowLw(mLastInputMethodWindow);
+     }
+-    final int fl = attrs.flags;
++    final int fl = PolicyControl.getWindowFlags(win, attrs);
+     final int sim = attrs.softInputMode;
+-    final int sysUiFl = win.getSystemUiVisibility();
++    final int sysUiFl = PolicyControl.getSystemUiVisibility(win, null);
+     final Rect pf = mTmpParentFrame;
+     final Rect df = mTmpDisplayFrame;
+     final Rect of = mTmpOverscanFrame;
+     final Rect cf = mTmpContentFrame;
+     final Rect vf = mTmpVisibleFrame;
+     final Rect dcf = mTmpDecorFrame;
++    final Rect sf = mTmpStableFrame;
+     dcf.setEmpty();
+     final boolean hasNavBar = (isDefaultDisplay && mHasNavigationBar && mNavigationBar != null && mNavigationBar.isVisibleLw());
+     final int adjust = sim & SOFT_INPUT_MASK_ADJUST;
++    if (isDefaultDisplay) {
++        sf.set(mStableLeft, mStableTop, mStableRight, mStableBottom);
++    } else {
++        sf.set(mOverscanLeft, mOverscanTop, mOverscanRight, mOverscanBottom);
++    }
+     if (!isDefaultDisplay) {
+         if (attached != null) {
+             // If this window is attached to another, our display
+@@ -45,50 +52,67 @@
+         // IM dock windows always go to the bottom of the screen.
+         attrs.gravity = Gravity.BOTTOM;
+         mDockLayer = win.getSurfaceLayer();
++    } else if (win == mStatusBar && (attrs.privateFlags & PRIVATE_FLAG_KEYGUARD) != 0) {
++        pf.left = df.left = of.left = mUnrestrictedScreenLeft;
++        pf.top = df.top = of.top = mUnrestrictedScreenTop;
++        pf.right = df.right = of.right = mUnrestrictedScreenWidth + mUnrestrictedScreenLeft;
++        pf.bottom = df.bottom = of.bottom = mUnrestrictedScreenHeight + mUnrestrictedScreenTop;
++        cf.left = vf.left = mStableLeft;
++        cf.top = vf.top = mStableTop;
++        cf.right = vf.right = mStableRight;
++        vf.bottom = mStableBottom;
++        cf.bottom = mContentBottom;
+     } else {
+         // Default policy decor for the default display
+         dcf.left = mSystemLeft;
+@@ -55,65 +72,82 @@
+         final boolean isAppWindow = attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW && attrs.type <= WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
+         final boolean topAtRest = win == mTopFullscreenOpaqueWindowState && !win.isAnimatingLw();
+         if (isAppWindow && !inheritTranslucentDecor && !topAtRest) {
+-            if ((sysUiFl & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0 && (fl & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0 && (fl & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) == 0) {
++            if ((sysUiFl & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0 && (fl & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0 && (fl & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) == 0 && (fl & WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS) == 0) {
+                 // Ensure policy decor includes status bar
+                 dcf.top = mStableTop;
+             }
+-            if ((fl & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) == 0 && (sysUiFl & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
++            if ((fl & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) == 0 && (sysUiFl & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0 && (fl & WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS) == 0) {
+                 // Ensure policy decor includes navigation bar
+                 dcf.bottom = mStableBottom;
+                 dcf.right = mStableRight;
+@@ -94,100 +111,117 @@
+                     pf.top = df.top = of.top = mOverscanScreenTop;
+                     pf.right = df.right = of.right = mOverscanScreenLeft + mOverscanScreenWidth;
+                     pf.bottom = df.bottom = of.bottom = mOverscanScreenTop + mOverscanScreenHeight;
+-                } else if (canHideNavigationBar() && (sysUiFl & View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION) != 0 && (attrs.type == WindowManager.LayoutParams.TYPE_KEYGUARD || (attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW && attrs.type <= WindowManager.LayoutParams.LAST_SUB_WINDOW))) {
++                } else if (canHideNavigationBar() && (sysUiFl & View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION) != 0 && attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW && attrs.type <= WindowManager.LayoutParams.LAST_SUB_WINDOW) {
+                     // Asking for layout as if the nav bar is hidden, lets the
+                     // application extend into the unrestricted overscan screen area.  We
+                     // only do this for application windows to ensure no window that
+@@ -124,139 +141,163 @@
+                     of.bottom = mUnrestrictedScreenTop + mUnrestrictedScreenHeight;
+                 }
+                 if ((fl & FLAG_FULLSCREEN) == 0) {
+-                    if (adjust != SOFT_INPUT_ADJUST_RESIZE) {
+-                        cf.left = mDockLeft;
+-                        cf.top = mDockTop;
+-                        cf.right = mDockRight;
+-                        cf.bottom = mDockBottom;
++                    if (win.isVoiceInteraction()) {
++                        cf.left = mVoiceContentLeft;
++                        cf.top = mVoiceContentTop;
++                        cf.right = mVoiceContentRight;
++                        cf.bottom = mVoiceContentBottom;
+                     } else {
+-                        cf.left = mContentLeft;
+-                        cf.top = mContentTop;
+-                        cf.right = mContentRight;
+-                        cf.bottom = mContentBottom;
++                        if (adjust != SOFT_INPUT_ADJUST_RESIZE) {
++                            cf.left = mDockLeft;
++                            cf.top = mDockTop;
++                            cf.right = mDockRight;
++                            cf.bottom = mDockBottom;
++                        } else {
++                            cf.left = mContentLeft;
++                            cf.top = mContentTop;
++                            cf.right = mContentRight;
++                            cf.bottom = mContentBottom;
++                        }
+                     }
+                 } else {
+                     // Full screen windows are always given a layout that is as if the
+@@ -187,197 +211,226 @@
+                 pf.right = df.right = of.right = cf.right = mOverscanScreenLeft + mOverscanScreenWidth;
+                 pf.bottom = df.bottom = of.bottom = cf.bottom = mOverscanScreenTop + mOverscanScreenHeight;
+             } else if (attrs.type == TYPE_WALLPAPER) {
+-                // The wallpaper also has Real Ultimate Power.
+-                pf.left = df.left = of.left = cf.left = mUnrestrictedScreenLeft;
+-                pf.top = df.top = of.top = cf.top = mUnrestrictedScreenTop;
+-                pf.right = df.right = of.right = cf.right = mUnrestrictedScreenLeft + mUnrestrictedScreenWidth;
+-                pf.bottom = df.bottom = of.bottom = cf.bottom = mUnrestrictedScreenTop + mUnrestrictedScreenHeight;
++                // The wallpaper also has Real Ultimate Power, but we want to tell
++                // it about the overscan area.
++                pf.left = df.left = mOverscanScreenLeft;
++                pf.top = df.top = mOverscanScreenTop;
++                pf.right = df.right = mOverscanScreenLeft + mOverscanScreenWidth;
++                pf.bottom = df.bottom = mOverscanScreenTop + mOverscanScreenHeight;
++                of.left = cf.left = mUnrestrictedScreenLeft;
++                of.top = cf.top = mUnrestrictedScreenTop;
++                of.right = cf.right = mUnrestrictedScreenLeft + mUnrestrictedScreenWidth;
++                of.bottom = cf.bottom = mUnrestrictedScreenTop + mUnrestrictedScreenHeight;
+             } else if ((fl & FLAG_LAYOUT_IN_OVERSCAN) != 0 && attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW && attrs.type <= WindowManager.LayoutParams.LAST_SUB_WINDOW) {
+                 // Asking to layout into the overscan region, so give it that pure
+                 // unrestricted area.
+@@ -199,205 +228,234 @@
+                 pf.top = df.top = of.top = cf.top = mOverscanScreenTop;
+                 pf.right = df.right = of.right = cf.right = mOverscanScreenLeft + mOverscanScreenWidth;
+                 pf.bottom = df.bottom = of.bottom = cf.bottom = mOverscanScreenTop + mOverscanScreenHeight;
+-            } else if (canHideNavigationBar() && (sysUiFl & View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION) != 0 && (attrs.type == TYPE_TOAST || (attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW && attrs.type <= WindowManager.LayoutParams.LAST_SUB_WINDOW))) {
++            } else if (canHideNavigationBar() && (sysUiFl & View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION) != 0 && (attrs.type == TYPE_STATUS_BAR || attrs.type == TYPE_TOAST || (attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW && attrs.type <= WindowManager.LayoutParams.LAST_SUB_WINDOW))) {
+                 // Asking for layout as if the nav bar is hidden, lets the
+                 // application extend into the unrestricted screen area.  We
+                 // only do this for application windows (or toasts) to ensure no window that
+@@ -245,252 +274,281 @@
+                 pf.top = df.top = of.top = cf.top = mRestrictedScreenTop;
+                 pf.right = df.right = of.right = cf.right = mRestrictedScreenLeft + mRestrictedScreenWidth;
+                 pf.bottom = df.bottom = of.bottom = cf.bottom = mRestrictedScreenTop + mRestrictedScreenHeight;
+-            } else if (attrs.type == TYPE_TOAST || attrs.type == TYPE_SYSTEM_ALERT) {
+-                // Toasts are stable to interim decor changes.
++            } else if (attrs.type == TYPE_TOAST || attrs.type == TYPE_SYSTEM_ALERT || attrs.type == TYPE_VOLUME_OVERLAY) {
++                // These dialogs are stable to interim decor changes.
+                 pf.left = df.left = of.left = cf.left = mStableLeft;
+                 pf.top = df.top = of.top = cf.top = mStableTop;
+                 pf.right = df.right = of.right = cf.right = mStableRight;
+@@ -256,262 +285,296 @@
+                 pf.top = mContentTop;
+                 pf.right = mContentRight;
+                 pf.bottom = mContentBottom;
+-                if (adjust != SOFT_INPUT_ADJUST_RESIZE) {
++                if (win.isVoiceInteraction()) {
++                    df.left = of.left = cf.left = mVoiceContentLeft;
++                    df.top = of.top = cf.top = mVoiceContentTop;
++                    df.right = of.right = cf.right = mVoiceContentRight;
++                    df.bottom = of.bottom = cf.bottom = mVoiceContentBottom;
++                } else if (adjust != SOFT_INPUT_ADJUST_RESIZE) {
+                     df.left = of.left = cf.left = mDockLeft;
+                     df.top = of.top = cf.top = mDockTop;
+                     df.right = of.right = cf.right = mDockRight;
+@@ -280,294 +314,335 @@
+     }
+     // TYPE_SYSTEM_ERROR is above the NavigationBar so it can't be allowed to extend over it.
+     if ((fl & FLAG_LAYOUT_NO_LIMITS) != 0 && attrs.type != TYPE_SYSTEM_ERROR) {
+-        df.left = df.top = of.left = of.top = cf.left = cf.top = vf.left = vf.top = -10000;
+-        df.right = df.bottom = of.right = of.bottom = cf.right = cf.bottom = vf.right = vf.bottom = 10000;
++        df.left = df.top = -10000;
++        df.right = df.bottom = 10000;
++        if (attrs.type != TYPE_WALLPAPER) {
++            of.left = of.top = cf.left = cf.top = vf.left = vf.top = -10000;
++            of.right = of.bottom = cf.right = cf.bottom = vf.right = vf.bottom = 10000;
++        }
+     }
+     if (DEBUG_LAYOUT)
+-        Slog.v(TAG, "Compute frame " + attrs.getTitle() + ": sim=#" + Integer.toHexString(sim) + " attach=" + attached + " type=" + attrs.type + String.format(" flags=0x%08x", fl) + " pf=" + pf.toShortString() + " df=" + df.toShortString() + " of=" + of.toShortString() + " cf=" + cf.toShortString() + " vf=" + vf.toShortString() + " dcf=" + dcf.toShortString());
+-    win.computeFrameLw(pf, df, of, cf, vf, dcf);
++        Slog.v(TAG, "Compute frame " + attrs.getTitle() + ": sim=#" + Integer.toHexString(sim) + " attach=" + attached + " type=" + attrs.type + String.format(" flags=0x%08x", fl) + " pf=" + pf.toShortString() + " df=" + df.toShortString() + " of=" + of.toShortString() + " cf=" + cf.toShortString() + " vf=" + vf.toShortString() + " dcf=" + dcf.toShortString() + " sf=" + sf.toShortString());
++    win.computeFrameLw(pf, df, of, cf, vf, dcf, sf);
+     // can't appear underneath them.
+     if (attrs.type == TYPE_INPUT_METHOD && win.isVisibleOrBehindKeyguardLw() && !win.getGivenInsetsPendingLw()) {
+         setLastInputMethodWindowLw(null, null);
+         offsetInputMethodWindowLw(win);
+     }
++    if (attrs.type == TYPE_VOICE_INTERACTION && win.isVisibleOrBehindKeyguardLw() && !win.getGivenInsetsPendingLw()) {
++        offsetVoiceInputWindowLw(win);
++    }
+ }
+

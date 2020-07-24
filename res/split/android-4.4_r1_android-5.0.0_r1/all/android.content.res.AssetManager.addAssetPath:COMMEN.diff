@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.content.res.AssetManager.addAssetPath:COMMENT
+Method Modifier: public      final       hidden      
+Comment:/**
+ * Add an additional set of assets to the asset manager.  This can be
+ * either a directory or ZIP file.  Not for use by applications.  Returns
+ * the cookie of the added asset, or 0 on failure.
+ * {@hide}
+ */
+
+@@ -1,4 +1,7 @@
+ {
+-    int res = addAssetPathNative(path);
+-    return res;
++    synchronized (this) {
++        int res = addAssetPathNative(path);
++        makeStringBlocks(mStringBlocks);
++        return res;
++    }
+ }
+

@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.view.inputmethod.BaseInputConnection.setSelection:COMMENT
+Method Modifier: public      
+Comment:/**
+ * The default implementation changes the selection position in the
+ * current editable text.
+ */
+
+@@ -5,11 +5,11 @@
+     if (content == null)
+         return false;
+     int len = content.length();
+-    if (start > len || end > len) {
++    if (start > len || end > len || start < 0 || end < 0) {
+         // anyway.
+         return true;
+     }
+

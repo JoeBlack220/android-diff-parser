@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.widget.Switch.setThumbDrawable:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the drawable used for the switch "thumb" - the piece that the user
+ * can physically touch and drag along the track.
+ *
+ * @param thumb Thumb drawable
+ *
+ * @attr ref android.R.styleable#Switch_thumb
+ */
+
+@@ -1,4 +1,10 @@
+ {
++    if (mThumbDrawable != null) {
++        mThumbDrawable.setCallback(null);
++    }
+     mThumbDrawable = thumb;
++    if (thumb != null) {
++        thumb.setCallback(this);
++    }
+     requestLayout();
+ }
+

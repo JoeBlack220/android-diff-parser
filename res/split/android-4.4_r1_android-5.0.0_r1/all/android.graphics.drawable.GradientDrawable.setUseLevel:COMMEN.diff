@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.graphics.drawable.GradientDrawable.setUseLevel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * <p>Sets whether or not this drawable will honor its <code>level</code>
+ * property.</p>
+ * <p><strong>Note</strong>: changing this property will affect all instances
+ * of a drawable loaded from a resource. It is recommended to invoke
+ * {@link #mutate()} before changing this property.</p>
+ *
+ * @param useLevel True if this drawable should honor its level, false otherwise
+ *
+ * @see #mutate()
+ * @see #setLevel(int)
+ * @see #getLevel()
+ */
+
+@@ -1,5 +1,5 @@
+ {
+     mGradientState.mUseLevel = useLevel;
+-    mRectIsDirty = true;
++    mGradientIsDirty = true;
+     invalidateSelf();
+ }
+

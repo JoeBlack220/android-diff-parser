@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.graphics.drawable.BitmapDrawable.setGravity:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the gravity used to position/stretch the bitmap within its bounds.
+ * See android.view.Gravity
+ * @param gravity the gravity
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     if (mBitmapState.mGravity != gravity) {
+         mBitmapState.mGravity = gravity;
+-        mApplyGravity = true;
++        mDstRectAndInsetsDirty = true;
+         invalidateSelf();
+     }
+ }
+

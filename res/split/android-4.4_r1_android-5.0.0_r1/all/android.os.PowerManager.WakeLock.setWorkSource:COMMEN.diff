@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.os.PowerManager.WakeLock.setWorkSource:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the work source associated with the wake lock.
+ * <p>
+ * The work source is used to determine on behalf of which application
+ * the wake lock is being held.  This is useful in the case where a
+ * service is performing work on behalf of an application so that the
+ * cost of that work can be accounted to the application.
+ * </p>
+ *
+ * @param ws The work source, or null if none.
+ */
+
+@@ -18,24 +18,24 @@
+         }
+         if (changed && mHeld) {
+             try {
+-                mService.updateWakeLockWorkSource(mToken, mWorkSource);
++                mService.updateWakeLockWorkSource(mToken, mWorkSource, mHistoryTag);
+             } catch (RemoteException e) {
+             }
+         }
+

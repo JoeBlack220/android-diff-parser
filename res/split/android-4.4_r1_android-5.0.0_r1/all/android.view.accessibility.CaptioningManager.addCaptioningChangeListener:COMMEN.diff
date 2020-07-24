@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.view.accessibility.CaptioningManager.addCaptioningChangeListener:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Adds a listener for changes in the user's preferred captioning enabled
+ * state and visual properties.
+ *
+ * @param listener the listener to add
+ */
+
+@@ -4,14 +4,16 @@
+             registerObserver(Secure.ACCESSIBILITY_CAPTIONING_ENABLED);
+             registerObserver(Secure.ACCESSIBILITY_CAPTIONING_FOREGROUND_COLOR);
+             registerObserver(Secure.ACCESSIBILITY_CAPTIONING_BACKGROUND_COLOR);
++            registerObserver(Secure.ACCESSIBILITY_CAPTIONING_WINDOW_COLOR);
+             registerObserver(Secure.ACCESSIBILITY_CAPTIONING_EDGE_TYPE);
+             registerObserver(Secure.ACCESSIBILITY_CAPTIONING_EDGE_COLOR);
+             registerObserver(Secure.ACCESSIBILITY_CAPTIONING_TYPEFACE);
+             registerObserver(Secure.ACCESSIBILITY_CAPTIONING_FONT_SCALE);
+             registerObserver(Secure.ACCESSIBILITY_CAPTIONING_LOCALE);
++            registerObserver(Secure.ACCESSIBILITY_CAPTIONING_PRESET);
+         }
+         mListeners.add(listener);
+     }
+

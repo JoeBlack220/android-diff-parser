@@ -1,0 +1,8 @@
+Find a functionally equivalent code:android.hardware.camera2.utils.UncheckedThrow.throwAnyException:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Throw any kind of exception without needing it to be checked
+ * @param e any instance of a Exception
+ */
+
+

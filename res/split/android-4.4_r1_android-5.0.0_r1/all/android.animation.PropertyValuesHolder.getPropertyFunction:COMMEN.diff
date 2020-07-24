@@ -1,0 +1,59 @@
+Find a functionally equivalent code:android.animation.PropertyValuesHolder.getPropertyFunction:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Determine the setter or getter function using the JavaBeans convention of setFoo or
+ * getFoo for a property named 'foo'. This function figures out what the name of the
+ * function should be and uses reflection to find the Method with that name on the
+ * target object.
+ *
+ * @param targetClass The class to search for the method
+ * @param prefix "set" or "get", depending on whether we need a setter or getter.
+ * @param valueType The type of the parameter (in the case of a setter). This type
+ * is derived from the values set on this PropertyValuesHolder. This type is used as
+ * a first guess at the parameter type, but we check for methods with several different
+ * types to avoid problems with slight mis-matches between supplied values and actual
+ * value types used on the setter.
+ * @return Method the method associated with mPropertyName.
+ */
+
+@@ -12,33 +12,35 @@
+     } else {
+         args = new Class[1];
+         Class[] typeVariants;
+-        if (mValueType.equals(Float.class)) {
++        if (valueType.equals(Float.class)) {
+             typeVariants = FLOAT_VARIANTS;
+-        } else if (mValueType.equals(Integer.class)) {
++        } else if (valueType.equals(Integer.class)) {
+             typeVariants = INTEGER_VARIANTS;
+-        } else if (mValueType.equals(Double.class)) {
++        } else if (valueType.equals(Double.class)) {
+             typeVariants = DOUBLE_VARIANTS;
+         } else {
+             typeVariants = new Class[1];
+-            typeVariants[0] = mValueType;
++            typeVariants[0] = valueType;
+         }
+         for (Class typeVariant : typeVariants) {
+             args[0] = typeVariant;
+             try {
+                 returnVal = targetClass.getMethod(methodName, args);
+-                // change the value type to suit
+-                mValueType = typeVariant;
++                if (mConverter == null) {
++                    // change the value type to suit
++                    mValueType = typeVariant;
++                }
+                 return returnVal;
+             } catch (NoSuchMethodException e) {
+             // Swallow the error and keep trying other variants
+@@ -36,42 +38,44 @@
+     // If we got here, then no appropriate function was found
+     }
+     if (returnVal == null) {
+-        Log.w("PropertyValuesHolder", "Method " + getMethodName(prefix, mPropertyName) + "() with type " + mValueType + " not found on target class " + targetClass);
++        Log.w("PropertyValuesHolder", "Method " + getMethodName(prefix, mPropertyName) + "() with type " + valueType + " not found on target class " + targetClass);
+     }
+     return returnVal;
+ }
+

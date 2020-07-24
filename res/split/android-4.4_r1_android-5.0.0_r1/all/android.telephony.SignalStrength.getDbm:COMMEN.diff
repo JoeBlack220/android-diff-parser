@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.telephony.SignalStrength.getDbm:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * Get the signal strength as dBm
+ *
+ * @hide
+ */
+
+@@ -1,10 +1,9 @@
+ {
+     int dBm;
+     if (isGsm()) {
+-        if (getLteLevel() == SIGNAL_STRENGTH_NONE_OR_UNKNOWN) {
++        dBm = getLteDbm();
++        if (dBm == INVALID) {
+             dBm = getGsmDbm();
+-        } else {
+-            dBm = getLteDbm();
+         }
+     } else {
+         int cdmaDbm = getCdmaDbm();
+

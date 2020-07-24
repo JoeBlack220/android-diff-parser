@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.os.FileUtils.getUid:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Return owning UID of given path, otherwise -1.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        return Libcore.os.stat(path).st_uid;
++        return Os.stat(path).st_uid;
+     } catch (ErrnoException e) {
+         return -1;
+     }
+

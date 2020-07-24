@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.view.ViewGroup.invalidateChild:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Don't call or override this method. It is used for the implementation of
+ * the view hierarchy.
+ */
+
+@@ -17,23 +17,22 @@
+         if (child.mLayerType != LAYER_TYPE_NONE) {
+             mPrivateFlags |= PFLAG_INVALIDATED;
+             mPrivateFlags &= ~PFLAG_DRAWING_CACHE_VALID;
+-            child.mLocalDirtyRect.union(dirty);
+         }
+         final int[] location = attachInfo.mInvalidateChildLocation;
+         location[CHILD_LEFT_INDEX] = child.mLeft;
+

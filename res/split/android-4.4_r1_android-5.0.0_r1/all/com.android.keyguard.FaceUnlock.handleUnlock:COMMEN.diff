@@ -1,0 +1,16 @@
+Find a functionally equivalent code:com.android.keyguard.FaceUnlock.handleUnlock:COMMENT
+Method Modifier: 
+Comment:/**
+ * Stops the Face Unlock service and tells the device to grant access to the user.
+ */
+
+@@ -6,12 +6,12 @@
+     if (authenticatedUserId == currentUserId) {
+         if (DEBUG)
+             Log.d(TAG, "Unlocking for user " + authenticatedUserId);
+-        mKeyguardScreenCallback.reportSuccessfulUnlockAttempt();
++        mKeyguardScreenCallback.reportUnlockAttempt(true);
+         mKeyguardScreenCallback.dismiss(true);
+     } else {
+         Log.d(TAG, "Ignoring unlock for authenticated user (" + authenticatedUserId + ") because the current user is " + currentUserId);
+

@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.graphics.drawable.DrawableContainer.DrawableContainerState.ConstantStateFuture.get:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Obtains and prepares the Drawable represented by this future.
+ *
+ * @param state the container into which this future will be placed
+ * @return a prepared Drawable
+ */
+
+@@ -1,5 +1,12 @@
+ {
+-    final Drawable result = (state.mRes == null) ? mConstantState.newDrawable() : mConstantState.newDrawable(state.mRes);
++    final Drawable result;
++    if (state.mRes == null) {
++        result = mConstantState.newDrawable();
++    } else if (state.mTheme == null) {
++        result = mConstantState.newDrawable(state.mRes);
++    } else {
++        result = mConstantState.newDrawable(state.mRes, state.mTheme);
++    }
+     result.setLayoutDirection(state.mLayoutDirection);
+     result.setCallback(state.mOwner);
+     if (state.mMutated) {
+

@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.media.MediaRouter.clearUserRoutes:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Remove all app-specified routes from the MediaRouter.
+ *
+ * @see #removeUserRoute(UserRouteInfo)
+ */
+
+@@ -3,9 +3,9 @@
+         final RouteInfo info = sStatic.mRoutes.get(i);
+         // The code below will need to change if this assumption does.
+         if (info instanceof UserRouteInfo || info instanceof RouteGroup) {
+-            removeRouteAt(i);
++            removeRouteStatic(info);
+             i--;
+         }
+     }
+

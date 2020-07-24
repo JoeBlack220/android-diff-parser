@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.net.DnsPinger.getDnsList:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns a list of DNS addresses, coming from either the link properties of the
+ * specified connection or the default system DNS if the link properties has no dnses.
+ * @return a non-empty non-null list
+ */
+
+@@ -4,10 +4,10 @@
+         loge("getCurLinkProperties:: LP for type" + mConnectionType + " is null!");
+         return mDefaultDns;
+     }
+-    Collection<InetAddress> dnses = curLinkProps.getDnses();
++    Collection<InetAddress> dnses = curLinkProps.getDnsServers();
+     if (dnses == null || dnses.size() == 0) {
+         loge("getDns::LinkProps has null dns - returning default");
+         return mDefaultDns;
+

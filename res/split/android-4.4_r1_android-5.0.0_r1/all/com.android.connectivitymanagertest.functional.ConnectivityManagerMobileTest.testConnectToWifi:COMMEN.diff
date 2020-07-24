@@ -1,0 +1,53 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.functional.ConnectivityManagerMobileTest.testConnectToWifi:COMMENT
+Method Modifier: public      
+Comment:// Test case 2: test connection to a given AP
+
+@@ -1,32 +1,17 @@
+ {
+-    assertNotNull("SSID is null", mTestAccessPoint);
+-    NetworkInfo networkInfo;
+-    if (!mWifiOnlyFlag) {
+-        // Prepare for connectivity verification
+-        networkInfo = mCM.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+-        setStateTransitionCriteria(ConnectivityManager.TYPE_MOBILE, networkInfo.getState(), NetworkState.TO_DISCONNECTION, State.DISCONNECTED);
+-    }
+-    networkInfo = mCM.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+-    setStateTransitionCriteria(ConnectivityManager.TYPE_WIFI, networkInfo.getState(), NetworkState.TO_CONNECTION, State.CONNECTED);
+-    // Enable Wifi and connect to a test access point
+-    assertTrue("failed to connect to " + mTestAccessPoint, connectToWifi(mTestAccessPoint));
+-    assertTrue(waitForWifiState(WifiManager.WIFI_STATE_ENABLED, LONG_TIMEOUT));
+-    log("wifi state is enabled");
+-    assertTrue(waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.CONNECTED, WIFI_CONNECTION_TIMEOUT));
+-    if (!mWifiOnlyFlag) {
+-        assertTrue(waitForNetworkState(ConnectivityManager.TYPE_MOBILE, State.DISCONNECTED, LONG_TIMEOUT));
+-    }
+-    // validate states
+-    if (!validateNetworkStates(ConnectivityManager.TYPE_WIFI)) {
+-        log("Wifi state transition validation failed.");
+-        log("reason: " + getTransitionFailureReason(ConnectivityManager.TYPE_WIFI));
+-        assertTrue(false);
+-    }
+-    if (!mWifiOnlyFlag) {
+-        if (!validateNetworkStates(ConnectivityManager.TYPE_MOBILE)) {
+-            log("Mobile state transition validation failed.");
+-            log("reason: " + getTransitionFailureReason(ConnectivityManager.TYPE_MOBILE));
+-            assertTrue(false);
+-        }
+-    }
++    assertNotNull("SSID is null", mSsid);
++    // assert that we are able to connect to the ap
++    assertTrue("failed to connect to " + mSsid, connectToWifi(mSsid, mPassword));
++    // assert that WifiManager reports correct state
++    assertTrue("wifi not enabled", waitForWifiState(WifiManager.WIFI_STATE_ENABLED, LONG_TIMEOUT));
++    // assert that ConnectivityManager reports correct state for Wifi
++    assertTrue("wifi not connected", waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.CONNECTED, WIFI_CONNECTION_TIMEOUT));
++    // below check disbabled since we have bug in what ConnectivityManager returns
++    // if (!mWifiOnlyFlag) {
++    // // assert that ConnectivityManager reports correct state for mobile
++    // assertTrue("mobile not disconnected", waitForNetworkState(
++    // ConnectivityManager.TYPE_MOBILE, State.DISCONNECTED, LONG_TIMEOUT));
++    // }
++    // verify that connection actually works
++    assertTrue("no network connectivity at end of test", checkNetworkConnectivity());
+ }
+

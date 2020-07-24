@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.os.ParcelFileDescriptor.open:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Create a new ParcelFileDescriptor accessing a given file.
+ *
+ * @param file The file to be opened.
+ * @param mode The desired access mode, must be one of
+ * {@link #MODE_READ_ONLY}, {@link #MODE_WRITE_ONLY}, or
+ * {@link #MODE_READ_WRITE}; may also be any combination of
+ * {@link #MODE_CREATE}, {@link #MODE_TRUNCATE},
+ * {@link #MODE_WORLD_READABLE}, and
+ * {@link #MODE_WORLD_WRITEABLE}.
+ * @return a new ParcelFileDescriptor pointing to the given file.
+ * @throws FileNotFoundException if the given file does not exist or can not
+ * be opened with the requested mode.
+ * @see #parseMode(String)
+ */
+
+

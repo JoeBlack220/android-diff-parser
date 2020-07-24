@@ -1,0 +1,59 @@
+Find a functionally equivalent code:android.widget.EdgeEffect.draw:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Draw into the provided canvas. Assumes that the canvas has been rotated
+ * accordingly and the size has been set. The effect will be drawn the full
+ * width of X=0 to X=width, beginning from Y=0 and extending to some factor <
+ * 1.f of height.
+ *
+ * @param canvas Canvas to draw into
+ * @return true if drawing should continue beyond this frame to continue the
+ * animation
+ */
+
+@@ -1,29 +1,20 @@
+ {
+     update();
+-    mGlow.setAlpha((int) (Math.max(0, Math.min(mGlowAlpha, 1)) * 255));
+-    int glowBottom = (int) Math.min(mGlowHeight * mGlowScaleY * mGlowHeight / mGlowWidth * 0.6f, mGlowHeight * MAX_GLOW_HEIGHT);
+-    if (mWidth < mMinWidth) {
+-        // Center the glow and clip it.
+-        int glowLeft = (mWidth - mMinWidth) / 2;
+-        mGlow.setBounds(glowLeft, 0, mWidth - glowLeft, glowBottom);
+-    } else {
+-        // Stretch the glow to fit.
+-        mGlow.setBounds(0, 0, mWidth, glowBottom);
+-    }
+-    mGlow.draw(canvas);
+-    mEdge.setAlpha((int) (Math.max(0, Math.min(mEdgeAlpha, 1)) * 255));
+-    int edgeBottom = (int) (mEdgeHeight * mEdgeScaleY);
+-    if (mWidth < mMinWidth) {
+-        // Center the edge and clip it.
+-        int edgeLeft = (mWidth - mMinWidth) / 2;
+-        mEdge.setBounds(edgeLeft, 0, mWidth - edgeLeft, edgeBottom);
+-    } else {
+-        // Stretch the edge to fit.
+-        mEdge.setBounds(0, 0, mWidth, edgeBottom);
+-    }
+-    mEdge.draw(canvas);
+-    if (mState == STATE_RECEDE && glowBottom == 0 && edgeBottom == 0) {
++    final int count = canvas.save();
++    final float centerX = mBounds.centerX();
++    final float centerY = mBounds.height() - mRadius;
++    canvas.scale(1.f, Math.min(mGlowScaleY, 1.f) * mBaseGlowScale, centerX, 0);
++    final float displacement = Math.max(0, Math.min(mDisplacement, 1.f)) - 0.5f;
++    float translateX = mBounds.width() * displacement / 2;
++    canvas.clipRect(mBounds);
++    canvas.translate(translateX, 0);
++    mPaint.setAlpha((int) (0xff * mGlowAlpha));
++    canvas.drawCircle(centerX, centerY, mRadius, mPaint);
++    canvas.restoreToCount(count);
++    boolean oneLastFrame = false;
++    if (mState == STATE_RECEDE && mGlowScaleY == 0) {
+         mState = STATE_IDLE;
++        oneLastFrame = true;
+     }
+-    return mState != STATE_IDLE;
++    return mState != STATE_IDLE || oneLastFrame;
+ }
+

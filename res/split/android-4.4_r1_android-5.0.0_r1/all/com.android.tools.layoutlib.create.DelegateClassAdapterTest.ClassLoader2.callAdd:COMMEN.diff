@@ -1,0 +1,16 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.DelegateClassAdapterTest.ClassLoader2.callAdd:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Accesses {@link ClassWithNative#add(int, int)} via reflection.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    Method m = instance.getClass().getMethod("add", new Class<?>[] { int.class, int.class });
+-    Object result = m.invoke(instance, new Object[] { a, b });
+-    return ((Integer) result).intValue();
++    Method m = instance.getClass().getMethod("add", int.class, int.class);
++    Object result = m.invoke(instance, a, b);
++    return (Integer) result;
+ }
+

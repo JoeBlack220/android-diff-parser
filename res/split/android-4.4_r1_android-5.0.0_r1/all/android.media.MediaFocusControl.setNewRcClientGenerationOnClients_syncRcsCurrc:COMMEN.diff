@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.setNewRcClientGenerationOnClients_syncRcsCurrc:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Update the remote control clients with the new "focused" client generation
+ */
+
+@@ -1,12 +1,12 @@
+ {
+     // (using an iterator on the stack so we can safely remove an entry if needed,
+     // traversal order doesn't matter here as we update all entries)
+-    Iterator<RemoteControlStackEntry> stackIterator = mRCStack.iterator();
++    Iterator<PlayerRecord> stackIterator = mPRStack.iterator();
+     while (stackIterator.hasNext()) {
+-        RemoteControlStackEntry se = stackIterator.next();
+-        if ((se != null) && (se.mRcClient != null)) {
++        PlayerRecord se = stackIterator.next();
++        if ((se != null) && (se.getRcc() != null)) {
+             try {
+-                se.mRcClient.setCurrentClientGenerationId(newClientGeneration);
++                se.getRcc().setCurrentClientGenerationId(newClientGeneration);
+             } catch (RemoteException e) {
+                 Log.w(TAG, "Dead client in setNewRcClientGenerationOnClients_syncRcsCurrc()", e);
+                 stackIterator.remove();
+

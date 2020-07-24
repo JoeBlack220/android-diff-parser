@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.content.res.TypedArray.getInt:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the integer value for the attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ * @param defValue Value to return if the attribute is not defined.
+ *
+ * @return Attribute int value, or defValue if not defined.
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     index *= AssetManager.STYLE_NUM_ENTRIES;
+     final int[] data = mData;
+     final int type = data[index + AssetManager.STYLE_TYPE];
+

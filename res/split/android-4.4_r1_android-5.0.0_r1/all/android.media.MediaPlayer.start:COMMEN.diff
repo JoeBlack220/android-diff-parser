@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.media.MediaPlayer.start:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Starts or resumes playback. If playback had previously been paused,
+ * playback will continue from where it was paused. If playback had
+ * been stopped, or never started before, playback will start at the
+ * beginning.
+ *
+ * @throws IllegalStateException if it is called in an invalid state
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (isRestricted()) {
++        _setVolume(0, 0);
++    }
+     stayAwake(true);
+     _start();
+ }
+

@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.printservice.PrintJob.hasAdvancedOption:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets whether this job has a given advanced (printer specific) print
+ * option.
+ *
+ * @param key The option key.
+ * @return Whether the option is present.
+ */
+
+@@ -1,4 +1,4 @@
+ {
+     PrintService.throwIfNotCalledOnMainThread();
+-    return false;
++    return getInfo().hasAdvancedOption(key);
+ }
+

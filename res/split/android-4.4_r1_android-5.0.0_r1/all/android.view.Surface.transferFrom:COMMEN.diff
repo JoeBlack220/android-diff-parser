@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.view.Surface.transferFrom:COMMENT
+Method Modifier: public      hidden      deprecated  
+Comment:/**
+ * This is intended to be used by {@link SurfaceView#updateWindow} only.
+ * @param other access is not thread safe
+ * @hide
+ * @deprecated
+ */
+
+@@ -3,9 +3,9 @@
+         throw new IllegalArgumentException("other must not be null");
+     }
+     if (other != this) {
+-        final int newPtr;
++        final long newPtr;
+         synchronized (other.mLock) {
+             newPtr = other.mNativeObject;
+             other.setNativeObjectLocked(0);
+

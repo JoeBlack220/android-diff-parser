@@ -1,0 +1,7 @@
+Find a functionally equivalent code:android.view.WindowManagerPolicy.createForceHideEnterAnimation:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Create and return an animation to re-display a force hidden window.
+ */
+
+

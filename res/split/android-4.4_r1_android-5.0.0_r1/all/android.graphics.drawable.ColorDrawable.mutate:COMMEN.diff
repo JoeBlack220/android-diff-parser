@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.graphics.drawable.ColorDrawable.mutate:COMMENT
+Method Modifier: public      
+Comment:/**
+ * A mutable BitmapDrawable still shares its Bitmap with any other Drawable
+ * that comes from the same resource.
+ *
+ * @return This drawable.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (!mMutated && super.mutate() == this) {
+-        mState = new ColorState(mState);
++        mColorState = new ColorState(mColorState);
+         mMutated = true;
+     }
+     return this;
+

@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.view.ViewGroup.addFocusables:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -2,7 +2,10 @@
+     final int focusableCount = views.size();
+     final int descendantFocusability = getDescendantFocusability();
+     if (descendantFocusability != FOCUS_BLOCK_DESCENDANTS) {
++        if (shouldBlockFocusForTouchscreen()) {
++            focusableMode |= FOCUSABLES_TOUCH_MODE;
++        }
+         final int count = mChildrenCount;
+         final View[] children = mChildren;
+         for (int i = 0; i < count; i++) {
+@@ -12,19 +15,22 @@
+         }
+     }
+     // among the focusable children would be more interesting.
+-    if (descendantFocusability != FOCUS_AFTER_DESCENDANTS || // No focusable descendants
+-    (focusableCount == views.size())) {
++    if ((descendantFocusability != FOCUS_AFTER_DESCENDANTS || // No focusable descendants
++    (focusableCount == views.size())) && (isFocusableInTouchMode() || !shouldBlockFocusForTouchscreen())) {
+         super.addFocusables(views, direction, focusableMode);
+     }
+ }
+

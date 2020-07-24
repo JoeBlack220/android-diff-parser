@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.media.MediaRouter.RouteInfo.requestSetVolume:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Request a volume change for this route.
+ * @param volume value between 0 and getVolumeMax
+ */
+
+@@ -6,11 +6,11 @@
+             Log.e(TAG, "Error setting local stream volume", e);
+         }
+     } else {
+-        Log.e(TAG, getClass().getSimpleName() + ".requestSetVolume(): " + "Non-local volume playback on system route? " + "Could not request volume change.");
++        sStatic.requestSetVolume(this, volume);
+     }
+ }
+

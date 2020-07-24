@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.graphics.drawable.ColorDrawable.setAlpha:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the color's alpha value.
+ *
+ * @param alpha The alpha value to set, between 0 and 255.
+ */
+
+@@ -1,11 +1,11 @@
+ {
+     // make it 0..256
+     alpha += alpha >> 7;
+-    int baseAlpha = mState.mBaseColor >>> 24;
+-    int useAlpha = baseAlpha * alpha >> 8;
+-    int oldUseColor = mState.mUseColor;
+-    mState.mUseColor = (mState.mBaseColor << 8 >>> 8) | (useAlpha << 24);
+-    if (oldUseColor != mState.mUseColor) {
++    final int baseAlpha = mColorState.mBaseColor >>> 24;
++    final int useAlpha = baseAlpha * alpha >> 8;
++    final int useColor = (mColorState.mBaseColor << 8 >>> 8) | (useAlpha << 24);
++    if (mColorState.mUseColor != useColor) {
++        mColorState.mUseColor = useColor;
+         invalidateSelf();
+     }
+ }
+

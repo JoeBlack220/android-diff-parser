@@ -1,0 +1,20 @@
+Find a functionally equivalent code:com.android.internal.os.ZygoteInit.preloadClasses:COMMENT
+Method Modifier: private     static      internal    
+Comment:/**
+ * Performs Zygote process initialization. Loads and initializes
+ * commonly used classes.
+ *
+ * Most classes only cause a few hundred bytes to be allocated, but
+ * a few will allocate a dozen Kbytes (in one case, 500+K).
+ */
+
+@@ -43,48 +43,50 @@
+                     count++;
+                 } catch (ClassNotFoundException e) {
+                     Log.w(TAG, "Class not found for preloading: " + line);
++                } catch (UnsatisfiedLinkError e) {
++                    Log.w(TAG, "Problem preloading " + line + ": " + e);
+                 } catch (Throwable t) {
+                     Log.e(TAG, "Error preloading " + line + ".", t);
+                     if (t instanceof Error) {
+

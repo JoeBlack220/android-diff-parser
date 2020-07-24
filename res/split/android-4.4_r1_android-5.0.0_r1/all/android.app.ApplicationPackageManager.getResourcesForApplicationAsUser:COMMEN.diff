@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.app.ApplicationPackageManager.getResourcesForApplicationAsUser:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -6,12 +6,12 @@
+         return mContext.mMainThread.getSystemContext().getResources();
+     }
+     try {
+-        ApplicationInfo ai = mPM.getApplicationInfo(appPackageName, 0, userId);
++        ApplicationInfo ai = mPM.getApplicationInfo(appPackageName, sDefaultFlags, userId);
+         if (ai != null) {
+             return getResourcesForApplication(ai);
+         }
+

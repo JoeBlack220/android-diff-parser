@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.media.MediaScanner.scanSingleFile:COMMENT
+Method Modifier: public      
+Comment:// this function is used to scan a single file
+
+@@ -13,17 +13,19 @@
+     } catch (RemoteException e) {
+         Log.e(TAG, "RemoteException in MediaScanner.scanFile()", e);
+         return null;
++    } finally {
++        releaseResources();
+     }
+ }
+

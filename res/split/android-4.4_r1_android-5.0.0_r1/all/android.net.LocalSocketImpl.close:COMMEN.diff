@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.net.LocalSocketImpl.close:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Closes the socket.
+ *
+ * @throws IOException
+ */
+
+@@ -5,11 +5,11 @@
+             return;
+         }
+         try {
+-            Libcore.os.close(fd);
++            Os.close(fd);
+         } catch (ErrnoException e) {
+             e.rethrowAsIOException();
+         }
+

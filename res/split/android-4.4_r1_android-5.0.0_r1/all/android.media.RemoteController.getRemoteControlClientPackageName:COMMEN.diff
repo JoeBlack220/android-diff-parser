@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.media.RemoteController.getRemoteControlClientPackageName:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,3 +1,9 @@
+ {
+-    return mClientPendingIntentCurrent != null ? mClientPendingIntentCurrent.getCreatorPackage() : null;
++    if (USE_SESSIONS) {
++        synchronized (mInfoLock) {
++            return mCurrentSession != null ? mCurrentSession.getPackageName() : null;
++        }
++    } else {
++        return mClientPendingIntentCurrent != null ? mClientPendingIntentCurrent.getCreatorPackage() : null;
++    }
+ }
+

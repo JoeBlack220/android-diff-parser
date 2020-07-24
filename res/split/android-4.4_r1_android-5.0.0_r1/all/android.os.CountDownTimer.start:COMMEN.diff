@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.os.CountDownTimer.start:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Start the countdown.
+ */
+
+@@ -1,4 +1,5 @@
+ {
++    mCancelled = false;
+     if (mMillisInFuture <= 0) {
+         onFinish();
+         return this;
+

@@ -1,0 +1,12 @@
+Find a functionally equivalent code:com.android.keyguard.KeyguardAbsKeyInputView.handleAttemptLockout:COMMENT
+Method Modifier: protected   
+Comment:// Prevent user from using the PIN/Password entry until scheduled deadline.
+
+@@ -1,5 +1,5 @@
+ {
+-    mPasswordEntry.setEnabled(false);
++    setPasswordEntryEnabled(false);
+     long elapsedRealtime = SystemClock.elapsedRealtime();
+     new CountDownTimer(elapsedRealtimeDeadline - elapsedRealtime, 1000) {
+ 
+

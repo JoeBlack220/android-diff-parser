@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.app.AlertDialog.Builder.setView:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set a custom view to be the contents of the Dialog. If the supplied view is an instance
+ * of a {@link ListView} the light background will be used.
+ *
+ * @param view The view to use as the contents of the Dialog.
+ *
+ * @return This Builder object to allow for chaining of calls to set methods
+ */
+
+@@ -1,5 +1,6 @@
+ {
+     P.mView = view;
++    P.mViewLayoutResId = 0;
+     P.mViewSpacingSpecified = false;
+     return this;
+ }
+

@@ -1,0 +1,61 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.functional.ConnectivityManagerMobileTest.test3GToWifiNotification:COMMENT
+Method Modifier: public      
+Comment:// event should be expected.
+
+@@ -1,37 +1,24 @@
+ {
+     if (mWifiOnlyFlag) {
+-        Log.v(TAG, this.getName() + " is excluded for wifi-only test");
++        logv(getName() + " is excluded for wifi-only test");
+         return;
+     }
+-    // Enable Wi-Fi to avoid initial UNKNOWN state
+-    enableWifi();
+-    sleep(2 * SHORT_TIMEOUT);
+-    // Wi-Fi is disabled
+-    disableWifi();
+-    assertTrue(waitForNetworkState(ConnectivityManager.TYPE_WIFI, State.DISCONNECTED, LONG_TIMEOUT));
+-    assertTrue(waitForNetworkState(ConnectivityManager.TYPE_MOBILE, State.CONNECTED, LONG_TIMEOUT));
+-    // Wait for 10 seconds for broadcasts to be sent out
+-    sleep(10 * 1000);
+-    // As Wifi stays in DISCONNETED, Mobile statys in CONNECTED,
+-    // the connectivity manager will not broadcast any network connectivity event for Wifi
+-    NetworkInfo networkInfo = mCM.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+-    setStateTransitionCriteria(ConnectivityManager.TYPE_MOBILE, networkInfo.getState(), NetworkState.DO_NOTHING, State.CONNECTED);
+-    networkInfo = mCM.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+-    setStateTransitionCriteria(ConnectivityManager.TYPE_WIFI, networkInfo.getState(), NetworkState.DO_NOTHING, State.DISCONNECTED);
+-    // Eanble Wifi without associating with any AP
+-    enableWifi();
+-    sleep(2 * SHORT_TIMEOUT);
+-    // validate state and broadcast
+-    if (!validateNetworkStates(ConnectivityManager.TYPE_WIFI)) {
+-        log("the state for WIFI is changed");
+-        log("reason: " + getTransitionFailureReason(ConnectivityManager.TYPE_WIFI));
+-        assertTrue("state validation fail", false);
+-    }
+-    if (!validateNetworkStates(ConnectivityManager.TYPE_MOBILE)) {
+-        log("the state for MOBILE is changed");
+-        log("reason: " + getTransitionFailureReason(ConnectivityManager.TYPE_MOBILE));
+-        assertTrue("state validation fail", false);
+-    }
+-    // Verify that the device is still connected to MOBILE
++    // disable WiFi
++    assertTrue("failed to disable WiFi", disableWifi());
++    // wait for mobile
++    assertTrue("failed to wait for mobile connection", waitForNetworkState(ConnectivityManager.TYPE_MOBILE, State.CONNECTED, LONG_TIMEOUT));
++    // assert that we are indeed using mobile
++    NetworkInfo ni = mCm.getActiveNetworkInfo();
++    assertEquals("active network is not mobile", ConnectivityManager.TYPE_MOBILE, ni.getType());
++    long timestamp = SystemClock.uptimeMillis();
++    // now enable WiFi
++    assertTrue("failed to enable WiFi", enableWifi());
++    // assert that WiFi state settles at disconnected since no AP should be configured
++    assertTrue("WiFi state is not DISCONNECTED after enabling", waitForWifiState(WifiManager.WIFI_STATE_DISABLED, LONG_TIMEOUT));
++    // assert that no connectivity change broadcast was sent since we enable wifi
++    assertTrue("connectivity has changed since wifi enable", timestamp > getLastConnectivityChangeTime());
++    // verify that the device is still connected to MOBILE
+     verifyCellularConnection();
++    // verify that connection actually works
++    assertTrue("no network connectivity at end of test", checkNetworkConnectivity());
+ }
+

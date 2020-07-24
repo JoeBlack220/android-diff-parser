@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityManager.addAccessibilityStateChangeListener:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Registers an {@link AccessibilityStateChangeListener} for changes in
+ * the global accessibility state of the system.
+ *
+ * @param listener The listener.
+ * @return True if successfully registered.
+ */
+
+@@ -1,3 +1,4 @@
+ {
++    // Final CopyOnArrayList - no lock needed.
+     return mAccessibilityStateChangeListeners.add(listener);
+ }
+

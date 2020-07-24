@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.test.ServiceTestCase.shutdownService:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Makes the necessary calls to stop (or unbind) the service under test, and
+ * calls onDestroy().  Ordinarily this is called automatically (by {@link #tearDown}, but
+ * you can call it directly from your test in order to check for proper shutdown behavior.
+ */
+
+@@ -8,12 +8,13 @@
+     }
+     if (mServiceCreated) {
+         mService.onDestroy();
++        mServiceCreated = false;
+     }
+ }
+

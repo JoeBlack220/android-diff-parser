@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetHostView.getDefaultView:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Inflate and return the default layout requested by AppWidget provider.
+ */
+
+@@ -6,12 +6,12 @@
+     Exception exception = null;
+     try {
+         if (mInfo != null) {
+-            Context theirContext = mContext.createPackageContextAsUser(mInfo.provider.getPackageName(), Context.CONTEXT_RESTRICTED, mUser);
++            Context theirContext = getRemoteContext();
+             mRemoteContext = theirContext;
+             LayoutInflater inflater = (LayoutInflater) theirContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+             inflater = inflater.cloneInContext(theirContext);
+@@ -27,34 +27,32 @@
+         } else {
+             Log.w(TAG, "can't inflate defaultView because mInfo is missing");
+         }
+-    } catch (PackageManager.NameNotFoundException e) {
+-        exception = e;
+     } catch (RuntimeException e) {
+         exception = e;
+     }
+

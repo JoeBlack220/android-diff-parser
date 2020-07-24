@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.os.StrictMode.readAndHandleBinderCallViolations:COMMENT
+Method Modifier: default     static      
+Comment:/* package */
+
+@@ -12,17 +12,30 @@
+         if (LOG_V)
+             Log.d(TAG, "strict mode violation stacks read from binder call.  i=" + i);
+         ViolationInfo info = new ViolationInfo(p, !currentlyGathering);
++        if (info.crashInfo.stackTrace != null && info.crashInfo.stackTrace.length() > 10000) {
++            String front = info.crashInfo.stackTrace.substring(256);
++            // First, drain the remaining violations from the parcel.
++            while (i < numViolations) {
++                info = new ViolationInfo(p, !currentlyGathering);
++                i++;
++            }
++            // Next clear out all gathered violations.
++            clearGatheredViolations();
++            // Now report the problem.
++            Slog.wtfStack(TAG, "Stack is too large: numViolations=" + numViolations + " policy=#" + Integer.toHexString(policyMask) + " front=" + front);
++            return;
++        }
+         info.crashInfo.stackTrace += "# via Binder call with stack:\n" + ourStack;
+         BlockGuard.Policy policy = BlockGuard.getThreadPolicy();
+         if (policy instanceof AndroidBlockGuardPolicy) {
+

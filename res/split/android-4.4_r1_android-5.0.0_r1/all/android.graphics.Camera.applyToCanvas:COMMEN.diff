@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.graphics.Camera.applyToCanvas:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Computes the matrix corresponding to the current transformation
+ * and applies it to the specified Canvas.
+ *
+ * @param canvas The Canvas to set the transform matrix onto
+ */
+
+@@ -5,10 +5,10 @@
+         getMatrix(mMatrix);
+         canvas.concat(mMatrix);
+     } else {
+-        nativeApplyToCanvas(canvas.mNativeCanvas);
++        nativeApplyToCanvas(canvas.getNativeCanvasWrapper());
+     }
+ }
+

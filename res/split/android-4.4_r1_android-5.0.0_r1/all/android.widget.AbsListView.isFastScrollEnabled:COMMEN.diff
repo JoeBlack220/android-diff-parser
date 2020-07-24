@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.widget.AbsListView.isFastScrollEnabled:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns true if the fast scroller is enabled.
+ *
+ * @see #setFastScrollEnabled(boolean)
+ * @return true if fast scroll is enabled, false otherwise
+ */
+
+@@ -1,7 +1,7 @@
+ {
+-    if (mFastScroller == null) {
++    if (mFastScroll == null) {
+         return mFastScrollEnabled;
+     } else {
+-        return mFastScroller.isEnabled();
++        return mFastScroll.isEnabled();
+     }
+ }
+

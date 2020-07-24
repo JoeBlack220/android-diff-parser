@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.util.Log.wtfStack:COMMENT
+Method Modifier: public      static      hidden      
+Comment:/**
+ * Like {@link #wtf(String, String)}, but also writes to the log the full
+ * call stack.
+ * @hide
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return wtf(LOG_ID_MAIN, tag, msg, null, true);
++    return wtf(LOG_ID_MAIN, tag, msg, null, true, false);
+ }
+

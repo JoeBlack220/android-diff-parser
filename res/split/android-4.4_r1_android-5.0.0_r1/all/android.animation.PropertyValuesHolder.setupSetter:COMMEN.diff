@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.animation.PropertyValuesHolder.setupSetter:COMMENT
+Method Modifier: 
+Comment:/**
+ * Utility function to get the setter from targetClass
+ * @param targetClass The Class on which the requested method should exist.
+ */
+
+@@ -1,3 +1,4 @@
+ {
+-    mSetter = setupSetterOrGetter(targetClass, sSetterPropertyMap, "set", mValueType);
++    Class<?> propertyType = mConverter == null ? mValueType : mConverter.getTargetType();
++    mSetter = setupSetterOrGetter(targetClass, sSetterPropertyMap, "set", propertyType);
+ }
+

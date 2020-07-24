@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.animation.PropertyValuesHolder.init:COMMENT
+Method Modifier: 
+Comment:/**
+ * Internal function, called by ValueAnimator, to set up the TypeEvaluator that will be used
+ * to calculate animated values.
+ */
+
+@@ -7,12 +7,12 @@
+     if (mEvaluator != null) {
+         // KeyframeSet knows how to evaluate the common types - only give it a custom
+         // evaluator if one has been set on this class
+-        mKeyframeSet.setEvaluator(mEvaluator);
++        mKeyframes.setEvaluator(mEvaluator);
+     }
+ }
+

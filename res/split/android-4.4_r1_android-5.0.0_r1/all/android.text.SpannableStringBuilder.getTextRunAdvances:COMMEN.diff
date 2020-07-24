@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.text.SpannableStringBuilder.getTextRunAdvances:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * Don't call this yourself -- exists for Paint to use internally.
+ * {@hide}
+ */
+
+@@ -3,15 +3,15 @@
+     int contextLen = contextEnd - contextStart;
+     int len = end - start;
+     if (end <= mGapStart) {
+-        ret = p.getTextRunAdvances(mText, start, len, contextStart, contextLen, flags, advances, advancesPos);
++        ret = p.getTextRunAdvances(mText, start, len, contextStart, contextLen, isRtl, advances, advancesPos);
+     } else if (start >= mGapStart) {
+-        ret = p.getTextRunAdvances(mText, start + mGapLength, len, contextStart + mGapLength, contextLen, flags, advances, advancesPos);
++        ret = p.getTextRunAdvances(mText, start + mGapLength, len, contextStart + mGapLength, contextLen, isRtl, advances, advancesPos);
+     } else {
+         char[] buf = TextUtils.obtain(contextLen);
+         getChars(contextStart, contextEnd, buf, 0);
+-        ret = p.getTextRunAdvances(buf, start - contextStart, len, 0, contextLen, flags, advances, advancesPos);
++        ret = p.getTextRunAdvances(buf, start - contextStart, len, 0, contextLen, isRtl, advances, advancesPos);
+         TextUtils.recycle(buf);
+     }
+     return ret;
+

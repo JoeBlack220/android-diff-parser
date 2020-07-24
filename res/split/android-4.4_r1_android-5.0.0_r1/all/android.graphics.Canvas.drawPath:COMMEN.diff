@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.graphics.Canvas.drawPath:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Draw the specified path using the specified paint. The path will be
+ * filled or framed based on the Style in the paint.
+ *
+ * @param path  The path to be drawn
+ * @param paint The paint used to draw the path
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    native_drawPath(mNativeCanvas, path.ni(), paint.mNativePaint);
++    native_drawPath(mNativeCanvasWrapper, path.ni(), paint.mNativePaint);
+ }
+

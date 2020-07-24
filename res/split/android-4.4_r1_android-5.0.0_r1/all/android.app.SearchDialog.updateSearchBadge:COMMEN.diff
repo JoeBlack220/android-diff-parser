@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.app.SearchDialog.updateSearchBadge:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Setup the search "Badge" if requested by mode flags.
+ */
+
+@@ -5,11 +5,11 @@
+     CharSequence text = null;
+     // optionally show one or the other.
+     if (mSearchable.useBadgeIcon()) {
+-        icon = mActivityContext.getResources().getDrawable(mSearchable.getIconId());
++        icon = mActivityContext.getDrawable(mSearchable.getIconId());
+         visibility = View.VISIBLE;
+         if (DBG)
+             Log.d(LOG_TAG, "Using badge icon: " + mSearchable.getIconId());
+

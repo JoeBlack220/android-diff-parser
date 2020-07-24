@@ -1,0 +1,8 @@
+Find a functionally equivalent code:android.os.storage.IMountService.mountSecureContainer:COMMENT
+Method Modifier: public      
+Comment:/*
+     * Mount a secure container with the specified key and owner UID. Returns an
+     * int consistent with MountServiceResultCode
+     */
+
+

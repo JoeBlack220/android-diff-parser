@@ -1,0 +1,52 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.impl.RenderSessionImpl.setupTabHost:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Sets up a {@link TabHost} object.
+ * @param tabHost the TabHost to setup.
+ * @param projectCallback The project callback object to access the project R class.
+ * @throws PostInflateException
+ */
+
+@@ -4,22 +4,23 @@
+     if (v == null) {
+         throw new PostInflateException("TabHost requires a TabWidget with id \"android:id/tabs\".\n");
+     }
+-    if ((v instanceof TabWidget) == false) {
++    if (!(v instanceof TabWidget)) {
+         throw new PostInflateException(String.format("TabHost requires a TabWidget with id \"android:id/tabs\".\n" + "View found with id 'tabs' is '%s'", v.getClass().getCanonicalName()));
+     }
+     v = tabHost.findViewById(android.R.id.tabcontent);
+     if (v == null) {
+-        // TODO: see if we can fake tabs even without the FrameLayout (same below when the framelayout is empty)
++        // noinspection SpellCheckingInspection
+         throw new PostInflateException("TabHost requires a FrameLayout with id \"android:id/tabcontent\".");
+     }
+-    if ((v instanceof FrameLayout) == false) {
++    if (!(v instanceof FrameLayout)) {
++        // noinspection SpellCheckingInspection
+         throw new PostInflateException(String.format("TabHost requires a FrameLayout with id \"android:id/tabcontent\".\n" + "View found with id 'tabcontent' is '%s'", v.getClass().getCanonicalName()));
+     }
+     FrameLayout content = (FrameLayout) v;
+-    // now process the content of the framelayout and dynamically create tabs for it.
++    // now process the content of the frameLayout and dynamically create tabs for it.
+     final int count = content.getChildCount();
+     // this must be called before addTab() so that the TabHost searches its TabWidget
+     // and FrameLayout.
+@@ -31,44 +32,44 @@
+             }
+         });
+         tabHost.addTab(spec);
+-        return;
+     } else {
+-        // for each child of the framelayout, add a new TabSpec
++        // for each child of the frameLayout, add a new TabSpec
+         for (int i = 0; i < count; i++) {
+             View child = content.getChildAt(i);
+             String tabSpec = String.format("tab_spec%d", i + 1);
+             int id = child.getId();
+-            Pair<ResourceType, String> resource = projectCallback.resolveResourceId(id);
++            @SuppressWarnings("deprecation") Pair<ResourceType, String> resource = projectCallback.resolveResourceId(id);
+             String name;
+             if (resource != null) {
+                 name = resource.getSecond();
+

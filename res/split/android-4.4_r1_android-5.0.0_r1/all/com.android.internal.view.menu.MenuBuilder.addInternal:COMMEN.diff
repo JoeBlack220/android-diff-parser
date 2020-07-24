@@ -1,0 +1,15 @@
+Find a functionally equivalent code:com.android.internal.view.menu.MenuBuilder.addInternal:COMMENT
+Method Modifier: private     internal    
+Comment:/**
+ * Adds an item to the menu.  The other add methods funnel to this.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     final int ordering = getOrdering(categoryOrder);
+-    final MenuItemImpl item = new MenuItemImpl(this, group, id, categoryOrder, ordering, title, mDefaultShowAsAction);
++    final MenuItemImpl item = createNewMenuItem(group, id, categoryOrder, ordering, title, mDefaultShowAsAction);
+     if (mCurrentMenuInfo != null) {
+         // Pass along the current menu info
+         item.setMenuInfo(mCurrentMenuInfo);
+

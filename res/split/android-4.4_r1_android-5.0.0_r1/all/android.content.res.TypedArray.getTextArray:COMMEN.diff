@@ -1,0 +1,29 @@
+Find a functionally equivalent code:android.content.res.TypedArray.getTextArray:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the CharSequence[] for the attribute at <var>index</var>.
+ * This gets the resource ID of the selected attribute, and uses
+ * {@link Resources#getTextArray Resources.getTextArray} of the owning
+ * Resources object to retrieve its String[].
+ *
+ * @param index Index of attribute to retrieve.
+ *
+ * @return CharSequence[] for the attribute, or null if not defined.
+ */
+
+@@ -1,11 +1,9 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     final TypedValue value = mValue;
+     if (getValueAt(index * AssetManager.STYLE_NUM_ENTRIES, value)) {
+-        if (false) {
+-            System.out.println("******************************************************************");
+-            System.out.println("Got drawable resource: type=" + value.type + " str=" + value.string + " int=0x" + Integer.toHexString(value.data) + " cookie=" + value.assetCookie);
+-            System.out.println("******************************************************************");
+-        }
+         return mResources.getTextArray(value.resourceId);
+     }
+     return null;
+

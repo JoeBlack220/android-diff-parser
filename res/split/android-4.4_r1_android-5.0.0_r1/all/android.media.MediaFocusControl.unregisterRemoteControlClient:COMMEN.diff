@@ -1,0 +1,59 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.unregisterRemoteControlClient:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * see AudioManager.unregisterRemoteControlClient(PendingIntent pi, ...)
+ * rcClient is guaranteed non-null
+ */
+
+@@ -1,32 +1,26 @@
+ {
+     if (DEBUG_RC)
+         Log.i(TAG, "Unregister remote control client rcClient=" + rcClient);
+-    synchronized (mAudioFocusLock) {
+-        synchronized (mRCStack) {
+-            boolean topRccChange = false;
+-            try {
+-                for (int index = mRCStack.size() - 1; index >= 0; index--) {
+-                    final RemoteControlStackEntry rcse = mRCStack.elementAt(index);
+-                    if ((rcse.mMediaIntent.equals(mediaIntent)) && rcClient.equals(rcse.mRcClient)) {
+-                        // we found the IRemoteControlClient to unregister
+-                        // stop monitoring its death
+-                        rcse.unlinkToRcClientDeath();
+-                        // reset the client-related fields
+-                        rcse.mRcClient = null;
+-                        rcse.mCallingPackageName = null;
+-                        topRccChange = (index == mRCStack.size() - 1);
+-                        // there can only be one matching RCC in the RC stack, we're done
+-                        break;
+-                    }
++    synchronized (mPRStack) {
++        boolean topRccChange = false;
++        try {
++            for (int index = mPRStack.size() - 1; index >= 0; index--) {
++                final PlayerRecord prse = mPRStack.elementAt(index);
++                if ((prse.hasMatchingMediaButtonIntent(mediaIntent)) && rcClient.equals(prse.getRcc())) {
++                    // we found the IRemoteControlClient to unregister
++                    prse.resetControllerInfoForNoRcc();
++                    topRccChange = (index == mPRStack.size() - 1);
++                    // there can only be one matching RCC in the RC stack, we're done
++                    break;
+                 }
+-            } catch (ArrayIndexOutOfBoundsException e) {
+-                // not expected to happen, indicates improper concurrent modification
+-                Log.e(TAG, "Wrong index accessing RC stack, lock error? ", e);
+             }
+-            if (topRccChange) {
+-                // no more RCC for the RCD, check for potential refresh of the remote controls
+-                checkUpdateRemoteControlDisplay_syncAfRcs(RC_INFO_ALL);
+-            }
++        } catch (ArrayIndexOutOfBoundsException e) {
++            // not expected to happen, indicates improper concurrent modification
++            Log.e(TAG, "Wrong index accessing RC stack, lock error? ", e);
++        }
++        if (topRccChange) {
++            // no more RCC for the RCD, check for potential refresh of the remote controls
++            checkUpdateRemoteControlDisplay_syncPrs(RC_INFO_ALL);
+         }
+     }
+ }
+

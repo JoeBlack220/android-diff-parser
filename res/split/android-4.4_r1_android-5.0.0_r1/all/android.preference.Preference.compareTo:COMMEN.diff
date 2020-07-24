@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.preference.Preference.compareTo:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Compares Preference objects based on order (if set), otherwise alphabetically on the titles.
+ *
+ * @param another The Preference to compare to this one.
+ * @return 0 if the same; less than 0 if this Preference sorts ahead of <var>another</var>;
+ * greater than 0 if this Preference sorts after <var>another</var>.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    if (mOrder != DEFAULT_ORDER || (mOrder == DEFAULT_ORDER && another.mOrder != DEFAULT_ORDER)) {
++    if (mOrder != another.mOrder) {
+         // Do order comparison
+         return mOrder - another.mOrder;
+     } else if (mTitle == another.mTitle) {
+

@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.media.RemoteControlClient.MetadataEditor.putBitmap:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the album / artwork picture to be displayed on the remote control.
+ * @param key the identifier of the bitmap to set. The only valid value is
+ * {@link #BITMAP_KEY_ARTWORK}
+ * @param bitmap The bitmap for the artwork, or null if there isn't any.
+ * @return Returns a reference to the same MetadataEditor object, so you can chain put
+ * calls together.
+ * @throws IllegalArgumentException
+ * @see android.graphics.Bitmap
+ */
+
+@@ -1,4 +1,12 @@
+ {
+     super.putBitmap(key, bitmap);
++    if (mMetadataBuilder != null) {
++        // MediaMetadata supports all the same fields as MetadataEditor
++        String metadataKey = MediaMetadata.getKeyFromMetadataEditorKey(key);
++        // But just in case, don't add things we don't understand
++        if (metadataKey != null) {
++            mMetadataBuilder.putBitmap(metadataKey, bitmap);
++        }
++    }
+     return this;
+ }
+

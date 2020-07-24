@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.view.animation.Transformation.clear:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Reset the transformation to a state that leaves the object
+ * being animated in an unmodified state. The transformation type is
+ * {@link #TYPE_BOTH} by default.
+ */
+
+@@ -4,9 +4,11 @@
+     } else {
+         mMatrix.reset();
+     }
++    mClipRect.setEmpty();
++    mHasClipRect = false;
+     mAlpha = 1.0f;
+     mTransformationType = TYPE_BOTH;
+ }
+

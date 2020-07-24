@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.service.dreams.DreamService.dispatchTouchEvent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -2,9 +2,9 @@
+     // but finish()es on any other kind of activity
+     if (!mInteractive) {
+         if (mDebug)
+-            Slog.v(TAG, "Finishing on touchEvent");
+-        safelyFinish();
++            Slog.v(TAG, "Waking up on touchEvent");
++        wakeUp();
+         return true;
+     }
+     return mWindow.superDispatchTouchEvent(event);
+

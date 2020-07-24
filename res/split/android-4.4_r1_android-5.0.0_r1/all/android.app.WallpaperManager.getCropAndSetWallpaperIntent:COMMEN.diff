@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.app.WallpaperManager.getCropAndSetWallpaperIntent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets an Intent that will launch an activity that crops the given
+ * image and sets the device's wallpaper. If there is a default HOME activity
+ * that supports cropping wallpapers, it will be preferred as the default.
+ * Use this method instead of directly creating a {@link #ACTION_CROP_AND_SET_WALLPAPER}
+ * intent.
+ *
+ * @param imageUri The image URI that will be set in the intent. The must be a content
+ * URI and its provider must resolve its type to "image/*"
+ *
+ * @throws IllegalArgumentException if the URI is not a content URI or its MIME type is
+ * not "image/*"
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (imageUri == null) {
++        throw new IllegalArgumentException("Image URI must not be null");
++    }
+     if (!ContentResolver.SCHEME_CONTENT.equals(imageUri.getScheme())) {
+         throw new IllegalArgumentException("Image URI must be of the " + ContentResolver.SCHEME_CONTENT + " scheme type");
+     }
+

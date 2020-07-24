@@ -1,0 +1,18 @@
+Find a functionally equivalent code:com.android.keyguard.FaceUnlock.start:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Binds to the Face Unlock service.  Face Unlock will be started when the bind completes.  The
+ * Face Unlock view is displayed to hide the backup lock while the service is starting up.
+ * Called on the UI thread.
+ */
+
+@@ -9,15 +9,15 @@
+     }
+     if (!mBoundToService) {
+         Log.d(TAG, "Binding to Face Unlock service for user=" + mLockPatternUtils.getCurrentUser());
+-        mContext.bindServiceAsUser(new Intent(IFaceLockInterface.class.getName()), mConnection, Context.BIND_AUTO_CREATE, new UserHandle(mLockPatternUtils.getCurrentUser()));
++        mContext.bindServiceAsUser(new Intent(IFaceLockInterface.class.getName()).setPackage(FACE_LOCK_PACKAGE), mConnection, Context.BIND_AUTO_CREATE, new UserHandle(mLockPatternUtils.getCurrentUser()));
+         mBoundToService = true;
+     } else {
+         Log.w(TAG, "Attempt to bind to Face Unlock when already bound");
+

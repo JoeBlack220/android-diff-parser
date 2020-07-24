@@ -1,0 +1,37 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.checkUpdateRemoteStateIfActive:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Checks if a remote client is active on the supplied stream type. Update the remote stream
+ * volume state if found and playing
+ * @param streamType
+ * @return false if no remote playing is currently playing
+ */
+
+@@ -1,17 +1,17 @@
+ {
+-    synchronized (mRCStack) {
++    synchronized (mPRStack) {
+         // iterating from top of stack as active playback is more likely on entries at the top
+         try {
+-            for (int index = mRCStack.size() - 1; index >= 0; index--) {
+-                final RemoteControlStackEntry rcse = mRCStack.elementAt(index);
+-                if ((rcse.mPlaybackType == RemoteControlClient.PLAYBACK_TYPE_REMOTE) && isPlaystateActive(rcse.mPlaybackState.mState) && (rcse.mPlaybackStream == streamType)) {
++            for (int index = mPRStack.size() - 1; index >= 0; index--) {
++                final PlayerRecord prse = mPRStack.elementAt(index);
++                if ((prse.mPlaybackType == RemoteControlClient.PLAYBACK_TYPE_REMOTE) && isPlaystateActive(prse.mPlaybackState.mState) && (prse.mPlaybackStream == streamType)) {
+                     if (DEBUG_RC)
+-                        Log.d(TAG, "remote playback active on stream " + streamType + ", vol =" + rcse.mPlaybackVolume);
++                        Log.d(TAG, "remote playback active on stream " + streamType + ", vol =" + prse.mPlaybackVolume);
+                     synchronized (mMainRemote) {
+-                        mMainRemote.mRccId = rcse.mRccId;
+-                        mMainRemote.mVolume = rcse.mPlaybackVolume;
+-                        mMainRemote.mVolumeMax = rcse.mPlaybackVolumeMax;
+-                        mMainRemote.mVolumeHandling = rcse.mPlaybackVolumeHandling;
++                        mMainRemote.mRccId = prse.getRccId();
++                        mMainRemote.mVolume = prse.mPlaybackVolume;
++                        mMainRemote.mVolumeMax = prse.mPlaybackVolumeMax;
++                        mMainRemote.mVolumeHandling = prse.mPlaybackVolumeHandling;
+                         mMainRemoteIsActive = true;
+                     }
+                     return true;
+

@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.graphics.drawable.Drawable.createFromStream:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Create a drawable from an inputstream
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     Trace.traceBegin(Trace.TRACE_TAG_RESOURCES, srcName != null ? srcName : "Unknown drawable");
+     try {
+-        return createFromResourceStream(null, null, is, srcName, null);
++        return createFromResourceStream(null, null, is, srcName);
+     } finally {
+         Trace.traceEnd(Trace.TRACE_TAG_RESOURCES);
+     }
+

@@ -1,0 +1,27 @@
+Find a functionally equivalent code:com.android.frameworks.downloadmanagertests.DownloadManagerTestApp.runLargeDownloadOverWiFi:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Tests downloading a large file over WiFi (~10 Mb).
+ *
+ * @throws Exception if unsuccessful
+ */
+
+@@ -1,6 +1,6 @@
+ {
+-    String filename = DOWNLOAD_10MB_FILENAME;
+-    long filesize = DOWNLOAD_10MB_FILESIZE;
++    String filename = DOWNLOAD_FILENAME;
++    long filesize = DOWNLOAD_FILESIZE;
+     long dlRequest = -1;
+     doCommonDownloadSetup();
+     // Make sure there are no pending downloads currently going on
+@@ -10,16 +10,16 @@
+     request.setMimeType("application/vnd.android.package-archive");
+     dlRequest = mDownloadManager.enqueue(request);
+     // Rather large file, so wait up to 15 mins...
+-    waitForDownloadOrTimeout(dlRequest, WAIT_FOR_DOWNLOAD_POLL_TIME, 15 * 60 * 1000);
++    assertTrue("download not finished", waitForDownload(dlRequest, 15 * 60 * 1000));
+     Cursor cursor = getCursor(dlRequest);
+     ParcelFileDescriptor pfd = null;
+     try {
+

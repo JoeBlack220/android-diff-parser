@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.graphics.Canvas.restore:COMMENT
+<android.graphics.Canvas: void restore()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+Comment:/**
+ * This call balances a previous call to save(), and is used to remove all
+ * modifications to the matrix/clip state since the last save call. It is
+ * an error to call restore() more times than save() was called.
+ */
+
+@@ -1 +1,3 @@
+-
++{
++    native_restore(mNativeCanvasWrapper);
++}
+

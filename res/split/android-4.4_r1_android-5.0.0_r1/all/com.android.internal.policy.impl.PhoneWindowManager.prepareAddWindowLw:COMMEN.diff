@@ -1,0 +1,40 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.prepareAddWindowLw:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * Preflight adding a window to the system.
+ *
+ * Currently enforces that three window types are singletons:
+ * <ul>
+ * <li>STATUS_BAR_TYPE</li>
+ * <li>KEYGUARD_TYPE</li>
+ * </ul>
+ *
+ * @param win The window to be added
+ * @param attrs Information about the window to be added
+ *
+ * @return If ok, WindowManagerImpl.ADD_OKAY.  If too many singletons,
+ * WindowManagerImpl.ADD_MULTIPLE_SINGLETON
+ */
+
+@@ -9,14 +9,15 @@
+             }
+             mStatusBar = win;
+             mStatusBarController.setWindow(win);
++            mKeyguardDelegate.hideScrim();
+             break;
+         case TYPE_NAVIGATION_BAR:
+             mContext.enforceCallingOrSelfPermission(android.Manifest.permission.STATUS_BAR_SERVICE, "PhoneWindowManager");
+@@ -31,42 +32,37 @@
+         case TYPE_STATUS_BAR_SUB_PANEL:
+             mContext.enforceCallingOrSelfPermission(android.Manifest.permission.STATUS_BAR_SERVICE, "PhoneWindowManager");
+             break;
+-        case TYPE_KEYGUARD:
+-            if (mKeyguard != null) {
+-                return WindowManagerGlobal.ADD_MULTIPLE_SINGLETON;
+-            }
+-            mKeyguard = win;
+-            break;
+         case TYPE_KEYGUARD_SCRIM:
+             if (mKeyguardScrim != null) {
+                 return WindowManagerGlobal.ADD_MULTIPLE_SINGLETON;
+

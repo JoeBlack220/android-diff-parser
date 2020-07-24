@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.media.MediaMetadataEditor.clear:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Clears all the pending metadata changes set since the MediaMetadataEditor instance was
+ * created or since this method was last called.
+ * Note that clearing the metadata doesn't reset the editable keys
+ * (use {@link #removeEditableKeys()} instead).
+ */
+
+@@ -5,8 +5,9 @@
+     }
+     mEditorMetadata.clear();
+     mEditorArtwork = null;
++    mMetadataBuilder = new MediaMetadata.Builder();
+ }
+

@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.onRcDisplayInitInfo:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Called when processing MSG_RCDISPLAY_INIT_INFO event
+ * Causes the current RemoteControlClient to send its info (metadata, playstate...) to
+ * a single RemoteControlDisplay, NOT all of them, as with MSG_RCDISPLAY_UPDATE.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    synchronized (mRCStack) {
++    synchronized (mPRStack) {
+         synchronized (mCurrentRcLock) {
+             if (mCurrentRcClient != null) {
+                 if (DEBUG_RC) {
+

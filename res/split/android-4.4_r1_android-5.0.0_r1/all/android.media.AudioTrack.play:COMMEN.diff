@@ -1,0 +1,329 @@
+Find a functionally equivalent code:android.media.AudioTrack.play:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Starts playing an AudioTrack.
+ * If track's creation mode is {@link #MODE_STATIC}, you must have called write() prior.
+ *
+ * @throws IllegalStateException
+ */
+
+@@ -2,7 +2,10 @@
+     if (mState != STATE_INITIALIZED) {
+         throw new IllegalStateException("play() called on uninitialized AudioTrack.");
+     }
++    if (isRestricted()) {
++        setVolume(0);
++    }
+     synchronized (mPlayStateLock) {
+         native_start();
+         mPlayState = PLAYSTATE_PLAYING;
+
+############################################
+ms1 public:922
+ms2 public:942
+ms1 non public:373
+ms2 non public:353
+total methods:1295
+both public:910
+public2Other:12
+other2Public:32
+protected   ->public          :4
+abstract    ->None            :3
+default     abstract    ->public      :4
+None->public                  :23
+private     ->protected       :2
+public      ->protected       :10
+private     ->public          :1
+None->abstract                :1
+native      ->None            :20
+None->private                 :2
+public      ->private         :2
+#####################Modfier Updated Signature#######################
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onKeyguardVisibilityChanged(boolean)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onEmergencyCallAction()>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<android.graphics.Canvas: void restore()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.media.MediaPlayer: void prepare()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<com.android.keyguard.KeyguardViewBase: boolean interceptMediaKey(KeyEvent)>
+Method Modifier: public      private     
+Method Modifier: No          Yes         
+Method Updated:  Yes         No          
+<com.android.keyguard.KeyguardUpdateMonitor: void dispatchBootCompleted()>
+Method Modifier: public      protected   
+Method Modifier: No          Yes         
+Method Updated:  Yes         No          
+<android.media.MediaDrm: void provideProvisionResponse(byte[])>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onRefreshBatteryInfo(BatteryStatus)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean connectToWifi(String)>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<android.net.wifi.p2p.WifiP2pDeviceList: void updateGroupCapability(String,int)>
+Method Modifier: public      hidden      
+Method Modifier: No          Yes         
+Method Updated:  Yes         Yes         
+<android.content.pm.ApplicationInfo: Drawable loadDefaultIcon(PackageManager)>
+Method Modifier: public      protected   hidden      
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onRingerModeChanged(int)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<android.graphics.Canvas: void restoreToCount(int)>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<com.android.keyguard.KeyguardViewBase: void verifyUnlock()>
+Method Modifier: public      abstract    
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.os.SystemClock: boolean setCurrentTimeMillis(long)>
+Method Modifier: public      static      native      
+Method Modifier: Yes         Yes         Yes         
+Method Updated:  Yes         Yes         No          
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onUserSwitchComplete(int)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onTimeChanged()>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean isConnectedToMobile()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onUserSwitching(int)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<android.media.MediaFocusControl: boolean isPlaystateActive(int)>
+Method Modifier: protected   private     static      
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          Yes         
+<android.view.HardwareLayer: void setTransform(Matrix)>
+Method Modifier: public      default     abstract    
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          No          
+<android.app.Notification.Style: Notification buildStyled(Notification)>
+Method Modifier: public      abstract    hidden      
+Method Modifier: Yes         Yes         Yes         
+Method Updated:  Yes         No          Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onPhoneStateChanged(int)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: void turnScreenOff()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<android.graphics.Picture: int getWidth()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean removeConfiguredNetworksAndDisableWifi()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<android.graphics.Canvas: boolean isOpaque()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.net.wifi.p2p.WifiP2pDeviceList: void updateSupplicantDetails(WifiP2pDevice)>
+Method Modifier: public      hidden      
+Method Modifier: No          Yes         
+Method Updated:  Yes         Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onDeviceProvisioned()>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onUserRemoved(int)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: void turnScreenOn()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<com.android.internal.view.menu.MenuBuilder: void onItemsChanged(boolean)>
+Method Modifier: public      internal    
+Method Modifier: No          Yes         
+Method Updated:  Yes         Yes         
+<android.view.HardwareLayer: boolean isValid()>
+Method Modifier: public      default     abstract    
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          No          
+<android.graphics.Canvas: void translate(float,float)>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.media.MediaPlayer: void setAuxEffectSendLevel(float)>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.view.HardwareLayer: void destroy()>
+Method Modifier: public      default     abstract    
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          No          
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onRefreshCarrierInfo(CharSequence,CharSequence)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<android.view.HardwareLayer: void setLayerPaint(Paint)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<android.hardware.camera2.CaptureRequest: void readFromParcel(Parcel)>
+Method Modifier: public      private     hidden      
+Method Modifier: Yes         No          Yes         
+Method Updated:  No          Yes         Yes         
+<android.text.format.Time: String toString()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onUserInfoChanged(int)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean disableWifi()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<android.content.pm.PackageItemInfo: Drawable loadDefaultIcon(PackageManager)>
+Method Modifier: public      protected   hidden      
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          Yes         
+<android.media.MediaFocusControl: void postReevaluateRemote()>
+Method Modifier: protected   private     
+Method Modifier: No          Yes         
+Method Updated:  Yes         No          
+<android.graphics.Canvas: int getHeight()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.text.format.Time: void setToNow()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.graphics.Canvas: void skew(float,float)>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.text.format.Time: long normalize(boolean)>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.media.AudioService: int setModeInt(int,IBinder,int)>
+Method Modifier: private     
+Method Modifier: No          
+Method Updated:  Yes         
+<android.net.wifi.WifiConfiguration: String getKeyIdForCredentials(WifiConfiguration)>
+Method Modifier: public      hidden      
+Method Modifier: No          Yes         
+Method Updated:  Yes         Yes         
+<android.net.wifi.p2p.WifiP2pDevice: void updateSupplicantDetails(WifiP2pDevice)>
+Method Modifier: public      hidden      
+Method Modifier: No          Yes         
+Method Updated:  Yes         Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onClockVisibilityChanged()>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<android.graphics.Canvas: int getWidth()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.media.MediaPlayer: void setAudioStreamType(int)>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onSimStateChanged(State)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<android.widget.AbsListView.PositionScroller: void scrollToVisible(int,int,int)>
+Method Modifier: private     
+Method Modifier: No          
+Method Updated:  Yes         
+<android.net.wifi.p2p.WifiP2pDeviceList: void updateStatus(String,int)>
+Method Modifier: public      hidden      
+Method Modifier: No          Yes         
+Method Updated:  Yes         Yes         
+<com.android.connectivitymanagertest.functional.ConnectivityManagerMobileTest: void verifyCellularConnection()>
+Method Modifier: public      private     
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<android.util.Spline: float interpolate(float)>
+Method Modifier: public      abstract    
+Method Modifier: Yes         No          
+Method Updated:  Yes         Yes         
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean isConnectedToWifi()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onBootCompleted()>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.keyguard.KeyguardUpdateMonitorCallback: void onDevicePolicyManagerStateChanged()>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+<com.android.keyguard.KeyguardViewBase: void show()>
+Method Modifier: public      abstract    
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: int waitForTetherStateChange(long)>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<android.graphics.Canvas: int getSaveCount()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.view.HardwareLayer: boolean copyInto(Bitmap)>
+Method Modifier: public      default     abstract    
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          No          
+<android.content.pm.ComponentInfo: Drawable loadDefaultIcon(PackageManager)>
+Method Modifier: public      protected   hidden      
+Method Modifier: No          Yes         Yes         
+Method Updated:  Yes         No          Yes         
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean disconnectAP()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+<android.graphics.Canvas: void drawPoint(float,float,Paint)>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.media.MediaDrm: ProvisionRequest getProvisionRequest()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<android.graphics.Picture: int getHeight()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean waitForWifiState(int,long)>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         

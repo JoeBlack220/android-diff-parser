@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.widget.ShareActionProvider.onCreateActionView:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,12 +1,14 @@
+ {
+     // Create the view and set its data model.
+-    ActivityChooserModel dataModel = ActivityChooserModel.get(mContext, mShareHistoryFileName);
+     ActivityChooserView activityChooserView = new ActivityChooserView(mContext);
+-    activityChooserView.setActivityChooserModel(dataModel);
++    if (!activityChooserView.isInEditMode()) {
++        ActivityChooserModel dataModel = ActivityChooserModel.get(mContext, mShareHistoryFileName);
++        activityChooserView.setActivityChooserModel(dataModel);
++    }
+     // Lookup and set the expand action icon.
+     TypedValue outTypedValue = new TypedValue();
+     mContext.getTheme().resolveAttribute(R.attr.actionModeShareDrawable, outTypedValue, true);
+-    Drawable drawable = mContext.getResources().getDrawable(outTypedValue.resourceId);
++    Drawable drawable = mContext.getDrawable(outTypedValue.resourceId);
+     activityChooserView.setExpandActivityOverflowButtonDrawable(drawable);
+     activityChooserView.setProvider(this);
+     // Set content description.
+

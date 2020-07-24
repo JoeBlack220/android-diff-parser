@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.media.AudioService.stopBluetoothSco:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @see AudioManager#stopBluetoothSco()
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    if (!checkAudioSettingsPermission("stopBluetoothSco()") || !mBootCompleted) {
++    if (!checkAudioSettingsPermission("stopBluetoothSco()") || !mSystemReady) {
+         return;
+     }
+     ScoClient client = getScoClient(cb, false);
+

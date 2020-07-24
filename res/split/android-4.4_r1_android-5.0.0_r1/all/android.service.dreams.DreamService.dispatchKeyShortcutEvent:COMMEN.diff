@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.service.dreams.DreamService.dispatchKeyShortcutEvent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,8 +1,8 @@
+ {
+     if (!mInteractive) {
+         if (mDebug)
+-            Slog.v(TAG, "Finishing on keyShortcutEvent");
+-        safelyFinish();
++            Slog.v(TAG, "Waking up on keyShortcutEvent");
++        wakeUp();
+         return true;
+     }
+     return mWindow.superDispatchKeyShortcutEvent(event);
+

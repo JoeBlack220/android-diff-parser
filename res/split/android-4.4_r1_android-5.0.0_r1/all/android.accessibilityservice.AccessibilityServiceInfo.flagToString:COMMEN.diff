@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.accessibilityservice.AccessibilityServiceInfo.flagToString:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Returns the string representation of a flag. For example,
+ * {@link #DEFAULT} is represented by the string DEFAULT.
+ *
+ * @param flag The flag.
+ * @return The string representation.
+ */
+
+@@ -12,17 +12,19 @@
+             return "FLAG_REPORT_VIEW_IDS";
+         case FLAG_REQUEST_FILTER_KEY_EVENTS:
+             return "FLAG_REQUEST_FILTER_KEY_EVENTS";
++        case FLAG_RETRIEVE_INTERACTIVE_WINDOWS:
++            return "FLAG_RETRIEVE_INTERACTIVE_WINDOWS";
+         default:
+             return null;
+     }
+

@@ -1,0 +1,30 @@
+Find a functionally equivalent code:android.content.res.TypedArray.getInteger:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the integer value for the attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ * @param defValue Value to return if the attribute is not defined or
+ * not a resource.
+ *
+ * @return Attribute integer value, or defValue if not defined.
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     index *= AssetManager.STYLE_NUM_ENTRIES;
+     final int[] data = mData;
+     final int type = data[index + AssetManager.STYLE_TYPE];
+@@ -6,11 +9,16 @@
+         return defValue;
+     } else if (type >= TypedValue.TYPE_FIRST_INT && type <= TypedValue.TYPE_LAST_INT) {
+         return data[index + AssetManager.STYLE_DATA];
++    } else if (type == TypedValue.TYPE_ATTRIBUTE) {
++        throw new RuntimeException("Failed to resolve attribute at index " + index);
+     }
+     throw new UnsupportedOperationException("Can't convert to integer: type=0x" + Integer.toHexString(type));
+ }
+

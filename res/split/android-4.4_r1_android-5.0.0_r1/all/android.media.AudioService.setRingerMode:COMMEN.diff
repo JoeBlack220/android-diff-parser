@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.AudioService.setRingerMode:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @see AudioManager#setRingerMode(int)
+ */
+
+@@ -1,10 +1,13 @@
+ {
+-    if (mUseFixedVolume) {
++    if (mUseFixedVolume || isPlatformTelevision()) {
+         return;
+     }
+     if ((ringerMode == AudioManager.RINGER_MODE_VIBRATE) && !mHasVibrator) {
+         ringerMode = AudioManager.RINGER_MODE_SILENT;
+     }
++    if (checkZen) {
++        checkZen(ringerMode);
++    }
+     if (ringerMode != getRingerMode()) {
+         setRingerModeInt(ringerMode, true);
+         // Send sticky broadcast
+

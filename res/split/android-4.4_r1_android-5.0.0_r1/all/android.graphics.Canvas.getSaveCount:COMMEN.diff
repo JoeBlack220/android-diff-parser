@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.graphics.Canvas.getSaveCount:COMMENT
+<android.graphics.Canvas: int getSaveCount()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+Comment:/**
+ * Returns the number of matrix/clip states on the Canvas' private stack.
+ * This will equal # save() calls - # restore() calls.
+ */
+
+@@ -1 +1,3 @@
+-
++{
++    return native_getSaveCount(mNativeCanvasWrapper);
++}
+

@@ -1,0 +1,5 @@
+Find a functionally equivalent code:android.speech.srec.Recognizer.SR_VocabularyDestroy:COMMENT
+Method Modifier: private     static      native      
+Comment:// ESR_Locale* locale);
+
+

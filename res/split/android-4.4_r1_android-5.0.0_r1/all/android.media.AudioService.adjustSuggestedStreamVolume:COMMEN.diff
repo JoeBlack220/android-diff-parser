@@ -1,0 +1,31 @@
+Find a functionally equivalent code:android.media.AudioService.adjustSuggestedStreamVolume:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @see AudioManager#adjustVolume(int, int)
+ */
+
+@@ -1,22 +1,3 @@
+ {
+-    if (DEBUG_VOL)
+-        Log.d(TAG, "adjustSuggestedStreamVolume() stream=" + suggestedStreamType);
+-    int streamType;
+-    if (mVolumeControlStream != -1) {
+-        streamType = mVolumeControlStream;
+-    } else {
+-        streamType = getActiveStreamType(suggestedStreamType);
+-    }
+-    // Play sounds on STREAM_RING only and if lock screen is not on.
+-    if ((streamType != STREAM_REMOTE_MUSIC) && (flags & AudioManager.FLAG_PLAY_SOUND) != 0 && ((mStreamVolumeAlias[streamType] != AudioSystem.STREAM_RING) || (mKeyguardManager != null && mKeyguardManager.isKeyguardLocked()))) {
+-        flags &= ~AudioManager.FLAG_PLAY_SOUND;
+-    }
+-    if (streamType == STREAM_REMOTE_MUSIC) {
+-        // don't play sounds for remote
+-        flags &= ~(AudioManager.FLAG_PLAY_SOUND | AudioManager.FLAG_FIXED_VOLUME);
+-        // if (DEBUG_VOL) Log.i(TAG, "Need to adjust remote volume: calling adjustRemoteVolume()");
+-        mMediaFocusControl.adjustRemoteVolume(AudioSystem.STREAM_MUSIC, direction, flags);
+-    } else {
+-        adjustStreamVolume(streamType, direction, flags, callingPackage);
+-    }
++    adjustSuggestedStreamVolume(direction, suggestedStreamType, flags, callingPackage, Binder.getCallingUid());
+ }
+

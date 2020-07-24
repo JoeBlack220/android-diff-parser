@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.view.Window.setBackgroundDrawableResource:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Change the background of this window to a Drawable resource. Setting the
+ * background to null will make the window be opaque. To make the window
+ * transparent, you can use an empty drawable (for instance a ColorDrawable
+ * with the color 0 or the system drawable android:drawable/empty.)
+ *
+ * @param resid The resource identifier of a drawable resource which will be
+ * installed as the new background.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    setBackgroundDrawable(mContext.getResources().getDrawable(resid));
++    setBackgroundDrawable(mContext.getDrawable(resid));
+ }
+

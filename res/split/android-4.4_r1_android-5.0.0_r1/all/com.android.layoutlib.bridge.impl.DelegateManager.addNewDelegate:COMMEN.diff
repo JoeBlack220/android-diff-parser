@@ -1,0 +1,16 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.impl.DelegateManager.addNewDelegate:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Adds a delegate to the manager and returns the native int used to identify it.
+ * @param newDelegate the delegate to add
+ * @return a unique native int to identify the delegate
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    int native_object = ++mDelegateCounter;
++    long native_object = ++mDelegateCounter;
+     mDelegates.put(native_object, newDelegate);
+     assert !mJavaReferences.contains(newDelegate);
+     mJavaReferences.add(newDelegate);
+

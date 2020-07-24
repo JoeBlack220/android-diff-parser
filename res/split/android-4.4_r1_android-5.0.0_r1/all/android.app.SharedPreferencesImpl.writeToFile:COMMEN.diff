@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.app.SharedPreferencesImpl.writeToFile:COMMENT
+Method Modifier: private     
+Comment:// Note: must hold mWritingToDiskLock
+
+@@ -31,37 +31,37 @@
+         str.close();
+         ContextImpl.setFilePermissionsFromMode(mFile.getPath(), mMode, 0);
+         try {
+-            final StructStat stat = Libcore.os.stat(mFile.getPath());
++            final StructStat stat = Os.stat(mFile.getPath());
+             synchronized (this) {
+                 mStatTimestamp = stat.st_mtime;
+                 mStatSize = stat.st_size;
+

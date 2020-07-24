@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.graphics.Rect.unflattenFromString:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Returns a Rect from a string of the form returned by {@link #flattenToString},
+ * or null if the string is not of that form.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    Matcher matcher = FLATTENED_PATTERN.matcher(str);
++    Matcher matcher = UnflattenHelper.getMatcher(str);
+     if (!matcher.matches()) {
+         return null;
+     }
+

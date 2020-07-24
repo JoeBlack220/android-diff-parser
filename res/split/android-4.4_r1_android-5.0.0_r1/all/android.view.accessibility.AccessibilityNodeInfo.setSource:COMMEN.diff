@@ -1,0 +1,32 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityNodeInfo.setSource:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the source to be a virtual descendant of the given <code>root</code>.
+ * If <code>virtualDescendantId</code> is {@link View#NO_ID} the root
+ * is set as the source.
+ * <p>
+ * A virtual descendant is an imaginary View that is reported as a part of the view
+ * hierarchy for accessibility purposes. This enables custom views that draw complex
+ * content to report themselves as a tree of virtual views, thus conveying their
+ * logical structure.
+ * </p>
+ * <p>
+ * <strong>Note:</strong> Cannot be called from an
+ * {@link android.accessibilityservice.AccessibilityService}.
+ * This class is made immutable before being delivered to an AccessibilityService.
+ * </p>
+ *
+ * @param root The root of the virtual subtree.
+ * @param virtualDescendantId The id of the virtual descendant.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     enforceNotSealed();
+-    mWindowId = (root != null) ? root.getAccessibilityWindowId() : UNDEFINED;
+-    final int rootAccessibilityViewId = (root != null) ? root.getAccessibilityViewId() : UNDEFINED;
++    mWindowId = (root != null) ? root.getAccessibilityWindowId() : UNDEFINED_ITEM_ID;
++    final int rootAccessibilityViewId = (root != null) ? root.getAccessibilityViewId() : UNDEFINED_ITEM_ID;
+     mSourceNodeId = makeNodeId(rootAccessibilityViewId, virtualDescendantId);
+ }
+

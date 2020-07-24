@@ -1,0 +1,30 @@
+Find a functionally equivalent code:com.android.wallpapercropper.WallpaperCropActivity.BitmapCropTask.regenerateInputStream:COMMENT
+Method Modifier: private     
+Comment:// Helper to setup input stream
+
+@@ -2,20 +2,20 @@
+     if (mInUri == null && mInResId == 0 && mInFilePath == null && mInImageBytes == null) {
+         Log.w(LOGTAG, "cannot read original file, no input URI, resource ID, or " + "image byte array given");
+     } else {
+-        Utils.closeSilently(mInStream);
+         try {
+             if (mInUri != null) {
+-                mInStream = new BufferedInputStream(mContext.getContentResolver().openInputStream(mInUri));
++                return new BufferedInputStream(mContext.getContentResolver().openInputStream(mInUri));
+             } else if (mInFilePath != null) {
+-                mInStream = mContext.openFileInput(mInFilePath);
++                return mContext.openFileInput(mInFilePath);
+             } else if (mInImageBytes != null) {
+-                mInStream = new BufferedInputStream(new ByteArrayInputStream(mInImageBytes));
++                return new BufferedInputStream(new ByteArrayInputStream(mInImageBytes));
+             } else {
+-                mInStream = new BufferedInputStream(mResources.openRawResource(mInResId));
++                return new BufferedInputStream(mResources.openRawResource(mInResId));
+             }
+         } catch (FileNotFoundException e) {
+             Log.w(LOGTAG, "cannot read file: " + mInUri.toString(), e);
+         }
+     }
++    return null;
+ }
+

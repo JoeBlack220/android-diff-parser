@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.os.Looper.loop:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Run the message queue in this thread. Be sure to call
+ * {@link #quit()} to end the loop.
+ */
+
+@@ -30,35 +30,35 @@
+         if (ident != newIdent) {
+             Log.wtf(TAG, "Thread identity changed from 0x" + Long.toHexString(ident) + " to 0x" + Long.toHexString(newIdent) + " while dispatching to " + msg.target.getClass().getName() + " " + msg.callback + " what=" + msg.what);
+         }
+-        msg.recycle();
++        msg.recycleUnchecked();
+     }
+ }
+

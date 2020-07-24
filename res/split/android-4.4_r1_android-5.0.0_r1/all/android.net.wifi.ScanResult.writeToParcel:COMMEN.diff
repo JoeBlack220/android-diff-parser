@@ -1,0 +1,29 @@
+Find a functionally equivalent code:android.net.wifi.ScanResult.writeToParcel:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * Implement the Parcelable interface {@hide}
+ */
+
+@@ -12,15 +12,32 @@
+     dest.writeLong(timestamp);
+     dest.writeInt(distanceCm);
+     dest.writeInt(distanceSdCm);
++    dest.writeLong(seen);
++    dest.writeInt(autoJoinStatus);
++    dest.writeInt(untrusted ? 1 : 0);
++    dest.writeInt(numConnection);
++    dest.writeInt(numUsage);
++    dest.writeInt(numIpConfigFailures);
++    dest.writeInt(isAutoJoinCandidate);
++    if (informationElements != null) {
++        dest.writeInt(informationElements.length);
++        for (int i = 0; i < informationElements.length; i++) {
++            dest.writeInt(informationElements[i].id);
++            dest.writeInt(informationElements[i].bytes.length);
++            dest.writeByteArray(informationElements[i].bytes);
++        }
++    } else {
++        dest.writeInt(0);
++    }
+ }
+

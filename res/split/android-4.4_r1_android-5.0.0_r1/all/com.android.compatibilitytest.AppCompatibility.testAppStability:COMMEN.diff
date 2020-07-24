@@ -1,0 +1,24 @@
+Find a functionally equivalent code:com.android.compatibilitytest.AppCompatibility.testAppStability:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Actual test case that launches the package and throws an exception on the
+ * first error.
+ *
+ * @throws Exception
+ */
+
+@@ -2,12 +2,12 @@
+     String packageName = mArgs.getString(PACKAGE_TO_LAUNCH);
+     if (packageName != null) {
+         Log.d(TAG, "Launching app " + packageName);
+-        Collection<ProcessErrorStateInfo> err = launchActivity(packageName);
++        ProcessErrorStateInfo err = launchActivity(packageName);
+         // Make sure there are no errors when launching the application,
+         // otherwise raise an
+         // exception with the first error encountered.
+-        assertNull(getFirstError(err), err);
++        assertNull(getStackTrace(err), err);
+         assertTrue("App crashed after launch.", processStillUp(packageName));
+     } else {
+         Log.d(TAG, "Missing argument, use " + PACKAGE_TO_LAUNCH + " to specify the package to launch");
+

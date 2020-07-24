@@ -1,0 +1,29 @@
+Find a functionally equivalent code:android.view.MotionEvent.axisFromString:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Gets an axis by its symbolic name such as "AXIS_X" or an
+ * equivalent numeric constant such as "42".
+ *
+ * @param symbolicName The symbolic name of the axis.
+ * @return The axis or -1 if not found.
+ * @see KeyEvent#keyCodeToString(int)
+ */
+
+@@ -1,11 +1,9 @@
+ {
+-    if (symbolicName == null) {
+-        throw new IllegalArgumentException("symbolicName must not be null");
+-    }
+-    final int count = AXIS_SYMBOLIC_NAMES.size();
+-    for (int i = 0; i < count; i++) {
+-        if (symbolicName.equals(AXIS_SYMBOLIC_NAMES.valueAt(i))) {
+-            return i;
++    if (symbolicName.startsWith(LABEL_PREFIX)) {
++        symbolicName = symbolicName.substring(LABEL_PREFIX.length());
++        int axis = nativeAxisFromString(symbolicName);
++        if (axis >= 0) {
++            return axis;
+         }
+     }
+     try {
+

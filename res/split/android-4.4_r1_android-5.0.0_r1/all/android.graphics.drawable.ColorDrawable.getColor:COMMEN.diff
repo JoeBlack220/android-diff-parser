@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.graphics.drawable.ColorDrawable.getColor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets the drawable's color value.
+ *
+ * @return int The color to draw.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mState.mUseColor;
++    return mColorState.mUseColor;
+ }
+

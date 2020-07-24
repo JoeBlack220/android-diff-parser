@@ -1,0 +1,43 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.registerRemoteControlDisplay_int:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Register an IRemoteControlDisplay.
+ * Notify all IRemoteControlClient of the new display and cause the RemoteControlClient
+ * at the top of the stack to update the new display with its information.
+ * @see android.media.IAudioService#registerRemoteControlDisplay(android.media.IRemoteControlDisplay, int, int)
+ * @param rcd the IRemoteControlDisplay to register. No effect if null.
+ * @param w the maximum width of the expected bitmap. Negative or zero values indicate this
+ * display doesn't need to receive artwork.
+ * @param h the maximum height of the expected bitmap. Negative or zero values indicate this
+ * display doesn't need to receive artwork.
+ * @param listenerComp the component for the listener interface, may be null if it's not needed
+ * to verify it belongs to one of the enabled notification listeners
+ */
+
+@@ -2,8 +2,8 @@
+     if (DEBUG_RC)
+         Log.d(TAG, ">>> registerRemoteControlDisplay(" + rcd + ")");
+     synchronized (mAudioFocusLock) {
+-        synchronized (mRCStack) {
++        synchronized (mPRStack) {
+             if ((rcd == null) || rcDisplayIsPluggedIn_syncRcStack(rcd)) {
+                 return;
+             }
+@@ -18,29 +18,29 @@
+             mRcDisplays.add(di);
+             // let all the remote control clients know there is a new display (so the remote
+             // control stack traversal order doesn't matter).
+-            Iterator<RemoteControlStackEntry> stackIterator = mRCStack.iterator();
++            Iterator<PlayerRecord> stackIterator = mPRStack.iterator();
+             while (stackIterator.hasNext()) {
+-                RemoteControlStackEntry rcse = stackIterator.next();
+-                if (rcse.mRcClient != null) {
++                PlayerRecord prse = stackIterator.next();
++                if (prse.getRcc() != null) {
+                     try {
+-                        rcse.mRcClient.plugRemoteControlDisplay(rcd, w, h);
++                        prse.getRcc().plugRemoteControlDisplay(rcd, w, h);
+                     } catch (RemoteException e) {
+                         Log.e(TAG, "Error connecting RCD to client: ", e);
+                     }
+

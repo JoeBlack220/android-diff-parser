@@ -1,0 +1,13 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.ConnectivityManagerTestBase.isConnectedToWifi:COMMENT
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: boolean isConnectedToWifi()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+Comment:// Return true if device is currently connected to Wifi
+
+@@ -1,3 +1,3 @@
+ {
+-    return (mNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI);
++    return (mCm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI);
+ }
+

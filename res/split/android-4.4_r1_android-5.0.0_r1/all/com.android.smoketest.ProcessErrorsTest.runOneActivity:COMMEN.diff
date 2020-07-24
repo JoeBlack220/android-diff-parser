@@ -1,0 +1,22 @@
+Find a functionally equivalent code:com.android.smoketest.ProcessErrorsTest.runOneActivity:COMMENT
+Method Modifier: public      
+Comment:/**
+ * A method to run the specified Activity and return a {@link Collection} of the Activities that
+ * were in an error state, as listed by {@link ActivityManager.getProcessesInErrorState()}.
+ * <p />
+ * The method will launch the app, wait for 7 seconds, check for apps in the error state, send
+ * the Home intent, wait for 2 seconds, and then return.
+ */
+
+@@ -8,13 +8,17 @@
+     final Collection<ProcessError> preErrProcs = ProcessError.fromCollection(mActivityManager.getProcessesInErrorState());
+     // launch app, and wait 7 seconds for it to start/settle
+     final Intent intent = intentForActivity(app);
++    if (intent == null) {
++        Log.i(TAG, String.format("Activity %s/%s is disabled, skipping", app.activityInfo.packageName, app.activityInfo.name));
++        return Collections.EMPTY_LIST;
++    }
+     getContext().startActivity(intent);
+     try {
+         Thread.sleep(appLaunchWait);
+

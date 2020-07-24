@@ -1,0 +1,5 @@
+Find a functionally equivalent code:android.app.IActivityManager.profileControl:COMMENT
+Method Modifier: public      
+Comment:// Turn on/off profiling in a particular process.
+
+

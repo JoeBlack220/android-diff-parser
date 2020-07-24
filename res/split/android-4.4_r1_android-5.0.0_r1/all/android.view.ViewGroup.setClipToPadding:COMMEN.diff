@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.view.ViewGroup.setClipToPadding:COMMENT
+Method Modifier: public      
+Comment:/**
+ * By default, children are clipped to the padding of the ViewGroup. This
+ * allows view groups to override this behavior
+ *
+ * @param clipToPadding true to clip children to the padding of the
+ * group, false otherwise
+ * @attr ref android.R.styleable#ViewGroup_clipToPadding
+ */
+
+@@ -1,3 +1,6 @@
+ {
+-    setBooleanFlag(FLAG_CLIP_TO_PADDING, clipToPadding);
++    if (hasBooleanFlag(FLAG_CLIP_TO_PADDING) != clipToPadding) {
++        setBooleanFlag(FLAG_CLIP_TO_PADDING, clipToPadding);
++        invalidate(true);
++    }
+ }
+

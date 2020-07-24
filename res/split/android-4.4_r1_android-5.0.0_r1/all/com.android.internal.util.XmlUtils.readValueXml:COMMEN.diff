@@ -1,0 +1,29 @@
+Find a functionally equivalent code:com.android.internal.util.XmlUtils.readValueXml:COMMENT
+Method Modifier: public      static      final       internal    
+Comment:/**
+ * Read a flattened object from an XmlPullParser.  The XML data could
+ * previously have been written with writeMapXml(), writeListXml(), or
+ * writeValueXml().  The XmlPullParser must be positioned <em>at</em> the
+ * tag that defines the value.
+ *
+ * @param parser The XmlPullParser from which to read the object.
+ * @param name An array of one string, used to return the name attribute
+ * of the value's tag.
+ *
+ * @return Object The newly generated value object.
+ *
+ * @see #readMapXml
+ * @see #readListXml
+ * @see #writeValueXml
+ */
+
+@@ -2,8 +2,8 @@
+     int eventType = parser.getEventType();
+     do {
+         if (eventType == parser.START_TAG) {
+-            return readThisValueXml(parser, name);
++            return readThisValueXml(parser, name, null);
+         } else if (eventType == parser.END_TAG) {
+             throw new XmlPullParserException("Unexpected end tag at: " + parser.getName());
+         } else if (eventType == parser.TEXT) {
+

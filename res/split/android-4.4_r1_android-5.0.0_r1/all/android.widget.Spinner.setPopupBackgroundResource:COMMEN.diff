@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.widget.Spinner.setPopupBackgroundResource:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the background drawable for the spinner's popup window of choices.
+ * Only valid in {@link #MODE_DROPDOWN}; this method is a no-op in other modes.
+ *
+ * @param resId Resource ID of a background drawable
+ *
+ * @attr ref android.R.styleable#Spinner_popupBackground
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    setPopupBackgroundDrawable(getContext().getResources().getDrawable(resId));
++    setPopupBackgroundDrawable(getContext().getDrawable(resId));
+ }
+

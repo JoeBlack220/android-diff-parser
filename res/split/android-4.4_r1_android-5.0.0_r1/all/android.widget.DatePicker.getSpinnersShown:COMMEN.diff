@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.widget.DatePicker.getSpinnersShown:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets whether the spinners are shown.
+ *
+ * @return True if the spinners are shown.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mSpinners.isShown();
++    return mDelegate.getSpinnersShown();
+ }
+

@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.media.AudioRecord.startRecording:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Starts recording from the AudioRecord instance when the specified synchronization event
+ * occurs on the specified audio session.
+ * @throws IllegalStateException
+ * @param syncEvent event that triggers the capture.
+ * @see MediaSyncEvent
+ */
+
+@@ -5,10 +5,11 @@
+     // start recording
+     synchronized (mRecordingStateLock) {
+         if (native_start(syncEvent.getType(), syncEvent.getAudioSessionId()) == SUCCESS) {
++            handleFullVolumeRec(true);
+             mRecordingState = RECORDSTATE_RECORDING;
+         }
+     }
+

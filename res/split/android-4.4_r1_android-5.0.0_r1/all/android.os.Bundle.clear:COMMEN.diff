@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.os.Bundle.clear:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Removes all elements from the mapping of this Bundle.
+ */
+
+@@ -1,6 +1,5 @@
+ {
+-    unparcel();
+-    mMap.clear();
++    super.clear();
+     mHasFds = false;
+     mFdsKnown = true;
+ }
+

@@ -1,0 +1,16 @@
+Find a functionally equivalent code:com.android.internal.os.ZygoteInit.acceptCommandPeer:COMMENT
+Method Modifier: private     static      internal    
+Comment:/**
+ * Waits for and accepts a single command connection. Throws
+ * RuntimeException on failure.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        return new ZygoteConnection(sServerSocket.accept());
++        return new ZygoteConnection(sServerSocket.accept(), abiList);
+     } catch (IOException ex) {
+         throw new RuntimeException("IOException during accept()", ex);
+     }
+

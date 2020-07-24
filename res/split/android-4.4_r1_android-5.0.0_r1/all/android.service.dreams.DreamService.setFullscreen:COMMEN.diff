@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.service.dreams.DreamService.setFullscreen:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Controls {@link android.view.WindowManager.LayoutParams#FLAG_FULLSCREEN}
+ * on the dream's window.
+ *
+ * @param fullscreen If true, the fullscreen flag will be set; else it
+ * will be cleared.
+ */
+
+@@ -1,5 +1,7 @@
+ {
+-    mFullscreen = fullscreen;
+-    int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+-    applyWindowFlags(mFullscreen ? flag : 0, flag);
++    if (mFullscreen != fullscreen) {
++        mFullscreen = fullscreen;
++        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
++        applyWindowFlags(mFullscreen ? flag : 0, flag);
++    }
+ }
+

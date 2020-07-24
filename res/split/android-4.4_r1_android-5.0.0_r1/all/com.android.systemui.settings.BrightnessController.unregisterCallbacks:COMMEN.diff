@@ -1,0 +1,18 @@
+Find a functionally equivalent code:com.android.systemui.settings.BrightnessController.unregisterCallbacks:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Unregister all call backs, both to and from the controller
+ */
+
+@@ -1,5 +1,9 @@
+ {
++    if (!mListening) {
++        return;
++    }
+     mBrightnessObserver.stopObserving();
+-    mChangeCallbacks.clear();
+     mUserTracker.stopTracking();
++    mControl.setOnChangedListener(null);
++    mListening = false;
+ }
+

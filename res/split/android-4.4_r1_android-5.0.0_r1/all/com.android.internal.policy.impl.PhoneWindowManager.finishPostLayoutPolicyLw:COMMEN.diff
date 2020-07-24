@@ -1,0 +1,106 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.finishPostLayoutPolicyLw:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,4 +1,12 @@
+ {
++    if (mWinShowWhenLocked != null && mWinShowWhenLocked != mTopFullscreenOpaqueWindowState) {
++        // A dialog is dismissing the keyguard. Put the wallpaper behind it and hide the
++        // fullscreen window.
++        // TODO: Make sure FLAG_SHOW_WALLPAPER is restored when dialog is dismissed. Or not.
++        mWinShowWhenLocked.getAttrs().flags |= FLAG_SHOW_WALLPAPER;
++        mTopFullscreenOpaqueWindowState.hideLw(false);
++        mTopFullscreenOpaqueWindowState = mWinShowWhenLocked;
++    }
+     int changes = 0;
+     boolean topIsFullscreen = false;
+     final WindowManager.LayoutParams lp = (mTopFullscreenOpaqueWindowState != null) ? mTopFullscreenOpaqueWindowState.getAttrs() : null;
+@@ -15,26 +23,42 @@
+             if (mStatusBarController.setBarShowingLw(true)) {
+                 changes |= FINISH_LAYOUT_REDO_LAYOUT;
+             }
++            // Maintain fullscreen layout until incoming animation is complete.
++            topIsFullscreen = mTopIsFullscreen && mStatusBar.isAnimatingLw();
++            // Transient status bar on the lockscreen is not allowed
++            if (mForceStatusBarFromKeyguard && mStatusBarController.isTransientShowing()) {
++                mStatusBarController.updateVisibilityLw(false, /*transientAllowed*/
++                mLastSystemUiFlags, mLastSystemUiFlags);
++            }
+         } else if (mTopFullscreenOpaqueWindowState != null) {
++            final int fl = PolicyControl.getWindowFlags(null, lp);
+             if (localLOGV) {
+                 Slog.d(TAG, "frame: " + mTopFullscreenOpaqueWindowState.getFrameLw() + " shown frame: " + mTopFullscreenOpaqueWindowState.getShownFrameLw());
+-                Slog.d(TAG, "attr: " + mTopFullscreenOpaqueWindowState.getAttrs() + " lp.flags=0x" + Integer.toHexString(lp.flags));
++                Slog.d(TAG, "attr: " + mTopFullscreenOpaqueWindowState.getAttrs() + " lp.flags=0x" + Integer.toHexString(fl));
+             }
+-            topIsFullscreen = (lp.flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0 || (mLastSystemUiFlags & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0;
++            topIsFullscreen = (fl & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0 || (mLastSystemUiFlags & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0;
+             // case though.
+             if (mStatusBarController.isTransientShowing()) {
+                 if (mStatusBarController.setBarShowingLw(true)) {
+@@ -44,56 +60,79 @@
+             }
+         }
+     }
+-    mTopIsFullscreen = topIsFullscreen;
++    if (mTopIsFullscreen != topIsFullscreen) {
++        if (!topIsFullscreen) {
++            // Force another layout when status bar becomes fully shown.
++            changes |= FINISH_LAYOUT_REDO_LAYOUT;
++        }
++        mTopIsFullscreen = topIsFullscreen;
++    }
+     // displayed when the screen is locked.
+-    if (mKeyguard != null) {
++    if (mKeyguardDelegate != null && mStatusBar != null) {
+         if (localLOGV)
+             Slog.v(TAG, "finishPostLayoutPolicyLw: mHideKeyguard=" + mHideLockScreen);
+-        if (mDismissKeyguard != DISMISS_KEYGUARD_NONE && !mKeyguardDelegate.isSecure()) {
+-            if (mKeyguard.hideLw(true)) {
++        if (mDismissKeyguard != DISMISS_KEYGUARD_NONE && !isKeyguardSecure()) {
++            mKeyguardHidden = true;
++            if (processKeyguardSetHiddenResultLw(mKeyguardDelegate.setOccluded(true))) {
+                 changes |= FINISH_LAYOUT_REDO_LAYOUT | FINISH_LAYOUT_REDO_CONFIG | FINISH_LAYOUT_REDO_WALLPAPER;
+             }
+             if (mKeyguardDelegate.isShowing()) {
+@@ -63,82 +86,103 @@
+                 });
+             }
+         } else if (mHideLockScreen) {
+-            if (mKeyguard.hideLw(true)) {
++            mKeyguardHidden = true;
++            if (processKeyguardSetHiddenResultLw(mKeyguardDelegate.setOccluded(true))) {
+                 changes |= FINISH_LAYOUT_REDO_LAYOUT | FINISH_LAYOUT_REDO_CONFIG | FINISH_LAYOUT_REDO_WALLPAPER;
+             }
+-            if (!mShowingDream) {
+-                mKeyguardDelegate.setHidden(true);
+-            }
+         } else if (mDismissKeyguard != DISMISS_KEYGUARD_NONE) {
+             // This is the case of keyguard isSecure() and not mHideLockScreen.
+             if (mDismissKeyguard == DISMISS_KEYGUARD_START) {
+                 // Only launch the next keyguard unlock window once per window.
+-                if (mKeyguard.showLw(true)) {
++                mKeyguardHidden = false;
++                if (processKeyguardSetHiddenResultLw(mKeyguardDelegate.setOccluded(false))) {
+                     changes |= FINISH_LAYOUT_REDO_LAYOUT | FINISH_LAYOUT_REDO_CONFIG | FINISH_LAYOUT_REDO_WALLPAPER;
+                 }
+-                mKeyguardDelegate.setHidden(false);
+                 mHandler.post(new Runnable() {
+ 
+                     @Override
+@@ -87,96 +108,117 @@
+             }
+         } else {
+             mWinDismissingKeyguard = null;
+-            if (mKeyguard.showLw(true)) {
++            mKeyguardHidden = false;
++            if (processKeyguardSetHiddenResultLw(mKeyguardDelegate.setOccluded(false))) {
+                 changes |= FINISH_LAYOUT_REDO_LAYOUT | FINISH_LAYOUT_REDO_CONFIG | FINISH_LAYOUT_REDO_WALLPAPER;
+             }
+-            mKeyguardDelegate.setHidden(false);
+         }
+     }
+     if ((updateSystemUiVisibilityLw() & SYSTEM_UI_CHANGING_LAYOUT) != 0) {
+

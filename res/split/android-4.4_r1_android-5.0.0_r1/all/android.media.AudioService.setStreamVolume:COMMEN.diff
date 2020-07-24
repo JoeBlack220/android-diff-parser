@@ -1,0 +1,59 @@
+Find a functionally equivalent code:android.media.AudioService.setStreamVolume:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @see AudioManager#setStreamVolume(int, int, int)
+ */
+
+@@ -1,50 +1,3 @@
+ {
+-    if (mUseFixedVolume) {
+-        return;
+-    }
+-    ensureValidStreamType(streamType);
+-    int streamTypeAlias = mStreamVolumeAlias[streamType];
+-    VolumeStreamState streamState = mStreamStates[streamTypeAlias];
+-    final int device = getDeviceForStream(streamType);
+-    int oldIndex;
+-    // is not an a2dp device
+-    if ((device & AudioSystem.DEVICE_OUT_ALL_A2DP) == 0 && (flags & AudioManager.FLAG_BLUETOOTH_ABS_VOLUME) != 0) {
+-        return;
+-    }
+-    if (mAppOps.noteOp(STEAM_VOLUME_OPS[streamTypeAlias], Binder.getCallingUid(), callingPackage) != AppOpsManager.MODE_ALLOWED) {
+-        return;
+-    }
+-    synchronized (mSafeMediaVolumeState) {
+-        // reset any pending volume command
+-        mPendingVolumeCommand = null;
+-        oldIndex = streamState.getIndex(device);
+-        index = rescaleIndex(index * 10, streamType, streamTypeAlias);
+-        if (streamTypeAlias == AudioSystem.STREAM_MUSIC && (device & AudioSystem.DEVICE_OUT_ALL_A2DP) != 0 && (flags & AudioManager.FLAG_BLUETOOTH_ABS_VOLUME) == 0) {
+-            synchronized (mA2dpAvrcpLock) {
+-                if (mA2dp != null && mAvrcpAbsVolSupported) {
+-                    mA2dp.setAvrcpAbsoluteVolume(index);
+-                }
+-            }
+-        }
+-        flags &= ~AudioManager.FLAG_FIXED_VOLUME;
+-        if ((streamTypeAlias == AudioSystem.STREAM_MUSIC) && ((device & mFixedVolumeDevices) != 0)) {
+-            flags |= AudioManager.FLAG_FIXED_VOLUME;
+-            // volume is either 0 or max allowed for fixed volume devices
+-            if (index != 0) {
+-                if (mSafeMediaVolumeState == SAFE_MEDIA_VOLUME_ACTIVE && (device & mSafeMediaVolumeDevices) != 0) {
+-                    index = mSafeMediaVolumeIndex;
+-                } else {
+-                    index = streamState.getMaxIndex();
+-                }
+-            }
+-        }
+-        if (!checkSafeMediaVolume(streamTypeAlias, index, device)) {
+-            mVolumePanel.postDisplaySafeVolumeWarning(flags);
+-            mPendingVolumeCommand = new StreamVolumeCommand(streamType, index, flags, device);
+-        } else {
+-            onSetStreamVolume(streamType, index, flags, device);
+-            index = mStreamStates[streamType].getIndex(device);
+-        }
+-    }
+-    sendVolumeUpdate(streamType, oldIndex, index, flags);
++    setStreamVolume(streamType, index, flags, callingPackage, Binder.getCallingUid());
+ }
+

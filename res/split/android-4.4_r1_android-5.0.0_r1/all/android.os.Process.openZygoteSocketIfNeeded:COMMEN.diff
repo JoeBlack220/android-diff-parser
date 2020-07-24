@@ -1,0 +1,75 @@
+Find a functionally equivalent code:android.os.Process.openZygoteSocketIfNeeded:COMMENT
+Method Modifier: private     static      
+Comment:/**
+ * Tries to open socket to Zygote process if not already open. If
+ * already open, does nothing.  May block and retry.
+ */
+
+@@ -1,49 +1,24 @@
+ {
+-    int retryCount;
+-    if (sPreviousZygoteOpenFailed) {
+-        /*
+-             * If we've failed before, expect that we'll fail again and
+-             * don't pause for retries.
+-             */
+-        retryCount = 0;
+-    } else {
+-        retryCount = 10;
+-    }
+-    /*
+-         * See bug #811181: Sometimes runtime can make it up before zygote.
+-         * Really, we'd like to do something better to avoid this condition,
+-         * but for now just wait a bit...
+-         */
+-    for (int retry = 0; (sZygoteSocket == null) && (retry < (retryCount + 1)); retry++) {
+-        if (retry > 0) {
+-            try {
+-                Log.i("Zygote", "Zygote not up yet, sleeping...");
+-                Thread.sleep(ZYGOTE_RETRY_MILLIS);
+-            } catch (InterruptedException ex) {
+-            // should never happen
+-            }
++    if (primaryZygoteState == null || primaryZygoteState.isClosed()) {
++        try {
++            primaryZygoteState = ZygoteState.connect(ZYGOTE_SOCKET);
++        } catch (IOException ioe) {
++            throw new ZygoteStartFailedEx("Error connecting to primary zygote", ioe);
+         }
++    }
++    if (primaryZygoteState.matches(abi)) {
++        return primaryZygoteState;
++    }
++    // The primary zygote didn't match. Try the secondary.
++    if (secondaryZygoteState == null || secondaryZygoteState.isClosed()) {
+         try {
+-            sZygoteSocket = new LocalSocket();
+-            sZygoteSocket.connect(new LocalSocketAddress(ZYGOTE_SOCKET, LocalSocketAddress.Namespace.RESERVED));
+-            sZygoteInputStream = new DataInputStream(sZygoteSocket.getInputStream());
+-            sZygoteWriter = new BufferedWriter(new OutputStreamWriter(sZygoteSocket.getOutputStream()), 256);
+-            Log.i("Zygote", "Process: zygote socket opened");
+-            sPreviousZygoteOpenFailed = false;
+-            break;
+-        } catch (IOException ex) {
+-            if (sZygoteSocket != null) {
+-                try {
+-                    sZygoteSocket.close();
+-                } catch (IOException ex2) {
+-                    Log.e(LOG_TAG, "I/O exception on close after exception", ex2);
+-                }
+-            }
+-            sZygoteSocket = null;
++            secondaryZygoteState = ZygoteState.connect(SECONDARY_ZYGOTE_SOCKET);
++        } catch (IOException ioe) {
++            throw new ZygoteStartFailedEx("Error connecting to secondary zygote", ioe);
+         }
+     }
+-    if (sZygoteSocket == null) {
+-        sPreviousZygoteOpenFailed = true;
+-        throw new ZygoteStartFailedEx("connect failed");
++    if (secondaryZygoteState.matches(abi)) {
++        return secondaryZygoteState;
+     }
++    throw new ZygoteStartFailedEx("Unsupported zygote ABI: " + abi);
+ }
+

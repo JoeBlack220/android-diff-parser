@@ -1,0 +1,41 @@
+Find a functionally equivalent code:android.widget.CalendarView.setMinDate:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the minimal date supported by this {@link CalendarView} in milliseconds
+ * since January 1, 1970 00:00:00 in {@link TimeZone#getDefault()} time
+ * zone.
+ *
+ * @param minDate The minimal supported date.
+ *
+ * @attr ref android.R.styleable#CalendarView_minDate
+ */
+
+@@ -1,26 +1,3 @@
+ {
+-    mTempDate.setTimeInMillis(minDate);
+-    if (isSameDate(mTempDate, mMinDate)) {
+-        return;
+-    }
+-    mMinDate.setTimeInMillis(minDate);
+-    // make sure the current date is not earlier than
+-    // the new min date since the latter is used for
+-    // calculating the indices in the adapter thus
+-    // avoiding out of bounds error
+-    Calendar date = mAdapter.mSelectedDate;
+-    if (date.before(mMinDate)) {
+-        mAdapter.setSelectedDay(mMinDate);
+-    }
+-    // reinitialize the adapter since its range depends on min date
+-    mAdapter.init();
+-    if (date.before(mMinDate)) {
+-        setDate(mTempDate.getTimeInMillis());
+-    } else {
+-        // we go to the current date to force the ListView to query its
+-        // adapter for the shown views since we have changed the adapter
+-        // range and the base from which the later calculates item indices
+-        // note that calling setDate will not work since the date is the same
+-        goTo(date, false, true, false);
+-    }
++    mDelegate.setMinDate(minDate);
+ }
+

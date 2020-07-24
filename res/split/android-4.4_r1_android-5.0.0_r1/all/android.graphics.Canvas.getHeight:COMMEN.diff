@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.graphics.Canvas.getHeight:COMMENT
+<android.graphics.Canvas: int getHeight()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+Comment:/**
+ * Returns the height of the current drawing layer
+ *
+ * @return the height of the current drawing layer
+ */
+
+@@ -1 +1,3 @@
+-
++{
++    return native_getHeight(mNativeCanvasWrapper);
++}
+

@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.provider.DocumentsProvider.getType:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Implementation is provided by the parent class. Cannot be overriden.
+ *
+ * @see #getDocumentType(String)
+ */
+
+@@ -4,9 +4,11 @@
+             case MATCH_ROOT:
+                 return DocumentsContract.Root.MIME_TYPE_ITEM;
+             case MATCH_DOCUMENT:
++            case MATCH_DOCUMENT_TREE:
++                enforceTree(uri);
+                 return getDocumentType(getDocumentId(uri));
+             default:
+                 return null;
+

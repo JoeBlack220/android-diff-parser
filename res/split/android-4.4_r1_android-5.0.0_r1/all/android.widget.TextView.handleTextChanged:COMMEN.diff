@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.widget.TextView.handleTextChanged:COMMENT
+Method Modifier: 
+Comment:/**
+ * Not private so it can be called from an inner class without going
+ * through a thunk.
+ */
+
+@@ -14,19 +14,20 @@
+         }
+         ims.mChangedDelta += after - before;
+     }
++    resetErrorChangedFlag();
+     sendOnTextChanged(buffer, start, before, after);
+     onTextChanged(buffer, start, before, after);
+ }
+

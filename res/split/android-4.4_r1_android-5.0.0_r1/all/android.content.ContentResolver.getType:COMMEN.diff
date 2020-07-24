@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.content.ContentResolver.getType:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Return the MIME type of the given content URL.
+ *
+ * @param url A Uri identifying content (either a list or specific type),
+ * using the content:// scheme.
+ * @return A MIME type for the content, or null if the URL is invalid or the type is unknown
+ */
+
+@@ -17,23 +17,23 @@
+         return null;
+     }
+     try {
+-        String type = ActivityManagerNative.getDefault().getProviderMimeType(url, UserHandle.myUserId());
++        String type = ActivityManagerNative.getDefault().getProviderMimeType(ContentProvider.getUriWithoutUserId(url), resolveUserId(url));
+         return type;
+     } catch (RemoteException e) {
+         // Manager will kill this process shortly anyway.
+

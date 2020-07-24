@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.widget.CalendarView.setFocusedMonthDateColor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the color for the dates of the focused month.
+ *
+ * @param color The focused month date color.
+ *
+ * @attr ref android.R.styleable#CalendarView_focusedMonthDateColor
+ */
+
+@@ -1,12 +1,3 @@
+ {
+-    if (mFocusedMonthDateColor != color) {
+-        mFocusedMonthDateColor = color;
+-        final int childCount = mListView.getChildCount();
+-        for (int i = 0; i < childCount; i++) {
+-            WeekView weekView = (WeekView) mListView.getChildAt(i);
+-            if (weekView.mHasFocusedDay) {
+-                weekView.invalidate();
+-            }
+-        }
+-    }
++    mDelegate.setFocusedMonthDateColor(color);
+ }
+

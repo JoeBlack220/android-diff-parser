@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetManager.getAppWidgetInfo:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Get the available info about the AppWidget.
+ *
+ * @return A appWidgetId.  If the appWidgetId has not been bound to a provider yet, or
+ * you don't have access to that appWidgetId, null is returned.
+ */
+
+@@ -1,12 +1,12 @@
+ {
++    if (mService == null) {
++        return null;
++    }
+     try {
+-        AppWidgetProviderInfo info = sService.getAppWidgetInfo(appWidgetId, mContext.getUserId());
++        AppWidgetProviderInfo info = mService.getAppWidgetInfo(mPackageName, appWidgetId);
+         if (info != null) {
+             // Converting complex to dp.
+-            info.minWidth = TypedValue.complexToDimensionPixelSize(info.minWidth, mDisplayMetrics);
+-            info.minHeight = TypedValue.complexToDimensionPixelSize(info.minHeight, mDisplayMetrics);
+-            info.minResizeWidth = TypedValue.complexToDimensionPixelSize(info.minResizeWidth, mDisplayMetrics);
+-            info.minResizeHeight = TypedValue.complexToDimensionPixelSize(info.minResizeHeight, mDisplayMetrics);
++            convertSizesToPixels(info);
+         }
+         return info;
+     } catch (RemoteException e) {
+

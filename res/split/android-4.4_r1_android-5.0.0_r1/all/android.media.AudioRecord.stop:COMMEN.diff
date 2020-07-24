@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.media.AudioRecord.stop:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Stops recording.
+ * @throws IllegalStateException
+ */
+
+@@ -4,9 +4,10 @@
+     }
+     // stop recording
+     synchronized (mRecordingStateLock) {
++        handleFullVolumeRec(false);
+         native_stop();
+         mRecordingState = RECORDSTATE_STOPPED;
+     }
+

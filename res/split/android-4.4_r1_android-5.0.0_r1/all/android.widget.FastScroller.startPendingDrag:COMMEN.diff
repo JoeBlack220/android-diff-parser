@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.widget.FastScroller.startPendingDrag:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Delays dragging until after the framework has determined that the user is
+ * scrolling, rather than tapping.
+ */
+
+@@ -1,4 +1,3 @@
+ {
+-    mHasPendingDrag = true;
+-    mList.postDelayed(mDeferStartDrag, TAP_TIMEOUT);
++    mPendingDrag = SystemClock.uptimeMillis() + TAP_TIMEOUT;
+ }
+

@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.media.AudioService.startBluetoothSco:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @see AudioManager#startBluetoothSco()
+ */
+
+@@ -1,14 +1,4 @@
+ {
+-    if (!checkAudioSettingsPermission("startBluetoothSco()") || !mBootCompleted) {
+-        return;
+-    }
+-    ScoClient client = getScoClient(cb, true);
+-    // The calling identity must be cleared before calling ScoClient.incCount().
+-    // inCount() calls requestScoState() which in turn can call BluetoothHeadset APIs
+-    // and this must be done on behalf of system server to make sure permissions are granted.
+-    // The caller identity must be cleared after getScoClient() because it is needed if a new
+-    // client is created.
+-    final long ident = Binder.clearCallingIdentity();
+-    client.incCount(targetSdkVersion);
+-    Binder.restoreCallingIdentity(ident);
++    int scoAudioMode = (targetSdkVersion < Build.VERSION_CODES.JELLY_BEAN_MR2) ? SCO_MODE_VIRTUAL_CALL : SCO_MODE_UNDEFINED;
++    startBluetoothScoInt(cb, scoAudioMode);
+ }
+

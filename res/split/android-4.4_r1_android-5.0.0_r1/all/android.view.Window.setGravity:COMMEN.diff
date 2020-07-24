@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.view.Window.setGravity:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the gravity of the window, as per the Gravity constants.  This
+ * controls how the window manager is positioned in the overall window; it
+ * is only useful when using WRAP_CONTENT for the layout width or height.
+ *
+ * @param gravity The desired gravity constant.
+ *
+ * @see Gravity
+ * @see #setLayout
+ */
+
+@@ -1,7 +1,5 @@
+ {
+     final WindowManager.LayoutParams attrs = getAttributes();
+     attrs.gravity = gravity;
+-    if (mCallback != null) {
+-        mCallback.onWindowAttributesChanged(attrs);
+-    }
++    dispatchWindowAttributesChanged(attrs);
+ }
+

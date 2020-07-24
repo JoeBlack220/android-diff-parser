@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetHost.deleteAppWidgetId:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Stop listening to changes for this AppWidget.
+ */
+
+@@ -2,8 +2,8 @@
+     synchronized (mViews) {
+         mViews.remove(appWidgetId);
+         try {
+-            sService.deleteAppWidgetId(appWidgetId, mContext.getUserId());
++            sService.deleteAppWidgetId(mContext.getOpPackageName(), appWidgetId);
+         } catch (RemoteException e) {
+             throw new RuntimeException("system server dead?", e);
+         }
+

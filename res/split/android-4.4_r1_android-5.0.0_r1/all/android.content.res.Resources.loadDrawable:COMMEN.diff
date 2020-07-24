@@ -1,0 +1,147 @@
+Find a functionally equivalent code:android.content.res.Resources.loadDrawable:COMMENT
+Method Modifier: 
+Comment:/*package*/
+
+@@ -3,114 +3,52 @@
+         // Log only framework resources
+         if ((id >>> 24) == 0x1) {
+             final String name = getResourceName(id);
+-            if (name != null)
+-                android.util.Log.d("PreloadDrawable", name);
++            if (name != null) {
++                Log.d("PreloadDrawable", name);
++            }
+         }
+     }
+-    boolean isColorDrawable = false;
++    final boolean isColorDrawable;
++    final ArrayMap<String, LongSparseArray<WeakReference<ConstantState>>> caches;
++    final long key;
+     if (value.type >= TypedValue.TYPE_FIRST_COLOR_INT && value.type <= TypedValue.TYPE_LAST_COLOR_INT) {
+         isColorDrawable = true;
+-    }
+-    final long key = isColorDrawable ? value.data : (((long) value.assetCookie) << 32) | value.data;
+-    Drawable dr = getCachedDrawable(isColorDrawable ? mColorDrawableCache : mDrawableCache, key);
+-    if (dr != null) {
+-        return dr;
++        caches = mColorDrawableCache;
++        key = value.data;
++    } else {
++        isColorDrawable = false;
++        caches = mDrawableCache;
++        key = (((long) value.assetCookie) << 32) | value.data;
++    }
++    // that was inflated against the specified theme.
++    if (!mPreloading) {
++        final Drawable cachedDrawable = getCachedDrawable(caches, key, theme);
++        if (cachedDrawable != null) {
++            return cachedDrawable;
++        }
+     }
+-    Drawable.ConstantState cs;
++    // Next, check preloaded drawables. These are unthemed but may have
++    // themeable attributes.
++    final ConstantState cs;
+     if (isColorDrawable) {
+         cs = sPreloadedColorDrawables.get(key);
+     } else {
+         cs = sPreloadedDrawables[mConfiguration.getLayoutDirection()].get(key);
+     }
++    final Drawable dr;
+     if (cs != null) {
+-        dr = cs.newDrawable(this);
++        dr = cs.newDrawable(this, theme);
++    } else if (isColorDrawable) {
++        dr = new ColorDrawable(value.data);
+     } else {
+-        if (isColorDrawable) {
+-            dr = new ColorDrawable(value.data);
+-        }
+-        if (dr == null) {
+-            if (value.string == null) {
+-                throw new NotFoundException("Resource is not a Drawable (color or path): " + value);
+-            }
+-            String file = value.string.toString();
+-            if (TRACE_FOR_MISS_PRELOAD) {
+-                // Log only framework resources
+-                if ((id >>> 24) == 0x1) {
+-                    final String name = getResourceName(id);
+-                    if (name != null)
+-                        android.util.Log.d(TAG, "Loading framework drawable #" + Integer.toHexString(id) + ": " + name + " at " + file);
+-                }
+-            }
+-            if (DEBUG_LOAD)
+-                Log.v(TAG, "Loading drawable for cookie " + value.assetCookie + ": " + file);
+-            if (file.endsWith(".xml")) {
+-                Trace.traceBegin(Trace.TRACE_TAG_RESOURCES, file);
+-                try {
+-                    XmlResourceParser rp = loadXmlResourceParser(file, id, value.assetCookie, "drawable");
+-                    dr = Drawable.createFromXml(this, rp);
+-                    rp.close();
+-                } catch (Exception e) {
+-                    Trace.traceEnd(Trace.TRACE_TAG_RESOURCES);
+-                    NotFoundException rnf = new NotFoundException("File " + file + " from drawable resource ID #0x" + Integer.toHexString(id));
+-                    rnf.initCause(e);
+-                    throw rnf;
+-                }
+-                Trace.traceEnd(Trace.TRACE_TAG_RESOURCES);
+-            } else {
+-                Trace.traceBegin(Trace.TRACE_TAG_RESOURCES, file);
+-                try {
+-                    InputStream is = mAssets.openNonAsset(value.assetCookie, file, AssetManager.ACCESS_STREAMING);
+-                    // System.out.println("Opened file " + file + ": " + is);
+-                    dr = Drawable.createFromResourceStream(this, value, is, file, null);
+-                    is.close();
+-                // System.out.println("Created stream: " + dr);
+-                } catch (Exception e) {
+-                    Trace.traceEnd(Trace.TRACE_TAG_RESOURCES);
+-                    NotFoundException rnf = new NotFoundException("File " + file + " from drawable resource ID #0x" + Integer.toHexString(id));
+-                    rnf.initCause(e);
+-                    throw rnf;
+-                }
+-                Trace.traceEnd(Trace.TRACE_TAG_RESOURCES);
+-            }
+-        }
++        dr = loadDrawableForCookie(value, id, theme);
+     }
++    // cache (either preload or themed).
+     if (dr != null) {
+         dr.setChangingConfigurations(value.changingConfigurations);
+-        cs = dr.getConstantState();
+-        if (cs != null) {
+-            if (mPreloading) {
+-                final int changingConfigs = cs.getChangingConfigurations();
+-                if (isColorDrawable) {
+-                    if (verifyPreloadConfig(changingConfigs, 0, value.resourceId, "drawable")) {
+-                        sPreloadedColorDrawables.put(key, cs);
+-                    }
+-                } else {
+-                    if (verifyPreloadConfig(changingConfigs, LAYOUT_DIR_CONFIG, value.resourceId, "drawable")) {
+-                        if ((changingConfigs & LAYOUT_DIR_CONFIG) == 0) {
+-                            // If this resource does not vary based on layout direction,
+-                            // we can put it in all of the preload maps.
+-                            sPreloadedDrawables[0].put(key, cs);
+-                            sPreloadedDrawables[1].put(key, cs);
+-                        } else {
+-                            // Otherwise, only in the layout dir we loaded it for.
+-                            final LongSparseArray<Drawable.ConstantState> preloads = sPreloadedDrawables[mConfiguration.getLayoutDirection()];
+-                            preloads.put(key, cs);
+-                        }
+-                    }
+-                }
+-            } else {
+-                synchronized (mAccessLock) {
+-                    // + " in " + this + ": " + cs);
+-                    if (isColorDrawable) {
+-                        mColorDrawableCache.put(key, new WeakReference<Drawable.ConstantState>(cs));
+-                    } else {
+-                        mDrawableCache.put(key, new WeakReference<Drawable.ConstantState>(cs));
+-                    }
+-                }
+-            }
+-        }
++        cacheDrawable(value, theme, isColorDrawable, caches, key, dr);
+     }
+     return dr;
+ }
+

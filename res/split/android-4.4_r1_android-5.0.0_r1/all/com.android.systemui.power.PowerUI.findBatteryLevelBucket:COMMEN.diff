@@ -1,0 +1,23 @@
+Find a functionally equivalent code:com.android.systemui.power.PowerUI.findBatteryLevelBucket:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Buckets the battery level.
+ *
+ * The code in this function is a little weird because I couldn't comprehend
+ * the bucket going up when the battery level was going down. --joeo
+ *
+ * 1 means that the battery is "ok"
+ * 0 means that the battery is between "ok" and what we should warn about.
+ * less than 0 means that the battery is low
+ */
+
+@@ -2,8 +2,8 @@
+     if (level >= mLowBatteryAlertCloseLevel) {
+         return 1;
+     }
+-    if (level >= mLowBatteryReminderLevels[0]) {
++    if (level > mLowBatteryReminderLevels[0]) {
+         return 0;
+     }
+     final int N = mLowBatteryReminderLevels.length;
+

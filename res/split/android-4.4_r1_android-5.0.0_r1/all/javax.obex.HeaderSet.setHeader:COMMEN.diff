@@ -1,0 +1,25 @@
+Find a functionally equivalent code:javax.obex.HeaderSet.setHeader:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the value of the header identifier to the value provided. The type
+ * of object must correspond to the Java type defined in the description of
+ * this interface. If <code>null</code> is passed as the
+ * <code>headerValue</code> then the header will be removed from the set of
+ * headers to include in the next request.
+ * @param headerID the identifier to include in the message
+ * @param headerValue the value of the header identifier
+ * @throws IllegalArgumentException if the header identifier provided is not
+ * one defined in this interface or a user-defined header; if the
+ * type of <code>headerValue</code> is not the correct Java type as
+ * defined in the description of this interface\
+ */
+
+@@ -19,24 +19,25 @@
+             if ((headerValue != null) && (!(headerValue instanceof String))) {
+                 throw new IllegalArgumentException("Name must be a String");
+             }
++            mEmptyName = false;
+             mName = (String) headerValue;
+             break;
+         case TYPE:
+

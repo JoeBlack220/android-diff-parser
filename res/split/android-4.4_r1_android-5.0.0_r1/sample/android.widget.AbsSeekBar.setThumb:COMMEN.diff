@@ -1,0 +1,31 @@
+Find a functionally equivalent code:android.widget.AbsSeekBar.setThumb:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the thumb that will be drawn at the end of the progress meter within the SeekBar.
+ * <p>
+ * If the thumb is a valid drawable (i.e. not null), half its width will be
+ * used as the new thumb offset (@see #setThumbOffset(int)).
+ *
+ * @param thumb Drawable representing the thumb
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    boolean needUpdate;
++    final boolean needUpdate;
+     // drawable changed)
+     if (mThumb != null && thumb != mThumb) {
+         mThumb.setCallback(null);
+@@ -22,30 +22,31 @@
+         }
+     }
+     mThumb = thumb;
++    applyThumbTint();
+     invalidate();
+     if (needUpdate) {
+-        updateThumbPos(getWidth(), getHeight());
++        updateThumbAndTrackPos(getWidth(), getHeight());
+         if (thumb != null && thumb.isStateful()) {
+             // Note that if the states are different this won't work.
+             // For now, let's consider that an app bug.
+

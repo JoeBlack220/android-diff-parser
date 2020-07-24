@@ -1,0 +1,20 @@
+Find a functionally equivalent code:com.android.systemui.statusbar.BaseStatusBar.handleNotificationError:COMMENT
+Method Modifier: 
+Comment:/**
+ * Cancel this notification and tell the StatusBarManagerService / NotificationManagerService
+ * about the failure.
+ *
+ * WARNING: this will call back into us.  Don't hold any locks.
+ */
+
+@@ -1,7 +1,7 @@
+ {
+-    removeNotification(key);
++    removeNotification(n.getKey(), null);
+     try {
+-        mBarService.onNotificationError(n.getPackageName(), n.getTag(), n.getId(), n.getUid(), n.getInitialPid(), message);
++        mBarService.onNotificationError(n.getPackageName(), n.getTag(), n.getId(), n.getUid(), n.getInitialPid(), message, n.getUserId());
+     } catch (RemoteException ex) {
+     // The end is nigh.
+     }
+

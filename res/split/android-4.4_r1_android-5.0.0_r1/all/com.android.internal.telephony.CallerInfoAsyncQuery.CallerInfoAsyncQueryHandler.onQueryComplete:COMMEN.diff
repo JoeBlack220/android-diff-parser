@@ -1,0 +1,78 @@
+Find a functionally equivalent code:com.android.internal.telephony.CallerInfoAsyncQuery.CallerInfoAsyncQueryHandler.onQueryComplete:COMMENT
+Method Modifier: protected   internal    
+Comment:/**
+ * Overrides onQueryComplete from AsyncQueryHandler.
+ *
+ * This method takes into account the state of this class; we construct the CallerInfo
+ * object only once for each set of listeners. When the query thread has done its work
+ * and calls this method, we inform the remaining listeners in the queue, until we're
+ * out of listeners.  Once we get the message indicating that we should expect no new
+ * listeners for this CallerInfo object, we release the AsyncCursorInfo back into the
+ * pool.
+ */
+
+@@ -7,35 +7,41 @@
+         // check the parameters to make sure they're viable.
+         if (DBG)
+             Rlog.d(LOG_TAG, "Cookie is null, ignoring onQueryComplete() request.");
++        if (cursor != null) {
++            cursor.close();
++        }
+         return;
+     }
+     if (cw.event == EVENT_END_OF_QUEUE) {
+         release();
++        if (cursor != null) {
++            cursor.close();
++        }
+         return;
+     }
+     // check the token and if needed, create the callerinfo object.
+     if (mCallerInfo == null) {
+-        if ((mQueryContext == null) || (mQueryUri == null)) {
++        if ((mContext == null) || (mQueryUri == null)) {
+             throw new QueryPoolException("Bad context or query uri, or CallerInfoAsyncQuery already released.");
+         }
+         // accordingly.
+         if (cw.event == EVENT_EMERGENCY_NUMBER) {
+             // Note we're setting the phone number here (refer to javadoc
+             // comments at the top of CallerInfo class).
+-            mCallerInfo = new CallerInfo().markAsEmergency(mQueryContext);
++            mCallerInfo = new CallerInfo().markAsEmergency(mContext);
+         } else if (cw.event == EVENT_VOICEMAIL_NUMBER) {
+-            mCallerInfo = new CallerInfo().markAsVoiceMail();
++            mCallerInfo = new CallerInfo().markAsVoiceMail(cw.subId);
+         } else {
+-            mCallerInfo = CallerInfo.getCallerInfo(mQueryContext, mQueryUri, cursor);
++            mCallerInfo = CallerInfo.getCallerInfo(mContext, mQueryUri, cursor);
+             if (DBG)
+                 Rlog.d(LOG_TAG, "==> Got mCallerInfo: " + mCallerInfo);
+-            CallerInfo newCallerInfo = CallerInfo.doSecondaryLookupIfNecessary(mQueryContext, cw.number, mCallerInfo);
++            CallerInfo newCallerInfo = CallerInfo.doSecondaryLookupIfNecessary(mContext, cw.number, mCallerInfo);
+             if (newCallerInfo != mCallerInfo) {
+                 mCallerInfo = newCallerInfo;
+                 if (DBG)
+@@ -42,53 +48,59 @@
+                     // the CallerInfo object is totally blank here (i.e. no name
+                     // *or* phoneNumber).  So we need to pass in cw.number as
+                     // a fallback number.
+-                    mCallerInfo.updateGeoDescription(mQueryContext, cw.number);
++                    mCallerInfo.updateGeoDescription(mContext, cw.number);
+                 }
+             }
+             // Use the number entered by the user for display.
+             if (!TextUtils.isEmpty(cw.number)) {
+-                mCallerInfo.phoneNumber = PhoneNumberUtils.formatNumber(cw.number, mCallerInfo.normalizedNumber, CallerInfo.getCurrentCountryIso(mQueryContext));
++                mCallerInfo.phoneNumber = PhoneNumberUtils.formatNumber(cw.number, mCallerInfo.normalizedNumber, CallerInfo.getCurrentCountryIso(mContext));
+             }
+         }
+         if (DBG)
+@@ -63,66 +69,75 @@
+             Rlog.d(LOG_TAG, "notifying listener: " + cw.listener.getClass().toString() + " for token: " + token + mCallerInfo);
+         cw.listener.onQueryComplete(token, cw.cookie, mCallerInfo);
+     }
++    if (cursor != null) {
++        cursor.close();
++    }
+ }
+

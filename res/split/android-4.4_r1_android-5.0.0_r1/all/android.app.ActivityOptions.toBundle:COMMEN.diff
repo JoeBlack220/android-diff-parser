@@ -1,0 +1,64 @@
+Find a functionally equivalent code:android.app.ActivityOptions.toBundle:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns the created options as a Bundle, which can be passed to
+ * {@link android.content.Context#startActivity(android.content.Intent, android.os.Bundle)
+ * Context.startActivity(Intent, Bundle)} and related methods.
+ * Note that the returned Bundle is still owned by the ActivityOptions
+ * object; you must not modify it, but can supply it to the startActivity
+ * methods that take an options Bundle.
+ */
+
+@@ -1,29 +1,44 @@
+ {
++    if (mAnimationType == ANIM_DEFAULT) {
++        return null;
++    }
+     Bundle b = new Bundle();
+     if (mPackageName != null) {
+         b.putString(KEY_PACKAGE_NAME, mPackageName);
+     }
++    b.putInt(KEY_ANIM_TYPE, mAnimationType);
+     switch(mAnimationType) {
+         case ANIM_CUSTOM:
+-            b.putInt(KEY_ANIM_TYPE, mAnimationType);
+             b.putInt(KEY_ANIM_ENTER_RES_ID, mCustomEnterResId);
+             b.putInt(KEY_ANIM_EXIT_RES_ID, mCustomExitResId);
+-            b.putIBinder(KEY_ANIM_START_LISTENER, mAnimationStartedListener != null ? mAnimationStartedListener.asBinder() : null);
++            b.putBinder(KEY_ANIM_START_LISTENER, mAnimationStartedListener != null ? mAnimationStartedListener.asBinder() : null);
+             break;
+         case ANIM_SCALE_UP:
+-            b.putInt(KEY_ANIM_TYPE, mAnimationType);
+             b.putInt(KEY_ANIM_START_X, mStartX);
+             b.putInt(KEY_ANIM_START_Y, mStartY);
+-            b.putInt(KEY_ANIM_START_WIDTH, mStartWidth);
+-            b.putInt(KEY_ANIM_START_HEIGHT, mStartHeight);
++            b.putInt(KEY_ANIM_WIDTH, mWidth);
++            b.putInt(KEY_ANIM_HEIGHT, mHeight);
+             break;
+         case ANIM_THUMBNAIL_SCALE_UP:
+         case ANIM_THUMBNAIL_SCALE_DOWN:
+-            b.putInt(KEY_ANIM_TYPE, mAnimationType);
++        case ANIM_THUMBNAIL_ASPECT_SCALE_UP:
++        case ANIM_THUMBNAIL_ASPECT_SCALE_DOWN:
+             b.putParcelable(KEY_ANIM_THUMBNAIL, mThumbnail);
+             b.putInt(KEY_ANIM_START_X, mStartX);
+             b.putInt(KEY_ANIM_START_Y, mStartY);
+-            b.putIBinder(KEY_ANIM_START_LISTENER, mAnimationStartedListener != null ? mAnimationStartedListener.asBinder() : null);
++            b.putInt(KEY_ANIM_WIDTH, mWidth);
++            b.putInt(KEY_ANIM_HEIGHT, mHeight);
++            b.putBinder(KEY_ANIM_START_LISTENER, mAnimationStartedListener != null ? mAnimationStartedListener.asBinder() : null);
++            break;
++        case ANIM_SCENE_TRANSITION:
++            if (mTransitionReceiver != null) {
++                b.putParcelable(KEY_TRANSITION_COMPLETE_LISTENER, mTransitionReceiver);
++            }
++            b.putBoolean(KEY_TRANSITION_IS_RETURNING, mIsReturning);
++            b.putStringArrayList(KEY_TRANSITION_SHARED_ELEMENTS, mSharedElementNames);
++            b.putParcelable(KEY_RESULT_DATA, mResultData);
++            b.putInt(KEY_RESULT_CODE, mResultCode);
++            b.putInt(KEY_EXIT_COORDINATOR_INDEX, mExitCoordinatorIndex);
+             break;
+     }
+     return b;
+

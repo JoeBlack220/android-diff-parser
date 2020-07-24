@@ -1,0 +1,17 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.AsmAnalyzer.findClassesDerivingFrom:COMMENT
+Method Modifier: 
+Comment:/**
+ * Checks all the classes defined in the JarClassName instance and uses BCEL to
+ * determine if they are derived from the given FQCN super class name.
+ * Inserts the super class and all the class objects found in the map.
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (mExcludedClasses.contains(getOuterClassName(super_name))) {
++        return;
++    }
+     findClass(super_name, zipClasses, inOutFound);
+     for (Entry<String, ClassReader> entry : zipClasses.entrySet()) {
+         String className = entry.getKey();
+

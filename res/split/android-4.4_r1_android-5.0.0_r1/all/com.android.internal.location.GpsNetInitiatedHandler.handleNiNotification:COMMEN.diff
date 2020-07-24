@@ -1,0 +1,33 @@
+Find a functionally equivalent code:com.android.internal.location.GpsNetInitiatedHandler.handleNiNotification:COMMENT
+Method Modifier: public      internal    
+Comment:// Handles NI events from HAL
+
+@@ -1,22 +1,11 @@
+ {
+     if (DEBUG)
+-        Log.d(TAG, "handleNiNotification" + " notificationId: " + notif.notificationId + " requestorId: " + notif.requestorId + " text: " + notif.text);
+-    // Notify and verify with immediate pop-up
+-    if (notif.needNotify && notif.needVerify && mPopupImmediately) {
+-        // Popup the dialog box now
+-        openNiDialog(notif);
++        Log.d(TAG, "in handleNiNotification () :" + " notificationId: " + notif.notificationId + " requestorId: " + notif.requestorId + " text: " + notif.text + " mIsSuplEsEnabled" + getSuplEsEnabled() + " mIsLocationEnabled" + getLocationEnabled());
++    if (getSuplEsEnabled()) {
++        handleNiInEs(notif);
++    } else {
++        handleNi(notif);
+     }
+-    // Notify only, or delayed pop-up (change mPopupImmediately to FALSE)
+-    if (notif.needNotify && !notif.needVerify || notif.needNotify && notif.needVerify && !mPopupImmediately) {
+-        // Show the notification
+-        // if mPopupImmediately == FALSE and needVerify == TRUE, a dialog will be opened
+-        // when the user opens the notification message
+-        setNiNotification(notif);
+-    }
+-    // ACCEPT cases: 1. Notify, no verify; 2. no notify, no verify; 3. privacy override.
+-    if (notif.needNotify && !notif.needVerify || !notif.needNotify && !notif.needVerify || notif.privacyOverride) {
+-        mLocationManager.sendNiResponse(notif.notificationId, GPS_NI_RESPONSE_ACCEPT);
+-    }
+ // ////////////////////////////////////////////////////////////////////////
+ // A note about timeout
+ // According to the protocol, in the need_notify and need_verify case,
+

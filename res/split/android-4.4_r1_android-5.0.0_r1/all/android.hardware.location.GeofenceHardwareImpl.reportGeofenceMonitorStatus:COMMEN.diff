@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.hardware.location.GeofenceHardwareImpl.reportGeofenceMonitorStatus:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Used to report Monitor status changes.
+ */
+
+@@ -1,9 +1,7 @@
+ {
+-    // TODO: use the source if needed in the future
+     setMonitorAvailability(monitoringType, monitoringStatus);
+     acquireWakeLock();
+-    Message message = mCallbacksHandler.obtainMessage(GEOFENCE_STATUS, location);
+-    message.arg1 = monitoringStatus;
+-    message.arg2 = monitoringType;
++    GeofenceHardwareMonitorEvent event = new GeofenceHardwareMonitorEvent(monitoringType, monitoringStatus, source, location);
++    Message message = mCallbacksHandler.obtainMessage(GEOFENCE_STATUS, event);
+     message.sendToTarget();
+ }
+

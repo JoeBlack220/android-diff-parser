@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.os.PowerManager.validateWakeLockParameters:COMMENT
+Method Modifier: public      static      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -5,10 +5,11 @@
+         case SCREEN_BRIGHT_WAKE_LOCK:
+         case FULL_WAKE_LOCK:
+         case PROXIMITY_SCREEN_OFF_WAKE_LOCK:
++        case DOZE_WAKE_LOCK:
+             break;
+         default:
+             throw new IllegalArgumentException("Must specify a valid wake lock level.");
+

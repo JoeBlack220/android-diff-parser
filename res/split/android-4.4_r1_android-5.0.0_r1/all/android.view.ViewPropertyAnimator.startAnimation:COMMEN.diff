@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.view.ViewPropertyAnimator.startAnimation:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Starts the underlying Animator for a set of properties. We use a single animator that
+ * simply runs from 0 to 1, and then use that fractional value to set each property
+ * value accordingly.
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (mRTBackend != null && mRTBackend.startAnimation(this)) {
++        return;
++    }
+     mView.setHasTransientState(true);
+     ValueAnimator animator = ValueAnimator.ofFloat(1.0f);
+     ArrayList<NameValuesHolder> nameValueList = (ArrayList<NameValuesHolder>) mPendingAnimations.clone();
+

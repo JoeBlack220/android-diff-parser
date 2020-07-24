@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.view.HardwareLayer.setLayerPaint:COMMENT
+<android.view.HardwareLayer: void setLayerPaint(Paint)>
+Method Modifier: public      
+Method Modifier: No          
+Method Updated:  Yes         
+Comment:/**
+ * Update the paint used when drawing this layer.
+ *
+ * @param paint The paint used when the layer is drawn into the destination canvas.
+ * @see View#setLayerPaint(android.graphics.Paint)
+ */
+
+@@ -1,2 +1,4 @@
+ {
++    nSetLayerPaint(mFinalizer.get(), paint.mNativePaint);
++    mRenderer.pushLayerUpdate(this);
+ }
+

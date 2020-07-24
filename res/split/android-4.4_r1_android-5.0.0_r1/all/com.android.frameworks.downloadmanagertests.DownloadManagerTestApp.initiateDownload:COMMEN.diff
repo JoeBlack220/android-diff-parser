@@ -1,0 +1,28 @@
+Find a functionally equivalent code:com.android.frameworks.downloadmanagertests.DownloadManagerTestApp.initiateDownload:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Initiates a download.
+ *
+ * Queues up a download to the download manager, and saves the DownloadManager's assigned
+ * download ID for this download to a file.
+ *
+ * @throws Exception if unsuccessful
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    String filename = DOWNLOAD_5MB_FILENAME;
++    String filename = DOWNLOAD_FILENAME;
+     mContext.deleteFile(DOWNLOAD_STARTED_FLAG);
+     FileOutputStream fileOutput = mContext.openFileOutput(DOWNLOAD_STARTED_FLAG, 0);
+     DataOutputStream outputFile = null;
+@@ -12,18 +12,18 @@
+         Request request = new Request(remoteUri);
+         dlRequest = mDownloadManager.enqueue(request);
+         waitForDownloadToStart(dlRequest);
+-        assertTrue(dlRequest != -1);
++        assertTrue("request id is -1 from download manager", dlRequest != -1);
+         // Store ID of download for later retrieval
+         outputFile = new DataOutputStream(fileOutput);
+         outputFile.writeLong(dlRequest);
+

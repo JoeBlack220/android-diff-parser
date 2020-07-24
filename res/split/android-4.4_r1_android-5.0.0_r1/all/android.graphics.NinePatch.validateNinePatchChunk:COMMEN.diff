@@ -1,0 +1,9 @@
+Find a functionally equivalent code:android.graphics.NinePatch.validateNinePatchChunk:COMMENT
+Method Modifier: private     static      native      
+Comment:/**
+ * Validates the 9-patch chunk and throws an exception if the chunk is invalid.
+ * If validation is successful, this method returns a native Res_png_9patch*
+ * object used by the renderers.
+ */
+
+

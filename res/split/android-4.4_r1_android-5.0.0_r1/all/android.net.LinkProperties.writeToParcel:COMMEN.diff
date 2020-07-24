@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.net.LinkProperties.writeToParcel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Implement the Parcelable interface.
+ */
+
+@@ -10,15 +10,16 @@
+     }
+     dest.writeString(mDomains);
+     dest.writeInt(mMtu);
++    dest.writeString(mTcpBufferSizes);
+     dest.writeInt(mRoutes.size());
+     for (RouteInfo route : mRoutes) {
+         dest.writeParcelable(route, flags);
+

@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.RemoteControlClient.editMetadata:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Creates a {@link MetadataEditor}.
+ * @param startEmpty Set to false if you want the MetadataEditor to contain the metadata that
+ * was previously applied to the RemoteControlClient, or true if it is to be created empty.
+ * @return a new MetadataEditor instance.
+ */
+
+@@ -12,16 +12,22 @@
+         editor.mMetadataChanged = false;
+         editor.mArtworkChanged = false;
+     }
++    // USE_SESSIONS
++    if (startEmpty || mMediaMetadata == null) {
++        editor.mMetadataBuilder = new MediaMetadata.Builder();
++    } else {
++        editor.mMetadataBuilder = new MediaMetadata.Builder(mMediaMetadata);
++    }
+     return editor;
+ }
+

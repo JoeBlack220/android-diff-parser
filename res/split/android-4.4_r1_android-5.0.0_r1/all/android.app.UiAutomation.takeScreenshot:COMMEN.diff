@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.app.UiAutomation.takeScreenshot:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Takes a screenshot.
+ *
+ * @return The screenshot bitmap on success, null otherwise.
+ */
+
+@@ -61,66 +61,67 @@
+         canvas.translate(-screenshotWidth / 2, -screenshotHeight / 2);
+         canvas.drawBitmap(screenShot, 0, 0, null);
+         canvas.setBitmap(null);
++        screenShot.recycle();
+         screenShot = unrotatedScreenShot;
+     }
+     // Optimization
+

@@ -1,0 +1,24 @@
+Find a functionally equivalent code:android.telephony.PhoneNumberUtils.getNumberFromIntent:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Extracts the phone number from an Intent.
+ *
+ * @param intent the intent to get the number of
+ * @param context a context to use for database access
+ *
+ * @return the phone number that would be called by the intent, or
+ * <code>null</code> if the number cannot be found.
+ */
+
+@@ -8,17 +8,13 @@
+     if (scheme.equals("tel") || scheme.equals("sip")) {
+         return uri.getSchemeSpecificPart();
+     }
+-    // CALL_PRIVILEGED permission).
+-    if (scheme.equals("voicemail")) {
+-        return TelephonyManager.getDefault().getCompleteVoiceMailNumber();
+-    }
+     if (context == null) {
+         return null;
+     }
+

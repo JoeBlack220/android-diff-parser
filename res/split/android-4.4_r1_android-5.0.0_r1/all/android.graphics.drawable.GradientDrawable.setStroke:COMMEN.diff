@@ -1,0 +1,37 @@
+Find a functionally equivalent code:android.graphics.drawable.GradientDrawable.setStroke:COMMENT
+Method Modifier: public      
+Comment:/**
+ * <p>Set the stroke width and color for the drawable. If width is zero,
+ * then no stroke is drawn. This method can also be used to dash the stroke.</p>
+ * <p><strong>Note</strong>: changing this property will affect all instances
+ * of a drawable loaded from a resource. It is recommended to invoke
+ * {@link #mutate()} before changing this property.</p>
+ *
+ * @param width The width in pixels of the stroke
+ * @param color The color of the stroke
+ * @param dashWidth The length in pixels of the dashes, set to 0 to disable dashes
+ * @param dashGap The gap in pixels between dashes
+ *
+ * @see #mutate()
+ * @see #setStroke(int, int)
+ */
+
+@@ -1,15 +1,4 @@
+ {
+-    mGradientState.setStroke(width, color, dashWidth, dashGap);
+-    if (mStrokePaint == null) {
+-        mStrokePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+-        mStrokePaint.setStyle(Paint.Style.STROKE);
+-    }
+-    mStrokePaint.setStrokeWidth(width);
+-    mStrokePaint.setColor(color);
+-    DashPathEffect e = null;
+-    if (dashWidth > 0) {
+-        e = new DashPathEffect(new float[] { dashWidth, dashGap }, 0);
+-    }
+-    mStrokePaint.setPathEffect(e);
+-    invalidateSelf();
++    mGradientState.setStroke(width, ColorStateList.valueOf(color), dashWidth, dashGap);
++    setStrokeInternal(width, color, dashWidth, dashGap);
+ }
+

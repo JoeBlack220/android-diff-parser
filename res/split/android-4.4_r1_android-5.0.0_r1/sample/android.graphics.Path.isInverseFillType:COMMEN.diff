@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.graphics.Path.isInverseFillType:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns true if the filltype is one of the INVERSE variants
+ *
+ * @return true if the filltype is one of the INVERSE variants
+ */
+
+@@ -1,4 +1,4 @@
+ {
+     final int ft = native_getFillType(mNativePath);
+-    return (ft & 2) != 0;
++    return (ft & FillType.INVERSE_WINDING.nativeInt) != 0;
+ }
+

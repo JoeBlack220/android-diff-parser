@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.graphics.Canvas.getWidth:COMMENT
+<android.graphics.Canvas: int getWidth()>
+Method Modifier: public      native      
+Method Modifier: Yes         Yes         
+Method Updated:  Yes         No          
+Comment:/**
+ * Returns the width of the current drawing layer
+ *
+ * @return the width of the current drawing layer
+ */
+
+@@ -1 +1,3 @@
+-
++{
++    return native_getWidth(mNativeCanvasWrapper);
++}
+

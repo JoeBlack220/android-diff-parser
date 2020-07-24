@@ -1,0 +1,9 @@
+Find a functionally equivalent code:android.media.AudioManager.setMasterMute:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * set master mute state.
+ *
+ * @hide
+ */
+
+

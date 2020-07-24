@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.graphics.Paint.setTypeface:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set or clear the typeface object.
+ * <p />
+ * Pass null to clear any previous typeface.
+ * As a convenience, the parameter passed is also returned.
+ *
+ * @param typeface May be null. The typeface to be installed in the paint
+ * @return         typeface
+ */
+
+@@ -1,9 +1,10 @@
+ {
+-    int typefaceNative = 0;
++    long typefaceNative = 0;
+     if (typeface != null) {
+         typefaceNative = typeface.native_instance;
+     }
+     native_setTypeface(mNativePaint, typefaceNative);
+     mTypeface = typeface;
++    mNativeTypeface = typefaceNative;
+     return typeface;
+ }
+

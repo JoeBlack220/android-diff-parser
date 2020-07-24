@@ -1,0 +1,10 @@
+Find a functionally equivalent code:android.os.BatteryStats.getPhoneSignalScanningTime:COMMENT
+Method Modifier: public      abstract    hidden      
+Comment:/**
+ * Returns the time in microseconds that the phone has been trying to
+ * acquire a signal.
+ *
+ * {@hide}
+ */
+
+

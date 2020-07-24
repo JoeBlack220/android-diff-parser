@@ -1,0 +1,37 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.impl.ResourceHelper.parseFloatAttribute:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Parse a float attribute and return the parsed value into a given TypedValue.
+ * @param attribute the name of the attribute. Can be null if <var>requireUnit</var> is false.
+ * @param value the string value of the attribute
+ * @param outValue the TypedValue to receive the parsed value
+ * @param requireUnit whether the value is expected to contain a unit.
+ * @return true if success.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    assert requireUnit == false || attribute != null;
++    assert !requireUnit || attribute != null;
+     // remove the space before and after
+     value = value.trim();
+     int len = value.length();
+@@ -14,20 +14,20 @@
+         }
+     }
+     // check the first character
+-    if (buf[0] < '0' && buf[0] > '9' && buf[0] != '.' && buf[0] != '-') {
++    if ((buf[0] < '0' || buf[0] > '9') && buf[0] != '.' && buf[0] != '-' && buf[0] != '+') {
+         return false;
+     }
+     // now look for the string that is after the float...
+@@ -41,47 +41,47 @@
+         end = end.trim();
+         if (end.length() == 0) {
+             if (outValue != null) {
+-                if (requireUnit == false) {
++                if (!requireUnit) {
+                     outValue.type = TypedValue.TYPE_FLOAT;
+                     outValue.data = Float.floatToIntBits(f);
+                 } else {
+

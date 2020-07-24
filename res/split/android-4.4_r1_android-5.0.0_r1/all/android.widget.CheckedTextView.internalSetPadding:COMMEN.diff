@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.widget.CheckedTextView.internalSetPadding:COMMENT
+Method Modifier: protected   hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,4 +1,4 @@
+ {
+     super.internalSetPadding(left, top, right, bottom);
+-    setBasePadding(isLayoutRtl());
++    setBasePadding(isCheckMarkAtStart());
+ }
+

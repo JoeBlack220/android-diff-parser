@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.os.RecoverySystem.installPackage:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Reboots the device in order to install the given update
+ * package.
+ * Requires the {@link android.Manifest.permission#REBOOT} permission.
+ *
+ * @param context      the Context to use
+ * @param packageFile  the update package to install.  Must be on
+ * a partition mountable by recovery.  (The set of partitions
+ * known to recovery may vary from device to device.  Generally,
+ * /cache and /data are safe.)
+ *
+ * @throws IOException  if writing the recovery command file
+ * fails, or if the reboot itself fails.
+ */
+
+@@ -1,6 +1,7 @@
+ {
+     String filename = packageFile.getCanonicalPath();
+     Log.w(TAG, "!!! REBOOTING TO INSTALL " + filename + " !!!");
+-    String arg = "--update_package=" + filename + "\n--locale=" + Locale.getDefault().toString();
+-    bootCommand(context, arg);
++    final String filenameArg = "--update_package=" + filename;
++    final String localeArg = "--locale=" + Locale.getDefault().toString();
++    bootCommand(context, filenameArg, localeArg);
+ }
+

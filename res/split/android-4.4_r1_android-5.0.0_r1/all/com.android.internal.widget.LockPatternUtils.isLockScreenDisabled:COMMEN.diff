@@ -1,0 +1,27 @@
+Find a functionally equivalent code:com.android.internal.widget.LockPatternUtils.isLockScreenDisabled:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * Determine if LockScreen can be disabled. This is used, for example, to tell if we should
+ * show LockScreen or go straight to the home screen.
+ *
+ * @return true if lock screen is can be disabled
+ */
+
+@@ -1,3 +1,15 @@
+ {
+-    return !isSecure() && getLong(DISABLE_LOCKSCREEN_KEY, 0) != 0;
++    if (!isSecure() && getLong(DISABLE_LOCKSCREEN_KEY, 0) != 0) {
++        // Check if the number of switchable users forces the lockscreen.
++        final List<UserInfo> users = UserManager.get(mContext).getUsers(true);
++        final int userCount = users.size();
++        int switchableUsers = 0;
++        for (int i = 0; i < userCount; i++) {
++            if (users.get(i).supportsSwitchTo()) {
++                switchableUsers++;
++            }
++        }
++        return switchableUsers < 2;
++    }
++    return false;
+ }
+

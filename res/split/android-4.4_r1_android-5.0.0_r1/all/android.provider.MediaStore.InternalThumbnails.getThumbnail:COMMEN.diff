@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.provider.MediaStore.InternalThumbnails.getThumbnail:COMMENT
+Method Modifier: default     static      
+Comment:/**
+ * This method ensure thumbnails associated with origId are generated and decode the byte
+ * stream from database (MICRO_KIND) or file (MINI_KIND).
+ *
+ * Special optimization has been done to avoid further IPC communication for MICRO_KIND
+ * thumbnails.
+ *
+ * @param cr ContentResolver
+ * @param origId original image or video id
+ * @param kind could be MINI_KIND or MICRO_KIND
+ * @param options this is only used for MINI_KIND when decoding the Bitmap
+ * @param baseUri the base URI of requested thumbnails
+ * @param groupId the id of group to which this request belongs
+ * @return Bitmap bitmap of specified thumbnail kind
+ */
+
+@@ -46,51 +46,52 @@
+                 if (sThumbBuf == null) {
+                     sThumbBuf = new byte[MiniThumbFile.BYTES_PER_MINTHUMB];
+                 }
++                Arrays.fill(sThumbBuf, (byte) 0);
+                 if (thumbFile.getMiniThumbFromFile(origId, sThumbBuf) != null) {
+                     bitmap = BitmapFactory.decodeByteArray(sThumbBuf, 0, sThumbBuf.length);
+                     if (bitmap == null) {
+

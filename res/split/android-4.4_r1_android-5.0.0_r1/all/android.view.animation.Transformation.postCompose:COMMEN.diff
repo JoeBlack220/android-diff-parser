@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.view.animation.Transformation.postCompose:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * Like {@link #compose(Transformation)} but does this.postConcat(t) of
+ * the transformation matrix.
+ * @hide
+ */
+
+@@ -1,4 +1,7 @@
+ {
+     mAlpha *= t.getAlpha();
+     mMatrix.postConcat(t.getMatrix());
++    if (t.mHasClipRect) {
++        setClipRect(t.getClipRect());
++    }
+ }
+

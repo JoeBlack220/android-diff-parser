@@ -1,0 +1,9 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.util.SparseWeakArray.indexOfKey:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns the index for which {@link #keyAt} would return the
+ * specified key, or a negative number if the specified
+ * key is not mapped.
+ */
+
+

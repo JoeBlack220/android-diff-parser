@@ -1,0 +1,19 @@
+Find a functionally equivalent code:com.android.keyguard.KeyguardMessageArea.update:COMMENT
+Method Modifier: 
+Comment:/**
+ * Update the status lines based on these rules:
+ * AlarmStatus: Alarm state always gets it's own line.
+ * Status1 is shared between help, battery status and generic unlock instructions,
+ * prioritized in that order.
+ * @param showStatusLines status lines are shown if true
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     MutableInt icon = new MutableInt(0);
+-    CharSequence status = concat(getChargeInfo(icon), getOwnerInfo(), getCurrentMessage());
++    CharSequence status = getCurrentMessage();
+     setCompoundDrawablesWithIntrinsicBounds(icon.value, 0, 0, 0);
+     setText(status);
+ }
+

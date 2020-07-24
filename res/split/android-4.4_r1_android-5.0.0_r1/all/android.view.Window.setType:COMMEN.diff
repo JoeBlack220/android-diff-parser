@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.view.Window.setType:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the type of the window, as per the WindowManager.LayoutParams
+ * types.
+ *
+ * @param type The new window type (see WindowManager.LayoutParams).
+ */
+
+@@ -1,7 +1,5 @@
+ {
+     final WindowManager.LayoutParams attrs = getAttributes();
+     attrs.type = type;
+-    if (mCallback != null) {
+-        mCallback.onWindowAttributesChanged(attrs);
+-    }
++    dispatchWindowAttributesChanged(attrs);
+ }
+

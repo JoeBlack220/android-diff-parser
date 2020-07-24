@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetHost.deleteAllHosts:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Remove all records about all hosts for your package.
+ * <ul>
+ * <li>Call this when initializing your database, as it might be because of a data wipe.</li>
+ * <li>Call this to have the AppWidget manager release all resources associated with your
+ * host.  Any future calls about this host will cause the records to be re-allocated.</li>
+ * </ul>
+ */
+
+@@ -1,3 +1,7 @@
+ {
+-    deleteAllHosts(UserHandle.myUserId());
++    try {
++        sService.deleteAllHosts();
++    } catch (RemoteException e) {
++        throw new RuntimeException("system server dead?", e);
++    }
+ }
+

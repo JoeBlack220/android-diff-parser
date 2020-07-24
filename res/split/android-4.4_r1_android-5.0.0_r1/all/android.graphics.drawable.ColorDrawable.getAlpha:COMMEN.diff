@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.graphics.drawable.ColorDrawable.getAlpha:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns the alpha value of this drawable's color.
+ *
+ * @return A value between 0 and 255.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mState.mUseColor >>> 24;
++    return mColorState.mUseColor >>> 24;
+ }
+

@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.net.wifi.WifiEnterpriseConfig.setEapMethod:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the EAP authentication method.
+ * @param  eapMethod is one {@link Eap#PEAP}, {@link Eap#TLS}, {@link Eap#TTLS} or
+ * {@link Eap#PWD}
+ * @throws IllegalArgumentException on an invalid eap method
+ */
+
+@@ -3,12 +3,16 @@
+         /**
+          * Valid methods
+          */
++        case Eap.TLS:
++            setPhase2Method(Phase2.NONE);
++        /* fall through */
+         case Eap.PEAP:
+         case Eap.PWD:
+-        case Eap.TLS:
+         case Eap.TTLS:
++        case Eap.SIM:
++        case Eap.AKA:
+             mFields.put(EAP_KEY, Eap.strings[eapMethod]);
+             mFields.put(OPP_KEY_CACHING, "1");
+             break;
+

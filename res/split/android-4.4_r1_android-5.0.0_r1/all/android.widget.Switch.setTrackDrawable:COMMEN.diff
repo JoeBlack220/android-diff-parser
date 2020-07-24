@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.widget.Switch.setTrackDrawable:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set the drawable used for the track that the switch slides within.
+ *
+ * @param track Track drawable
+ *
+ * @attr ref android.R.styleable#Switch_track
+ */
+
+@@ -1,4 +1,10 @@
+ {
++    if (mTrackDrawable != null) {
++        mTrackDrawable.setCallback(null);
++    }
+     mTrackDrawable = track;
++    if (track != null) {
++        track.setCallback(this);
++    }
+     requestLayout();
+ }
+

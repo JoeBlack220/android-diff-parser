@@ -1,0 +1,38 @@
+Find a functionally equivalent code:android.media.RemoteControlClient.MetadataEditor.putString:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Adds textual information to be displayed.
+ * Note that none of the information added after {@link #apply()} has been called,
+ * will be displayed.
+ * @param key The identifier of a the metadata field to set. Valid values are
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_ALBUM},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_ALBUMARTIST},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_TITLE},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_ARTIST},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_AUTHOR},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_COMPILATION},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_COMPOSER},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_DATE},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_GENRE},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_TITLE},
+ * {@link android.media.MediaMetadataRetriever#METADATA_KEY_WRITER}.
+ * @param value The text for the given key, or {@code null} to signify there is no valid
+ * information for the field.
+ * @return Returns a reference to the same MetadataEditor object, so you can chain put
+ * calls together.
+ */
+
+@@ -1,4 +1,12 @@
+ {
+     super.putString(key, value);
++    if (mMetadataBuilder != null) {
++        // MediaMetadata supports all the same fields as MetadataEditor
++        String metadataKey = MediaMetadata.getKeyFromMetadataEditorKey(key);
++        // But just in case, don't add things we don't understand
++        if (metadataKey != null) {
++            mMetadataBuilder.putText(metadataKey, value);
++        }
++    }
+     return this;
+ }
+

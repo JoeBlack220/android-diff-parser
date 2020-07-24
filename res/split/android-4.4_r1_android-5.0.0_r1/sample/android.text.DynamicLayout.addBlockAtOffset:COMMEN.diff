@@ -1,0 +1,32 @@
+Find a functionally equivalent code:android.text.DynamicLayout.addBlockAtOffset:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Create a new block, ending at the specified character offset.
+ * A block will actually be created only if has at least one line, i.e. this offset is
+ * not on the end line of the previous block.
+ */
+
+@@ -2,21 +2,15 @@
+     final int line = getLineForOffset(offset);
+     if (mBlockEndLines == null) {
+         // Initial creation of the array, no test on previous block ending line
+-        mBlockEndLines = new int[ArrayUtils.idealIntArraySize(1)];
++        mBlockEndLines = ArrayUtils.newUnpaddedIntArray(1);
+         mBlockEndLines[mNumberOfBlocks] = line;
+         mNumberOfBlocks++;
+         return;
+     }
+     final int previousBlockEndLine = mBlockEndLines[mNumberOfBlocks - 1];
+     if (line > previousBlockEndLine) {
+-        if (mNumberOfBlocks == mBlockEndLines.length) {
+-            // Grow the array if needed
+-            int[] blockEndLines = new int[ArrayUtils.idealIntArraySize(mNumberOfBlocks + 1)];
+-            System.arraycopy(mBlockEndLines, 0, blockEndLines, 0, mNumberOfBlocks);
+-            mBlockEndLines = blockEndLines;
+-        }
+-        mBlockEndLines[mNumberOfBlocks] = line;
++        mBlockEndLines = GrowingArrayUtils.append(mBlockEndLines, mNumberOfBlocks, line);
+         mNumberOfBlocks++;
+     }
+ }
+

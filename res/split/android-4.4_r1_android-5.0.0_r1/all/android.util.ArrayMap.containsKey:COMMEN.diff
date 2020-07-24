@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.util.ArrayMap.containsKey:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Check whether a key exists in the array.
+ *
+ * @param key The key to search for.
+ * @return Returns true if the key exists, else false.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return key == null ? (indexOfNull() >= 0) : (indexOf(key, key.hashCode()) >= 0);
++    return indexOfKey(key) >= 0;
+ }
+

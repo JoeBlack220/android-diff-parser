@@ -1,0 +1,17 @@
+Find a functionally equivalent code:com.android.internal.widget.LockPatternUtils.isBiometricWeakInstalled:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * @return Whether biometric weak lock is installed and that the front facing camera exists
+ */
+
+@@ -13,17 +13,20 @@
+     if (getDevicePolicyManager().getCameraDisabled(null, getCurrentOrCallingUserId())) {
+         return false;
+     }
+-    return true;
++    // entire function and a lot of other code can be removed.
++    if (DEBUG)
++        Log.d(TAG, "Forcing isBiometricWeakInstalled() to return false to disable it");
++    return false;
+ }
+

@@ -1,0 +1,9 @@
+Find a functionally equivalent code:android.os.BatteryStats.Uid.getSensorStats:COMMENT
+Method Modifier: public      abstract    
+Comment:/**
+ * Returns a mapping containing sensor statistics.
+ *
+ * @return a Map from Integer sensor ids to Uid.Sensor objects.
+ */
+
+

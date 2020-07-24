@@ -1,0 +1,31 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindow.onKeyUpPanel:COMMENT
+Method Modifier: public      final       internal    
+Comment:/**
+ * Called when the panel key is released.
+ * @param featureId The feature ID of the relevant panel (defaults to FEATURE_OPTIONS_PANEL}.
+ * @param event The key event.
+ */
+
+@@ -7,21 +7,19 @@
+         }
+         boolean playSoundEffect = false;
+         final PanelFeatureState st = getPanelState(featureId, true);
+-        if (featureId == FEATURE_OPTIONS_PANEL && mActionBar != null && mActionBar.isOverflowReserved() && !ViewConfiguration.get(getContext()).hasPermanentMenuKey()) {
+-            if (mActionBar.getVisibility() == View.VISIBLE) {
+-                if (!mActionBar.isOverflowMenuShowing()) {
+-                    if (!isDestroyed() && preparePanel(st, event)) {
+-                        playSoundEffect = mActionBar.showOverflowMenu();
+-                    }
+-                } else {
+-                    playSoundEffect = mActionBar.hideOverflowMenu();
++        if (featureId == FEATURE_OPTIONS_PANEL && mDecorContentParent != null && mDecorContentParent.canShowOverflowMenu() && !ViewConfiguration.get(getContext()).hasPermanentMenuKey()) {
++            if (!mDecorContentParent.isOverflowMenuShowing()) {
++                if (!isDestroyed() && preparePanel(st, event)) {
++                    playSoundEffect = mDecorContentParent.showOverflowMenu();
+                 }
++            } else {
++                playSoundEffect = mDecorContentParent.hideOverflowMenu();
+             }
+         } else {
+             if (st.isOpen || st.isHandled) {
+

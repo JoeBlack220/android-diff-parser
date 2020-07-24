@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityEvent.initFromParcel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Creates a new instance from a {@link Parcel}.
+ *
+ * @param parcel A parcel containing the state of a {@link AccessibilityEvent}.
+ */
+
+@@ -10,19 +10,22 @@
+     readAccessibilityRecordFromParcel(this, parcel);
+     // Read the records.
+     final int recordCount = parcel.readInt();
+-    for (int i = 0; i < recordCount; i++) {
+-        AccessibilityRecord record = AccessibilityRecord.obtain();
+-        readAccessibilityRecordFromParcel(record, parcel);
+-        record.mConnectionId = mConnectionId;
+-        mRecords.add(record);
++    if (recordCount > 0) {
++        mRecords = new ArrayList<AccessibilityRecord>(recordCount);
++        for (int i = 0; i < recordCount; i++) {
++            AccessibilityRecord record = AccessibilityRecord.obtain();
++            readAccessibilityRecordFromParcel(record, parcel);
++            record.mConnectionId = mConnectionId;
++            mRecords.add(record);
++        }
+     }
+ }
+

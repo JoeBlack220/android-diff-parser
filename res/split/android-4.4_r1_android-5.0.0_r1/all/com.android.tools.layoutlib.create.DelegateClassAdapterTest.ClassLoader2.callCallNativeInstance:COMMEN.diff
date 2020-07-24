@@ -1,0 +1,17 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.DelegateClassAdapterTest.ClassLoader2.callCallNativeInstance:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Accesses {@link ClassWithNative#callNativeInstance(int, double, Object[])}
+ * via reflection.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    Method m = instance.getClass().getMethod("callNativeInstance", new Class<?>[] { int.class, double.class, Object[].class });
+-    Object result = m.invoke(instance, new Object[] { a, d, o });
+-    return ((Integer) result).intValue();
++    Method m = instance.getClass().getMethod("callNativeInstance", int.class, double.class, Object[].class);
++    Object result = m.invoke(instance, a, d, o);
++    return (Integer) result;
+ }
+

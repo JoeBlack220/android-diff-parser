@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.net.ConnectivityManager.setProvisioningNotificationVisible:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * Set sign in error notification to visible or in visible
+ *
+ * @param visible
+ * @param networkType
+ *
+ * {@hide}
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        mService.setProvisioningNotificationVisible(visible, networkType, extraInfo, url);
++        mService.setProvisioningNotificationVisible(visible, networkType, action);
+     } catch (RemoteException e) {
+     }
+ }
+

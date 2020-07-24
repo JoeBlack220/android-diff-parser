@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.widget.ActivityChooserView.Callbacks.onClick:COMMENT
+Method Modifier: public      
+Comment:// View.OnClickListener
+
+@@ -6,12 +6,12 @@
+         Intent launchIntent = mAdapter.getDataModel().chooseActivity(index);
+         if (launchIntent != null) {
+             launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+-            mContext.startActivity(launchIntent);
++            startActivity(launchIntent, defaultActivity);
+         }
+     } else if (view == mExpandActivityOverflowButton) {
+         mIsSelectingDefaultActivity = false;
+

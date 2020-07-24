@@ -1,0 +1,27 @@
+Find a functionally equivalent code:com.android.internal.widget.LockPatternUtils.setVisiblePatternEnabled:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * Set whether the visible pattern is enabled.
+ */
+
+@@ -1,3 +1,19 @@
+ {
+     setBoolean(Settings.Secure.LOCK_PATTERN_VISIBLE, enabled);
++    // Update for crypto if owner
++    int userId = getCurrentOrCallingUserId();
++    if (userId != UserHandle.USER_OWNER) {
++        return;
++    }
++    IBinder service = ServiceManager.getService("mount");
++    if (service == null) {
++        Log.e(TAG, "Could not find the mount service to update the user info");
++        return;
++    }
++    IMountService mountService = IMountService.Stub.asInterface(service);
++    try {
++        mountService.setField(StorageManager.PATTERN_VISIBLE_KEY, enabled ? "1" : "0");
++    } catch (RemoteException e) {
++        Log.e(TAG, "Error changing pattern visible state", e);
++    }
+ }
+

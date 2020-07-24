@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.widget.FastScroller.measurePreview:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Measures the preview text bounds, taking preview image padding into
+ * account. This method should only be called after {@link #layoutThumb()}
+ * and {@link #layoutTrack()} have both been called at least once.
+ *
+ * @param v The preview text view to measure.
+ * @param out Rectangle into which measured bounds are placed.
+ */
+
+@@ -5,13 +5,13 @@
+     margins.top = mPreviewImage.getPaddingTop();
+     margins.right = mPreviewImage.getPaddingRight();
+     margins.bottom = mPreviewImage.getPaddingBottom();
+-    if (mOverlayPosition == OVERLAY_AT_THUMB) {
+-        measureViewToSide(v, mThumbImage, margins, out);
+-    } else {
++    if (mOverlayPosition == OVERLAY_FLOATING) {
+         measureFloating(v, margins, out);
++    } else {
++        measureViewToSide(v, mThumbImage, margins, out);
+     }
+ }
+

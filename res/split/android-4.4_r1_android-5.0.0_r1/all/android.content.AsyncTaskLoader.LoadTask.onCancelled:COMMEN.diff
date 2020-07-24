@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.content.AsyncTaskLoader.LoadTask.onCancelled:COMMENT
+Method Modifier: protected   
+Comment:/* Runs on the UI thread */
+
+@@ -1,6 +1,6 @@
+ {
+     if (DEBUG)
+-        Slog.v(TAG, this + " onCancelled");
++        Log.v(TAG, this + " onCancelled");
+     try {
+         AsyncTaskLoader.this.dispatchOnCancelled(this, data);
+     } finally {
+

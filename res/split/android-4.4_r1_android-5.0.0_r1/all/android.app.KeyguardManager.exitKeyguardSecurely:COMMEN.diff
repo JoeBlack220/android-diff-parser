@@ -1,0 +1,38 @@
+Find a functionally equivalent code:android.app.KeyguardManager.exitKeyguardSecurely:COMMENT
+Method Modifier: public      deprecated  
+Comment:/**
+ * @deprecated Use {@link android.view.WindowManager.LayoutParams#FLAG_DISMISS_KEYGUARD}
+ * and/or {@link android.view.WindowManager.LayoutParams#FLAG_SHOW_WHEN_LOCKED}
+ * instead; this allows you to seamlessly hide the keyguard as your application
+ * moves in and out of the foreground and does not require that any special
+ * permissions be requested.
+ *
+ * Exit the keyguard securely.  The use case for this api is that, after
+ * disabling the keyguard, your app, which was granted permission to
+ * disable the keyguard and show a limited amount of information deemed
+ * safe without the user getting past the keyguard, needs to navigate to
+ * something that is not safe to view without getting past the keyguard.
+ *
+ * This will, if the keyguard is secure, bring up the unlock screen of
+ * the keyguard.
+ *
+ * <p>This method requires the caller to hold the permission
+ * {@link android.Manifest.permission#DISABLE_KEYGUARD}.
+ *
+ * @param callback Let's you know whether the operation was succesful and
+ * it is safe to launch anything that would normally be considered safe
+ * once the user has gotten past the keyguard.
+ */
+
+@@ -3,9 +3,11 @@
+         mWM.exitKeyguardSecurely(new IOnKeyguardExitResult.Stub() {
+ 
+             public void onKeyguardExitResult(boolean success) throws RemoteException {
+-                callback.onKeyguardExitResult(success);
++                if (callback != null) {
++                    callback.onKeyguardExitResult(success);
++                }
+             }
+         });
+     } catch (RemoteException e) {
+

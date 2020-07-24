@@ -1,0 +1,43 @@
+Find a functionally equivalent code:android.app.ActivityThread.performStopActivityInner:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Core implementation of stopping an activity.  Note this is a little
+ * tricky because the server's meaning of stop is slightly different
+ * than our client -- for the server, stop means to save state and give
+ * it the result when it is done, but the window may still be visible.
+ * For the client, we want to call onStop()/onStart() to indicate when
+ * the activity's UI visibillity changes.
+ */
+
+@@ -1,7 +1,6 @@
+ {
+     if (localLOGV)
+         Slog.v(TAG, "Performing stop of " + r);
+-    Bundle state = null;
+     if (r != null) {
+         if (!keepShown && r.stopped) {
+             if (r.activity.mFinished) {
+@@ -16,23 +15,20 @@
+                 // First create a thumbnail for the activity...
+                 // For now, don't create the thumbnail here; we are
+                 // doing that by doing a screen snapshot.
+-                // createThumbnailBitmap(r);
+-                info.thumbnail = null;
+                 info.description = r.activity.onCreateDescription();
+             } catch (Exception e) {
+                 if (!mInstrumentation.onException(r.activity, e)) {
+@@ -28,39 +25,31 @@
+         // Next have the activity save its current state and managed dialogs...
+         if (!r.activity.mFinished && saveState) {
+             if (r.state == null) {
+-                state = new Bundle();
+-                state.setAllowFds(false);
+-                mInstrumentation.callActivityOnSaveInstanceState(r.activity, state);
+-                r.state = state;
+-            } else {
+-                state = r.state;
++                callCallActivityOnSaveInstanceState(r);
+             }
+         }
+         if (!keepShown) {
+

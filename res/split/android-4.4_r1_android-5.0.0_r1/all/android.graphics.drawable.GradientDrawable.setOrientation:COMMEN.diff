@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.graphics.drawable.GradientDrawable.setOrientation:COMMENT
+Method Modifier: public      
+Comment:/**
+ * <p>Changes the orientation of the gradient defined in this drawable.</p>
+ * <p><strong>Note</strong>: changing orientation will affect all instances
+ * of a drawable loaded from a resource. It is recommended to invoke
+ * {@link #mutate()} before changing the orientation.</p>
+ *
+ * @param orientation The desired orientation (angle) of the gradient
+ *
+ * @see #mutate()
+ */
+
+@@ -1,5 +1,5 @@
+ {
+     mGradientState.mOrientation = orientation;
+-    mRectIsDirty = true;
++    mGradientIsDirty = true;
+     invalidateSelf();
+ }
+

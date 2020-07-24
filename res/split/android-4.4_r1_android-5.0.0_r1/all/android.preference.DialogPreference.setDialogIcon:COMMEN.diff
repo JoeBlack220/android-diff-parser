@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.preference.DialogPreference.setDialogIcon:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the icon (resource ID) of the dialog. This will be shown on
+ * subsequent dialogs.
+ *
+ * @param dialogIconRes The icon, as a resource ID.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    mDialogIcon = getContext().getResources().getDrawable(dialogIconRes);
++    mDialogIcon = getContext().getDrawable(dialogIconRes);
+ }
+

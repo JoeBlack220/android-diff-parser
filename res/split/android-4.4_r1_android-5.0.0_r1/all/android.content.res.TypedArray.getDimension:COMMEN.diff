@@ -1,0 +1,38 @@
+Find a functionally equivalent code:android.content.res.TypedArray.getDimension:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve a dimensional unit attribute at <var>index</var>.  Unit
+ * conversions are based on the current {@link DisplayMetrics}
+ * associated with the resources this {@link TypedArray} object
+ * came from.
+ *
+ * @param index Index of attribute to retrieve.
+ * @param defValue Value to return if the attribute is not defined or
+ * not a resource.
+ *
+ * @return Attribute dimension value multiplied by the appropriate
+ * metric, or defValue if not defined.
+ *
+ * @see #getDimensionPixelOffset
+ * @see #getDimensionPixelSize
+ */
+
+@@ -1,11 +1,16 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     index *= AssetManager.STYLE_NUM_ENTRIES;
+     final int[] data = mData;
+     final int type = data[index + AssetManager.STYLE_TYPE];
+     if (type == TypedValue.TYPE_NULL) {
+         return defValue;
+     } else if (type == TypedValue.TYPE_DIMENSION) {
+-        return TypedValue.complexToDimension(data[index + AssetManager.STYLE_DATA], mResources.mMetrics);
++        return TypedValue.complexToDimension(data[index + AssetManager.STYLE_DATA], mMetrics);
++    } else if (type == TypedValue.TYPE_ATTRIBUTE) {
++        throw new RuntimeException("Failed to resolve attribute at index " + index);
+     }
+     throw new UnsupportedOperationException("Can't convert to dimension: type=0x" + Integer.toHexString(type));
+ }
+

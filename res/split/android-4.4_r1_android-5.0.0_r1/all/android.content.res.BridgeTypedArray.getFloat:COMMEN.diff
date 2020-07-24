@@ -1,0 +1,35 @@
+Find a functionally equivalent code:android.content.res.BridgeTypedArray.getFloat:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the float value for the attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ *
+ * @return Attribute float value, or defValue if not defined..
+ */
+
+@@ -1,18 +1,11 @@
+ {
+-    if (index < 0 || index >= mResourceData.length) {
+-        return defValue;
+-    }
+-    if (mResourceData[index] == null) {
+-        return defValue;
+-    }
+-    String s = mResourceData[index].getValue();
+-    if (s != null) {
+-        try {
++    String s = getString(index);
++    try {
++        if (s != null) {
+             return Float.parseFloat(s);
+-        } catch (NumberFormatException e) {
+-            Bridge.getLog().warning(LayoutLog.TAG_RESOURCES_FORMAT, String.format("\"%s\" in attribute \"%2$s\" cannot be converted to float.", s, mNames[index]), null);
+-        // we'll return the default value below.
+         }
++    } catch (NumberFormatException e) {
++        Bridge.getLog().warning(LayoutLog.TAG_RESOURCES_FORMAT, String.format("\"%1$s\" in attribute \"%2$s\" cannot be converted to float.", s, mNames[index]), null);
+     }
+     return defValue;
+ }
+

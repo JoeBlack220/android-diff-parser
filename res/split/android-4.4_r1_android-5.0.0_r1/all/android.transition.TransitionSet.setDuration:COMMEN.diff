@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.transition.TransitionSet.setDuration:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Setting a non-negative duration on a TransitionSet causes all of the child
+ * transitions (current and future) to inherit this duration.
+ *
+ * @param duration The length of the animation, in milliseconds.
+ * @return This transitionSet object.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     super.setDuration(duration);
+-    if (mDuration >= 0) {
++    if (mDuration >= 0 && mTransitions != null) {
+         int numTransitions = mTransitions.size();
+         for (int i = 0; i < numTransitions; ++i) {
+             mTransitions.get(i).setDuration(duration);
+

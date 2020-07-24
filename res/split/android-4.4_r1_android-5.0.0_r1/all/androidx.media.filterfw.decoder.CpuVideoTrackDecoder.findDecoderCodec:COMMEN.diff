@@ -1,0 +1,32 @@
+Find a functionally equivalent code:androidx.media.filterfw.decoder.CpuVideoTrackDecoder.findDecoderCodec:COMMENT
+Method Modifier: private     static      
+Comment:/**
+ * Looks for a codec with the specified requirements.
+ *
+ * The set of codecs will be filtered down to those that meet the following requirements:
+ * <ol>
+ * <li>The codec is a decoder.</li>
+ * <li>The codec can decode a video of the specified format.</li>
+ * <li>The codec can decode to one of the specified color formats.</li>
+ * </ol>
+ * If multiple codecs are found, the one with the preferred color-format is taken. Color format
+ * preference is determined by the order of their appearance in the color format array.
+ *
+ * @param format The format the codec must decode.
+ * @param requiredColorFormats Array of target color spaces ordered by preference.
+ * @return A codec that meets the requirements, or null if no such codec was found.
+ */
+
+@@ -28,33 +28,37 @@
+         return null;
+     } else {
+         String bestCodec = candidateCodecs.firstEntry().getValue();
+-        return MediaCodec.createByCodecName(bestCodec);
++        try {
++            return MediaCodec.createByCodecName(bestCodec);
++        } catch (IOException e) {
++            throw new RuntimeException("failed to create codec for " + bestCodec, e);
++        }
+     }
+ }
+

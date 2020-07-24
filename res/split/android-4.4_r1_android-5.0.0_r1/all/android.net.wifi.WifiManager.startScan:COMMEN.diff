@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.net.wifi.WifiManager.startScan:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Request a scan for access points. Returns immediately. The availability
+ * of the results is made known later by means of an asynchronous event sent
+ * on completion of the scan.
+ * @return {@code true} if the operation succeeded, i.e., the scan was initiated
+ */
+
+@@ -1,7 +1,6 @@
+ {
+     try {
+-        final WorkSource workSource = null;
+-        mService.startScan(workSource);
++        mService.startScan(null, null);
+         return true;
+     } catch (RemoteException e) {
+         return false;
+

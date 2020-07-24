@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.provider.Browser.deleteHistoryWhere:COMMENT
+Method Modifier: private     static      final       
+Comment:/**
+ * Helper function to delete all history items and release the icons for them in the
+ * {@link WebIconDatabase}.
+ *
+ * Requires {@link android.Manifest.permission#READ_HISTORY_BOOKMARKS}
+ * Requires {@link android.Manifest.permission#WRITE_HISTORY_BOOKMARKS}
+ *
+ * @param cr   The ContentResolver used to access the database.
+ * @param whereClause   String to limit the items affected.
+ * null means all items.
+ */
+
+@@ -3,14 +3,8 @@
+     try {
+         cursor = cr.query(History.CONTENT_URI, new String[] { History.URL }, whereClause, null, null);
+         if (cursor.moveToFirst()) {
+-            final WebIconDatabase iconDb = WebIconDatabase.getInstance();
+-            do {
+-                // Delete favicons
+-                // TODO don't release if the URL is bookmarked
+-                iconDb.releaseIconForPageUrl(cursor.getString(0));
+-            } while (cursor.moveToNext());
+             cr.delete(History.CONTENT_URI, whereClause, null);
+         }
+     } catch (IllegalStateException e) {
+

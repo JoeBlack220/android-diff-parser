@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.nfc.cardemulation.CardEmulation.getInstance:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Helper to get an instance of this class.
+ *
+ * @param adapter A reference to an NfcAdapter object.
+ * @return
+ */
+
+@@ -27,32 +27,36 @@
+     if (manager == null) {
+         // Get card emu service
+         INfcCardEmulation service = adapter.getCardEmulationService();
++        if (service == null) {
++            Log.e(TAG, "This device does not implement the INfcCardEmulation interface.");
++            throw new UnsupportedOperationException();
++        }
+         manager = new CardEmulation(context, service);
+         sCardEmus.put(context, manager);
+     }
+

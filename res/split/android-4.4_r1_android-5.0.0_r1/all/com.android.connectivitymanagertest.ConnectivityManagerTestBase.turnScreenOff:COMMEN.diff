@@ -1,0 +1,15 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.ConnectivityManagerTestBase.turnScreenOff:COMMENT
+<com.android.connectivitymanagertest.ConnectivityManagerTestBase: void turnScreenOff()>
+Method Modifier: public      protected   
+Method Modifier: Yes         No          
+Method Updated:  No          Yes         
+Comment:// Turn screen off
+
+@@ -1,5 +1,5 @@
+ {
+-    log("Turn screen off");
++    logv("Turn screen off");
+     PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+     pm.goToSleep(SystemClock.uptimeMillis());
+ }
+

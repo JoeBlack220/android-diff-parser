@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.media.MediaPlayer.getTrackInfo:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns an array of track information.
+ *
+ * @return Array of track info. The total number of tracks is the array length.
+ * Must be called again if an external timed text source has been added after any of the
+ * addTimedTextSource methods are called.
+ * @throws IllegalStateException if it is called in an invalid state.
+ */
+
+@@ -5,11 +5,12 @@
+     System.arraycopy(trackInfo, 0, allTrackInfo, 0, trackInfo.length);
+     int i = trackInfo.length;
+     for (SubtitleTrack track : mOutOfBandSubtitleTracks) {
+-        allTrackInfo[i] = new TrackInfo(TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE, track.getFormat());
++        int type = track.isTimedText() ? TrackInfo.MEDIA_TRACK_TYPE_TIMEDTEXT : TrackInfo.MEDIA_TRACK_TYPE_SUBTITLE;
++        allTrackInfo[i] = new TrackInfo(type, track.getFormat());
+         ++i;
+     }
+     return allTrackInfo;
+

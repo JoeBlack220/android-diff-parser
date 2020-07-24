@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.app.Activity.dispatchKeyEvent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Called to process key events.  You can override this to intercept all
+ * key events before they are dispatched to the window.  Be sure to call
+ * this implementation for key events that should be handled normally.
+ *
+ * @param event The key event.
+ *
+ * @return boolean Return true if this event was consumed.
+ */
+
+@@ -1,5 +1,9 @@
+ {
+     onUserInteraction();
++    // the window handling it
++    if (event.getKeyCode() == KeyEvent.KEYCODE_MENU && mActionBar != null && mActionBar.onMenuKeyEvent(event)) {
++        return true;
++    }
+     Window win = getWindow();
+     if (win.superDispatchKeyEvent(event)) {
+         return true;
+

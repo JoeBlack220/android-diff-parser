@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.webkit.WebSyncManager.resetSync:COMMENT
+Method Modifier: public      
+Comment:/**
+ * resetSync() resets sync manager's timer
+ */
+
+@@ -1,11 +1,2 @@
+ {
+-    if (DebugFlags.WEB_SYNC_MANAGER) {
+-        Log.v(LOGTAG, "*** WebSyncManager resetSync ***");
+-    }
+-    if (mHandler == null) {
+-        return;
+-    }
+-    mHandler.removeMessages(SYNC_MESSAGE);
+-    Message msg = mHandler.obtainMessage(SYNC_MESSAGE);
+-    mHandler.sendMessageDelayed(msg, SYNC_LATER_INTERVAL);
+ }
+

@@ -1,0 +1,42 @@
+Find a functionally equivalent code:com.android.tools.layoutlib.create.AsmAnalyzer.findGlobs:COMMENT
+Method Modifier: 
+Comment:/**
+ * Insert in the inOutFound map all classes found in zipClasses that match the
+ * given glob pattern.
+ * <p/>
+ * The glob pattern is not a regexp. It only accepts the "*" keyword to mean
+ * "anything but a period". The "." and "$" characters match themselves.
+ * The "**" keyword means everything including ".".
+ * <p/>
+ * Examples:
+ * <ul>
+ * <li>com.foo.* matches all classes in the package com.foo but NOT sub-packages.
+ * <li>com.foo*.*$Event matches all internal Event classes in a com.foo*.* class.
+ * </ul>
+ */
+
+@@ -1,21 +1,8 @@
+ {
+-    // transforms the glob pattern in a regexp:
+-    // - escape "." with "\."
+-    // - replace "*" by "[^.]*"
+-    // - escape "$" with "\$"
+-    // - add end-of-line match $
+-    globPattern = globPattern.replaceAll("\\$", "\\\\\\$");
+-    globPattern = globPattern.replaceAll("\\.", "\\\\.");
+-    // prevent ** from being altered by the next rule, then process the * rule and finally
+-    // the real ** rule (which is now @)
+-    globPattern = globPattern.replaceAll("\\*\\*", "@");
+-    globPattern = globPattern.replaceAll("\\*", "[^.]*");
+-    globPattern = globPattern.replaceAll("@", ".*");
+-    globPattern += "$";
+-    Pattern regexp = Pattern.compile(globPattern);
++    Pattern regexp = getPatternFromGlob(globPattern);
+     for (Entry<String, ClassReader> entry : zipClasses.entrySet()) {
+         String class_name = entry.getKey();
+-        if (regexp.matcher(class_name).matches()) {
++        if (regexp.matcher(class_name).matches() && !mExcludedClasses.contains(getOuterClassName(class_name))) {
+             findClass(class_name, zipClasses, inOutFound);
+         }
+     }
+

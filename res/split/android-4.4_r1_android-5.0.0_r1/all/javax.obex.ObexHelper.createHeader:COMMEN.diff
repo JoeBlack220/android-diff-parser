@@ -1,0 +1,27 @@
+Find a functionally equivalent code:javax.obex.ObexHelper.createHeader:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Creates the header part of OBEX packet based on the header provided.
+ * TODO: Could use getHeaderList() to get the array of headers to include
+ * and then use the high two bits to determine the the type of the object
+ * and construct the byte array from that. This will make the size smaller.
+ * @param head the header used to construct the byte array
+ * @param nullOut <code>true</code> if the header should be set to
+ * <code>null</code> once it is added to the array or
+ * <code>false</code> if it should not be nulled out
+ * @return the header of an OBEX packet
+ */
+
+@@ -43,48 +43,53 @@
+             if (nullOut) {
+                 headImpl.setHeader(HeaderSet.NAME, null);
+             }
++        } else if (headImpl.getEmptyNameHeader()) {
++            out.write((byte) HeaderSet.NAME);
++            lengthArray[0] = (byte) 0x00;
++            lengthArray[1] = (byte) 0x03;
++            out.write(lengthArray);
+         }
+         // Type Header
+         stringHeader = (String) headImpl.getHeader(HeaderSet.TYPE);
+

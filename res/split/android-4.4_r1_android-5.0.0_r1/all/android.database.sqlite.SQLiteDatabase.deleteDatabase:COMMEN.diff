@@ -1,0 +1,33 @@
+Find a functionally equivalent code:android.database.sqlite.SQLiteDatabase.deleteDatabase:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Deletes a database including its journal file and other auxiliary files
+ * that may have been created by the database engine.
+ *
+ * @param file The database file path.
+ * @return True if the database was successfully deleted.
+ */
+
+@@ -10,24 +10,26 @@
+     File dir = file.getParentFile();
+     if (dir != null) {
+         final String prefix = file.getName() + "-mj";
+-        final FileFilter filter = new FileFilter() {
++        File[] files = dir.listFiles(new FileFilter() {
+ 
+             @Override
+             public boolean accept(File candidate) {
+                 return candidate.getName().startsWith(prefix);
+             }
+-        };
+-        for (File masterJournal : dir.listFiles(filter)) {
+-            deleted |= masterJournal.delete();
++        });
++        if (files != null) {
++            for (File masterJournal : files) {
++                deleted |= masterJournal.delete();
++            }
+         }
+     }
+     return deleted;
+

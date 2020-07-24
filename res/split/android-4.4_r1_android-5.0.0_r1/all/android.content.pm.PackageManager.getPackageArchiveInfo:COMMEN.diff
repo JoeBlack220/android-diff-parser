@@ -1,0 +1,60 @@
+Find a functionally equivalent code:android.content.pm.PackageManager.getPackageArchiveInfo:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve overall information about an application package defined
+ * in a package archive file
+ *
+ * @param archiveFilePath The path to the archive file
+ * @param flags Additional option flags. Use any combination of
+ * {@link #GET_ACTIVITIES},
+ * {@link #GET_GIDS},
+ * {@link #GET_CONFIGURATIONS},
+ * {@link #GET_INSTRUMENTATION},
+ * {@link #GET_PERMISSIONS},
+ * {@link #GET_PROVIDERS},
+ * {@link #GET_RECEIVERS},
+ * {@link #GET_SERVICES},
+ * {@link #GET_SIGNATURES}, to modify the data returned.
+ *
+ * @return Returns the information about the package. Returns
+ * null if the package could not be successfully parsed.
+ *
+ * @see #GET_ACTIVITIES
+ * @see #GET_GIDS
+ * @see #GET_CONFIGURATIONS
+ * @see #GET_INSTRUMENTATION
+ * @see #GET_PERMISSIONS
+ * @see #GET_PROVIDERS
+ * @see #GET_RECEIVERS
+ * @see #GET_SERVICES
+ * @see #GET_SIGNATURES
+ */
+
+@@ -1,15 +1,15 @@
+ {
+-    PackageParser packageParser = new PackageParser(archiveFilePath);
+-    DisplayMetrics metrics = new DisplayMetrics();
+-    metrics.setToDefaults();
+-    final File sourceFile = new File(archiveFilePath);
+-    PackageParser.Package pkg = packageParser.parsePackage(sourceFile, archiveFilePath, metrics, 0);
+-    if (pkg == null) {
++    final PackageParser parser = new PackageParser();
++    final File apkFile = new File(archiveFilePath);
++    try {
++        PackageParser.Package pkg = parser.parseMonolithicPackage(apkFile, 0);
++        if ((flags & GET_SIGNATURES) != 0) {
++            parser.collectCertificates(pkg, 0);
++            parser.collectManifestDigest(pkg);
++        }
++        PackageUserState state = new PackageUserState();
++        return PackageParser.generatePackageInfo(pkg, null, flags, 0, 0, null, state);
++    } catch (PackageParserException e) {
+         return null;
+     }
+-    if ((flags & GET_SIGNATURES) != 0) {
+-        packageParser.collectCertificates(pkg, 0);
+-    }
+-    PackageUserState state = new PackageUserState();
+-    return PackageParser.generatePackageInfo(pkg, null, flags, 0, 0, null, state);
+ }
+

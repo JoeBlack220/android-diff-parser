@@ -1,0 +1,49 @@
+Find a functionally equivalent code:com.android.frameworks.downloadmanagertests.DownloadManagerTestApp.runDownloadMultipleWiFiEnableDisable:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Tests that downloads resume when switching on/off WiFi at various intervals.
+ *
+ * Note: Device has no mobile access when running this test.
+ *
+ * @throws Exception if unsuccessful
+ */
+
+@@ -1,6 +1,6 @@
+ {
+-    String filename = DOWNLOAD_5MB_FILENAME;
+-    long filesize = DOWNLOAD_5MB_FILESIZE;
++    String filename = DOWNLOAD_FILENAME;
++    long filesize = DOWNLOAD_FILESIZE;
+     doCommonDownloadSetup();
+     String localDownloadDirectory = Environment.getExternalStorageDirectory().getPath();
+     File downloadedFile = new File(localDownloadDirectory, filename);
+@@ -19,25 +19,25 @@
+         dlRequest = mDownloadManager.enqueue(request);
+         waitForDownloadToStart(dlRequest);
+         // are we making any progress?
+-        waitForFileToGrow(downloadedFile);
++        waitToReceiveData(dlRequest, EXPECTED_PROGRESS);
+         // download disable
+         Log.i(LOG_TAG, "Turning off WiFi...");
+         setWiFiStateOn(false);
+@@ -28,34 +28,34 @@
+         // enable download...
+         Log.i(LOG_TAG, "Turning on WiFi again...");
+         setWiFiStateOn(true);
+-        waitForFileToGrow(downloadedFile);
++        waitToReceiveData(dlRequest, EXPECTED_PROGRESS);
+         // download disable
+         Log.i(LOG_TAG, "Turning off WiFi...");
+         setWiFiStateOn(false);
+@@ -37,44 +37,44 @@
+         // enable download...
+         Log.i(LOG_TAG, "Turning on WiFi again...");
+         setWiFiStateOn(true);
+-        Log.i(LOG_TAG, "Waiting up to 3 minutes for download to complete...");
+-        waitForDownloadsOrTimeout(dlRequest, 3 * 60 * 1000);
++        Log.i(LOG_TAG, "Waiting up to 10 minutes for download to complete...");
++        assertTrue("download not finished", waitForDownload(dlRequest, 10 * 60 * 1000));
+         ParcelFileDescriptor pfd = mDownloadManager.openDownloadedFile(dlRequest);
+         verifyFileSize(pfd, filesize);
+     } finally {
+

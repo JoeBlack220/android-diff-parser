@@ -1,0 +1,42 @@
+Find a functionally equivalent code:android.bluetooth.BluetoothGatt.readCharacteristic:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Reads the requested characteristic from the associated remote device.
+ *
+ * <p>This is an asynchronous operation. The result of the read operation
+ * is reported by the {@link BluetoothGattCallback#onCharacteristicRead}
+ * callback.
+ *
+ * <p>Requires {@link android.Manifest.permission#BLUETOOTH} permission.
+ *
+ * @param characteristic Characteristic to read from the remote device
+ * @return true, if the read operation was initiated successfully
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     if ((characteristic.getProperties() & BluetoothGattCharacteristic.PROPERTY_READ) == 0)
+         return false;
+-    if (DBG)
++    if (VDBG)
+         Log.d(TAG, "readCharacteristic() - uuid: " + characteristic.getUuid());
+     if (mService == null || mClientIf == 0)
+         return false;
+@@ -11,20 +11,26 @@
+     BluetoothDevice device = service.getDevice();
+     if (device == null)
+         return false;
++    synchronized (mDeviceBusy) {
++        if (mDeviceBusy)
++            return false;
++        mDeviceBusy = true;
++    }
+     try {
+         mService.readCharacteristic(mClientIf, device.getAddress(), service.getType(), service.getInstanceId(), new ParcelUuid(service.getUuid()), characteristic.getInstanceId(), new ParcelUuid(characteristic.getUuid()), AUTHENTICATION_NONE);
+     } catch (RemoteException e) {
+         Log.e(TAG, "", e);
++        mDeviceBusy = false;
+         return false;
+     }
+     return true;
+

@@ -1,0 +1,10 @@
+Find a functionally equivalent code:android.view.SurfaceControl.PhysicalDisplayInfo.toString:COMMENT
+Method Modifier: public      
+Comment:// For debugging purposes
+
+@@ -1,3 +1,3 @@
+ {
+-    return "PhysicalDisplayInfo{" + width + " x " + height + ", " + refreshRate + " fps, " + "density " + density + ", " + xDpi + " x " + yDpi + " dpi, secure " + secure + "}";
++    return "PhysicalDisplayInfo{" + width + " x " + height + ", " + refreshRate + " fps, " + "density " + density + ", " + xDpi + " x " + yDpi + " dpi, secure " + secure + ", appVsyncOffset " + appVsyncOffsetNanos + ", bufferDeadline " + presentationDeadlineNanos + "}";
+ }
+

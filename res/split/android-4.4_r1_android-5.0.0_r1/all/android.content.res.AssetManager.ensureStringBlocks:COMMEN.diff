@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.content.res.AssetManager.ensureStringBlocks:COMMENT
+Method Modifier: default     final       
+Comment:/*package*/
+
+@@ -2,8 +2,8 @@
+     if (mStringBlocks == null) {
+         synchronized (this) {
+             if (mStringBlocks == null) {
+-                makeStringBlocks(true);
++                makeStringBlocks(sSystem.mStringBlocks);
+             }
+         }
+     }
+

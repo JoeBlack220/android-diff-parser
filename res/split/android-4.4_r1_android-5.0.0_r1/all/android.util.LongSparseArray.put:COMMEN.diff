@@ -1,0 +1,35 @@
+Find a functionally equivalent code:android.util.LongSparseArray.put:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Adds a mapping from the specified key to the specified value,
+ * replacing the previous mapping from the specified key if there
+ * was one.
+ */
+
+@@ -14,36 +14,21 @@
+             // Search again because indices may have changed.
+             i = ~ContainerHelpers.binarySearch(mKeys, mSize, key);
+         }
+-        if (mSize >= mKeys.length) {
+-            int n = ArrayUtils.idealLongArraySize(mSize + 1);
+-            long[] nkeys = new long[n];
+-            Object[] nvalues = new Object[n];
+-            // Log.e("SparseArray", "grow " + mKeys.length + " to " + n);
+-            System.arraycopy(mKeys, 0, nkeys, 0, mKeys.length);
+-            System.arraycopy(mValues, 0, nvalues, 0, mValues.length);
+-            mKeys = nkeys;
+-            mValues = nvalues;
+-        }
+-        if (mSize - i != 0) {
+-            // Log.e("SparseArray", "move " + (mSize - i));
+-            System.arraycopy(mKeys, i, mKeys, i + 1, mSize - i);
+-            System.arraycopy(mValues, i, mValues, i + 1, mSize - i);
+-        }
+-        mKeys[i] = key;
+-        mValues[i] = value;
++        mKeys = GrowingArrayUtils.insert(mKeys, mSize, i, key);
++        mValues = GrowingArrayUtils.insert(mValues, mSize, i, value);
+         mSize++;
+     }
+ }
+

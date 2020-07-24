@@ -1,0 +1,113 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.applyPostLayoutPolicyLw:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,50 +1,79 @@
+ {
+     if (DEBUG_LAYOUT)
+         Slog.i(TAG, "Win " + win + ": isVisibleOrBehindKeyguardLw=" + win.isVisibleOrBehindKeyguardLw());
+-    if (mTopFullscreenOpaqueWindowState == null && (win.getAttrs().privateFlags & WindowManager.LayoutParams.PRIVATE_FLAG_FORCE_SHOW_NAV_BAR) != 0 || (win.isVisibleLw() && attrs.type == TYPE_INPUT_METHOD)) {
+-        if (mForcingShowNavBarLayer < 0) {
+-            mForcingShowNavBar = true;
+-            mForcingShowNavBarLayer = win.getSurfaceLayer();
+-        }
++    final int fl = PolicyControl.getWindowFlags(win, attrs);
++    if (mTopFullscreenOpaqueWindowState == null && win.isVisibleLw() && attrs.type == TYPE_INPUT_METHOD) {
++        mForcingShowNavBar = true;
++        mForcingShowNavBarLayer = win.getSurfaceLayer();
++    }
++    if (attrs.type == TYPE_STATUS_BAR && (attrs.privateFlags & PRIVATE_FLAG_KEYGUARD) != 0) {
++        mForceStatusBarFromKeyguard = true;
+     }
+     if (mTopFullscreenOpaqueWindowState == null && win.isVisibleOrBehindKeyguardLw() && !win.isGoneForLayoutLw()) {
+-        if ((attrs.flags & FLAG_FORCE_NOT_FULLSCREEN) != 0) {
+-            if (attrs.type == TYPE_KEYGUARD) {
++        if ((fl & FLAG_FORCE_NOT_FULLSCREEN) != 0) {
++            if ((attrs.privateFlags & PRIVATE_FLAG_KEYGUARD) != 0) {
+                 mForceStatusBarFromKeyguard = true;
+             } else {
+                 mForceStatusBar = true;
+             }
+         }
+-        if (attrs.type == TYPE_KEYGUARD) {
++        if ((attrs.privateFlags & PRIVATE_FLAG_KEYGUARD) != 0) {
+             mShowingLockscreen = true;
+         }
+-        boolean applyWindow = attrs.type >= FIRST_APPLICATION_WINDOW && attrs.type <= LAST_APPLICATION_WINDOW;
++        boolean appWindow = attrs.type >= FIRST_APPLICATION_WINDOW && attrs.type < FIRST_SYSTEM_WINDOW;
+         if (attrs.type == TYPE_DREAM) {
+             // for the dream to draw before hiding the lockscreen.
+             if (!mDreamingLockscreen || (win.isVisibleLw() && win.hasDrawnLw())) {
+                 mShowingDream = true;
+-                applyWindow = true;
++                appWindow = true;
+             }
+         }
+-        if (applyWindow && attrs.x == 0 && attrs.y == 0 && attrs.width == WindowManager.LayoutParams.MATCH_PARENT && attrs.height == WindowManager.LayoutParams.MATCH_PARENT) {
+-            if (DEBUG_LAYOUT)
+-                Slog.v(TAG, "Fullscreen window: " + win);
+-            mTopFullscreenOpaqueWindowState = win;
+-            if ((attrs.flags & FLAG_SHOW_WHEN_LOCKED) != 0) {
+-                if (DEBUG_LAYOUT)
+-                    Slog.v(TAG, "Setting mHideLockScreen to true by win " + win);
+-                mHideLockScreen = true;
+-                mForceStatusBarFromKeyguard = false;
++        final boolean showWhenLocked = (fl & FLAG_SHOW_WHEN_LOCKED) != 0;
++        final boolean dismissKeyguard = (fl & FLAG_DISMISS_KEYGUARD) != 0;
++        final boolean secureKeyguard = isKeyguardSecure();
++        if (appWindow) {
++            final IApplicationToken appToken = win.getAppToken();
++            if (showWhenLocked) {
++                // Remove any previous windows with the same appToken.
++                mAppsToBeHidden.remove(appToken);
++                mAppsThatDismissKeyguard.remove(appToken);
++                if (mAppsToBeHidden.isEmpty() && isKeyguardSecureIncludingHidden()) {
++                    mWinShowWhenLocked = win;
++                    mHideLockScreen = true;
++                    mForceStatusBarFromKeyguard = false;
++                }
++            } else if (dismissKeyguard) {
++                if (secureKeyguard) {
++                    mAppsToBeHidden.add(appToken);
++                } else {
++                    mAppsToBeHidden.remove(appToken);
++                }
++                mAppsThatDismissKeyguard.add(appToken);
++            } else {
++                mAppsToBeHidden.add(appToken);
+             }
+-            if ((attrs.flags & FLAG_DISMISS_KEYGUARD) != 0 && mDismissKeyguard == DISMISS_KEYGUARD_NONE) {
++            if (attrs.x == 0 && attrs.y == 0 && attrs.width == WindowManager.LayoutParams.MATCH_PARENT && attrs.height == WindowManager.LayoutParams.MATCH_PARENT) {
+                 if (DEBUG_LAYOUT)
+-                    Slog.v(TAG, "Setting mDismissKeyguard true by win " + win);
+-                mDismissKeyguard = mWinDismissingKeyguard == win ? DISMISS_KEYGUARD_CONTINUE : DISMISS_KEYGUARD_START;
+-                mWinDismissingKeyguard = win;
+-                mForceStatusBarFromKeyguard = mShowingLockscreen && isKeyguardSecure();
++                    Slog.v(TAG, "Fullscreen window: " + win);
++                mTopFullscreenOpaqueWindowState = win;
++                if (!mAppsThatDismissKeyguard.isEmpty() && mDismissKeyguard == DISMISS_KEYGUARD_NONE) {
++                    if (DEBUG_LAYOUT)
++                        Slog.v(TAG, "Setting mDismissKeyguard true by win " + win);
++                    mDismissKeyguard = mWinDismissingKeyguard == win ? DISMISS_KEYGUARD_CONTINUE : DISMISS_KEYGUARD_START;
++                    mWinDismissingKeyguard = win;
++                    mForceStatusBarFromKeyguard = mShowingLockscreen && secureKeyguard;
++                } else if (mAppsToBeHidden.isEmpty() && showWhenLocked) {
++                    if (DEBUG_LAYOUT)
++                        Slog.v(TAG, "Setting mHideLockScreen to true by win " + win);
++                    mHideLockScreen = true;
++                    mForceStatusBarFromKeyguard = false;
++                }
++                if ((fl & FLAG_ALLOW_LOCK_WHILE_SCREEN_ON) != 0) {
++                    mAllowLockscreenWhenOn = true;
++                }
+             }
+-            if ((attrs.flags & FLAG_ALLOW_LOCK_WHILE_SCREEN_ON) != 0) {
+-                mAllowLockscreenWhenOn = true;
++            if (mWinShowWhenLocked != null && mWinShowWhenLocked.getAppToken() != win.getAppToken()) {
++                win.hideLw(false);
+             }
+         }
+     }
+

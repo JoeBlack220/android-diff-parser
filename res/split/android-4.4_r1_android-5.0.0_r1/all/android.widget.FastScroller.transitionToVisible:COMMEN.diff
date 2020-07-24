@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.widget.FastScroller.transitionToVisible:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Shows the thumb and track.
+ */
+
+@@ -8,11 +8,12 @@
+     mDecorAnimation = new AnimatorSet();
+     mDecorAnimation.playTogether(fadeIn, fadeOut, slideIn);
+     mDecorAnimation.start();
++    mShowingPreview = false;
+ }
+

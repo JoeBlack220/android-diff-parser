@@ -1,0 +1,99 @@
+Find a functionally equivalent code:com.android.connectivitymanagertest.stress.WifiStressTest.testWifiScanning:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Stress Wifi Scanning
+ * TODO: test the scanning quality for each frequency band
+ */
+
+@@ -1,58 +1,48 @@
+ {
+-    int scanTimeSum = 0;
+-    int i;
++    long scanTimeSum = 0, i, averageScanTime = -1;
+     // count times of given ssid appear in scan results.
+     int ssidAppearInScanResultsCount = 0;
+-    for (i = 0; i < mScanIterations; i++) {
+-        log("testWifiScanning: iteration: " + i);
+-        int averageScanTime = 0;
+-        if (i > 0) {
+-            averageScanTime = scanTimeSum / i;
+-        }
++    for (i = 1; i <= mScanIterations; i++) {
++        logv("testWifiScanning: iteration: " + i);
++        averageScanTime = scanTimeSum / i;
+         writeOutput(String.format("iteration %d out of %d", i, mScanIterations));
+         writeOutput(String.format("average scanning time is %d", averageScanTime));
+         writeOutput(String.format("ssid appear %d out of %d scan iterations", ssidAppearInScanResultsCount, i));
+-        long startTime = System.currentTimeMillis();
+-        scanResultAvailable = false;
+-        assertTrue("start scan failed", mWifiManager.startScan());
+-        while (true) {
+-            if ((System.currentTimeMillis() - startTime) > WIFI_SCAN_TIMEOUT) {
+-                fail("Wifi scanning takes more than " + WIFI_SCAN_TIMEOUT + " ms");
+-            }
+-            synchronized (this) {
+-                try {
+-                    wait(WAIT_FOR_SCAN_RESULT);
+-                } catch (InterruptedException e) {
+-                    e.printStackTrace();
+-                }
+-                if (scanResultAvailable) {
+-                    long scanTime = (System.currentTimeMillis() - startTime);
+-                    scanTimeSum += scanTime;
+-                    break;
+-                }
++        List<ScanResult> scanResultLocal = null;
++        // wait for a scan result
++        long start = 0;
++        synchronized (mWifiScanResultLock) {
++            start = SystemClock.uptimeMillis();
++            assertTrue("start scan failed", mWifiManager.startScan());
++            try {
++                mWifiScanResultLock.wait(WAIT_FOR_SCAN_RESULT);
++            } catch (InterruptedException e) {
++            // ignore
+             }
++            scanTimeSum += SystemClock.uptimeMillis() - start;
++            // save the scan result while in lock
++            scanResultLocal = mLastScanResult;
+         }
+-        if ((mWifiManager.getScanResults() == null) || (mWifiManager.getScanResults().size() <= 0)) {
++        if (scanResultLocal == null || scanResultLocal.isEmpty()) {
+             fail("Scan results are empty ");
+         }
+-        List<ScanResult> netList = mWifiManager.getScanResults();
+-        if (netList != null) {
+-            log("size of scan result list: " + netList.size());
+-            for (int s = 0; s < netList.size(); s++) {
+-                ScanResult sr = netList.get(s);
+-                log(String.format("scan result for %s is: %s", sr.SSID, sr.toString()));
+-                log(String.format("signal level for %s is %d ", sr.SSID, sr.level));
+-                if (sr.SSID.equals(mSsid)) {
+-                    ssidAppearInScanResultsCount += 1;
+-                    log("Number of times " + mSsid + " appear in the scan list: " + ssidAppearInScanResultsCount);
+-                    break;
+-                }
++        logv("size of scan result list: " + scanResultLocal.size());
++        for (ScanResult sr : scanResultLocal) {
++            logv(String.format("scan result: " + sr.toString()));
++            if (mSsid.equals(sr.SSID)) {
++                ssidAppearInScanResultsCount += 1;
++                break;
+             }
+         }
+     }
+-    if (i == mScanIterations) {
++    Bundle result = new Bundle();
++    result.putLong("actual-iterations", i - 1);
++    result.putLong("avg-scan-time", averageScanTime);
++    result.putInt("ap-discovered", ssidAppearInScanResultsCount);
++    getInstrumentation().sendStatus(Activity.RESULT_FIRST_USER, result);
++    if (i == mScanIterations + 1) {
+         writeOutput(String.format("iteration %d out of %d", i, mScanIterations));
+-        writeOutput(String.format("average scanning time is %d", scanTimeSum / mScanIterations));
+-        writeOutput(String.format("ssid appear %d out of %d scan iterations", ssidAppearInScanResultsCount, mScanIterations));
++        writeOutput(String.format("average scanning time is %d", scanTimeSum / (i - 1)));
++        writeOutput(String.format("ssid appear %d out of %d scan iterations", ssidAppearInScanResultsCount, i));
+     }
+ }
+

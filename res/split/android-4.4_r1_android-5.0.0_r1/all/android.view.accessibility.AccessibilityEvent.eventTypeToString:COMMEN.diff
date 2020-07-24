@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityEvent.eventTypeToString:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Returns the string representation of an event type. For example,
+ * {@link #TYPE_VIEW_CLICKED} is represented by the string TYPE_VIEW_CLICKED.
+ *
+ * @param eventType The event type
+ * @return The string representation.
+ */
+
+@@ -206,211 +206,220 @@
+                     eventTypeCount++;
+                 }
+                 break;
++            case TYPE_WINDOWS_CHANGED:
++                {
++                    if (eventTypeCount > 0) {
++                        builder.append(", ");
++                    }
++                    builder.append("TYPE_WINDOWS_CHANGED");
++                    eventTypeCount++;
++                }
++                break;
+         }
+     }
+     if (eventTypeCount > 1) {
+

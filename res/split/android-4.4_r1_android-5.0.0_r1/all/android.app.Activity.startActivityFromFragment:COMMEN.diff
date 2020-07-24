@@ -1,0 +1,32 @@
+Find a functionally equivalent code:android.app.Activity.startActivityFromFragment:COMMENT
+Method Modifier: public      
+Comment:/**
+ * This is called when a Fragment in this activity calls its
+ * {@link Fragment#startActivity} or {@link Fragment#startActivityForResult}
+ * method.
+ *
+ * <p>This method throws {@link android.content.ActivityNotFoundException}
+ * if there was no Activity found to run the given Intent.
+ *
+ * @param fragment The fragment making the call.
+ * @param intent The intent to start.
+ * @param requestCode Reply request code.  < 0 if reply is not requested.
+ * @param options Additional options for how the Activity should be started.
+ * See {@link android.content.Context#startActivity(Intent, Bundle)
+ * Context.startActivity(Intent, Bundle)} for more details.
+ *
+ * @throws android.content.ActivityNotFoundException
+ *
+ * @see Fragment#startActivity
+ * @see Fragment#startActivityForResult
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (options != null) {
++        mActivityTransitionState.startExitOutTransition(this, options);
++    }
+     Instrumentation.ActivityResult ar = mInstrumentation.execStartActivity(this, mMainThread.getApplicationThread(), mToken, fragment, intent, requestCode, options);
+     if (ar != null) {
+         mMainThread.sendActivityResult(mToken, fragment.mWho, requestCode, ar.getResultCode(), ar.getResultData());
+

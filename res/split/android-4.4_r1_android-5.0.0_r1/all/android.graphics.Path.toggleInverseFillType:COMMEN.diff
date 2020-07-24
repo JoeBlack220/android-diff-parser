@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.graphics.Path.toggleInverseFillType:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Toggles the INVERSE state of the filltype
+ */
+
+@@ -1,5 +1,5 @@
+ {
+     int ft = native_getFillType(mNativePath);
+-    ft ^= 2;
++    ft ^= FillType.INVERSE_WINDING.nativeInt;
+     native_setFillType(mNativePath, ft);
+ }
+

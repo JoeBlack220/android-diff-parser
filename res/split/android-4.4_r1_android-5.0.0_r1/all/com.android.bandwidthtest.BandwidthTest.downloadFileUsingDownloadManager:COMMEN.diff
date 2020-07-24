@@ -1,0 +1,20 @@
+Find a functionally equivalent code:com.android.bandwidthtest.BandwidthTest.downloadFileUsingDownloadManager:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Helper method that downloads a file from a test server using the download manager and reports
+ * the stats to instrumentation out.
+ */
+
+@@ -21,28 +21,29 @@
+     results.putString("device_id", mDeviceId);
+     results.putString("timestamp", ts);
+     results.putInt("size", FILE_SIZE);
+-    AddStatsToResults(PROF_LABEL, prof_stats, results);
+-    AddStatsToResults(PROC_LABEL, proc_stats, results);
++    addStatsToResults(PROF_LABEL, prof_stats, results, mUid);
++    // remember to use download manager uid for proc stats
++    addStatsToResults(PROC_LABEL, proc_stats, results, downloadManagerUid);
+     getInstrumentation().sendStatus(INSTRUMENTATION_IN_PROGRESS, results);
+     // Clean up.
+     assertTrue(cleanUpFile(tmpSaveFile));
+

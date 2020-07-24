@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.app.admin.DevicePolicyManager.setActiveAdmin:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     if (mService != null) {
+         try {
+-            mService.setActiveAdmin(policyReceiver, refreshing, UserHandle.myUserId());
++            mService.setActiveAdmin(policyReceiver, refreshing, userHandle);
+         } catch (RemoteException e) {
+             Log.w(TAG, "Failed talking with device policy service", e);
+         }
+

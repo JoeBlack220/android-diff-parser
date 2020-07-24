@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.content.res.TypedArray.hasValue:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Determines whether there is an attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ *
+ * @return True if the attribute has a value, false otherwise.
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     index *= AssetManager.STYLE_NUM_ENTRIES;
+     final int[] data = mData;
+     final int type = data[index + AssetManager.STYLE_TYPE];
+

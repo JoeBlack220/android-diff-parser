@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.content.res.TypedArray.peekValue:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the raw TypedValue for the attribute at <var>index</var>
+ * and return a temporary object holding its data.  This object is only
+ * valid until the next call on to {@link TypedArray}.
+ *
+ * @param index Index of attribute to retrieve.
+ *
+ * @return Returns a TypedValue object if the attribute is defined,
+ * containing its data; otherwise returns null.  (You will not
+ * receive a TypedValue whose type is TYPE_NULL.)
+ */
+
+@@ -1,4 +1,7 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     final TypedValue value = mValue;
+     if (getValueAt(index * AssetManager.STYLE_NUM_ENTRIES, value)) {
+         return value;
+

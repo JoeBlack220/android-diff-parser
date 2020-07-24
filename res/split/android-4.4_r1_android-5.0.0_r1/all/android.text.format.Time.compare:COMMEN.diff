@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.text.format.Time.compare:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Compare two {@code Time} objects and return a negative number if {@code
+ * a} is less than {@code b}, a positive number if {@code a} is greater than
+ * {@code b}, or 0 if they are equal.
+ *
+ * @param a first {@code Time} instance to compare
+ * @param b second {@code Time} instance to compare
+ * @throws NullPointerException if either argument is {@code null}
+ * @throws IllegalArgumentException if {@link #allDay} is true but {@code
+ * hour}, {@code minute}, and {@code second} are not 0.
+ * @return a negative result if {@code a} is earlier, a positive result if
+ * {@code a} is earlier, or 0 if they are equal.
+ */
+
+@@ -4,8 +4,10 @@
+     } else if (b == null) {
+         throw new NullPointerException("b == null");
+     }
+-    return nativeCompare(a, b);
++    a.calculator.copyFieldsFromTime(a);
++    b.calculator.copyFieldsFromTime(b);
++    return TimeCalculator.compare(a.calculator, b.calculator);
+ }
+

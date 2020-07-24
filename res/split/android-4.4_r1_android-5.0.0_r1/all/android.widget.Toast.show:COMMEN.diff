@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.widget.Toast.show:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Show the view for the specified duration.
+ */
+
+@@ -3,9 +3,9 @@
+         throw new RuntimeException("setView must have been called");
+     }
+     INotificationManager service = getService();
+-    String pkg = mContext.getPackageName();
++    String pkg = mContext.getOpPackageName();
+     TN tn = mTN;
+     tn.mNextView = mNextView;
+     try {
+

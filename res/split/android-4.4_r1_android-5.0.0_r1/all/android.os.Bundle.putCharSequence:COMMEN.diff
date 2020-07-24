@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.os.Bundle.putCharSequence:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Inserts a CharSequence value into the mapping of this Bundle, replacing
+ * any existing value for the given key.  Either key or value may be null.
+ *
+ * @param key a String, or null
+ * @param value a CharSequence, or null
+ */
+
+@@ -1,4 +1,3 @@
+ {
+-    unparcel();
+-    mMap.put(key, value);
++    super.putCharSequence(key, value);
+ }
+

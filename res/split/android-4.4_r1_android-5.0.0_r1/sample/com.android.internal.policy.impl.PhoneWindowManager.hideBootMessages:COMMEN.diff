@@ -1,0 +1,21 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.hideBootMessages:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,12 +1,3 @@
+ {
+-    mHandler.post(new Runnable() {
+-
+-        @Override
+-        public void run() {
+-            if (mBootMsgDialog != null) {
+-                mBootMsgDialog.dismiss();
+-                mBootMsgDialog = null;
+-            }
+-        }
+-    });
++    mHandler.sendEmptyMessage(MSG_HIDE_BOOT_MESSAGE);
+ }
+

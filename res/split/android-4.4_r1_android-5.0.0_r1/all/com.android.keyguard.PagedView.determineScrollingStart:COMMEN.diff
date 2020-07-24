@@ -1,0 +1,20 @@
+Find a functionally equivalent code:com.android.keyguard.PagedView.determineScrollingStart:COMMENT
+Method Modifier: protected   
+Comment:/*
+     * Determines if we should change the touch state to start scrolling after the
+     * user moves their touch point too far.
+     */
+
+@@ -12,21 +12,19 @@
+     if (mOnlyAllowEdgeSwipes && !mDownEventOnEdge)
+         return false;
+     final int xDiff = (int) Math.abs(x - mLastMotionX);
+-    final int yDiff = (int) Math.abs(y - mLastMotionY);
+     final int touchSlop = Math.round(TOUCH_SLOP_SCALE * mTouchSlop);
+     boolean xPaged = xDiff > mPagingTouchSlop;
+     boolean xMoved = xDiff > touchSlop;
+-    boolean yMoved = yDiff > touchSlop;
+-    return (xMoved || xPaged || yMoved) && (mUsePagingTouchSlop ? xPaged : xMoved);
++    return mUsePagingTouchSlop ? xPaged : xMoved;
+ }
+

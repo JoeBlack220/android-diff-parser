@@ -1,0 +1,29 @@
+Find a functionally equivalent code:android.text.MeasuredText.setPara:COMMENT
+Method Modifier: 
+Comment:/**
+ * Analyzes text for bidirectional runs.  Allocates working buffers.
+ */
+
+@@ -5,14 +5,14 @@
+     mLen = len;
+     mPos = 0;
+     if (mWidths == null || mWidths.length < len) {
+-        mWidths = new float[ArrayUtils.idealFloatArraySize(len)];
++        mWidths = ArrayUtils.newUnpaddedFloatArray(len);
+     }
+     if (mChars == null || mChars.length < len) {
+-        mChars = new char[ArrayUtils.idealCharArraySize(len)];
++        mChars = ArrayUtils.newUnpaddedCharArray(len);
+     }
+     TextUtils.getChars(text, start, end, mChars, 0);
+     if (text instanceof Spanned) {
+@@ -33,39 +33,39 @@
+         mEasy = true;
+     } else {
+         if (mLevels == null || mLevels.length < len) {
+-            mLevels = new byte[ArrayUtils.idealByteArraySize(len)];
++            mLevels = ArrayUtils.newUnpaddedByteArray(len);
+         }
+         int bidiRequest;
+         if (textDir == TextDirectionHeuristics.LTR) {
+

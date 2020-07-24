@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.net.LocalSocketImpl.create:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Creates a socket in the underlying OS.
+ *
+ * @param sockType either {@link LocalSocket#SOCKET_DGRAM}, {@link LocalSocket#SOCKET_STREAM}
+ * or {@link LocalSocket#SOCKET_SEQPACKET}
+ * @throws IOException
+ */
+
+@@ -16,22 +16,22 @@
+                 throw new IllegalStateException("unknown sockType");
+         }
+         try {
+-            fd = Libcore.os.socket(OsConstants.AF_UNIX, osType, 0);
++            fd = Os.socket(OsConstants.AF_UNIX, osType, 0);
+             mFdCreatedInternally = true;
+         } catch (ErrnoException e) {
+             e.rethrowAsIOException();
+

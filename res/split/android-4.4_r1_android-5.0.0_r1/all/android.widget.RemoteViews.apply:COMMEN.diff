@@ -1,0 +1,38 @@
+Find a functionally equivalent code:android.widget.RemoteViews.apply:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,9 +1,27 @@
+ {
+     RemoteViews rvToApply = getRemoteViewsToApply(context);
+     View result;
+-    Context c = prepareContext(context);
+-    LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+-    inflater = inflater.cloneInContext(c);
++    // RemoteViews may be built by an application installed in another
++    // user. So build a context that loads resources from that user but
++    // still returns the current users userId so settings like data / time formats
++    // are loaded without requiring cross user persmissions.
++    final Context contextForResources = getContextForResources(context);
++    Context inflationContext = new ContextWrapper(context) {
++
++        @Override
++        public Resources getResources() {
++            return contextForResources.getResources();
++        }
++
++        @Override
++        public Resources.Theme getTheme() {
++            return contextForResources.getTheme();
++        }
++    };
++    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
++    // Clone inflater so we load resources from correct context and
++    // we don't add a filter to the static version returned by getSystemService.
++    inflater = inflater.cloneInContext(inflationContext);
+     inflater.setFilter(this);
+     result = inflater.inflate(rvToApply.getLayoutId(), parent, false);
+     rvToApply.performApply(result, parent, handler);
+

@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.os.ParcelFileDescriptor.createPipe:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Create two ParcelFileDescriptors structured as a data pipe.  The first
+ * ParcelFileDescriptor in the returned array is the read side; the second
+ * is the write side.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        final FileDescriptor[] fds = Libcore.os.pipe();
++        final FileDescriptor[] fds = Os.pipe();
+         return new ParcelFileDescriptor[] { new ParcelFileDescriptor(fds[0]), new ParcelFileDescriptor(fds[1]) };
+     } catch (ErrnoException e) {
+         throw e.rethrowAsIOException();
+

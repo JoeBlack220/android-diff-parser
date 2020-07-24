@@ -1,0 +1,40 @@
+Find a functionally equivalent code:android.view.ViewGroup.dispatchGetDisplayList:COMMENT
+Method Modifier: protected   hidden      
+Comment:/**
+ * This method is used to cause children of this ViewGroup to restore or recreate their
+ * display lists. It is called by getDisplayList() when the parent ViewGroup does not need
+ * to recreate its own display list, which would happen if it went through the normal
+ * draw/dispatchDraw mechanisms.
+ *
+ * @hide
+ */
+
+@@ -4,20 +4,22 @@
+     for (int i = 0; i < count; i++) {
+         final View child = children[i];
+         if (((child.mViewFlags & VISIBILITY_MASK) == VISIBLE || child.getAnimation() != null) && child.hasStaticLayer()) {
+-            child.mRecreateDisplayList = (child.mPrivateFlags & PFLAG_INVALIDATED) == PFLAG_INVALIDATED;
+-            child.mPrivateFlags &= ~PFLAG_INVALIDATED;
+-            child.getDisplayList();
+-            child.mRecreateDisplayList = false;
++            recreateChildDisplayList(child);
+         }
+     }
+     if (mOverlay != null) {
+         View overlayView = mOverlay.getOverlayView();
+-        overlayView.mRecreateDisplayList = (overlayView.mPrivateFlags & PFLAG_INVALIDATED) == PFLAG_INVALIDATED;
+-        overlayView.mPrivateFlags &= ~PFLAG_INVALIDATED;
+-        overlayView.getDisplayList();
+-        overlayView.mRecreateDisplayList = false;
++        recreateChildDisplayList(overlayView);
+     }
++    if (mDisappearingChildren != null) {
++        final ArrayList<View> disappearingChildren = mDisappearingChildren;
++        final int disappearingCount = disappearingChildren.size();
++        for (int i = 0; i < disappearingCount; ++i) {
++            final View child = disappearingChildren.get(i);
++            recreateChildDisplayList(child);
++        }
++    }
+ }
+

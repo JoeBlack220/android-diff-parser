@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.widget.TextView.sendAfterTextChanged:COMMENT
+Method Modifier: 
+Comment:/**
+ * Not private so it can be called from an inner class without going
+ * through a thunk.
+ */
+
+@@ -6,9 +6,10 @@
+             list.get(i).afterTextChanged(text);
+         }
+     }
++    hideErrorIfUnchanged();
+ }
+

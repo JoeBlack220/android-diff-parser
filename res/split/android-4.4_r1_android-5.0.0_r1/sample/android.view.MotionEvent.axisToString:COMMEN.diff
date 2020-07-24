@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.view.MotionEvent.axisToString:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Returns a string that represents the symbolic name of the specified axis
+ * such as "AXIS_X" or an equivalent numeric constant such as "42" if unknown.
+ *
+ * @param axis The axis.
+ * @return The symbolic name of the specified axis.
+ */
+
+@@ -1,4 +1,4 @@
+ {
+-    String symbolicName = AXIS_SYMBOLIC_NAMES.get(axis);
+-    return symbolicName != null ? symbolicName : Integer.toString(axis);
++    String symbolicName = nativeAxisToString(axis);
++    return symbolicName != null ? LABEL_PREFIX + symbolicName : Integer.toString(axis);
+ }
+

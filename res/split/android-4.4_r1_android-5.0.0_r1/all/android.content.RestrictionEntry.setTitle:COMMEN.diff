@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.content.RestrictionEntry.setTitle:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the user-visible title for the entry.
+ * @param title the user-visible title for the entry.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    this.title = title;
++    this.mTitle = title;
+ }
+

@@ -1,0 +1,18 @@
+Find a functionally equivalent code:com.android.framework.permission.tests.VibratorServicePermissionTest.testVibrate:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Test that calling {@link android.os.IVibratorService#vibrate(long)} requires permissions.
+ * <p>Tests permission:
+ * {@link android.Manifest.permission#VIBRATE}
+ * @throws RemoteException
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        mVibratorService.vibrate(Process.myUid(), null, 2000, new Binder());
++        mVibratorService.vibrate(Process.myUid(), null, 2000, AudioManager.STREAM_ALARM, new Binder());
+         fail("vibrate did not throw SecurityException as expected");
+     } catch (SecurityException e) {
+     // expected
+

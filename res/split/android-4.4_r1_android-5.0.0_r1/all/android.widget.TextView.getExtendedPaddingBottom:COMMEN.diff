@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.widget.TextView.getExtendedPaddingBottom:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns the extended bottom padding of the view, including both the
+ * bottom Drawable if any and any extra space to keep more than maxLines
+ * of text from showing.  It is only valid to call this after measuring.
+ */
+
+@@ -2,7 +2,10 @@
+     if (mMaxMode != LINES) {
+         return getCompoundPaddingBottom();
+     }
++    if (mLayout == null) {
++        assumeLayout();
++    }
+     if (mLayout.getLineCount() <= mMaximum) {
+         return getCompoundPaddingBottom();
+     }
+

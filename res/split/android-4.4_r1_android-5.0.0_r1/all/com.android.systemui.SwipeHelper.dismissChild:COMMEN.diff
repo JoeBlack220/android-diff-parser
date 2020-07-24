@@ -1,0 +1,45 @@
+Find a functionally equivalent code:com.android.systemui.SwipeHelper.dismissChild:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @param view The view to be dismissed
+ * @param velocity The desired pixels/second speed at which the view should move
+ */
+
+@@ -1,35 +1,3 @@
+ {
+-    final View animView = mCallback.getChildContentView(view);
+-    final boolean canAnimViewBeDismissed = mCallback.canChildBeDismissed(view);
+-    float newPos;
+-    if (velocity < 0 || (velocity == 0 && getTranslation(animView) < 0) || // if we use the Menu to dismiss an item in landscape, animate up
+-    (velocity == 0 && getTranslation(animView) == 0 && mSwipeDirection == Y)) {
+-        newPos = -getSize(animView);
+-    } else {
+-        newPos = getSize(animView);
+-    }
+-    int duration = MAX_ESCAPE_ANIMATION_DURATION;
+-    if (velocity != 0) {
+-        duration = Math.min(duration, (int) (Math.abs(newPos - getTranslation(animView)) * 1000f / Math.abs(velocity)));
+-    } else {
+-        duration = DEFAULT_ESCAPE_ANIMATION_DURATION;
+-    }
+-    animView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+-    ObjectAnimator anim = createTranslationAnimation(animView, newPos);
+-    anim.setInterpolator(sLinearInterpolator);
+-    anim.setDuration(duration);
+-    anim.addListener(new AnimatorListenerAdapter() {
+-
+-        public void onAnimationEnd(Animator animation) {
+-            mCallback.onChildDismissed(view);
+-            animView.setLayerType(View.LAYER_TYPE_NONE, null);
+-        }
+-    });
+-    anim.addUpdateListener(new AnimatorUpdateListener() {
+-
+-        public void onAnimationUpdate(ValueAnimator animation) {
+-            updateAlphaFromOffset(animView, canAnimViewBeDismissed);
+-        }
+-    });
+-    anim.start();
++    dismissChild(view, velocity, null, 0, false, 0);
+ }
+

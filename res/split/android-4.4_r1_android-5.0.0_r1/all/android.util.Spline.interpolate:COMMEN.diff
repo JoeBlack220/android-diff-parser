@@ -1,0 +1,42 @@
+Find a functionally equivalent code:android.util.Spline.interpolate:COMMENT
+<android.util.Spline: float interpolate(float)>
+Method Modifier: public      abstract    
+Method Modifier: Yes         No          
+Method Updated:  Yes         Yes         
+Comment:/**
+ * Interpolates the value of Y = f(X) for given X.
+ * Clamps X to the domain of the spline.
+ *
+ * @param x The X value.
+ * @return The interpolated Y = f(X) value.
+ */
+
+@@ -1,26 +1 @@
+-{
+-    // Handle the boundary cases.
+-    final int n = mX.length;
+-    if (Float.isNaN(x)) {
+-        return x;
+-    }
+-    if (x <= mX[0]) {
+-        return mY[0];
+-    }
+-    if (x >= mX[n - 1]) {
+-        return mY[n - 1];
+-    }
+-    // Find the index 'i' of the last point with smaller X.
+-    // We know this will be within the spline due to the boundary tests.
+-    int i = 0;
+-    while (x >= mX[i + 1]) {
+-        i += 1;
+-        if (x == mX[i]) {
+-            return mY[i];
+-        }
+-    }
+-    // Perform cubic Hermite spline interpolation.
+-    float h = mX[i + 1] - mX[i];
+-    float t = (x - mX[i]) / h;
+-    return (mY[i] * (1 + 2 * t) + h * mM[i] * t) * (1 - t) * (1 - t) + (mY[i + 1] * (3 - 2 * t) + h * mM[i + 1] * (t - 1)) * t * t;
+-}
++
+

@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.graphics.Path.rewind:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Rewinds the path: clears any lines and curves from the path but
+ * keeps the internal data structure for faster reuse.
+ */
+
+@@ -1,9 +1,7 @@
+ {
+     isSimplePath = true;
+-    if (mDetectSimplePaths) {
+-        mLastDirection = null;
+-        if (rects != null)
+-            rects.setEmpty();
+-    }
++    mLastDirection = null;
++    if (rects != null)
++        rects.setEmpty();
+     native_rewind(mNativePath);
+ }
+

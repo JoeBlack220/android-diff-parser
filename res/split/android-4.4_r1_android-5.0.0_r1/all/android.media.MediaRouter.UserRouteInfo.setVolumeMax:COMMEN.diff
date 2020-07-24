@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.media.MediaRouter.UserRouteInfo.setVolumeMax:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Defines the maximum volume at which the playback associated with this route is performed
+ * (for user feedback purposes). This information is only used when the playback is not
+ * local.
+ * @param volumeMax
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     if (mVolumeMax != volumeMax) {
+         mVolumeMax = volumeMax;
+-        setPlaybackInfoOnRcc(RemoteControlClient.PLAYBACKINFO_VOLUME_MAX, volumeMax);
++        configureSessionVolume();
+     }
+ }
+

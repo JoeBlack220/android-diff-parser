@@ -1,0 +1,12 @@
+Find a functionally equivalent code:android.widget.DatePicker.getYear:COMMENT
+Method Modifier: public      
+Comment:/**
+ * @return The selected year.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mCurrentDate.get(Calendar.YEAR);
++    return mDelegate.getYear();
+ }
+

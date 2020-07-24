@@ -1,0 +1,31 @@
+Find a functionally equivalent code:android.content.res.Resources.obtainAttributes:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve a set of basic attribute values from an AttributeSet, not
+ * performing styling of them using a theme and/or style resources.
+ *
+ * @param set The current attribute values to retrieve.
+ * @param attrs The specific attributes to be retrieved.
+ * @return Returns a TypedArray holding an array of the attribute values.
+ * Be sure to call {@link TypedArray#recycle() TypedArray.recycle()}
+ * when done with it.
+ *
+ * @see Theme#obtainStyledAttributes(AttributeSet, int[], int, int)
+ */
+
+@@ -1,13 +1,12 @@
+ {
+     int len = attrs.length;
+-    TypedArray array = getCachedStyledAttributes(len);
++    TypedArray array = TypedArray.obtain(this, len);
+     // XXX note that for now we only work with compiled XML files.
+     // To support generic XML files we will need to manually parse
+     // out the attributes from the XML file (applying type information
+     // contained in the resources and such).
+     XmlBlock.Parser parser = (XmlBlock.Parser) set;
+     mAssets.retrieveAttributes(parser.mParseState, attrs, array.mData, array.mIndices);
+-    array.mRsrcs = attrs;
+     array.mXml = parser;
+     return array;
+ }
+

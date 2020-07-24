@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.os.ParcelFileDescriptor.getStatSize:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Return the total size of the file representing this fd, as determined by
+ * {@code stat()}. Returns -1 if the fd is not a file.
+ */
+
+@@ -3,9 +3,9 @@
+         return mWrapped.getStatSize();
+     } else {
+         try {
+-            final StructStat st = Libcore.os.fstat(mFd);
++            final StructStat st = Os.fstat(mFd);
+             if (S_ISREG(st.st_mode) || S_ISLNK(st.st_mode)) {
+                 return st.st_size;
+             } else {
+

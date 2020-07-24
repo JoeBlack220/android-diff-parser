@@ -1,0 +1,21 @@
+Find a functionally equivalent code:android.content.res.BridgeAssetManager.initSystem:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * This initializes the static field {@link AssetManager#mSystem} which is used
+ * by methods who get a global asset manager using {@link AssetManager#getSystem()}.
+ * <p/>
+ * They will end up using our bridge asset manager.
+ * <p/>
+ * {@link Bridge} calls this method after setting up a new bridge.
+ */
+
+@@ -3,9 +3,9 @@
+         // Note that AssetManager() creates a system AssetManager and we override it
+         // with our BridgeAssetManager.
+         AssetManager.sSystem = new BridgeAssetManager();
+-        AssetManager.sSystem.makeStringBlocks(false);
++        AssetManager.sSystem.makeStringBlocks(null);
+     }
+     return AssetManager.sSystem;
+ }
+

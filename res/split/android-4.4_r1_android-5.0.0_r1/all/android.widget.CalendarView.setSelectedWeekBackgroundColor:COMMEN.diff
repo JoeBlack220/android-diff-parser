@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.widget.CalendarView.setSelectedWeekBackgroundColor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the background color for the selected week.
+ *
+ * @param color The week background color.
+ *
+ * @attr ref android.R.styleable#CalendarView_selectedWeekBackgroundColor
+ */
+
+@@ -1,12 +1,3 @@
+ {
+-    if (mSelectedWeekBackgroundColor != color) {
+-        mSelectedWeekBackgroundColor = color;
+-        final int childCount = mListView.getChildCount();
+-        for (int i = 0; i < childCount; i++) {
+-            WeekView weekView = (WeekView) mListView.getChildAt(i);
+-            if (weekView.mHasSelectedDay) {
+-                weekView.invalidate();
+-            }
+-        }
+-    }
++    mDelegate.setSelectedWeekBackgroundColor(color);
+ }
+

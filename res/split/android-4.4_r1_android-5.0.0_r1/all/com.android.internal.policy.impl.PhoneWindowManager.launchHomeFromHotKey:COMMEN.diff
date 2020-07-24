@@ -1,0 +1,40 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.launchHomeFromHotKey:COMMENT
+Method Modifier: internal    
+Comment:/**
+ * A home key -> launch home action was detected.  Take the appropriate action
+ * given the situation with the keyguard.
+ */
+
+@@ -1,11 +1,12 @@
+ {
+-    if (mKeyguardDelegate != null && mKeyguardDelegate.isShowingAndNotHidden()) {
++    if (mKeyguardDelegate != null && mKeyguardDelegate.isShowingAndNotOccluded()) {
+     // don't launch home if keyguard showing
+     } else if (!mHideLockScreen && mKeyguardDelegate.isInputRestricted()) {
+         // when in keyguard restricted mode, must first verify unlock
+         // before launching home
+         mKeyguardDelegate.verifyUnlock(new OnKeyguardExitResult() {
+ 
++            @Override
+             public void onKeyguardExitResult(boolean success) {
+                 if (success) {
+                     try {
+@@ -23,29 +24,38 @@
+             ActivityManagerNative.getDefault().stopAppSwitches();
+         } catch (RemoteException e) {
+         }
+-        sendCloseSystemWindows(SYSTEM_DIALOG_REASON_HOME_KEY);
+-        startDockOrHome();
++        if (mRecentsVisible) {
++            // Hide Recents and notify it to launch Home
++            awakenDreams();
++            sendCloseSystemWindows(SYSTEM_DIALOG_REASON_HOME_KEY);
++            hideRecentApps(false, true);
++        } else {
++            // Otherwise, just launch Home
++            sendCloseSystemWindows(SYSTEM_DIALOG_REASON_HOME_KEY);
++            startDockOrHome();
++        }
+     }
+ }
+

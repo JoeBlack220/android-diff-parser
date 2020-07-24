@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.media.MediaCodecInfo.getCapabilitiesForType:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Enumerates the capabilities of the codec component. Since a single
+ * component can support data of a variety of types, the type has to be
+ * specified to yield a meaningful result.
+ * @param type The MIME type to query
+ */
+
+@@ -1,3 +1,8 @@
+ {
+-    return MediaCodecList.getCodecCapabilities(mIndex, type);
++    CodecCapabilities caps = mCaps.get(type);
++    if (caps == null) {
++        throw new IllegalArgumentException("codec does not support type");
++    }
++    // clone writable object
++    return caps.dup();
+ }
+

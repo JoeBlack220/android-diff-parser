@@ -1,0 +1,5 @@
+Find a functionally equivalent code:android.graphics.Picture.nativeConstructor:COMMENT
+Method Modifier: private     static      native      
+Comment:// return empty picture if src is 0, or a copy of the native src
+
+

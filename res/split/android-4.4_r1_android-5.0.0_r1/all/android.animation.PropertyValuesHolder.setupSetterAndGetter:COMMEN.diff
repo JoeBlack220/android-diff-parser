@@ -1,0 +1,63 @@
+Find a functionally equivalent code:android.animation.PropertyValuesHolder.setupSetterAndGetter:COMMENT
+Method Modifier: 
+Comment:/**
+ * Internal function (called from ObjectAnimator) to set up the setter and getter
+ * prior to running the animation. If the setter has not been manually set for this
+ * object, it will be derived automatically given the property name, target object, and
+ * types of values supplied. If no getter has been set, it will be supplied iff any of the
+ * supplied values was null. If there is a null value, then the getter (supplied or derived)
+ * will be called to set those null values to the current value of the property
+ * on the target object.
+ * @param target The object on which the setter (and possibly getter) exist.
+ */
+
+@@ -1,11 +1,19 @@
+ {
++    mKeyframes.invalidateCache();
+     if (mProperty != null) {
+         // check to make sure that mProperty is on the class of target
+         try {
+-            Object testValue = mProperty.get(target);
+-            for (Keyframe kf : mKeyframeSet.mKeyframes) {
+-                if (!kf.hasValue()) {
+-                    kf.setValue(mProperty.get(target));
++            Object testValue = null;
++            ArrayList<Keyframe> keyframes = mKeyframes.getKeyframes();
++            int keyframeCount = keyframes == null ? 0 : keyframes.size();
++            for (int i = 0; i < keyframeCount; i++) {
++                Keyframe kf = keyframes.get(i);
++                if (!kf.hasValue() || kf.valueWasSetOnStart()) {
++                    if (testValue == null) {
++                        testValue = convertBack(mProperty.get(target));
++                    }
++                    kf.setValue(testValue);
++                    kf.setValueWasSetOnStart(true);
+                 }
+             }
+             return;
+@@ -18,25 +26,36 @@
+     if (mSetter == null) {
+         setupSetter(targetClass);
+     }
+-    for (Keyframe kf : mKeyframeSet.mKeyframes) {
+-        if (!kf.hasValue()) {
++    ArrayList<Keyframe> keyframes = mKeyframes.getKeyframes();
++    int keyframeCount = keyframes == null ? 0 : keyframes.size();
++    for (int i = 0; i < keyframeCount; i++) {
++        Keyframe kf = keyframes.get(i);
++        if (!kf.hasValue() || kf.valueWasSetOnStart()) {
+             if (mGetter == null) {
+                 setupGetter(targetClass);
+                 if (mGetter == null) {
+@@ -28,34 +39,47 @@
+                 }
+             }
+             try {
+-                kf.setValue(mGetter.invoke(target));
++                Object value = convertBack(mGetter.invoke(target));
++                kf.setValue(value);
++                kf.setValueWasSetOnStart(true);
+             } catch (InvocationTargetException e) {
+                 Log.e("PropertyValuesHolder", e.toString());
+             } catch (IllegalAccessException e) {
+

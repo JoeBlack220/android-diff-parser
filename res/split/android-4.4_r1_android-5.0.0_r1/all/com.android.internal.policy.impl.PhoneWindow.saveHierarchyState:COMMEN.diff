@@ -1,0 +1,19 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindow.saveHierarchyState:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -23,31 +23,31 @@
+     if (panelStates.size() > 0) {
+         outState.putSparseParcelableArray(PANELS_TAG, panelStates);
+     }
+-    if (mActionBar != null) {
++    if (mDecorContentParent != null) {
+         SparseArray<Parcelable> actionBarStates = new SparseArray<Parcelable>();
+-        mActionBar.saveHierarchyState(actionBarStates);
++        mDecorContentParent.saveToolbarHierarchyState(actionBarStates);
+         outState.putSparseParcelableArray(ACTION_BAR_TAG, actionBarStates);
+     }
+     return outState;
+

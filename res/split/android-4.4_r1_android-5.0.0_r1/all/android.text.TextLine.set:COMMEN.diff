@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.text.TextLine.set:COMMENT
+Method Modifier: 
+Comment:/**
+ * Initializes a TextLine and prepares it for use.
+ *
+ * @param paint the base paint for the line
+ * @param text the text, can be Styled
+ * @param start the start of the line relative to the text
+ * @param limit the limit of the line relative to the text
+ * @param dir the paragraph direction of this line
+ * @param directions the directions information of this line
+ * @param hasTabs true if the line might contain tabs or emoji
+ * @param tabStops the tabStops. Can be null.
+ */
+
+@@ -19,25 +19,25 @@
+     mCharsValid = hasReplacement || hasTabs || directions != Layout.DIRS_ALL_LEFT_TO_RIGHT;
+     if (mCharsValid) {
+         if (mChars == null || mChars.length < mLen) {
+-            mChars = new char[ArrayUtils.idealCharArraySize(mLen)];
++            mChars = ArrayUtils.newUnpaddedCharArray(mLen);
+         }
+         TextUtils.getChars(text, start, limit, mChars, 0);
+         if (hasReplacement) {
+

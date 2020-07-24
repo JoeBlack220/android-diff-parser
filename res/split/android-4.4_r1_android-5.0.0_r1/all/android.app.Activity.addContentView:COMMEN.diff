@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.app.Activity.addContentView:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Add an additional content view to the activity.  Added after any existing
+ * ones in the activity -- existing views are NOT removed.
+ *
+ * @param view The desired content to display.
+ * @param params Layout parameters for the view.
+ */
+
+@@ -1,4 +1,4 @@
+ {
+     getWindow().addContentView(view, params);
+-    initActionBar();
++    initWindowDecorActionBar();
+ }
+

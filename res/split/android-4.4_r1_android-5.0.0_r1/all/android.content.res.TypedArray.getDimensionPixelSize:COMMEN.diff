@@ -1,0 +1,40 @@
+Find a functionally equivalent code:android.content.res.TypedArray.getDimensionPixelSize:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve a dimensional unit attribute at <var>index</var> for use
+ * as a size in raw pixels.  This is the same as
+ * {@link #getDimension}, except the returned value is converted to
+ * integer pixels for use as a size.  A size conversion involves
+ * rounding the base value, and ensuring that a non-zero base value
+ * is at least one pixel in size.
+ *
+ * @param index Index of attribute to retrieve.
+ * @param defValue Value to return if the attribute is not defined or
+ * not a resource.
+ *
+ * @return Attribute dimension value multiplied by the appropriate
+ * metric and truncated to integer pixels, or defValue if not defined.
+ *
+ * @see #getDimension
+ * @see #getDimensionPixelOffset
+ */
+
+@@ -1,11 +1,16 @@
+ {
++    if (mRecycled) {
++        throw new RuntimeException("Cannot make calls to a recycled instance!");
++    }
+     index *= AssetManager.STYLE_NUM_ENTRIES;
+     final int[] data = mData;
+     final int type = data[index + AssetManager.STYLE_TYPE];
+     if (type == TypedValue.TYPE_NULL) {
+         return defValue;
+     } else if (type == TypedValue.TYPE_DIMENSION) {
+-        return TypedValue.complexToDimensionPixelSize(data[index + AssetManager.STYLE_DATA], mResources.mMetrics);
++        return TypedValue.complexToDimensionPixelSize(data[index + AssetManager.STYLE_DATA], mMetrics);
++    } else if (type == TypedValue.TYPE_ATTRIBUTE) {
++        throw new RuntimeException("Failed to resolve attribute at index " + index);
+     }
+     throw new UnsupportedOperationException("Can't convert to dimension: type=0x" + Integer.toHexString(type));
+ }
+

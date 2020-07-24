@@ -1,0 +1,31 @@
+Find a functionally equivalent code:android.app.Activity.onResume:COMMENT
+Method Modifier: protected   
+Comment:/**
+ * Called after {@link #onRestoreInstanceState}, {@link #onRestart}, or
+ * {@link #onPause}, for your activity to start interacting with the user.
+ * This is a good place to begin animations, open exclusive-access devices
+ * (such as the camera), etc.
+ *
+ * <p>Keep in mind that onResume is not the best indicator that your activity
+ * is visible to the user; a system window such as the keyguard may be in
+ * front.  Use {@link #onWindowFocusChanged} to know for certain that your
+ * activity is visible to the user (for example, to resume a game).
+ *
+ * <p><em>Derived classes must call through to the super class's
+ * implementation of this method.  If they do not, an exception will be
+ * thrown.</em></p>
+ *
+ * @see #onRestoreInstanceState
+ * @see #onRestart
+ * @see #onPostResume
+ * @see #onPause
+ */
+
+@@ -2,6 +2,7 @@
+     if (DEBUG_LIFECYCLE)
+         Slog.v(TAG, "onResume " + this);
+     getApplication().dispatchActivityResumed(this);
++    mActivityTransitionState.onResume();
+     mCalled = true;
+ }
+

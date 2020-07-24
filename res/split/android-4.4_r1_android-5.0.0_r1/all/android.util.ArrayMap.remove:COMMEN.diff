@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.util.ArrayMap.remove:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Remove an existing key from the array map.
+ * @param key The key of the mapping to remove.
+ * @return Returns the value that was stored under the key, or null if there
+ * was no such key.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    int index = key == null ? indexOfNull() : indexOf(key, key.hashCode());
++    final int index = indexOfKey(key);
+     if (index >= 0) {
+         return removeAt(index);
+     }
+

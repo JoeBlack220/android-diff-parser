@@ -1,0 +1,31 @@
+Find a functionally equivalent code:android.os.Parcel.readValue:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Read a typed object from a parcel.  The given class loader will be
+ * used to load any enclosed Parcelables.  If it is null, the default class
+ * loader will be used.
+ */
+
+@@ -44,50 +44,50 @@
+         case VAL_BYTE:
+             return readByte();
+         case VAL_SERIALIZABLE:
+-            return readSerializable();
++            return readSerializable(loader);
+         case VAL_PARCELABLEARRAY:
+             return readParcelableArray(loader);
+         case VAL_SPARSEARRAY:
+@@ -54,59 +54,65 @@
+         case VAL_BUNDLE:
+             // loading will be deferred
+             return readBundle(loader);
++        case VAL_PERSISTABLEBUNDLE:
++            return readPersistableBundle(loader);
++        case VAL_SIZE:
++            return readSize();
++        case VAL_SIZEF:
++            return readSizeF();
+         default:
+             int off = dataPosition() - 4;
+             throw new RuntimeException("Parcel " + this + ": Unmarshalling unknown type code " + type + " at offset " + off);
+

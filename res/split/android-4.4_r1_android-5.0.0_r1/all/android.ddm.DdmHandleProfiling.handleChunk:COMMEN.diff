@@ -1,0 +1,30 @@
+Find a functionally equivalent code:android.ddm.DdmHandleProfiling.handleChunk:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Handle a chunk of data.
+ */
+
+@@ -1,5 +1,5 @@
+ {
+-    if (false)
++    if (DEBUG)
+         Log.v("ddm-heap", "Handling " + name(request.type) + " chunk");
+     int type = request.type;
+     if (type == CHUNK_MPRS) {
+@@ -9,21 +9,21 @@
+     } else if (type == CHUNK_MPSS) {
+         return handleMPSS(request);
+     } else if (type == CHUNK_MPSE) {
+-        return handleMPSE(request);
++        return handleMPSEOrSPSE(request, "Method");
+     } else if (type == CHUNK_MPRQ) {
+         return handleMPRQ(request);
+     } else if (type == CHUNK_SPSS) {
+         return handleSPSS(request);
+     } else if (type == CHUNK_SPSE) {
+-        return handleSPSE(request);
++        return handleMPSEOrSPSE(request, "Sample");
+     } else {
+         throw new RuntimeException("Unknown packet " + ChunkHandler.name(type));
+     }
+

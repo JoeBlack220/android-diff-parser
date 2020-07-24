@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.os.Environment.getExternalStorageState:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Returns the current state of the primary "external" storage device.
+ *
+ * @see #getExternalStorageDirectory()
+ * @return one of {@link #MEDIA_UNKNOWN}, {@link #MEDIA_REMOVED},
+ * {@link #MEDIA_UNMOUNTED}, {@link #MEDIA_CHECKING},
+ * {@link #MEDIA_NOFS}, {@link #MEDIA_MOUNTED},
+ * {@link #MEDIA_MOUNTED_READ_ONLY}, {@link #MEDIA_SHARED},
+ * {@link #MEDIA_BAD_REMOVAL}, or {@link #MEDIA_UNMOUNTABLE}.
+ */
+
+@@ -1,4 +1,4 @@
+ {
+     final File externalDir = sCurrentUser.getExternalDirsForApp()[0];
+-    return getStorageState(externalDir);
++    return getExternalStorageState(externalDir);
+ }
+

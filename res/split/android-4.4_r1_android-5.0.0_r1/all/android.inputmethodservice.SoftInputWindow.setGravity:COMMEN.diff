@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.inputmethodservice.SoftInputWindow.setGravity:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set which boundary of the screen the DockWindow sticks to.
+ *
+ * @param gravity The boundary of the screen to stick. See {#link
+ * android.view.Gravity.LEFT}, {#link android.view.Gravity.TOP},
+ * {#link android.view.Gravity.BOTTOM}, {#link
+ * android.view.Gravity.RIGHT}.
+ */
+
+@@ -1,12 +1,6 @@
+ {
+     WindowManager.LayoutParams lp = getWindow().getAttributes();
+-    boolean oldIsVertical = (lp.gravity == Gravity.TOP || lp.gravity == Gravity.BOTTOM);
+     lp.gravity = gravity;
+-    boolean newIsVertical = (lp.gravity == Gravity.TOP || lp.gravity == Gravity.BOTTOM);
+-    if (oldIsVertical != newIsVertical) {
+-        int tmp = lp.width;
+-        lp.width = lp.height;
+-        lp.height = tmp;
+-        getWindow().setAttributes(lp);
+-    }
++    updateWidthHeight(lp);
++    getWindow().setAttributes(lp);
+ }
+

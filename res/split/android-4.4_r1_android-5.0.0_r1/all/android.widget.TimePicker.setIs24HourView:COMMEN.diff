@@ -1,0 +1,28 @@
+Find a functionally equivalent code:android.widget.TimePicker.setIs24HourView:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Set whether in 24 hour or AM/PM mode.
+ *
+ * @param is24HourView True = 24 hour mode. False = AM/PM.
+ */
+
+@@ -1,17 +1,3 @@
+ {
+-    if (mIs24HourView == is24HourView) {
+-        return;
+-    }
+-    // cache the current hour since spinner range changes and BEFORE changing mIs24HourView!!
+-    int currentHour = getCurrentHour();
+-    // Order is important here.
+-    mIs24HourView = is24HourView;
+-    getHourFormatData();
+-    updateHourControl();
+-    // set value after spinner range is updated - be aware that because mIs24HourView has
+-    // changed then getCurrentHour() is not equal to the currentHour we cached before so
+-    // explicitly ask for *not* propagating any onTimeChanged()
+-    setCurrentHour(currentHour, false);
+-    updateMinuteControl();
+-    updateAmPmControl();
++    mDelegate.setIs24HourView(is24HourView);
+ }
+

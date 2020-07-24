@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.media.AudioService.loadSoundEffects:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Loads samples into the soundpool.
+ * This method must be called at first when sound effects are enabled
+ */
+
+@@ -5,11 +5,11 @@
+         sendMsg(mAudioHandler, MSG_LOAD_SOUND_EFFECTS, SENDMSG_QUEUE, 0, 0, reply, 0);
+         while ((reply.mStatus == 1) && (attempts-- > 0)) {
+             try {
+-                reply.wait(SOUND_EFECTS_LOAD_TIMEOUT_MS);
++                reply.wait(SOUND_EFFECTS_LOAD_TIMEOUT_MS);
+             } catch (InterruptedException e) {
+                 Log.w(TAG, "loadSoundEffects Interrupted while waiting sound pool loaded.");
+             }
+

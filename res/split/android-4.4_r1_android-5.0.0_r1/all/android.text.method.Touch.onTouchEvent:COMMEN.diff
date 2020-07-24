@@ -1,0 +1,47 @@
+Find a functionally equivalent code:android.text.method.Touch.onTouchEvent:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Handles touch events for dragging.  You may want to do other actions
+ * like moving the cursor on touch as well.
+ */
+
+@@ -21,38 +21,46 @@
+         case MotionEvent.ACTION_MOVE:
+             ds = buffer.getSpans(0, buffer.length(), DragState.class);
+             if (ds.length > 0) {
++                ds[0].mIsSelectionStarted = false;
+                 if (ds[0].mFarEnough == false) {
+                     int slop = ViewConfiguration.get(widget.getContext()).getScaledTouchSlop();
+                     if (Math.abs(event.getX() - ds[0].mX) >= slop || Math.abs(event.getY() - ds[0].mY) >= slop) {
+                         ds[0].mFarEnough = true;
++                        if (event.isButtonPressed(MotionEvent.BUTTON_PRIMARY)) {
++                            ds[0].mIsActivelySelecting = true;
++                            ds[0].mIsSelectionStarted = true;
++                        }
+                     }
+                 }
+                 if (ds[0].mFarEnough) {
+                     ds[0].mUsed = true;
+                     boolean cap = (event.getMetaState() & KeyEvent.META_SHIFT_ON) != 0 || MetaKeyKeyListener.getMetaState(buffer, MetaKeyKeyListener.META_SHIFT_ON) == 1 || MetaKeyKeyListener.getMetaState(buffer, MetaKeyKeyListener.META_SELECTING) != 0;
++                    if (!event.isButtonPressed(MotionEvent.BUTTON_PRIMARY)) {
++                        ds[0].mIsActivelySelecting = false;
++                    }
+                     float dx;
+                     float dy;
+-                    if (cap) {
++                    if (cap && event.isButtonPressed(MotionEvent.BUTTON_PRIMARY)) {
+                         // if we're selecting, we want the scroll to go in
+                         // the direction of the drag
+                         dx = event.getX() - ds[0].mX;
+@@ -51,57 +59,67 @@
+                     ny = Math.max(ny, 0);
+                     int oldX = widget.getScrollX();
+                     int oldY = widget.getScrollY();
+-                    scrollTo(widget, layout, nx, ny);
++                    if (!event.isButtonPressed(MotionEvent.BUTTON_PRIMARY)) {
++                        scrollTo(widget, layout, nx, ny);
++                    }
+                     // If we actually scrolled, then cancel the up action.
+                     if (oldX != widget.getScrollX() || oldY != widget.getScrollY()) {
+                         widget.cancelLongPress();
+

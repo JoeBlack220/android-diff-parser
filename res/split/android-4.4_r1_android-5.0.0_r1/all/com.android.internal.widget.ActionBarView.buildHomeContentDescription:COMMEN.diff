@@ -1,0 +1,19 @@
+Find a functionally equivalent code:com.android.internal.widget.ActionBarView.buildHomeContentDescription:COMMENT
+Method Modifier: private     internal    
+Comment:/**
+ * Compose a content description for the Home/Up affordance.
+ *
+ * <p>As this encompasses the icon/logo, title and subtitle all in one, we need
+ * a description for the whole wad of stuff that can be localized properly.</p>
+ */
+
+@@ -4,10 +4,10 @@
+         homeDesc = mHomeDescription;
+     } else {
+         if ((mDisplayOptions & ActionBar.DISPLAY_HOME_AS_UP) != 0) {
+-            homeDesc = mContext.getResources().getText(R.string.action_bar_up_description);
++            homeDesc = mContext.getResources().getText(mDefaultUpDescription);
+         } else {
+             homeDesc = mContext.getResources().getText(R.string.action_bar_home_description);
+         }
+

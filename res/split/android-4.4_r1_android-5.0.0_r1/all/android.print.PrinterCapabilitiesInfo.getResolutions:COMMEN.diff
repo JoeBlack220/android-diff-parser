@@ -1,0 +1,14 @@
+Find a functionally equivalent code:android.print.PrinterCapabilitiesInfo.getResolutions:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets the supported resolutions.
+ *
+ * @return The resolutions.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return mResolutions;
++    return Collections.unmodifiableList(mResolutions);
+ }
+

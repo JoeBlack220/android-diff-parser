@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.view.LayoutInflater_Delegate.rInflate:COMMENT
+Method Modifier: default     static      
+Comment:/**
+ * Recursive method used to descend down the xml hierarchy and instantiate
+ * views, instantiate their children, and then call onFinishInflate().
+ *
+ * This implementation just records the merge status before calling the default implementation.
+ */
+
+@@ -6,12 +6,12 @@
+         }
+     }
+     // ---- START DEFAULT IMPLEMENTATION.
+-    thisInflater.rInflate_Original(parser, parent, attrs, finishInflate);
++    thisInflater.rInflate_Original(parser, parent, attrs, finishInflate, inheritContext);
+     if (finishInflate == false) {
+         // this is a merge rInflate!
+         if (thisInflater instanceof BridgeInflater) {
+

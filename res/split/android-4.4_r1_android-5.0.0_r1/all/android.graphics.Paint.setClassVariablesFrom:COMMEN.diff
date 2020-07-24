@@ -1,0 +1,26 @@
+Find a functionally equivalent code:android.graphics.Paint.setClassVariablesFrom:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Set all class variables using current values from the given
+ * {@link Paint}.
+ */
+
+@@ -9,23 +9,20 @@
+         mShader = null;
+     }
+     mTypeface = paint.mTypeface;
++    mNativeTypeface = paint.mNativeTypeface;
+     mXfermode = paint.mXfermode;
+     mHasCompatScaling = paint.mHasCompatScaling;
+     mCompatScaling = paint.mCompatScaling;
+     mInvCompatScaling = paint.mInvCompatScaling;
+-    hasShadow = paint.hasShadow;
+-    shadowDx = paint.shadowDx;
+-    shadowDy = paint.shadowDy;
+-    shadowRadius = paint.shadowRadius;
+-    shadowColor = paint.shadowColor;
+     mBidiFlags = paint.mBidiFlags;
+     mLocale = paint.mLocale;
++    mFontFeatureSettings = paint.mFontFeatureSettings;
+ }
+

@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.view.Window.setSoftInputMode:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Specify an explicit soft input mode to use for the window, as per
+ * {@link WindowManager.LayoutParams#softInputMode
+ * WindowManager.LayoutParams.softInputMode}.  Providing anything besides
+ * "unspecified" here will override the input mode the window would
+ * normally retrieve from its theme.
+ */
+
+@@ -6,12 +6,10 @@
+     } else {
+         mHasSoftInputMode = false;
+     }
+-    if (mCallback != null) {
+-        mCallback.onWindowAttributesChanged(attrs);
+-    }
++    dispatchWindowAttributesChanged(attrs);
+ }
+

@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.media.MediaFocusControl.onRcDisplayUpdate:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Called when processing MSG_RCDISPLAY_UPDATE event
+ */
+
+@@ -1,14 +1,14 @@
+ /* USED ?*/
+ {
+-    synchronized (mRCStack) {
++    synchronized (mPRStack) {
+         synchronized (mCurrentRcLock) {
+-            if ((mCurrentRcClient != null) && (mCurrentRcClient.equals(rcse.mRcClient))) {
++            if ((mCurrentRcClient != null) && (mCurrentRcClient.equals(prse.getRcc()))) {
+                 if (DEBUG_RC)
+                     Log.i(TAG, "Display/update remote control ");
+                 mCurrentRcClientGen++;
+                 // synchronously update the displays and clients with
+                 // the new client generation
+-                setNewRcClient_syncRcsCurrc(mCurrentRcClientGen, rcse.mMediaIntent, /*newMediaIntent*/
++                setNewRcClient_syncRcsCurrc(mCurrentRcClientGen, prse.getMediaButtonIntent(), /*newMediaIntent*/
+                 false);
+                 // tell the current client that it needs to send info
+                 try {
+

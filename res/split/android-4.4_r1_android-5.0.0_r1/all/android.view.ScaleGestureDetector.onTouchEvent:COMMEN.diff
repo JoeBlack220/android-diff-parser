@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.view.ScaleGestureDetector.onTouchEvent:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Accepts MotionEvents and dispatches events to a {@link OnScaleGestureListener}
+ * when appropriate.
+ *
+ * <p>Applications should pass a complete and consistent event stream to this method.
+ * A complete and consistent event stream involves all MotionEvents from the initial
+ * ACTION_DOWN to the final ACTION_UP or ACTION_CANCEL.</p>
+ *
+ * @param event The event to process
+ * @return true if the event was processed and the detector wants to receive the
+ * rest of the MotionEvents in this event stream.
+ */
+
+@@ -16,21 +16,25 @@
+             mInProgress = false;
+             mInitialSpan = 0;
+             mDoubleTapMode = DOUBLE_TAP_MODE_NONE;
++        } else if (mDoubleTapMode == DOUBLE_TAP_MODE_IN_PROGRESS && streamComplete) {
++            mInProgress = false;
++            mInitialSpan = 0;
++            mDoubleTapMode = DOUBLE_TAP_MODE_NONE;
+         }
+         if (streamComplete) {
+             clearTouchHistory();
+

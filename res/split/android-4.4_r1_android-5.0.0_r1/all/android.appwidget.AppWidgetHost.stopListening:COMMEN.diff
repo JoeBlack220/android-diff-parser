@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetHost.stopListening:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Stop receiving onAppWidgetChanged calls for your AppWidgets.  Call this when your activity is
+ * no longer visible, i.e. from onStop() in your Activity.
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     try {
+-        sService.stopListening(mHostId, mContext.getUserId());
++        sService.stopListening(mContext.getOpPackageName(), mHostId);
+     } catch (RemoteException e) {
+         throw new RuntimeException("system server dead?", e);
+     }
+

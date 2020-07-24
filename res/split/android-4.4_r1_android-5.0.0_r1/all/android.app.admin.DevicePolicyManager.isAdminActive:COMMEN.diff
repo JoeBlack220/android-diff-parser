@@ -1,0 +1,20 @@
+Find a functionally equivalent code:android.app.admin.DevicePolicyManager.isAdminActive:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Return true if the given administrator component is currently
+ * active (enabled) in the system.
+ */
+
+@@ -1,10 +1,3 @@
+ {
+-    if (mService != null) {
+-        try {
+-            return mService.isAdminActive(who, UserHandle.myUserId());
+-        } catch (RemoteException e) {
+-            Log.w(TAG, "Failed talking with device policy service", e);
+-        }
+-    }
+-    return false;
++    return isAdminActiveAsUser(who, UserHandle.myUserId());
+ }
+

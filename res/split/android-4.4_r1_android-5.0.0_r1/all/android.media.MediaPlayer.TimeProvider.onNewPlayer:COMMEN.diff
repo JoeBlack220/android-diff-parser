@@ -1,0 +1,16 @@
+Find a functionally equivalent code:android.media.MediaPlayer.TimeProvider.onNewPlayer:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,6 +1,8 @@
+ {
+     if (mRefresh) {
+         synchronized (this) {
++            mStopped = false;
++            mSeeking = true;
+             scheduleNotification(NOTIFY_SEEK, 0);
+         }
+     }
+

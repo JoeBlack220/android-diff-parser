@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.os.Bundle.setClassLoader:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Changes the ClassLoader this Bundle uses when instantiating objects.
+ *
+ * @param loader An explicit ClassLoader to use when instantiating objects
+ * inside of the Bundle.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    mClassLoader = loader;
++    super.setClassLoader(loader);
+ }
+

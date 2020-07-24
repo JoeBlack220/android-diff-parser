@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.widget.CalendarView.setShownWeekCount:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the number of weeks to be shown.
+ *
+ * @param count The shown week count.
+ *
+ * @attr ref android.R.styleable#CalendarView_shownWeekCount
+ */
+
+@@ -1,6 +1,3 @@
+ {
+-    if (mShownWeekCount != count) {
+-        mShownWeekCount = count;
+-        invalidate();
+-    }
++    mDelegate.setShownWeekCount(count);
+ }
+

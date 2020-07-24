@@ -1,0 +1,29 @@
+Find a functionally equivalent code:android.view.KeyEvent.keyCodeFromString:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Gets a keycode by its symbolic name such as "KEYCODE_A" or an equivalent
+ * numeric constant such as "1001".
+ *
+ * @param symbolicName The symbolic name of the keycode.
+ * @return The keycode or {@link #KEYCODE_UNKNOWN} if not found.
+ * @see #keycodeToString(int)
+ */
+
+@@ -1,11 +1,9 @@
+ {
+-    if (symbolicName == null) {
+-        throw new IllegalArgumentException("symbolicName must not be null");
+-    }
+-    final int count = KEYCODE_SYMBOLIC_NAMES.size();
+-    for (int i = 0; i < count; i++) {
+-        if (symbolicName.equals(KEYCODE_SYMBOLIC_NAMES.valueAt(i))) {
+-            return i;
++    if (symbolicName.startsWith(LABEL_PREFIX)) {
++        symbolicName = symbolicName.substring(LABEL_PREFIX.length());
++        int keyCode = nativeKeyCodeFromString(symbolicName);
++        if (keyCode > 0) {
++            return keyCode;
+         }
+     }
+     try {
+

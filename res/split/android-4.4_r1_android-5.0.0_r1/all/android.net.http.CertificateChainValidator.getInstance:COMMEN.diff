@@ -1,0 +1,12 @@
+Find a functionally equivalent code:android.net.http.CertificateChainValidator.getInstance:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * @return The singleton instance of the certificates chain validator
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return sInstance;
++    return NoPreloadHolder.sInstance;
+ }
+

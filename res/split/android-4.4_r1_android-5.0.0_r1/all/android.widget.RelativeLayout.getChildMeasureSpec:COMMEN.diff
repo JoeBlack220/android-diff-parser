@@ -1,0 +1,66 @@
+Find a functionally equivalent code:android.widget.RelativeLayout.getChildMeasureSpec:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Get a measure spec that accounts for all of the constraints on this view.
+ * This includes size constraints imposed by the RelativeLayout as well as
+ * the View's desired dimension.
+ *
+ * @param childStart The left or top field of the child's layout params
+ * @param childEnd The right or bottom field of the child's layout params
+ * @param childSize The child's desired size (the width or height field of
+ * the child's layout params)
+ * @param startMargin The left or top margin
+ * @param endMargin The right or bottom margin
+ * @param startPadding mPaddingLeft or mPaddingTop
+ * @param endPadding mPaddingRight or mPaddingBottom
+ * @param mySize The width or height of this view (the RelativeLayout)
+ * @return MeasureSpec for the child
+ */
+
+@@ -1,26 +1,36 @@
+ {
++    int childSpecMode = 0;
++    int childSpecSize = 0;
++    // RelativeLayout's measure spec."
+     if (mySize < 0 && !mAllowBrokenMeasureSpecs) {
+-        if (childSize >= 0) {
+-            return MeasureSpec.makeMeasureSpec(childSize, MeasureSpec.EXACTLY);
++        if (childStart != VALUE_NOT_SET && childEnd != VALUE_NOT_SET) {
++            // Constraints fixed both edges, so child has an exact size.
++            childSpecSize = Math.max(0, childEnd - childStart);
++            childSpecMode = MeasureSpec.EXACTLY;
++        } else if (childSize >= 0) {
++            // The child specified an exact size.
++            childSpecSize = childSize;
++            childSpecMode = MeasureSpec.EXACTLY;
++        } else {
++            // Allow the child to be whatever size it wants.
++            childSpecSize = 0;
++            childSpecMode = MeasureSpec.UNSPECIFIED;
+         }
+-        // Carry it forward.
+-        return MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
++        return MeasureSpec.makeMeasureSpec(childSpecSize, childSpecMode);
+     }
+-    int childSpecMode = 0;
+-    int childSpecSize = 0;
+     // Figure out start and end bounds.
+     int tempStart = childStart;
+     int tempEnd = childEnd;
+     // view's margins and our padding
+-    if (tempStart < 0) {
++    if (tempStart == VALUE_NOT_SET) {
+         tempStart = startPadding + startMargin;
+     }
+-    if (tempEnd < 0) {
++    if (tempEnd == VALUE_NOT_SET) {
+         tempEnd = mySize - endPadding - endMargin;
+     }
+     // Figure out maximum size available to this view
+     int maxAvailable = tempEnd - tempStart;
+-    if (childStart >= 0 && childEnd >= 0) {
++    if (childStart != VALUE_NOT_SET && childEnd != VALUE_NOT_SET) {
+         // Constraints fixed both edges, so child must be an exact size
+         childSpecMode = MeasureSpec.EXACTLY;
+         childSpecSize = maxAvailable;
+

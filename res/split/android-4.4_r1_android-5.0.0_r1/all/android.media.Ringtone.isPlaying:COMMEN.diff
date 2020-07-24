@@ -1,0 +1,18 @@
+Find a functionally equivalent code:android.media.Ringtone.isPlaying:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Whether this ringtone is currently playing.
+ *
+ * @return True if playing, false otherwise.
+ */
+
+@@ -1,7 +1,7 @@
+ {
+     if (mLocalPlayer != null) {
+         return mLocalPlayer.isPlaying();
+-    } else if (mAllowRemote) {
++    } else if (mAllowRemote && (mRemotePlayer != null)) {
+         try {
+             return mRemotePlayer.isPlaying(mRemoteToken);
+         } catch (RemoteException e) {
+

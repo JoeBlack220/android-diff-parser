@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.media.SubtitleTrack.show:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -3,9 +3,12 @@
+         return;
+     }
+     mVisible = true;
+-    getRenderingWidget().setVisible(true);
++    RenderingWidget renderingWidget = getRenderingWidget();
++    if (renderingWidget != null) {
++        renderingWidget.setVisible(true);
++    }
+     if (mTimeProvider != null) {
+         mTimeProvider.scheduleUpdate(this);
+     }
+

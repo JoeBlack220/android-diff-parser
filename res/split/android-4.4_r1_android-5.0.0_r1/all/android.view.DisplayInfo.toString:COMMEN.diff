@@ -1,0 +1,34 @@
+Find a functionally equivalent code:android.view.DisplayInfo.toString:COMMENT
+Method Modifier: public      
+Comment:// For debugging purposes
+
+@@ -31,37 +31,39 @@
+     sb.append(smallestNominalAppHeight);
+     sb.append(", ");
+     sb.append(refreshRate);
+-    sb.append(" fps, rotation");
++    sb.append(" fps, supportedRefreshRates ");
++    sb.append(Arrays.toString(supportedRefreshRates));
++    sb.append(", rotation ");
+     sb.append(rotation);
+     sb.append(", density ");
+     sb.append(logicalDensityDpi);
+@@ -41,51 +43,59 @@
+     sb.append(physicalYDpi);
+     sb.append(") dpi, layerStack ");
+     sb.append(layerStack);
++    sb.append(", appVsyncOff ");
++    sb.append(appVsyncOffsetNanos);
++    sb.append(", presDeadline ");
++    sb.append(presentationDeadlineNanos);
+     sb.append(", type ");
+     sb.append(Display.typeToString(type));
+     if (address != null) {
+         sb.append(", address ").append(address);
+     }
++    sb.append(", state ");
++    sb.append(Display.stateToString(state));
+     if (ownerUid != 0 || ownerPackageName != null) {
+         sb.append(", owner ").append(ownerPackageName);
+         sb.append(" (uid ").append(ownerUid).append(")");
+

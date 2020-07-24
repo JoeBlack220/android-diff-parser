@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.view.MotionEvent.PointerCoords.getAxisValue:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets the value associated with the specified axis.
+ *
+ * @param axis The axis identifier for the axis value to retrieve.
+ * @return The value associated with the axis, or 0 if none.
+ *
+ * @see MotionEvent#AXIS_X
+ * @see MotionEvent#AXIS_Y
+ */
+
+@@ -24,34 +24,34 @@
+                     throw new IllegalArgumentException("Axis out of range.");
+                 }
+                 final long bits = mPackedAxisBits;
+-                final long axisBit = 1L << axis;
++                final long axisBit = 0x8000000000000000L >>> axis;
+                 if ((bits & axisBit) == 0) {
+                     return 0;
+                 }
+-                final int index = Long.bitCount(bits & (axisBit - 1L));
++                final int index = Long.bitCount(bits & ~(0xFFFFFFFFFFFFFFFFL >>> axis));
+                 return mPackedAxisValues[index];
+             }
+     }
+

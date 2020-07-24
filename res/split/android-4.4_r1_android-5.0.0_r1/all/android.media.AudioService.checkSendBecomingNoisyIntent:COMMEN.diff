@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.media.AudioService.checkSendBecomingNoisyIntent:COMMENT
+Method Modifier: private     
+Comment:// must be called before removing the device from mConnectedDevices
+
+@@ -3,9 +3,9 @@
+     if ((state == 0) && ((device & mBecomingNoisyIntentDevices) != 0)) {
+         int devices = 0;
+         for (int dev : mConnectedDevices.keySet()) {
+-            if ((dev & mBecomingNoisyIntentDevices) != 0) {
++            if (((dev & AudioSystem.DEVICE_BIT_IN) == 0) && ((dev & mBecomingNoisyIntentDevices) != 0)) {
+                 devices |= dev;
+             }
+         }
+@@ -12,18 +12,18 @@
+             delay = 1000;
+         }
+     }
+-    if (mAudioHandler.hasMessages(MSG_SET_A2DP_CONNECTION_STATE) || mAudioHandler.hasMessages(MSG_SET_WIRED_DEVICE_CONNECTION_STATE)) {
++    if (mAudioHandler.hasMessages(MSG_SET_A2DP_SRC_CONNECTION_STATE) || mAudioHandler.hasMessages(MSG_SET_A2DP_SINK_CONNECTION_STATE) || mAudioHandler.hasMessages(MSG_SET_WIRED_DEVICE_CONNECTION_STATE)) {
+         delay = 1000;
+     }
+     return delay;
+

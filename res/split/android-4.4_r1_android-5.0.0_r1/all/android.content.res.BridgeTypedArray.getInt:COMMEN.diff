@@ -1,0 +1,69 @@
+Find a functionally equivalent code:android.content.res.BridgeTypedArray.getInt:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Retrieve the integer value for the attribute at <var>index</var>.
+ *
+ * @param index Index of attribute to retrieve.
+ * @param defValue Value to return if the attribute is not defined.
+ *
+ * @return Attribute int value, or defValue if not defined.
+ */
+
+@@ -1,50 +1,12 @@
+ {
+-    if (index < 0 || index >= mResourceData.length) {
+-        return defValue;
+-    }
+-    if (mResourceData[index] == null) {
+-        return defValue;
+-    }
+-    String s = mResourceData[index].getValue();
+-    if (RenderResources.REFERENCE_NULL.equals(s)) {
+-        return defValue;
+-    }
+-    if (s == null || s.length() == 0) {
+-        return defValue;
+-    }
++    String s = getString(index);
+     try {
+-        return XmlUtils.convertValueToInt(s, defValue);
+-    } catch (NumberFormatException e) {
+-    // pass
+-    }
+-    // Field is not null and is not an integer.
+-    // Check for possible constants and try to find them.
+-    // Get the map of attribute-constant -> IntegerValue
+-    Map<String, Integer> map = null;
+-    if (mIsFramework[index]) {
+-        map = Bridge.getEnumValues(mNames[index]);
+-    } else {
+-        // get the styleable matching the resolved name
+-        RenderResources res = mContext.getRenderResources();
+-        ResourceValue attr = res.getProjectResource(ResourceType.ATTR, mNames[index]);
+-        if (attr instanceof AttrResourceValue) {
+-            map = ((AttrResourceValue) attr).getAttributeValues();
+-        }
+-    }
+-    if (map != null) {
+-        // accumulator to store the value of the 1+ constants.
+-        int result = 0;
+-        // split the value in case this is a mix of several flags.
+-        String[] keywords = s.split("\\|");
+-        for (String keyword : keywords) {
+-            Integer i = map.get(keyword.trim());
+-            if (i != null) {
+-                result |= i.intValue();
+-            } else {
+-                Bridge.getLog().warning(LayoutLog.TAG_RESOURCES_FORMAT, String.format("\"%s\" in attribute \"%2$s\" is not a valid value", keyword, mNames[index]), null);
+-            }
++        if (s != null) {
++            return XmlUtils.convertValueToInt(s, defValue);
+         }
+-        return result;
++    } catch (NumberFormatException e) {
++        Bridge.getLog().warning(LayoutLog.TAG_RESOURCES_FORMAT, String.format("\"%1$s\" in attribute \"%2$s\" is not a valid integer", s, mNames[index]), null);
++        return defValue;
+     }
+     return defValue;
+ }
+

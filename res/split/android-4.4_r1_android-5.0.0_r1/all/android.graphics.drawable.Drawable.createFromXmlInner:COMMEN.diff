@@ -1,0 +1,55 @@
+Find a functionally equivalent code:android.graphics.drawable.Drawable.createFromXmlInner:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Create from inside an XML document.  Called on a parser positioned at
+ * a tag in an XML document, tries to create a Drawable from that tag.
+ * Returns null if the tag is not a valid drawable.
+ */
+
+@@ -1,44 +1,3 @@
+ {
+-    Drawable drawable;
+-    final String name = parser.getName();
+-    if (name.equals("selector")) {
+-        drawable = new StateListDrawable();
+-    } else if (name.equals("level-list")) {
+-        drawable = new LevelListDrawable();
+-    } else if (name.equals("layer-list")) {
+-        drawable = new LayerDrawable();
+-    } else if (name.equals("transition")) {
+-        drawable = new TransitionDrawable();
+-    } else if (name.equals("color")) {
+-        drawable = new ColorDrawable();
+-    } else if (name.equals("shape")) {
+-        drawable = new GradientDrawable();
+-    } else if (name.equals("scale")) {
+-        drawable = new ScaleDrawable();
+-    } else if (name.equals("clip")) {
+-        drawable = new ClipDrawable();
+-    } else if (name.equals("rotate")) {
+-        drawable = new RotateDrawable();
+-    } else if (name.equals("animated-rotate")) {
+-        drawable = new AnimatedRotateDrawable();
+-    } else if (name.equals("animation-list")) {
+-        drawable = new AnimationDrawable();
+-    } else if (name.equals("inset")) {
+-        drawable = new InsetDrawable();
+-    } else if (name.equals("bitmap")) {
+-        // noinspection deprecation
+-        drawable = new BitmapDrawable(r);
+-        if (r != null) {
+-            ((BitmapDrawable) drawable).setTargetDensity(r.getDisplayMetrics());
+-        }
+-    } else if (name.equals("nine-patch")) {
+-        drawable = new NinePatchDrawable();
+-        if (r != null) {
+-            ((NinePatchDrawable) drawable).setTargetDensity(r.getDisplayMetrics());
+-        }
+-    } else {
+-        throw new XmlPullParserException(parser.getPositionDescription() + ": invalid drawable tag " + name);
+-    }
+-    drawable.inflate(r, parser, attrs);
+-    return drawable;
++    return createFromXmlInner(r, parser, attrs, null);
+ }
+

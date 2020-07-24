@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.print.PrintManager.getPrintJobs:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Gets the print jobs for this application.
+ *
+ * @return The print job list.
+ * @see PrintJob
+ */
+
+@@ -1,4 +1,8 @@
+ {
++    if (mService == null) {
++        Log.w(LOG_TAG, "Feature android.software.print not available");
++        return Collections.emptyList();
++    }
+     try {
+         List<PrintJobInfo> printJobInfos = mService.getPrintJobInfos(mAppId, mUserId);
+         if (printJobInfos == null) {
+

@@ -1,0 +1,27 @@
+Find a functionally equivalent code:android.speech.tts.TextToSpeechService.SynthHandler.enqueueSpeechItem:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Adds a speech item to the queue.
+ *
+ * Called on a service binder thread.
+ */
+
+@@ -5,11 +5,11 @@
+     }
+     if (!speechItem.isValid()) {
+         if (utterenceProgress != null) {
+-            utterenceProgress.dispatchOnError();
++            utterenceProgress.dispatchOnError(TextToSpeech.ERROR_INVALID_REQUEST);
+         }
+         return TextToSpeech.ERROR;
+     }
+@@ -34,40 +34,40 @@
+     } else {
+         Log.w(TAG, "SynthThread has quit");
+         if (utterenceProgress != null) {
+-            utterenceProgress.dispatchOnError();
++            utterenceProgress.dispatchOnError(TextToSpeech.ERROR_SERVICE);
+         }
+         return TextToSpeech.ERROR;
+     }
+

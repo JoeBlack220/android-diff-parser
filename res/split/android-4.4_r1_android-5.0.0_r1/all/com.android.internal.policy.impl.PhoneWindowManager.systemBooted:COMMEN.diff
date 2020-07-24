@@ -1,0 +1,19 @@
+Find a functionally equivalent code:com.android.internal.policy.impl.PhoneWindowManager.systemBooted:COMMENT
+Method Modifier: public      internal    
+Comment:/**
+ * {@inheritDoc}
+ */
+
+@@ -1,8 +1,11 @@
+ {
+     if (mKeyguardDelegate != null) {
++        mKeyguardDelegate.bindService(mContext);
+         mKeyguardDelegate.onBootCompleted();
+     }
+     synchronized (mLock) {
+         mSystemBooted = true;
+     }
++    wakingUp();
++    screenTurningOn(null);
+ }
+

@@ -1,0 +1,22 @@
+Find a functionally equivalent code:android.app.admin.DeviceAdminReceiver.onReceive:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Intercept standard device administrator broadcasts.  Implementations
+ * should not override this method; it is better to implement the
+ * convenience callbacks for each action.
+ */
+
+@@ -18,22 +18,29 @@
+         onDisabled(context, intent);
+     } else if (ACTION_PASSWORD_EXPIRING.equals(action)) {
+         onPasswordExpiring(context, intent);
++    } else if (ACTION_PROFILE_PROVISIONING_COMPLETE.equals(action)) {
++        onProfileProvisioningComplete(context, intent);
++    } else if (ACTION_LOCK_TASK_ENTERING.equals(action)) {
++        String pkg = intent.getStringExtra(EXTRA_LOCK_TASK_PACKAGE);
++        onLockTaskModeEntering(context, intent, pkg);
++    } else if (ACTION_LOCK_TASK_EXITING.equals(action)) {
++        onLockTaskModeExiting(context, intent);
+     }
+ }
+

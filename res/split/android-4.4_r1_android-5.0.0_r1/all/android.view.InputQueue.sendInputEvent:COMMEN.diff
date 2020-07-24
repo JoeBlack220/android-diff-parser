@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.view.InputQueue.sendInputEvent:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+@@ -1,6 +1,6 @@
+ {
+     ActiveInputEvent event = obtainActiveInputEvent(token, callback);
+-    int id;
++    long id;
+     if (e instanceof KeyEvent) {
+         id = nativeSendKeyEvent(mPtr, (KeyEvent) e, predispatch);
+     } else {
+

@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.graphics.Typeface.create:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Create a typeface object that best matches the specified existing
+ * typeface and the specified Style. Use this call if you want to pick a new
+ * style from the same family of an existing typeface object. If family is
+ * null, this selects from the default font's family.
+ *
+ * @param family May be null. The name of the existing type face.
+ * @param style  The style (normal, bold, italic) of the typeface.
+ * e.g. NORMAL, BOLD, ITALIC, BOLD_ITALIC
+ * @return The best matching typeface.
+ */
+
+@@ -1,5 +1,8 @@
+ {
+-    int ni = 0;
++    if (style < 0 || style > 3) {
++        style = 0;
++    }
++    long ni = 0;
+     if (family != null) {
+         // Return early if we're asked for the same face/style
+         if (family.mStyle == style) {
+

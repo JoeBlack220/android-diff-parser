@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.widget.CalendarView.setWeekDayTextAppearance:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the text appearance for the week day abbreviation of the calendar header.
+ *
+ * @param resourceId The text appearance resource id.
+ *
+ * @attr ref android.R.styleable#CalendarView_weekDayTextAppearance
+ */
+
+@@ -1,6 +1,3 @@
+ {
+-    if (mWeekDayTextAppearanceResId != resourceId) {
+-        mWeekDayTextAppearanceResId = resourceId;
+-        setUpHeader();
+-    }
++    mDelegate.setWeekDayTextAppearance(resourceId);
+ }
+

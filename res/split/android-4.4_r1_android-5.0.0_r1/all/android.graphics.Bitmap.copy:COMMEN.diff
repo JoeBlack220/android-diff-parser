@@ -1,0 +1,25 @@
+Find a functionally equivalent code:android.graphics.Bitmap.copy:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Tries to make a new bitmap based on the dimensions of this bitmap,
+ * setting the new bitmap's config to the one specified, and then copying
+ * this bitmap's pixels into the new bitmap. If the conversion is not
+ * supported, or the allocator fails, then this returns NULL.  The returned
+ * bitmap initially has the same density as the original.
+ *
+ * @param config    The desired config for the resulting bitmap
+ * @param isMutable True if the resulting bitmap should be mutable (i.e.
+ * its pixels can be modified)
+ * @return the new bitmap, or null if the copy could not be made.
+ */
+
+@@ -2,8 +2,8 @@
+     checkRecycled("Can't copy a recycled bitmap");
+     Bitmap b = nativeCopy(mNativeBitmap, config.nativeInt, isMutable);
+     if (b != null) {
+-        b.mIsPremultiplied = mIsPremultiplied;
++        b.setPremultiplied(mRequestPremultiplied);
+         b.mDensity = mDensity;
+     }
+     return b;
+

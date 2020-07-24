@@ -1,0 +1,23 @@
+Find a functionally equivalent code:com.android.layoutlib.bridge.impl.RenderSessionImpl.animate:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Animate an object
+ * <p>
+ * {@link #acquire(long)} must have been called before this.
+ *
+ * @throws IllegalStateException if the current context is different than the one owned by
+ * the scene, or if {@link #acquire(long)} was not called.
+ *
+ * @see RenderSession#animate(Object, String, boolean, IAnimationListener)
+ */
+
+@@ -2,8 +2,8 @@
+     checkLock();
+     BridgeContext context = getContext();
+     // find the animation file.
+-    ResourceValue animationResource = null;
++    ResourceValue animationResource;
+     int animationId = 0;
+     if (isFrameworkAnimation) {
+         animationResource = context.getRenderResources().getFrameworkResource(ResourceType.ANIMATOR, animationName);
+

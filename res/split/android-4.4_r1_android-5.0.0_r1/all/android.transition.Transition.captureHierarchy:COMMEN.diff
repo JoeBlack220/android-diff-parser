@@ -1,0 +1,91 @@
+Find a functionally equivalent code:android.transition.Transition.captureHierarchy:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Recursive method which captures values for an entire view hierarchy,
+ * starting at some root view. Transitions without targetIDs will use this
+ * method to capture values for all possible views.
+ *
+ * @param view The view for which to capture values. Children of this View
+ * will also be captured, recursively down to the leaf nodes.
+ * @param start true if values are being captured in the start scene, false
+ * otherwise.
+ */
+
+@@ -2,25 +2,8 @@
+     if (view == null) {
+         return;
+     }
+-    boolean isListViewItem = false;
+-    if (view.getParent() instanceof ListView) {
+-        isListViewItem = true;
+-    }
+-    if (isListViewItem && !((ListView) view.getParent()).getAdapter().hasStableIds()) {
+-        // ignore listview children unless we can track them with stable IDs
+-        return;
+-    }
+-    int id = View.NO_ID;
+-    long itemId = View.NO_ID;
+-    if (!isListViewItem) {
+-        id = view.getId();
+-    } else {
+-        ListView listview = (ListView) view.getParent();
+-        int position = listview.getPositionForView(view);
+-        itemId = listview.getItemIdAtPosition(position);
+-        view.setHasTransientState(true);
+-    }
++    int id = view.getId();
+     if (mTargetIdExcludes != null && mTargetIdExcludes.contains(id)) {
+         return;
+     }
+@@ -34,63 +17,36 @@
+             }
+         }
+     }
+-    TransitionValues values = new TransitionValues();
+-    values.view = view;
+-    if (start) {
+-        captureStartValues(values);
+-    } else {
+-        captureEndValues(values);
+-    }
+-    if (start) {
+-        if (!isListViewItem) {
+-            mStartValues.viewValues.put(view, values);
+-            if (id >= 0) {
+-                mStartValues.idValues.put((int) id, values);
+-            }
++    if (view.getParent() instanceof ViewGroup) {
++        TransitionValues values = new TransitionValues();
++        values.view = view;
++        if (start) {
++            captureStartValues(values);
+         } else {
+-            mStartValues.itemIdValues.put(itemId, values);
++            captureEndValues(values);
+         }
+-    } else {
+-        if (!isListViewItem) {
+-            mEndValues.viewValues.put(view, values);
+-            if (id >= 0) {
+-                mEndValues.idValues.put((int) id, values);
+-            }
++        values.targetedTransitions.add(this);
++        capturePropagationValues(values);
++        if (start) {
++            addViewValues(mStartValues, view, values);
+         } else {
+-            mEndValues.itemIdValues.put(itemId, values);
++            addViewValues(mEndValues, view, values);
+         }
+     }
+     if (view instanceof ViewGroup) {
+@@ -68,74 +41,47 @@
+         if (mTargetChildExcludes != null && mTargetChildExcludes.contains(view)) {
+             return;
+         }
+-        if (mTargetTypeChildExcludes != null && view != null) {
++        if (mTargetTypeChildExcludes != null) {
+             int numTypes = mTargetTypeChildExcludes.size();
+             for (int i = 0; i < numTypes; ++i) {
+                 if (mTargetTypeChildExcludes.get(i).isInstance(view)) {
+

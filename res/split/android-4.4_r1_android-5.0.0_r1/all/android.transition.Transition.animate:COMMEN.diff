@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.transition.Transition.animate:COMMENT
+Method Modifier: protected   hidden      
+Comment:/**
+ * This is a utility method used by subclasses to handle standard parts of
+ * setting up and running an Animator: it sets the {@link #getDuration()
+ * duration} and the {@link #getStartDelay() startDelay}, starts the
+ * animation, and, when the animator ends, calls {@link #end()}.
+ *
+ * @param animator The Animator to be run during this transition.
+ *
+ * @hide
+ */
+
+@@ -7,13 +7,13 @@
+             animator.setDuration(getDuration());
+         }
+         if (getStartDelay() >= 0) {
+-            animator.setStartDelay(getStartDelay());
++            animator.setStartDelay(getStartDelay() + animator.getStartDelay());
+         }
+         if (getInterpolator() != null) {
+             animator.setInterpolator(getInterpolator());
+

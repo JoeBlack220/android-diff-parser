@@ -1,0 +1,7 @@
+Find a functionally equivalent code:android.view.InputQueue.getNativePtr:COMMENT
+Method Modifier: public      hidden      
+Comment:/**
+ * @hide
+ */
+
+

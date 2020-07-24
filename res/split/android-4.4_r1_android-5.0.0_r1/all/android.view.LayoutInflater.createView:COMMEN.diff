@@ -1,0 +1,36 @@
+Find a functionally equivalent code:android.view.LayoutInflater.createView:COMMENT
+Method Modifier: public      final       
+Comment:/**
+ * Low-level function for instantiating a view by name. This attempts to
+ * instantiate a view class of the given <var>name</var> found in this
+ * LayoutInflater's ClassLoader.
+ *
+ * <p>
+ * There are two things that can happen in an error case: either the
+ * exception describing the error will be thrown, or a null will be
+ * returned. You must deal with both possibilities -- the former will happen
+ * the first time createView() is called for a class of a particular name,
+ * the latter every time there-after for that class name.
+ *
+ * @param name The full name of the class to be instantiated.
+ * @param attrs The XML attributes supplied for this instance.
+ *
+ * @return View The newly instantiated view, or null.
+ */
+
+@@ -34,44 +34,45 @@
+         }
+         Object[] args = mConstructorArgs;
+         args[1] = attrs;
++        constructor.setAccessible(true);
+         final View view = constructor.newInstance(args);
+         if (view instanceof ViewStub) {
+-            // always use ourselves when inflating ViewStub later
++            // Use the same context when inflating ViewStub later.
+             final ViewStub viewStub = (ViewStub) view;
+-            viewStub.setLayoutInflater(this);
++            viewStub.setLayoutInflater(cloneInContext((Context) args[0]));
+         }
+         return view;
+     } catch (NoSuchMethodException e) {
+

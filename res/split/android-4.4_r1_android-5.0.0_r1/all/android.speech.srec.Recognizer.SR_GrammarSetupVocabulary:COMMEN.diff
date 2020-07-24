@@ -1,0 +1,5 @@
+Find a functionally equivalent code:android.speech.srec.Recognizer.SR_GrammarSetupVocabulary:COMMENT
+Method Modifier: private     static      native      
+Comment:// const struct SR_Nametag_t* nametag, int weight, String tag);
+
+

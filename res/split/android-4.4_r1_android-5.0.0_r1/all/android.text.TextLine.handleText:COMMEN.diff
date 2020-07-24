@@ -1,0 +1,37 @@
+Find a functionally equivalent code:android.text.TextLine.handleText:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Utility function for measuring and rendering text.  The text must
+ * not include a tab or emoji.
+ *
+ * @param wp the working paint
+ * @param start the start of the text
+ * @param end the end of the text
+ * @param runIsRtl true if the run is right-to-left
+ * @param c the canvas, can be null if rendering is not needed
+ * @param x the edge of the run closest to the leading margin
+ * @param top the top of the line
+ * @param y the baseline
+ * @param bottom the bottom of the line
+ * @param fmi receives metrics information, can be null
+ * @param needWidth true if the width of the run is needed
+ * @return the signed width of the run based on the run direction; only
+ * valid if needWidth is true
+ */
+
+@@ -11,22 +11,21 @@
+     float ret = 0;
+     int contextLen = contextEnd - contextStart;
+     if (needWidth || (c != null && (wp.bgColor != 0 || wp.underlineColor != 0 || runIsRtl))) {
+-        int flags = runIsRtl ? Paint.DIRECTION_RTL : Paint.DIRECTION_LTR;
+         if (mCharsValid) {
+-            ret = wp.getTextRunAdvances(mChars, start, runLen, contextStart, contextLen, flags, null, 0);
++            ret = wp.getTextRunAdvances(mChars, start, runLen, contextStart, contextLen, runIsRtl, null, 0);
+         } else {
+             int delta = mStart;
+-            ret = wp.getTextRunAdvances(mText, delta + start, delta + end, delta + contextStart, delta + contextEnd, flags, null, 0);
++            ret = wp.getTextRunAdvances(mText, delta + start, delta + end, delta + contextStart, delta + contextEnd, runIsRtl, null, 0);
+         }
+     }
+     if (c != null) {
+

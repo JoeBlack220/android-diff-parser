@@ -1,0 +1,17 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityNodeInfo.CollectionInfo.obtain:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Obtains a pooled instance.
+ *
+ * @param rowCount The number of rows.
+ * @param columnCount The number of columns.
+ * @param hierarchical Whether the collection is hierarchical.
+ */
+
+@@ -1,4 +1,3 @@
+ {
+-    CollectionInfo info = sPool.acquire();
+-    return (info != null) ? info : new CollectionInfo(rowCount, columnCount, hierarchical);
++    return obtain(rowCount, columnCount, hierarchical, SELECTION_MODE_NONE);
+ }
+

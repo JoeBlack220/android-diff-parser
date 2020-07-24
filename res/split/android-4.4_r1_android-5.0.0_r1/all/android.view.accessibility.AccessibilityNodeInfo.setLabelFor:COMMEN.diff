@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.view.accessibility.AccessibilityNodeInfo.setLabelFor:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Sets the view for which the view represented by this info serves as a
+ * label for accessibility purposes.
+ *
+ * @param labeled The view for which this info serves as a label.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    setLabelFor(labeled, UNDEFINED);
++    setLabelFor(labeled, UNDEFINED_ITEM_ID);
+ }
+

@@ -1,0 +1,71 @@
+Find a functionally equivalent code:android.os.RecoverySystem.verifyPackage:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Verify the cryptographic signature of a system update package
+ * before installing it.  Note that the package is also verified
+ * separately by the installer once the device is rebooted into
+ * the recovery system.  This function will return only if the
+ * package was successfully verified; otherwise it will throw an
+ * exception.
+ *
+ * Verification of a package can take significant time, so this
+ * function should not be called from a UI thread.  Interrupting
+ * the thread while this function is in progress will result in a
+ * SecurityException being thrown (and the thread's interrupt flag
+ * will be cleared).
+ *
+ * @param packageFile  the package to be verified
+ * @param listener     an object to receive periodic progress
+ * updates as verification proceeds.  May be null.
+ * @param deviceCertsZipFile  the zip file of certificates whose
+ * public keys we will accept.  Verification succeeds if the
+ * package is signed by the private key corresponding to any
+ * public key in this file.  May be null to use the system default
+ * file (currently "/system/etc/security/otacerts.zip").
+ *
+ * @throws IOException if there were any errors reading the
+ * package or certs files.
+ * @throws GeneralSecurityException if verification failed
+ */
+
+@@ -38,57 +38,59 @@
+         if (signedData == null) {
+             throw new IOException("signedData is null");
+         }
+-        Collection encCerts = signedData.getCertificates();
++        List<Certificate> encCerts = signedData.getCertificates();
+         if (encCerts.isEmpty()) {
+             throw new IOException("encCerts is empty");
+         }
+         // Take the first certificate from the signature (packages
+         // should contain only one).
+-        Iterator it = encCerts.iterator();
++        Iterator<Certificate> it = encCerts.iterator();
+         X509Certificate cert = null;
+         if (it.hasNext()) {
+-            cert = new X509CertImpl((org.apache.harmony.security.x509.Certificate) it.next());
++            CertificateFactory cf = CertificateFactory.getInstance("X.509");
++            InputStream is = new ByteArrayInputStream(it.next().getEncoded());
++            cert = (X509Certificate) cf.generateCertificate(is);
+         } else {
+             throw new SignatureException("signature contains no certificates");
+         }
+-        List sigInfos = signedData.getSignerInfos();
++        List<SignerInfo> sigInfos = signedData.getSignerInfos();
+         SignerInfo sigInfo;
+         if (!sigInfos.isEmpty()) {
+             sigInfo = (SignerInfo) sigInfos.get(0);
+@@ -60,69 +62,71 @@
+         }
+         // Check that the public key of the certificate contained
+         // in the package equals one of our trusted public keys.
+-        HashSet<Certificate> trusted = getTrustedCerts(deviceCertsZipFile == null ? DEFAULT_KEYSTORE : deviceCertsZipFile);
++        HashSet<X509Certificate> trusted = getTrustedCerts(deviceCertsZipFile == null ? DEFAULT_KEYSTORE : deviceCertsZipFile);
+         PublicKey signatureKey = cert.getPublicKey();
+         boolean verified = false;
+-        for (Certificate c : trusted) {
++        for (X509Certificate c : trusted) {
+             if (c.getPublicKey().equals(signatureKey)) {
+                 verified = true;
+                 break;
+

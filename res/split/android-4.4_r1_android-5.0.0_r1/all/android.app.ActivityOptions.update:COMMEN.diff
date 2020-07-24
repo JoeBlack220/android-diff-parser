@@ -1,0 +1,86 @@
+Find a functionally equivalent code:android.app.ActivityOptions.update:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Update the current values in this ActivityOptions from those supplied
+ * in <var>otherOptions</var>.  Any values
+ * defined in <var>otherOptions</var> replace those in the base options.
+ */
+
+@@ -2,30 +2,35 @@
+     if (otherOptions.mPackageName != null) {
+         mPackageName = otherOptions.mPackageName;
+     }
++    mTransitionReceiver = null;
++    mSharedElementNames = null;
++    mIsReturning = false;
++    mResultData = null;
++    mResultCode = 0;
++    mExitCoordinatorIndex = 0;
++    mAnimationType = otherOptions.mAnimationType;
+     switch(otherOptions.mAnimationType) {
+         case ANIM_CUSTOM:
+-            mAnimationType = otherOptions.mAnimationType;
+             mCustomEnterResId = otherOptions.mCustomEnterResId;
+             mCustomExitResId = otherOptions.mCustomExitResId;
+             mThumbnail = null;
+-            if (otherOptions.mAnimationStartedListener != null) {
++            if (mAnimationStartedListener != null) {
+                 try {
+-                    otherOptions.mAnimationStartedListener.sendResult(null);
++                    mAnimationStartedListener.sendResult(null);
+                 } catch (RemoteException e) {
+                 }
+             }
+             mAnimationStartedListener = otherOptions.mAnimationStartedListener;
+             break;
+         case ANIM_SCALE_UP:
+-            mAnimationType = otherOptions.mAnimationType;
+             mStartX = otherOptions.mStartX;
+             mStartY = otherOptions.mStartY;
+-            mStartWidth = otherOptions.mStartWidth;
+-            mStartHeight = otherOptions.mStartHeight;
+-            if (otherOptions.mAnimationStartedListener != null) {
++            mWidth = otherOptions.mWidth;
++            mHeight = otherOptions.mHeight;
++            if (mAnimationStartedListener != null) {
+                 try {
+-                    otherOptions.mAnimationStartedListener.sendResult(null);
++                    mAnimationStartedListener.sendResult(null);
+                 } catch (RemoteException e) {
+                 }
+             }
+@@ -32,48 +37,66 @@
+             break;
+         case ANIM_THUMBNAIL_SCALE_UP:
+         case ANIM_THUMBNAIL_SCALE_DOWN:
+-            mAnimationType = otherOptions.mAnimationType;
++        case ANIM_THUMBNAIL_ASPECT_SCALE_UP:
++        case ANIM_THUMBNAIL_ASPECT_SCALE_DOWN:
+             mThumbnail = otherOptions.mThumbnail;
+             mStartX = otherOptions.mStartX;
+             mStartY = otherOptions.mStartY;
+-            if (otherOptions.mAnimationStartedListener != null) {
++            mWidth = otherOptions.mWidth;
++            mHeight = otherOptions.mHeight;
++            if (mAnimationStartedListener != null) {
+                 try {
+-                    otherOptions.mAnimationStartedListener.sendResult(null);
++                    mAnimationStartedListener.sendResult(null);
+                 } catch (RemoteException e) {
+                 }
+             }
+             mAnimationStartedListener = otherOptions.mAnimationStartedListener;
+             break;
++        case ANIM_SCENE_TRANSITION:
++            mTransitionReceiver = otherOptions.mTransitionReceiver;
++            mSharedElementNames = otherOptions.mSharedElementNames;
++            mIsReturning = otherOptions.mIsReturning;
++            mThumbnail = null;
++            mAnimationStartedListener = null;
++            mResultData = otherOptions.mResultData;
++            mResultCode = otherOptions.mResultCode;
++            mExitCoordinatorIndex = otherOptions.mExitCoordinatorIndex;
++            break;
+     }
+ }
+

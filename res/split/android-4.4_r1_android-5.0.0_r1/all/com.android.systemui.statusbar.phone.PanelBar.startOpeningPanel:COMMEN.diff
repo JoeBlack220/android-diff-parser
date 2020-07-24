@@ -1,0 +1,14 @@
+Find a functionally equivalent code:com.android.systemui.statusbar.phone.PanelBar.startOpeningPanel:COMMENT
+Method Modifier: public      
+Comment:// called from PanelView when self-expanding, too
+
+@@ -5,11 +5,11 @@
+     mPanelHolder.setSelectedPanel(mTouchingPanel);
+     for (PanelView pv : mPanels) {
+         if (pv != panel) {
+-            pv.collapse();
++            pv.collapse(false);
+         }
+     }
+ }
+

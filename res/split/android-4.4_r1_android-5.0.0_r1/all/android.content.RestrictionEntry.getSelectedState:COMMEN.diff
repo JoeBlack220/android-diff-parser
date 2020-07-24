@@ -1,0 +1,13 @@
+Find a functionally equivalent code:android.content.RestrictionEntry.getSelectedState:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Returns the current selected state for an entry of type {@link #TYPE_BOOLEAN}.
+ * @return the current selected state of the entry.
+ */
+
+@@ -1,3 +1,3 @@
+ {
+-    return Boolean.parseBoolean(currentValue);
++    return Boolean.parseBoolean(mCurrentValue);
+ }
+

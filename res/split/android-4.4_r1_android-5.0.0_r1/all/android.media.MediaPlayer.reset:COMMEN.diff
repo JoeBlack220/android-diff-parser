@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.media.MediaPlayer.reset:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Resets the MediaPlayer to its uninitialized state. After calling
+ * this method, you will have to initialize it again by setting the
+ * data source and calling prepare().
+ */
+
+@@ -24,28 +24,27 @@
+     if (mEventHandler != null) {
+         mEventHandler.removeCallbacksAndMessages(null);
+     }
+-    disableProxyListener();
+ }
+

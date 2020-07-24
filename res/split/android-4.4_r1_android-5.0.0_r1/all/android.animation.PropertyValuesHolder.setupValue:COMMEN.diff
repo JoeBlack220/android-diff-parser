@@ -1,0 +1,30 @@
+Find a functionally equivalent code:android.animation.PropertyValuesHolder.setupValue:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Utility function to set the value stored in a particular Keyframe. The value used is
+ * whatever the value is for the property name specified in the keyframe on the target object.
+ *
+ * @param target The target object from which the current value should be extracted.
+ * @param kf The keyframe which holds the property name and value.
+ */
+
+@@ -1,6 +1,7 @@
+ {
+     if (mProperty != null) {
+-        kf.setValue(mProperty.get(target));
++        Object value = convertBack(mProperty.get(target));
++        kf.setValue(value);
+     }
+     try {
+         if (mGetter == null) {
+@@ -11,17 +12,19 @@
+                 return;
+             }
+         }
+-        kf.setValue(mGetter.invoke(target));
++        Object value = convertBack(mGetter.invoke(target));
++        kf.setValue(value);
+     } catch (InvocationTargetException e) {
+         Log.e("PropertyValuesHolder", e.toString());
+     } catch (IllegalAccessException e) {
+

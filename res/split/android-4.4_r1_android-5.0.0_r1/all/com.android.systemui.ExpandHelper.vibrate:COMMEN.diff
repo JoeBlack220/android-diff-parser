@@ -1,0 +1,14 @@
+Find a functionally equivalent code:com.android.systemui.ExpandHelper.vibrate:COMMENT
+Method Modifier: private     
+Comment:/**
+ * Triggers haptic feedback.
+ */
+
+@@ -2,6 +2,6 @@
+     if (mVibrator == null) {
+         mVibrator = (android.os.Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+     }
+-    mVibrator.vibrate(duration);
++    mVibrator.vibrate(duration, VIBRATION_ATTRIBUTES);
+ }
+

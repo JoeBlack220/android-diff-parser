@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.os.UserManager.getMaxSupportedUsers:COMMENT
+Method Modifier: public      static      hidden      
+Comment:/**
+ * Returns the maximum number of users that can be created on this device. A return value
+ * of 1 means that it is a single user device.
+ * @hide
+ * @return a value greater than or equal to 1
+ */
+
+@@ -2,6 +2,9 @@
+     // Don't allow multiple users on certain builds
+     if (android.os.Build.ID.startsWith("JVP"))
+         return 1;
++    // Svelte devices don't get multi-user.
++    if (ActivityManager.isLowRamDeviceStatic())
++        return 1;
+     return SystemProperties.getInt("fw.max_users", Resources.getSystem().getInteger(R.integer.config_multiuserMaximumUsers));
+ }
+

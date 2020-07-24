@@ -1,0 +1,15 @@
+Find a functionally equivalent code:android.appwidget.AppWidgetManager.getInstalledProviders:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Return a list of the AppWidget providers that are currently installed.
+ */
+
+@@ -1,3 +1,6 @@
+ {
+-    return getInstalledProviders(AppWidgetProviderInfo.WIDGET_CATEGORY_HOME_SCREEN);
++    if (mService == null) {
++        return Collections.emptyList();
++    }
++    return getInstalledProvidersForProfile(AppWidgetProviderInfo.WIDGET_CATEGORY_HOME_SCREEN, null);
+ }
+

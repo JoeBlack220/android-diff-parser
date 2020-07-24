@@ -1,0 +1,52 @@
+Find a functionally equivalent code:android.view.ViewPropertyAnimator.getValue:COMMENT
+Method Modifier: private     
+Comment:/**
+ * This method gets the value of the named property from the View object.
+ *
+ * @param propertyConstant The property whose value should be returned
+ * @return float The value of the named property
+ */
+
+@@ -1,26 +1,30 @@
+ {
+-    final View.TransformationInfo info = mView.mTransformationInfo;
++    final RenderNode node = mView.mRenderNode;
+     switch(propertyConstant) {
+         case TRANSLATION_X:
+-            return info.mTranslationX;
++            return node.getTranslationX();
+         case TRANSLATION_Y:
+-            return info.mTranslationY;
++            return node.getTranslationY();
++        case TRANSLATION_Z:
++            return node.getTranslationZ();
+         case ROTATION:
+-            return info.mRotation;
++            return node.getRotation();
+         case ROTATION_X:
+-            return info.mRotationX;
++            return node.getRotationX();
+         case ROTATION_Y:
+-            return info.mRotationY;
++            return node.getRotationY();
+         case SCALE_X:
+-            return info.mScaleX;
++            return node.getScaleX();
+         case SCALE_Y:
+-            return info.mScaleY;
++            return node.getScaleY();
+         case X:
+-            return mView.mLeft + info.mTranslationX;
++            return mView.mLeft + node.getTranslationX();
+         case Y:
+-            return mView.mTop + info.mTranslationY;
++            return mView.mTop + node.getTranslationY();
++        case Z:
++            return node.getElevation() + node.getTranslationZ();
+         case ALPHA:
+-            return info.mAlpha;
++            return mView.mTransformationInfo.mAlpha;
+     }
+     return 0;
+ }
+

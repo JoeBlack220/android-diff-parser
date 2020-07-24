@@ -1,0 +1,12 @@
+Find a functionally equivalent code:android.bluetooth.BluetoothSocket.write:COMMENT
+Method Modifier: 
+Comment:/*package*/
+
+@@ -1,4 +1,6 @@
+ {
++    if (mSocketOS == null)
++        throw new IOException("write is called on null OutputStream");
+     if (VDBG)
+         Log.d(TAG, "write: " + mSocketOS + " length: " + length);
+     mSocketOS.write(b, offset, length);
+

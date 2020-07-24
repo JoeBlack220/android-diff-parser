@@ -1,0 +1,19 @@
+Find a functionally equivalent code:android.webkit.WebSyncManager.sync:COMMENT
+Method Modifier: public      
+Comment:/**
+ * sync() forces sync manager to sync now
+ */
+
+@@ -1,11 +1,2 @@
+ {
+-    if (DebugFlags.WEB_SYNC_MANAGER) {
+-        Log.v(LOGTAG, "*** WebSyncManager sync ***");
+-    }
+-    if (mHandler == null) {
+-        return;
+-    }
+-    mHandler.removeMessages(SYNC_MESSAGE);
+-    Message msg = mHandler.obtainMessage(SYNC_MESSAGE);
+-    mHandler.sendMessageDelayed(msg, SYNC_NOW_INTERVAL);
+ }
+

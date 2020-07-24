@@ -1,0 +1,23 @@
+Find a functionally equivalent code:android.view.PointerIcon.getSystemIcon:COMMENT
+Method Modifier: public      static      
+Comment:/**
+ * Gets a system pointer icon for the given style.
+ * If style is not recognized, returns the default pointer icon.
+ *
+ * @param context The context.
+ * @param style The pointer icon style.
+ * @return The pointer icon.
+ *
+ * @throws IllegalArgumentException if context is null.
+ */
+
+@@ -20,26 +20,26 @@
+     if ((resourceId & 0xff000000) == 0x01000000) {
+         icon.mSystemIconResourceId = resourceId;
+     } else {
+-        icon.loadResource(context.getResources(), resourceId);
++        icon.loadResource(context, context.getResources(), resourceId);
+     }
+     return icon;
+ }
+

@@ -1,0 +1,51 @@
+Find a functionally equivalent code:android.app.Notification.writeToParcel:COMMENT
+Method Modifier: public      
+Comment:/**
+ * Flatten this notification from a parcel.
+ */
+
+@@ -48,53 +48,59 @@
+         parcel.writeInt(0);
+     }
+     parcel.writeInt(audioStreamType);
++    if (audioAttributes != null) {
++        parcel.writeInt(1);
++        audioAttributes.writeToParcel(parcel, 0);
++    } else {
++        parcel.writeInt(0);
++    }
+     parcel.writeLongArray(vibrate);
+     parcel.writeInt(ledARGB);
+     parcel.writeInt(ledOnMS);
+@@ -60,67 +66,74 @@
+         parcel.writeInt(0);
+     }
+     parcel.writeInt(priority);
+-    // ok for null
+-    parcel.writeStringArray(kind);
++    parcel.writeString(category);
++    parcel.writeString(mGroupKey);
++    parcel.writeString(mSortKey);
+     // null ok
+     parcel.writeBundle(extras);
+     // null ok
+@@ -72,75 +79,96 @@
+     } else {
+         parcel.writeInt(0);
+     }
++    if (headsUpContentView != null) {
++        parcel.writeInt(1);
++        headsUpContentView.writeToParcel(parcel, 0);
++    } else {
++        parcel.writeInt(0);
++    }
++    parcel.writeInt(visibility);
++    if (publicVersion != null) {
++        parcel.writeInt(1);
++        publicVersion.writeToParcel(parcel, 0);
++    } else {
++        parcel.writeInt(0);
++    }
++    parcel.writeInt(color);
+ }
+
