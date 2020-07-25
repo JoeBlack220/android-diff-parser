@@ -1,5 +1,0 @@
-Find a functionally equivalent code:android.speech.srec.Recognizer.SR_VocabularyLoad:COMMENT
-Method Modifier: private     static      native      
-Comment:// private static native int SR_VocabularyCreate();
-
-

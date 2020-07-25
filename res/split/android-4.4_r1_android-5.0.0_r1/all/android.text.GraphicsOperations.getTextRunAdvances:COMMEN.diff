@@ -1,8 +1,0 @@
-Find a functionally equivalent code:android.text.GraphicsOperations.getTextRunAdvances:COMMENT
-Method Modifier: hidden      
-Comment:/**
- * Just like {@link Paint#getTextRunAdvances}.
- * @hide
- */
-
-

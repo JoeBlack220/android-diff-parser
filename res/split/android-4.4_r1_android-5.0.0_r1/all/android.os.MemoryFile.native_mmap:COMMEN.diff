@@ -1,5 +1,0 @@
-Find a functionally equivalent code:android.os.MemoryFile.native_mmap:COMMENT
-Method Modifier: private     static      native      
-Comment:// returns memory address for ashmem region
-
-

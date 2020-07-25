@@ -1,8 +1,0 @@
-Find a functionally equivalent code:android.text.GraphicsOperations.getTextRunCursor:COMMENT
-Method Modifier: hidden      
-Comment:/**
- * Just like {@link Paint#getTextRunCursor}.
- * @hide
- */
-
-

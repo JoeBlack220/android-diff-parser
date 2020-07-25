@@ -1,7 +1,0 @@
-Find a functionally equivalent code:android.content.res.Resources.getPreloadedDrawables:COMMENT
-Method Modifier: public      hidden      
-Comment:/**
- * @hide
- */
-
-

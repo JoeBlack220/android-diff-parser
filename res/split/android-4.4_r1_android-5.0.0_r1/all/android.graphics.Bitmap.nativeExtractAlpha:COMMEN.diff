@@ -1,5 +1,0 @@
-Find a functionally equivalent code:android.graphics.Bitmap.nativeExtractAlpha:COMMENT
-Method Modifier: private     static      native      
-Comment:// returns a new bitmap built from the native bitmap's alpha, and the paint
-
-

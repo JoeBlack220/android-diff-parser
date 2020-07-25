@@ -1,8 +1,0 @@
-Find a functionally equivalent code:android.text.GraphicsOperations.drawTextRun:COMMENT
-Method Modifier: hidden      
-Comment:/**
- * Just like {@link Canvas#drawTextRun}.
- * {@hide}
- */
-
-

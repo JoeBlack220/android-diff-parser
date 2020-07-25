@@ -1,5 +1,0 @@
-Find a functionally equivalent code:android.speech.srec.Recognizer.SR_RecognizerIsSignalClipping:COMMENT
-Method Modifier: private     static      native      
-Comment:// SR_RecognizerLockFunction function, void* data);
-
-

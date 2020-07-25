@@ -1,5 +1,0 @@
-Find a functionally equivalent code:android.graphics.Bitmap.nativeWriteToParcel:COMMENT
-Method Modifier: private     static      native      
-Comment:// returns true on success
-
-
