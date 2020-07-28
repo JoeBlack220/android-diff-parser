@@ -5,8 +5,8 @@ import os
 import shutil
 from shutil import copyfile
 
-inputDir = "../res/split/android-4.4_r1_android-5.0.0_r1/all/"
-outputDir = "../res/split/android-4.4_r1_android-5.0.0_r1/sample/"
+inputDir = "../res/split/android-5.0.0_r1_android-5.1.0_r1/all/"
+outputDir = "../res/split/android-5.0.0_r1_android-5.1.0_r1/sample/"
 
 
 def getFiles(dir):
@@ -40,4 +40,4 @@ def sample(inputDir, outputDir, num, seed):
 
 
 cleanDir(outputDir)
-sample(inputDir, outputDir, 100, 20)
+sample(inputDir, outputDir, 160, 2020)

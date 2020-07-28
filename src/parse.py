@@ -84,6 +84,15 @@ def parseDiffAndFilter(diffFile, outputDir):
         curFileContent += line
 
 
+def mkdir(fileName):
+    if not(os.path.isdir("../res/split/" + fileName)):
+        os.mkdir("../res/split/" + fileName)
+    if not(os.path.isdir("../res/split/" + fileName + "/all")):
+        os.mkdir("../res/split/" + fileName + "/all")
+    if not(os.path.isdir("../res/split/" + fileName + "/sample")):
+        os.mkdir("../res/split/" + fileName + "/sample")
+
+
 def cleanDir(dir):
     for filename in os.listdir(dir):
         file_path = os.path.join(dir, filename)
@@ -96,7 +105,8 @@ def cleanDir(dir):
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
 
-cleanDir("../res/split/android-4.4_r1_android-5.0.0_r1/all/")
+mkdir("android-5.0.0_r1_android-5.1.0_r1")
+cleanDir("../res/split/android-5.0.0_r1_android-5.1.0_r1/all/")
 
-parseDiffAndFilter("../res/android-4.4_r1_android-5.0.0_r1.diff",
-                   "../res/split/android-4.4_r1_android-5.0.0_r1/all/")
+parseDiffAndFilter("../res/android-5.0.0_r1_android-5.1.0_r1.diff",
+                   "../res/split/android-5.0.0_r1_android-5.1.0_r1/all/")
